@@ -1,0 +1,584 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Jeg er i videregående – Videregående Hjelp</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200;300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+  <style>
+    :root {
+      --primary: #d32f2f;
+      --primary-light: #ef5350;
+      --primary-dark: #b71c1c;
+      --bg: #f8f9fa;
+      --surface: #ffffff;
+      --surface-light: #f5f5f5;
+      --text: #212121;
+      --text-muted: #757575;
+      --border: #e0e0e0;
+      --shadow: 0 2px 8px rgba(0,0,0,0.08);
+      --shadow-lg: 0 4px 16px rgba(0,0,0,0.12);
+    }
+
+    [data-theme="dark"] {
+      --primary: #ff5252;
+      --primary-light: #ff7070;
+      --primary-dark: #d32f2f;
+      --bg: #121212;
+      --surface: #1e1e1e;
+      --surface-light: #2a2a2a;
+      --text: #ffffff;
+      --text-muted: #b0b0b0;
+      --border: #333333;
+      --shadow: 0 2px 8px rgba(0,0,0,0.30);
+      --shadow-lg: 0 4px 16px rgba(0,0,0,0.40);
+    }
+
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Manrope', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      transition: background 0.3s, color 0.3s;
+      min-height: 100vh;
+    }
+
+    main {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px 0;
+      margin-bottom: 40px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .logo {
+      font-family: 'Inter Tight', sans-serif;
+      font-size: 24px;
+      font-weight: 700;
+      color: var(--primary);
+      text-decoration: none;
+    }
+
+    .header-controls {
+      display: flex;
+      gap: 20px;
+      align-items: center;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 30px;
+      align-items: center;
+      list-style: none;
+    }
+
+    .nav-links a {
+      text-decoration: none;
+      color: var(--text);
+      font-weight: 500;
+      font-size: 14px;
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover {
+      color: var(--primary);
+    }
+
+    .nav-links a.active {
+      color: var(--primary);
+      font-weight: 700;
+    }
+
+    .settings-btn {
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-size: 24px;
+      color: var(--text);
+      transition: color 0.2s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .settings-btn:hover {
+      color: var(--primary);
+    }
+
+    .material-icons {
+      font-size: 24px;
+    }
+
+    /* Page Title */
+    .page-header {
+      margin-bottom: 50px;
+    }
+
+    .page-header h1 {
+      font-family: 'Inter Tight', sans-serif;
+      font-size: 42px;
+      font-weight: 700;
+      margin-bottom: 12px;
+      letter-spacing: -0.02em;
+    }
+
+    .page-header p {
+      font-size: 16px;
+      color: var(--text-muted);
+      margin-bottom: 20px;
+    }
+
+    /* Content */
+    .content {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 40px;
+      margin-bottom: 60px;
+      line-height: 1.8;
+    }
+
+    .content h2 {
+      font-family: 'Inter Tight', sans-serif;
+      font-size: 28px;
+      font-weight: 700;
+      margin: 40px 0 20px 0;
+      letter-spacing: -0.02em;
+    }
+
+    .content h2:first-child {
+      margin-top: 0;
+    }
+
+    .content h3 {
+      font-family: 'Inter Tight', sans-serif;
+      font-size: 20px;
+      font-weight: 700;
+      margin: 30px 0 15px 0;
+      color: var(--primary);
+    }
+
+    .content p {
+      margin-bottom: 16px;
+      color: var(--text-muted);
+    }
+
+    .content ul, .content ol {
+      margin-left: 20px;
+      margin-bottom: 16px;
+      color: var(--text-muted);
+    }
+
+    .content li {
+      margin-bottom: 8px;
+    }
+
+    .content strong {
+      color: var(--text);
+      font-weight: 700;
+    }
+
+    .highlight-box {
+      background: var(--surface-light);
+      border-left: 4px solid var(--primary);
+      padding: 20px;
+      border-radius: 8px;
+      margin: 24px 0;
+      color: var(--text-muted);
+    }
+
+    .highlight-box strong {
+      color: var(--text);
+    }
+
+    .back-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--primary);
+      text-decoration: none;
+      font-weight: 600;
+      margin-bottom: 20px;
+      transition: gap 0.2s;
+    }
+
+    .back-link:hover {
+      gap: 12px;
+    }
+
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 40px 0;
+      text-align: center;
+      color: var(--text-muted);
+      font-size: 14px;
+    }
+
+    /* Settings Modal */
+    .settings-modal {
+      display: none;
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 20px;
+      box-shadow: var(--shadow-lg);
+      z-index: 1000;
+      width: 280px;
+    }
+
+    .settings-modal.show {
+      display: block;
+      animation: slideUp 0.3s ease;
+    }
+
+    @keyframes slideUp {
+      from {
+        transform: translateY(20px);
+        opacity: 0;
+      }
+      to {
+        transform: translateY(0);
+        opacity: 1;
+      }
+    }
+
+    .settings-modal h3 {
+      font-family: 'Inter Tight', sans-serif;
+      font-size: 16px;
+      font-weight: 700;
+      margin-bottom: 16px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .close-settings {
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-size: 20px;
+      color: var(--text);
+      padding: 0;
+    }
+
+    .theme-options {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .theme-option {
+      padding: 12px 16px;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      background: transparent;
+      cursor: pointer;
+      font-family: 'Manrope', sans-serif;
+      font-size: 14px;
+      color: var(--text);
+      transition: all 0.2s;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .theme-option:hover {
+      border-color: var(--primary);
+      background: var(--surface-light);
+    }
+
+    .theme-option.active {
+      background: var(--primary);
+      color: white;
+      border-color: var(--primary);
+    }
+
+    .radio {
+      width: 18px;
+      height: 18px;
+      border: 2px solid currentColor;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .theme-option.active .radio::after {
+      content: '';
+      width: 8px;
+      height: 8px;
+      background: currentColor;
+      border-radius: 50%;
+    }
+
+    .modal-overlay {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0,0,0,0.3);
+      z-index: 999;
+    }
+
+    .modal-overlay.show {
+      display: block;
+    }
+
+    @media (max-width: 768px) {
+      .page-header h1 {
+        font-size: 28px;
+      }
+
+      .content {
+        padding: 24px;
+      }
+
+      header {
+        flex-wrap: wrap;
+        justify-content: space-between;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <header>
+      <a href="/" class="logo">Videregående Hjelp</a>
+      <div class="header-controls">
+        <nav>
+          <ul class="nav-links">
+            <li><a href="/guides.html">Guider</a></li>
+            <li><a href="/tools.html">Verktøy</a></li>
+            <li><a href="/interactives.html">Interaktivt</a></li>
+          </ul>
+        </nav>
+        <button class="settings-btn" id="settingsBtn" aria-label="Settings">
+          <span class="material-icons">settings</span>
+        </button>
+      </div>
+    </header>
+
+    <a href="/guides.html" class="back-link"><span class="material-icons" style="font-size: 20px;">arrow_back</span> Tilbake til alle guider</a>
+
+    <section class="page-header">
+      <h1>Jeg er i videregående nå</h1>
+      <p>Du er nå godt i gang med videregåenden. Her finner du praktiske tips og råd for å lykkes.</p>
+    </section>
+
+    <section class="content">
+      <h2>Lykkes med studiene</h2>
+      
+      <h3>Etabler gode læringsrutiner</h3>
+      <p>Nå er det viktig å holde opp med det du startet med. Kontinuerlig innsats betaler seg mye bedre enn å lese krampaktig før eksamen.</p>
+      <ul>
+        <li><strong>Gjennomfør lekser daglig:</strong> 1-2 timer daglig lesing er bedre enn 10 timer før prøven</li>
+        <li><strong>Ta aktive notater:</strong> Skriv ned det viktigste i timene, ikke bare alt</li>
+        <li><strong>Gjenta stoff regelmessig:</strong> Spaced repetition gjør at du husker bedre</li>
+        <li><strong>Lag sammendrag:</strong> Når du skal være eksamen, lag enkle sammendrag av stoff</li>
+      </ul>
+
+      <div class="highlight-box">
+        <strong>💡 Tips:</strong> Bruk vår Karaktertrakker-verktøy til å holde styr på karakterene dine og se progresjon over tid.
+      </div>
+
+      <h3>Håndter eksamenstress</h3>
+      <p>Eksamener dapat være stressende, men det er normalt. Her er noen strategier:</p>
+      <ul>
+        <li><strong>Planlegg eksamensforberedelsene dine:</strong> Start minst 2-3 uker før eksamen</li>
+        <li><strong>Sov nok:</strong> En god natt søvn før eksamen er viktig</li>
+        <li><strong>Øv på gamle eksamen:</strong> Se hva som pleier å bli spurt</li>
+        <li><strong>Snakk med lærere:</strong> Hvis du er usikker, spør forklaringer i timene</li>
+        <li><strong>Pust og slapp av:</strong> Hvis du blir nervøs, ta et par dype pustetak</li>
+      </ul>
+
+      <h3>Håndter vanskelige fag</h3>
+      <p>Det er vanlig å slite med noen fag. Her er hva du kan gjøre:</p>
+      <ul>
+        <li>Møt læreren i kontortid for ekstra forklaring</li>
+        <li>Danner en læringsgruppe med klassekamerater</li>
+        <li>Se på YouTube-videoer som forklarer ting på en annen måte</li>
+        <li>Be om ekstra oppgaver for å øve mer</li>
+        <li>Ikke skjul problemet – få hjelp tidlig!</li>
+      </ul>
+
+      <h2>Sosial helse og velvære</h2>
+
+      <h3>Vedlikeholde vennskaper</h3>
+      <p>Det er lett å bli oppslukt av skolen, men husk dine venner og familie:</p>
+      <ul>
+        <li>Ta pauser fra skolearbeid for å sosialisere</li>
+        <li>Delta på klassearrangementer og faglagsmøter</li>
+        <li>Behold venner fra ungdomsskolen eller tidligere</li>
+        <li>Vær en god klassekamerat – hjelp andre når du kan</li>
+      </ul>
+
+      <h3>Mental helse er viktig</h3>
+      <p>Hvis du sliter med dårlig humør, angst eller depresjon:</p>
+      <ul>
+        <li>Snakk med skolepsykologen eller helsesøsteren</li>
+        <li>Kontakt foreldrene eller en voksen du stoler på</li>
+        <li>Vær fysisk aktiv – trening hjelper psykisk helse</li>
+        <li>Søk profesjonell hjelp hvis det blir alvorlig</li>
+      </ul>
+
+      <div class="highlight-box">
+        <strong>❤️ Husk:</strong> Det er helt normalt å slite noen ganger. Du er ikke alene, og det finnes alltid hjelp å få.
+      </div>
+
+      <h2>Fremtidsplanlegging</h2>
+
+      <h3>Tenk på studier etter VGS</h3>
+      <p>Selv om det kan virke langt vekk, er det smart å begynne å tenke på veien framover:</p>
+      <ul>
+        <li>Vurdere universitet eller høyskole</li>
+        <li>Utforske yrkesveier innenfor ditt fagfelt</li>
+        <li>Snakk med veileder eller karrierekonsulent på skolen</li>
+        <li>Søk etter praktikplasser eller trainee-programmer</li>
+      </ul>
+
+      <h3>Bygg nettverk</h3>
+      <p>Mennesker du møter nå kan bli viktige kontakter senere:</p>
+      <ul>
+        <li>Vær hyggelig med alle, uavhengig av sosial gruppe</li>
+        <li>Betyd noe i faglag eller organisasjoner</li>
+        <li>Hjelp andre – god karma kommer tilbake!</li>
+        <li>Åpne LinkedIn eller andre faglige nettverk</li>
+      </ul>
+
+      <h2>Praktiske tips for hverdagen</h2>
+
+      <h3>Balansere skole og fritid</h3>
+      <ul>
+        <li>Lag en ukentlig tidsplan og stick to it</li>
+        <li>Ha litt "me time" hver dag</li>
+        <li>Trene eller vær aktiv for stressavlastning</li>
+        <li>Sov 7-9 timer hver natt</li>
+        <li>Spis sunt – det påvirker konsentrasjonen</li>
+      </ul>
+
+      <h3>Økonomi</h3>
+      <p>Mange arbeid ved siden av skolen. Hvis du gjør det:</p>
+      <ul>
+        <li>Ikke ta for mye jobb – skolen bør være prioritet</li>
+        <li>Lag en budsjett for pengene dine</li>
+        <li>Spar litt for "regn-dager"</li>
+      </ul>
+
+      <div class="highlight-box">
+        <strong>🎯 Husk:</strong> Du er i en viktig fase av livet ditt. Feilgripen nå påvirker fremtixen, så gjør ditt beste – men vær også snill mot deg selv!
+      </div>
+
+      <h2>Nyttige ressurser</h2>
+      <ul>
+        <li>Skolens psykolog eller helsesøster</li>
+        <li>Karriereveileder på skolen</li>
+        <li>Peers eller mentorer i samme situasjon</li>
+        <li><a href="https://www.udir.no" style="color: var(--primary);">Utdanningsdirektoratet</a> for offisiell info</li>
+      </ul>
+    </section>
+  </main>
+
+  <footer>
+    <p>&copy; 2026 Videregående Hjelp. Et åpent prosjekt for alle.</p>
+  </footer>
+
+  <!-- Settings Modal -->
+  <div class="modal-overlay" id="modalOverlay"></div>
+  <div class="settings-modal" id="settingsModal">
+    <h3>Innstillinger<button class="close-settings" id="closeSettings">×</button></h3>
+    <div class="theme-options" id="themeOptions">
+      <button class="theme-option" data-theme="system" onclick="setTheme('system')">
+        <span class="radio"></span>
+        System tema
+      </button>
+      <button class="theme-option" data-theme="light" onclick="setTheme('light')">
+        <span class="radio"></span>
+        Lyst tema
+      </button>
+      <button class="theme-option" data-theme="dark" onclick="setTheme('dark')">
+        <span class="radio"></span>
+        Mørkt tema
+      </button>
+    </div>
+  </div>
+
+  <script>
+    // Theme Management
+    function initTheme() {
+      const saved = localStorage.getItem('theme') || 'system';
+      setTheme(saved);
+    }
+
+    function setTheme(theme) {
+      localStorage.setItem('theme', theme);
+      
+      let finalTheme = theme;
+      if (theme === 'system') {
+        finalTheme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+      }
+
+      document.documentElement.setAttribute('data-theme', finalTheme);
+      updateThemeButtons(theme);
+    }
+
+    function updateThemeButtons(theme) {
+      document.querySelectorAll('.theme-option').forEach(btn => {
+        btn.classList.remove('active');
+      });
+      document.querySelector(`[data-theme="${theme}"]`).classList.add('active');
+    }
+
+    // Settings Modal
+    const settingsBtn = document.getElementById('settingsBtn');
+    const settingsModal = document.getElementById('settingsModal');
+    const closeSettings = document.getElementById('closeSettings');
+    const modalOverlay = document.getElementById('modalOverlay');
+
+    settingsBtn.addEventListener('click', () => {
+      settingsModal.classList.toggle('show');
+      modalOverlay.classList.toggle('show');
+    });
+
+    closeSettings.addEventListener('click', () => {
+      settingsModal.classList.remove('show');
+      modalOverlay.classList.remove('show');
+    });
+
+    modalOverlay.addEventListener('click', () => {
+      settingsModal.classList.remove('show');
+      modalOverlay.classList.remove('show');
+    });
+
+    // System Theme Listener
+    window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', () => {
+      if ((localStorage.getItem('theme') || 'system') === 'system') {
+        initTheme();
+      }
+    });
+
+    // Initialize
+    initTheme();
+  </script>
+</body>
+</html>

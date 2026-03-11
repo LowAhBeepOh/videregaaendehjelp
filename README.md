@@ -36,16 +36,13 @@ Prosjektet er organisert i mapper basert på tema og innholdstype. Hver folder i
 ## 🤔 Ofte Stilte Spørsmål (FAQ)
 
 **Er denne ressursen gratis?**  
-Ja! Videregående Hjelp er helt gratis og åpen for alle.
+Ja.
 
 **Hvem lager dette?**  
-Dette er et åpent prosjekt der alle kan bidra med idéer og forbedringer.
-
-**Er informasjonen oppdatert?**  
-Vi arbeider kontinuerlig med å holde innholdet ajourført med den nyeste informasjonen om norsk videregående skole.
+Dette er et åpent prosjekt der alle kan bidra med idéer, forbedringer og mer data. Laget av LowAhBeepOh.
 
 **Kan jeg bruke dette materialet andre steder?**  
-[Kontakt oss på prosjektet for spørsmål om bruk og lisensiering]
+Ja selvfølgelig! Pass på å oppgi kilder, både fra dette prosjektet og kilder vi har brukt.
 
 ---
 
@@ -73,13 +70,3 @@ For å bidra:
 - [Vg.no Ungdom](https://www.vg.no/) – Nyheter og informasjon relevant for ungdom
 - [Screbuf](https://www.screbuf.no/) – Veiledning om skole og karriere
 - [Samordna opptak](https://www.samordnaopptak.no/) – Søk og informasjon om videregåande opplæring
-
----
-
-## 📝 Lisens
-
-[Legg til informasjon om lisens her når prosjektet er klart]
-
----
-
-**Lykke til med videregåande skolen din!** 🎓✨

@@ -1,0 +1,820 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Inntakskalkulator VGS – Møre og Romsdal, Vestland, Oslo</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --navy: #0d2340; --navy-mid: #1a3a5c; --accent: #3b7dd8;
+    --bg: #f2f5f9; --surface: #ffffff; --surface2: #eef2f8;
+    --text: #0d2340; --text-muted: #5a7399; --border: #d4dff0;
+    --green: #1a9e5c; --orange: #e07b2a; --red: #d63b3b;
+    --radius: 14px; --shadow: 0 4px 24px rgba(13,35,64,0.10);
+  }
+  body { font-family: 'Inter Tight', sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; line-height: 1.5; }
+  header { background: var(--navy); padding: 22px 40px; display: flex; align-items: center; gap: 14px; flex-wrap: wrap; }
+  .header-badge { background: var(--accent); color: #fff; font-size: 11px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; padding: 4px 10px; border-radius: 6px; flex-shrink: 0; }
+  header h1 { color: #fff; font-size: 20px; font-weight: 700; letter-spacing: -0.02em; }
+  .header-sub { color: rgba(255,255,255,0.45); font-size: 12px; margin-left: auto; }
+  .container { max-width: 860px; margin: 0 auto; padding: 36px 20px 80px; }
+  .steps { display: flex; margin-bottom: 32px; background: var(--surface); border-radius: var(--radius); border: 1px solid var(--border); overflow: hidden; }
+  .step { flex: 1; padding: 12px 14px; display: flex; align-items: center; gap: 8px; font-size: 13px; font-weight: 500; color: var(--text-muted); border-right: 1px solid var(--border); }
+  .step:last-child { border-right: none; }
+  .step.active { background: var(--navy); color: #fff; }
+  .step.done { background: var(--surface2); color: var(--navy); }
+  .step-num { width: 20px; height: 20px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 700; flex-shrink: 0; background: var(--border); color: var(--text-muted); }
+  .step.active .step-num { background: rgba(255,255,255,0.2); color: #fff; }
+  .step.done .step-num { background: var(--accent); color: #fff; }
+  .card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 30px; box-shadow: var(--shadow); display: none; }
+  .card.visible { display: block; }
+  .card-title { font-size: 22px; font-weight: 800; letter-spacing: -0.03em; margin-bottom: 5px; }
+  .card-sub { font-size: 14px; color: var(--text-muted); margin-bottom: 26px; }
+  .grade-toggle { display: flex; gap: 7px; margin-bottom: 20px; }
+  .toggle-btn { padding: 7px 16px; border-radius: 8px; border: 1.5px solid var(--border); background: transparent; font-family: 'Inter Tight', sans-serif; font-size: 13px; font-weight: 600; color: var(--text-muted); cursor: pointer; transition: all 0.15s; }
+  .toggle-btn.active { background: var(--navy); border-color: var(--navy); color: #fff; }
+  .grade-guide { display: flex; flex-wrap: wrap; gap: 5px; margin-bottom: 16px; padding: 11px 13px; background: var(--surface2); border-radius: 9px; }
+  .gg-label { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: var(--text-muted); width: 100%; margin-bottom: 3px; }
+  .gg-chip { padding: 2px 8px; background: var(--surface); border: 1.5px solid var(--border); border-radius: 5px; font-size: 12px; font-weight: 700; color: var(--navy); }
+  .gg-chip.sp { border-color: var(--accent); color: var(--accent); }
+  .subjects-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 20px; }
+  @media (max-width: 540px) { .subjects-grid { grid-template-columns: 1fr; } }
+  .subject-row { display: flex; align-items: center; justify-content: space-between; background: var(--surface2); border-radius: 9px; padding: 8px 12px; gap: 10px; }
+  .subject-name { font-size: 13px; font-weight: 500; flex: 1; }
+  .grade-wrap { width: 54px; flex-shrink: 0; }
+  .grade-input { width: 100%; padding: 5px 6px; border: 1.5px solid var(--border); border-radius: 7px; font-family: 'Inter Tight', sans-serif; font-size: 14px; font-weight: 700; text-align: center; background: var(--surface); color: var(--text); transition: border-color 0.15s, background 0.15s; text-transform: uppercase; }
+  .grade-input:focus { outline: none; border-color: var(--accent); }
+  .grade-input.ok { border-color: var(--green); }
+  .grade-input.bad { border-color: var(--red); background: #fff5f5; }
+  .grade-input.fri { border-color: var(--orange); color: var(--orange); }
+  .direct-entry { display: none; flex-direction: column; align-items: center; gap: 10px; padding: 26px; background: var(--surface2); border-radius: 12px; margin-bottom: 20px; }
+  .direct-entry.visible { display: flex; }
+  .direct-entry label { font-size: 14px; font-weight: 600; color: var(--text-muted); text-align: center; }
+  .big-input { width: 150px; text-align: center; font-size: 40px; font-weight: 800; font-family: 'Inter Tight', sans-serif; border: 2px solid var(--border); border-radius: 12px; padding: 10px; color: var(--navy); background: var(--surface); -moz-appearance: textfield; appearance: textfield; }
+  .big-input::-webkit-inner-spin-button { display: none; }
+  .big-input:focus { outline: none; border-color: var(--accent); }
+  .score-preview { display: flex; align-items: center; justify-content: space-between; background: var(--navy); color: #fff; border-radius: 10px; padding: 14px 20px; margin-bottom: 22px; }
+  .score-lbl { font-size: 13px; font-weight: 500; opacity: 0.7; }
+  .score-bd { font-size: 11px; opacity: 0.45; margin-top: 2px; }
+  .score-val { font-size: 30px; font-weight: 800; letter-spacing: -0.04em; }
+  .select-group { margin-bottom: 18px; }
+  .select-group label { display: block; font-size: 11px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 7px; }
+  select { width: 100%; padding: 11px 15px; border: 1.5px solid var(--border); border-radius: 10px; font-family: 'Inter Tight', sans-serif; font-size: 15px; font-weight: 500; color: var(--text); background: var(--surface); appearance: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%235a7399' stroke-width='2'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 13px center; cursor: pointer; transition: border-color 0.15s; }
+  select:focus { outline: none; border-color: var(--accent); }
+  select:disabled { opacity: 0.4; cursor: not-allowed; }
+  .btn { display: inline-flex; align-items: center; gap: 7px; padding: 11px 24px; border-radius: 10px; border: none; font-family: 'Inter Tight', sans-serif; font-size: 15px; font-weight: 700; cursor: pointer; transition: all 0.15s; }
+  .btn-primary { background: var(--navy); color: #fff; }
+  .btn-primary:hover { background: var(--navy-mid); }
+  .btn-ghost { background: transparent; color: var(--text-muted); border: 1.5px solid var(--border); }
+  .btn-ghost:hover { border-color: var(--navy); color: var(--navy); }
+  .btn-row { display: flex; gap: 9px; justify-content: flex-end; margin-top: 24px; }
+  .result-header { margin-bottom: 22px; }
+  .result-school { font-size: 12px; font-weight: 600; color: var(--text-muted); margin-bottom: 3px; }
+  .result-program { font-size: 23px; font-weight: 800; letter-spacing: -0.03em; }
+  .result-verdict { border-radius: 12px; padding: 16px 20px; display: flex; align-items: flex-start; gap: 13px; margin-bottom: 20px; }
+  .verdict-icon { font-size: 28px; line-height: 1; flex-shrink: 0; }
+  .verdict-title { font-size: 16px; font-weight: 800; margin-bottom: 3px; }
+  .verdict-body { font-size: 14px; line-height: 1.6; }
+  .verdict-good { background: #e8f7f0; border: 1.5px solid #90d4b2; }
+  .verdict-good .verdict-title { color: var(--green); }
+  .verdict-tight { background: #fff5e8; border: 1.5px solid #f0c07a; }
+  .verdict-tight .verdict-title { color: var(--orange); }
+  .verdict-low { background: #fdeaea; border: 1.5px solid #f0a0a0; }
+  .verdict-low .verdict-title { color: var(--red); }
+  .verdict-open { background: #eef4ff; border: 1.5px solid #aac5f0; }
+  .verdict-open .verdict-title { color: var(--accent); }
+  .stats-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 9px; margin-bottom: 20px; }
+  @media (max-width: 540px) { .stats-grid { grid-template-columns: 1fr; } }
+  .stat-card { background: var(--surface2); border-radius: 10px; padding: 13px; text-align: center; }
+  .stat-lbl { font-size: 10px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 4px; }
+  .stat-val { font-size: 26px; font-weight: 800; letter-spacing: -0.04em; color: var(--navy); }
+  .stat-sub { font-size: 11px; color: var(--text-muted); }
+  .bar-section { margin-bottom: 20px; }
+  .bar-lbl { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; color: var(--text-muted); margin-bottom: 9px; }
+  .bar-track { background: var(--surface2); border-radius: 8px; height: 32px; position: relative; overflow: visible; margin-bottom: 6px; }
+  .bar-fill { height: 100%; border-radius: 8px; }
+  .bar-needle { position: absolute; top: -6px; bottom: -6px; width: 3px; background: var(--navy); border-radius: 2px; transform: translateX(-50%); transition: left 0.6s cubic-bezier(0.4,0,0.2,1); }
+  .bar-needle::after { content: 'Du'; position: absolute; top: -20px; left: 50%; transform: translateX(-50%); font-size: 10px; font-weight: 700; color: var(--navy); white-space: nowrap; }
+  .bar-legend { display: flex; justify-content: space-between; font-size: 11px; color: var(--text-muted); }
+  .note-box { background: var(--surface2); border-left: 3px solid var(--accent); border-radius: 0 8px 8px 0; padding: 11px 15px; font-size: 13px; color: var(--text-muted); line-height: 1.6; }
+  .note-box strong { color: var(--text); }
+</style>
+</head>
+<body>
+
+<header>
+  <span class="header-badge">2025 / 2026</span>
+  <h1>Inntakskalkulator VGS</h1>
+  <span class="header-sub">Møre og Romsdal · Vestland · Oslo (2023/24)</span>
+</header>
+
+<div class="container">
+  <div class="steps">
+    <div class="step active" id="step1"><span class="step-num">1</span> Karakterer</div>
+    <div class="step" id="step2"><span class="step-num">2</span> Velg skole</div>
+    <div class="step" id="step3"><span class="step-num">3</span> Velg program</div>
+    <div class="step" id="step4"><span class="step-num">4</span> Resultat</div>
+  </div>
+
+  <!-- CARD 1 -->
+  <div class="card visible" id="card1">
+    <div class="card-title">Hva er karakterene dine?</div>
+    <div class="card-sub">Skriv inn karakterer fra 10. trinn. Støtter pluss/minus (4+, 5-, osv.) og F for Fritatt.</div>
+    <div class="grade-toggle">
+      <button class="toggle-btn active" id="modeSubjects" onclick="switchMode('subjects')">Fagvis innlegging</button>
+      <button class="toggle-btn" id="modeDirect" onclick="switchMode('direct')">Skriv inn totalt</button>
+    </div>
+    <div id="subjectsMode">
+      <div class="grade-guide">
+        <div class="gg-label">Gyldige inndata – eksempler</div>
+        <span class="gg-chip">1</span><span class="gg-chip">2-</span><span class="gg-chip">2</span><span class="gg-chip">2+</span>
+        <span class="gg-chip">3-</span><span class="gg-chip">3</span><span class="gg-chip">3+</span>
+        <span class="gg-chip">4-</span><span class="gg-chip">4</span><span class="gg-chip">4+</span>
+        <span class="gg-chip">5-</span><span class="gg-chip">5</span><span class="gg-chip">5+</span>
+        <span class="gg-chip">6</span>
+        <span class="gg-chip sp">F</span>
+        <span style="font-size:11px;color:var(--text-muted);width:100%;margin-top:2px;">+ = +⅓ poeng &nbsp;·&nbsp; − = −⅓ poeng &nbsp;·&nbsp; F = Fritatt (telles ikke)</span>
+      </div>
+      <div class="subjects-grid" id="subjectsGrid"></div>
+    </div>
+    <div class="direct-entry" id="directMode">
+      <label>Dine grunnskolepoeng<br><span style="font-weight:400;font-size:13px;">(Sum av alle standpunkt- og eksamenskarakterer)</span></label>
+      <input type="number" class="big-input" id="directScore" min="0" max="70" placeholder="--" oninput="updatePreview()">
+      <small style="font-size:12px;color:var(--text-muted);">Vanligvis mellom 20 og 60 poeng</small>
+    </div>
+    <div class="score-preview" id="scorePreview" style="display:none;">
+      <div><div class="score-lbl">Estimerte grunnskolepoeng</div><div class="score-bd" id="scoreBreakdown"></div></div>
+      <div class="score-val" id="previewScore">–</div>
+    </div>
+    <div class="btn-row"><button class="btn btn-primary" onclick="goToStep2()">Velg skole →</button></div>
+  </div>
+
+  <!-- CARD 2 -->
+  <div class="card" id="card2">
+    <div class="card-title">Hvilken skole?</div>
+    <div class="card-sub">Velg fylke og videregående skole.</div>
+    <div class="select-group">
+      <label>Fylke</label>
+      <select id="countySelect" onchange="populateSchools()">
+        <option value="">– Velg fylke –</option>
+        <option value="Møre og Romsdal">Møre og Romsdal</option>
+        <option value="Vestland">Vestland</option>
+        <option value="Oslo">Oslo (data fra 2023/24)</option>
+      </select>
+    </div>
+    <div class="select-group">
+      <label>Skole</label>
+      <select id="schoolSelect" onchange="populatePrograms()" disabled>
+        <option value="">– Velg skole –</option>
+      </select>
+    </div>
+    <div class="btn-row">
+      <button class="btn btn-ghost" onclick="goToStep1()">← Tilbake</button>
+      <button class="btn btn-primary" onclick="goToStep3()">Velg program →</button>
+    </div>
+  </div>
+
+  <!-- CARD 3 -->
+  <div class="card" id="card3">
+    <div class="card-title">Hvilket utdanningsprogram?</div>
+    <div class="card-sub" id="card3Sub"></div>
+    <div class="select-group">
+      <label>Utdanningsprogram</label>
+      <select id="programSelect"><option value="">– Velg program –</option></select>
+    </div>
+    <div class="btn-row">
+      <button class="btn btn-ghost" onclick="goToStep2()">← Tilbake</button>
+      <button class="btn btn-primary" onclick="showResult()">Se resultat →</button>
+    </div>
+  </div>
+
+  <!-- CARD 4 -->
+  <div class="card" id="card4">
+    <div class="result-header">
+      <div class="result-school" id="resultSchool"></div>
+      <div class="result-program" id="resultProgram"></div>
+    </div>
+    <div class="result-verdict" id="resultVerdict"></div>
+    <div class="stats-grid" id="statsGrid">
+      <div class="stat-card"><div class="stat-lbl">Dine poeng</div><div class="stat-val" id="statYours"></div><div class="stat-sub">grunnskolepoeng</div></div>
+      <div class="stat-card"><div class="stat-lbl">Nedre grense</div><div class="stat-val" id="statNedre"></div><div class="stat-sub" id="statNedreNote"></div></div>
+      <div class="stat-card" id="statSnittCard"><div class="stat-lbl">Gjennomsnitt</div><div class="stat-val" id="statSnitt"></div><div class="stat-sub">inntatte elever</div></div>
+    </div>
+    <div class="bar-section" id="barSection"></div>
+    <div class="note-box" id="resultNote"></div>
+    <div class="btn-row" style="margin-top:22px;">
+      <button class="btn btn-ghost" onclick="goToStep3()">← Endre</button>
+      <button class="btn btn-primary" onclick="resetAll()">Start på nytt</button>
+    </div>
+  </div>
+</div>
+
+<script>
+// ── GRADE PARSING ──────────────────────────────
+function parseGrade(raw) {
+  if (!raw || !raw.trim()) return null;
+  const s = raw.trim().toUpperCase();
+  if (s === 'F' || s === 'FRITATT') return { value: 0, fritatt: true };
+  const m = s.match(/^([1-6])([+-]?)$/);
+  if (!m) return null;
+  const base = parseInt(m[1]), mod = m[2];
+  if (base === 6 && mod === '+') return null;
+  if (base === 1 && mod === '-') return null;
+  let v = base;
+  if (mod === '+') v += 1/3;
+  if (mod === '-') v -= 1/3;
+  return { value: v, fritatt: false };
+}
+
+function validateInput(el) {
+  const raw = el.value.trim();
+  if (!raw) { el.className = 'grade-input'; return; }
+  const p = parseGrade(raw);
+  if (!p) el.className = 'grade-input bad';
+  else if (p.fritatt) { el.className = 'grade-input fri'; el.value = 'F'; }
+  else el.className = 'grade-input ok';
+  updatePreview();
+}
+
+// ── DATA ───────────────────────────────────────
+const SD = [
+  // MØRE OG ROMSDAL
+  {s:"Atlanten videregående skole",f:"Møre og Romsdal",p:"Idrettsfag",n:null,g:42.01},
+  {s:"Atlanten videregående skole",f:"Møre og Romsdal",p:"Musikk, dans og drama (dans)",n:34.7,g:45.93},
+  {s:"Atlanten videregående skole",f:"Møre og Romsdal",p:"Musikk, dans og drama (musikk)",n:34.7,g:44.82},
+  {s:"Atlanten videregående skole",f:"Møre og Romsdal",p:"Studiespesialisering",n:26,g:46.85},
+  {s:"Borgund vidaregåande skule",f:"Møre og Romsdal",p:"Bygg- og anleggsteknikk",n:25.3,g:36.33},
+  {s:"Borgund vidaregåande skule",f:"Møre og Romsdal",p:"Elektro og datateknologi",n:35.6,g:41.89},
+  {s:"Borgund vidaregåande skule",f:"Møre og Romsdal",p:"Frisør, blomst, int, eksp.design",n:29.2,g:38.50},
+  {s:"Borgund vidaregåande skule",f:"Møre og Romsdal",p:"Helse- og oppvekstfag",n:30,g:40.90},
+  {s:"Borgund vidaregåande skule",f:"Møre og Romsdal",p:"Håndverk, design, produktutv.",n:27.7,g:39.43},
+  {s:"Borgund vidaregåande skule",f:"Møre og Romsdal",p:"Restaurant- og matfag",n:null,g:35.18},
+  {s:"Borgund vidaregåande skule",f:"Møre og Romsdal",p:"Teknologi- og industrifag",n:28,g:36.53},
+  {s:"Gjermundnes vidaregåande skule",f:"Møre og Romsdal",p:"Naturbruk",n:null,g:36.75},
+  {s:"Gjermundnes vidaregåande skule",f:"Møre og Romsdal",p:"Teknologi- og industrifag",n:30.3,g:38.28},
+  {s:"Haram vidaregåande skule",f:"Møre og Romsdal",p:"Elektro og datateknologi",n:null,g:37.15},
+  {s:"Haram vidaregåande skule",f:"Møre og Romsdal",p:"Elektro og datateknologi (YSK 4år)",n:51.3,g:52.66},
+  {s:"Haram vidaregåande skule",f:"Møre og Romsdal",p:"Helse- og oppvekstfag",n:26.3,g:40.66},
+  {s:"Haram vidaregåande skule",f:"Møre og Romsdal",p:"Studiespesialisering",n:38.1,g:44.20},
+  {s:"Haram vidaregåande skule",f:"Møre og Romsdal",p:"Studiespesialisering (internasjonalisering)",n:27.2,g:43.43},
+  {s:"Haram vidaregåande skule",f:"Møre og Romsdal",p:"Teknologi- og industrifag",n:null,g:34.54},
+  {s:"Haram vidaregåande skule",f:"Møre og Romsdal",p:"Teknologi-/industrifag (YSK 4år)",n:41,g:47.14},
+  {s:"Herøy vidaregåande skule",f:"Møre og Romsdal",p:"Bygg- og anleggsteknikk",n:null,g:30.77},
+  {s:"Herøy vidaregåande skule",f:"Møre og Romsdal",p:"Helse- og oppvekstfag",n:null,g:39.88},
+  {s:"Herøy vidaregåande skule",f:"Møre og Romsdal",p:"Naturbruk",n:30.9,g:39.67},
+  {s:"Herøy vidaregåande skule",f:"Møre og Romsdal",p:"Restaurant- og matfag",n:30.7,g:42.95},
+  {s:"Herøy vidaregåande skule",f:"Møre og Romsdal",p:"Teknologi- og industrifag",n:null,g:37.12},
+  {s:"Herøy vidaregåande skule",f:"Møre og Romsdal",p:"Vg2 Fiske og fangst",n:27.1,g:37.66},
+  {s:"Herøy vidaregåande skule",f:"Møre og Romsdal",p:"Vg2 Maritime fag",n:33.8,g:41.60},
+  {s:"Hustadvika vidaregåande skule",f:"Møre og Romsdal",p:"Helse- og oppvekstfag",n:27.5,g:37.00},
+  {s:"Hustadvika vidaregåande skule",f:"Møre og Romsdal",p:"Naturbruk",n:39.4,g:44.31},
+  {s:"Hustadvika vidaregåande skule",f:"Møre og Romsdal",p:"Restaurant- og matfag",n:36.6,g:44.28},
+  {s:"Hustadvika vidaregåande skule",f:"Møre og Romsdal",p:"Teknologi- og industrifag",n:30.6,g:37.19},
+  {s:"Hustadvika vidaregåande skule",f:"Møre og Romsdal",p:"Vg2 Akvakultur",n:35.7,g:42.88},
+  {s:"Hustadvika vidaregåande skule",f:"Møre og Romsdal",p:"Vg2 Fiske og fangst",n:45.7,g:49.60},
+  {s:"Hustadvika vidaregåande skule",f:"Møre og Romsdal",p:"Vg2 Kjemiprosess- og labfag",n:42.5,g:48.77},
+  {s:"Kristiansund videregående skole",f:"Møre og Romsdal",p:"Bygg- og anleggsteknikk",n:null,g:28.51},
+  {s:"Kristiansund videregående skole",f:"Møre og Romsdal",p:"Elektro og datateknologi",n:30.6,g:38.65},
+  {s:"Kristiansund videregående skole",f:"Møre og Romsdal",p:"Frisør, blomst, int, eksp.design",n:null,g:28.11},
+  {s:"Kristiansund videregående skole",f:"Møre og Romsdal",p:"Helse- og oppvekstfag",n:null,g:38.97},
+  {s:"Kristiansund videregående skole",f:"Møre og Romsdal",p:"IT og medieproduksjon",n:33.1,g:38.98},
+  {s:"Kristiansund videregående skole",f:"Møre og Romsdal",p:"Kunst, design og arkitektur",n:30,g:42.39},
+  {s:"Kristiansund videregående skole",f:"Møre og Romsdal",p:"Naturbruk",n:44.4,g:47.05},
+  {s:"Kristiansund videregående skole",f:"Møre og Romsdal",p:"Restaurant- og matfag",n:41.8,g:45.84},
+  {s:"Kristiansund videregående skole",f:"Møre og Romsdal",p:"Salg, service og reiseliv",n:27.6,g:37.58},
+  {s:"Kristiansund videregående skole",f:"Møre og Romsdal",p:"Teknologi- og industrifag",n:32.9,g:40.90},
+  {s:"Kristiansund videregående skole",f:"Møre og Romsdal",p:"Vg2 Akvakultur",n:41.4,g:48.13},
+  {s:"Kristiansund videregående skole",f:"Møre og Romsdal",p:"Vg2 Kjemiprosess- og labfag",n:47.8,g:51.29},
+  {s:"Kristiansund videregående skole",f:"Møre og Romsdal",p:"Vg2 Maritime fag",n:30,g:38.30},
+  {s:"Molde videregående skole",f:"Møre og Romsdal",p:"Kunst, design og arkitektur",n:null,g:41.49},
+  {s:"Molde videregående skole",f:"Møre og Romsdal",p:"Musikk, dans og drama (jazz, LAL)",n:42.9,g:42.90},
+  {s:"Molde videregående skole",f:"Møre og Romsdal",p:"Musikk, dans og drama (musikk)",n:36.9,g:45.87},
+  {s:"Molde videregående skole",f:"Møre og Romsdal",p:"Salg, service og reiseliv m/ innov/ledelse",n:40.9,g:46.42},
+  {s:"Molde videregående skole",f:"Møre og Romsdal",p:"Studiespesialisering",n:38.8,g:47.92},
+  {s:"Molde videregående skole",f:"Møre og Romsdal",p:"Studiespesialisering (toppidrett)",n:36.7,g:45.48},
+  {s:"Rauma videregående skole",f:"Møre og Romsdal",p:"Elektro og datateknologi",n:26.4,g:33.66},
+  {s:"Rauma videregående skole",f:"Møre og Romsdal",p:"Helse- og oppvekstfag",n:28.8,g:37.54},
+  {s:"Rauma videregående skole",f:"Møre og Romsdal",p:"Idrettsfag (bratt friluftsliv, LAL)",n:40,g:47.69},
+  {s:"Rauma videregående skole",f:"Møre og Romsdal",p:"Restaurant- og matfag",n:null,g:32.24},
+  {s:"Rauma videregående skole",f:"Møre og Romsdal",p:"Studiespesialisering",n:null,g:42.19},
+  {s:"Rauma videregående skole",f:"Møre og Romsdal",p:"Teknologi- og industrifag",n:null,g:32.29},
+  {s:"Romsdal videregående skole",f:"Møre og Romsdal",p:"Bygg- og anleggsteknikk",n:33.1,g:39.40},
+  {s:"Romsdal videregående skole",f:"Møre og Romsdal",p:"Elektro og datateknologi",n:37.8,g:44.81},
+  {s:"Romsdal videregående skole",f:"Møre og Romsdal",p:"Elektro og datateknologi (SK 3år)",n:37.8,g:46.11},
+  {s:"Romsdal videregående skole",f:"Møre og Romsdal",p:"Frisør, blomst, int, eksp.design",n:null,g:34.59},
+  {s:"Romsdal videregående skole",f:"Møre og Romsdal",p:"Helse- og oppvekstfag",n:38.8,g:43.69},
+  {s:"Romsdal videregående skole",f:"Møre og Romsdal",p:"Helse- og oppvekstfag (SK 3år)",n:46.5,g:51.92},
+  {s:"Romsdal videregående skole",f:"Møre og Romsdal",p:"Idrettsfag",n:39.3,g:47.58},
+  {s:"Romsdal videregående skole",f:"Møre og Romsdal",p:"IT og medieproduksjon",n:37.3,g:39.98},
+  {s:"Romsdal videregående skole",f:"Møre og Romsdal",p:"Salg, service og reiseliv",n:37.5,g:41.90},
+  {s:"Romsdal videregående skole",f:"Møre og Romsdal",p:"Teknologi- og industrifag",n:35.9,g:41.30},
+  {s:"Spjelkavik videregående skole",f:"Møre og Romsdal",p:"Idrettsfag",n:34.4,g:46.89},
+  {s:"Spjelkavik videregående skole",f:"Møre og Romsdal",p:"Studiespesialisering",n:28.5,g:45.29},
+  {s:"Spjelkavik videregående skole",f:"Møre og Romsdal",p:"Studiespesialisering (internasjonalisering)",n:38.8,g:49.03},
+  {s:"Stranda vidaregåande skule",f:"Møre og Romsdal",p:"Helse- og oppvekstfag",n:33.7,g:40.05},
+  {s:"Stranda vidaregåande skule",f:"Møre og Romsdal",p:"Idrettsfag",n:30.7,g:41.27},
+  {s:"Stranda vidaregåande skule",f:"Møre og Romsdal",p:"Naturbruk",n:26.9,g:38.32},
+  {s:"Stranda vidaregåande skule",f:"Møre og Romsdal",p:"Studiespesialisering",n:35.6,g:41.76},
+  {s:"Stranda vidaregåande skule",f:"Møre og Romsdal",p:"Vg2 Akvakultur",n:30,g:33.17},
+  {s:"Sunndal vidaregåande skule",f:"Møre og Romsdal",p:"Bygg- og anleggsteknikk",n:null,g:31.48},
+  {s:"Sunndal vidaregåande skule",f:"Møre og Romsdal",p:"Elektro og datateknologi",n:null,g:37.00},
+  {s:"Sunndal vidaregåande skule",f:"Møre og Romsdal",p:"Helse- og oppvekstfag",n:31.3,g:33.94},
+  {s:"Sunndal vidaregåande skule",f:"Møre og Romsdal",p:"Studiespesialisering",n:30,g:45.15},
+  {s:"Sunndal vidaregåande skule",f:"Møre og Romsdal",p:"Teknologi- og industrifag",n:30.9,g:39.83},
+  {s:"Sunndal vidaregåande skule",f:"Møre og Romsdal",p:"Vg2 Kjemiprosess- og labfag",n:38.6,g:43.99},
+  {s:"Surnadal vidaregåande skule",f:"Møre og Romsdal",p:"Bygg- og anleggsteknikk",n:null,g:33.23},
+  {s:"Surnadal vidaregåande skule",f:"Møre og Romsdal",p:"Elektro og datateknologi",n:null,g:37.33},
+  {s:"Surnadal vidaregåande skule",f:"Møre og Romsdal",p:"Helse- og oppvekstfag",n:31.9,g:40.69},
+  {s:"Surnadal vidaregåande skule",f:"Møre og Romsdal",p:"Studiespesialisering",n:33.1,g:46.49},
+  {s:"Surnadal vidaregåande skule",f:"Møre og Romsdal",p:"Teknologi- og industrifag",n:28.5,g:34.41},
+  {s:"Sykkylven vidaregåande skule",f:"Møre og Romsdal",p:"Elektro og datateknologi",n:34.6,g:40.54},
+  {s:"Sykkylven vidaregåande skule",f:"Møre og Romsdal",p:"Helse- og oppvekstfag",n:26.7,g:37.52},
+  {s:"Sykkylven vidaregåande skule",f:"Møre og Romsdal",p:"Studiespesialisering",n:32.9,g:47.24},
+  {s:"Sykkylven vidaregåande skule",f:"Møre og Romsdal",p:"Teknologi- og industrifag",n:26.1,g:34.45},
+  {s:"Tingvoll vidaregåande skule",f:"Møre og Romsdal",p:"Helse- og oppvekstfag",n:27.8,g:39.56},
+  {s:"Tingvoll vidaregåande skule",f:"Møre og Romsdal",p:"Idrettsfag",n:45,g:46.32},
+  {s:"Tingvoll vidaregåande skule",f:"Møre og Romsdal",p:"Naturbruk",n:null,g:29.99},
+  {s:"Tingvoll vidaregåande skule",f:"Møre og Romsdal",p:"Studiespesialisering",n:39.8,g:47.35},
+  {s:"Ulstein vidaregåande skule",f:"Møre og Romsdal",p:"Elektro og datateknologi",n:39,g:44.78},
+  {s:"Ulstein vidaregåande skule",f:"Møre og Romsdal",p:"Idrettsfag",n:33.3,g:45.32},
+  {s:"Ulstein vidaregåande skule",f:"Møre og Romsdal",p:"IT og medieproduksjon",n:27.5,g:34.88},
+  {s:"Ulstein vidaregåande skule",f:"Møre og Romsdal",p:"Salg, service og reiseliv",n:31.9,g:40.44},
+  {s:"Ulstein vidaregåande skule",f:"Møre og Romsdal",p:"Studiespesialisering",n:28.1,g:45.65},
+  {s:"Volda vidaregåande skule",f:"Møre og Romsdal",p:"Kunst, design og arkitektur",n:45.7,g:48.60},
+  {s:"Volda vidaregåande skule",f:"Møre og Romsdal",p:"Medier og kommunikasjon",n:34.7,g:43.18},
+  {s:"Volda vidaregåande skule",f:"Møre og Romsdal",p:"Musikk, dans og drama (musikk)",n:36.5,g:49.27},
+  {s:"Volda vidaregåande skule",f:"Møre og Romsdal",p:"Studiespesialisering",n:29.4,g:46.64},
+  {s:"Ørsta vidaregåande skule",f:"Møre og Romsdal",p:"Bygg- og anleggsteknikk",n:null,g:29.93},
+  {s:"Ørsta vidaregåande skule",f:"Møre og Romsdal",p:"Elektro og datateknologi",n:37.2,g:44.23},
+  {s:"Ørsta vidaregåande skule",f:"Møre og Romsdal",p:"Helse- og oppvekstfag",n:null,g:41.22},
+  {s:"Ørsta vidaregåande skule",f:"Møre og Romsdal",p:"Restaurant- og matfag",n:26.9,g:32.74},
+  {s:"Ørsta vidaregåande skule",f:"Møre og Romsdal",p:"Teknologi- og industrifag",n:32.4,g:39.79},
+  {s:"Ålesund videregående skole",f:"Møre og Romsdal",p:"Helse- og oppvekstfag",n:30.5,g:40.08},
+  {s:"Ålesund videregående skole",f:"Møre og Romsdal",p:"IT og medieproduksjon",n:35.3,g:42.40},
+  {s:"Ålesund videregående skole",f:"Møre og Romsdal",p:"Kunst, design og arkitektur",n:null,g:38.48},
+  {s:"Ålesund videregående skole",f:"Møre og Romsdal",p:"Musikk, dans og drama (dans)",n:40,g:48.44},
+  {s:"Ålesund videregående skole",f:"Møre og Romsdal",p:"Musikk, dans og drama (drama)",n:34.7,g:43.82},
+  {s:"Ålesund videregående skole",f:"Møre og Romsdal",p:"Musikk, dans og drama (musikk)",n:25.3,g:41.48},
+  {s:"Ålesund videregående skole",f:"Møre og Romsdal",p:"Naturbruk",n:41.3,g:45.44},
+  {s:"Ålesund videregående skole",f:"Møre og Romsdal",p:"Salg, service og reiseliv",n:33.8,g:40.76},
+  {s:"Ålesund videregående skole",f:"Møre og Romsdal",p:"Studiespesialisering",n:null,g:42.76},
+  {s:"Ålesund videregående skole",f:"Møre og Romsdal",p:"Studiespesialisering (forskerlinje)",n:27.3,g:51.23},
+  {s:"Ålesund videregående skole",f:"Møre og Romsdal",p:"Studiespesialisering (internasjonalisering)",n:37.4,g:46.06},
+  {s:"Ålesund videregående skole",f:"Møre og Romsdal",p:"Vg2 Akvakultur",n:38.6,g:48.83},
+  {s:"Ålesund videregående skole",f:"Møre og Romsdal",p:"Vg2 Fiske og fangst",n:40,g:48.14},
+  {s:"Ålesund videregående skole",f:"Møre og Romsdal",p:"Vg2 Kjemiprosess- og labfag",n:36.3,g:43.04},
+  {s:"Ålesund videregående skole",f:"Møre og Romsdal",p:"Vg2 Maritime fag",n:35,g:43.08},
+  // VESTLAND
+  {s:"Amalie Skram videregående skole",f:"Vestland",p:"IT og medieproduksjon",n:43.1,g:null},
+  {s:"Amalie Skram videregående skole",f:"Vestland",p:"Medier og kommunikasjon",n:45.9,g:null},
+  {s:"Amalie Skram videregående skole",f:"Vestland",p:"Salg, service og reiseliv",n:43.1,g:null},
+  {s:"Amalie Skram videregående skole",f:"Vestland",p:"Studiespesialisering",n:51.9,g:null},
+  {s:"Arna vidaregåande skule",f:"Vestland",p:"Bygg- og anleggsteknikk",n:0,g:null},
+  {s:"Arna vidaregåande skule",f:"Vestland",p:"Helse- og oppvekstfag",n:null,g:null},
+  {s:"Arna vidaregåande skule",f:"Vestland",p:"IT og medieproduksjon",n:28,g:null},
+  {s:"Arna vidaregåande skule",f:"Vestland",p:"Studiespesialisering",n:37.5,g:null},
+  {s:"Askøy videregående skole",f:"Vestland",p:"Bygg- og anleggsteknikk",n:31.9,g:null},
+  {s:"Askøy videregående skole",f:"Vestland",p:"Elektro og datateknologi",n:39.3,g:null},
+  {s:"Askøy videregående skole",f:"Vestland",p:"Helse- og oppvekstfag",n:40,g:null},
+  {s:"Askøy videregående skole",f:"Vestland",p:"Studiespesialisering",n:43.1,g:null},
+  {s:"Askøy videregående skole",f:"Vestland",p:"Teknologi- og industrifag",n:40,g:null},
+  {s:"Austrheim vidaregåande skule",f:"Vestland",p:"Bygg- og anleggsteknikk",n:37.1,g:null},
+  {s:"Austrheim vidaregåande skule",f:"Vestland",p:"Elektro og datateknologi",n:null,g:null},
+  {s:"Austrheim vidaregåande skule",f:"Vestland",p:"Helse- og oppvekstfag",n:36.3,g:null},
+  {s:"Austrheim vidaregåande skule",f:"Vestland",p:"Studiespesialisering",n:null,g:null},
+  {s:"Austrheim vidaregåande skule",f:"Vestland",p:"Teknologi- og industrifag",n:40.4,g:null},
+  {s:"Bergen katedralskole",f:"Vestland",p:"Studiespesialisering",n:48.5,g:null},
+  {s:"Bømlo vidaregåande skule",f:"Vestland",p:"Elektro og datateknologi",n:22.3,g:null},
+  {s:"Bømlo vidaregåande skule",f:"Vestland",p:"Helse- og oppvekstfag",n:null,g:null},
+  {s:"Bømlo vidaregåande skule",f:"Vestland",p:"Naturbruk",n:32.3,g:null},
+  {s:"Bømlo vidaregåande skule",f:"Vestland",p:"Studiespesialisering",n:44.3,g:null},
+  {s:"Bømlo vidaregåande skule",f:"Vestland",p:"Teknologi- og industrifag",n:null,g:null},
+  {s:"Dale vidaregåande skule",f:"Vestland",p:"Helse- og oppvekstfag",n:32.7,g:null},
+  {s:"Dale vidaregåande skule",f:"Vestland",p:"Studiespesialisering",n:43.4,g:null},
+  {s:"Eid vidaregåande skule",f:"Vestland",p:"Elektro og datateknologi",n:null,g:null},
+  {s:"Eid vidaregåande skule",f:"Vestland",p:"Frisør, blomst, int, eksp.design",n:36.5,g:null},
+  {s:"Eid vidaregåande skule",f:"Vestland",p:"Helse- og oppvekstfag",n:null,g:null},
+  {s:"Eid vidaregåande skule",f:"Vestland",p:"Studiespesialisering",n:23.1,g:null},
+  {s:"Eid vidaregåande skule",f:"Vestland",p:"Teknologi- og industrifag",n:22,g:null},
+  {s:"Firda vidaregåande skule",f:"Vestland",p:"Idrettsfag",n:25.3,g:null},
+  {s:"Firda vidaregåande skule",f:"Vestland",p:"Musikk, dans og drama (dans)",n:33.4,g:null},
+  {s:"Firda vidaregåande skule",f:"Vestland",p:"Musikk, dans og drama (drama)",n:29.3,g:null},
+  {s:"Firda vidaregåande skule",f:"Vestland",p:"Musikk, dans og drama (musikk)",n:35.9,g:null},
+  {s:"Firda vidaregåande skule",f:"Vestland",p:"Studiespesialisering",n:null,g:null},
+  {s:"Fitjar vidaregåande skule",f:"Vestland",p:"Frisør, blomst, int, eksp.design",n:null,g:null},
+  {s:"Fitjar vidaregåande skule",f:"Vestland",p:"Helse- og oppvekstfag",n:12.1,g:null},
+  {s:"Fitjar vidaregåande skule",f:"Vestland",p:"Restaurant- og matfag",n:null,g:null},
+  {s:"Flora vidaregåande skule",f:"Vestland",p:"Bygg- og anleggsteknikk",n:20.6,g:null},
+  {s:"Flora vidaregåande skule",f:"Vestland",p:"Elektro og datateknologi",n:29,g:null},
+  {s:"Flora vidaregåande skule",f:"Vestland",p:"Helse- og oppvekstfag",n:null,g:null},
+  {s:"Flora vidaregåande skule",f:"Vestland",p:"Idrettsfag",n:38.8,g:null},
+  {s:"Flora vidaregåande skule",f:"Vestland",p:"Studiespesialisering",n:36.6,g:null},
+  {s:"Flora vidaregåande skule",f:"Vestland",p:"Teknologi- og industrifag",n:null,g:null},
+  {s:"Fusa vidaregåande skule",f:"Vestland",p:"Helse- og oppvekstfag",n:35,g:null},
+  {s:"Fusa vidaregåande skule",f:"Vestland",p:"Naturbruk",n:29.4,g:null},
+  {s:"Fusa vidaregåande skule",f:"Vestland",p:"Teknologi- og industrifag",n:31.6,g:null},
+  {s:"Fyllingsdalen videregående skole",f:"Vestland",p:"Helse- og oppvekstfag",n:39.4,g:null},
+  {s:"Fyllingsdalen videregående skole",f:"Vestland",p:"Helse- og oppvekstfag (SK 3år)",n:42.5,g:null},
+  {s:"Fyllingsdalen videregående skole",f:"Vestland",p:"Musikk, dans og drama (drama)",n:40,g:null},
+  {s:"Fyllingsdalen videregående skole",f:"Vestland",p:"Studiespesialisering",n:45.8,g:null},
+  {s:"Førde vidaregåande skule",f:"Vestland",p:"Bygg- og anleggsteknikk",n:30.6,g:null},
+  {s:"Førde vidaregåande skule",f:"Vestland",p:"Elektro og datateknologi",n:37,g:null},
+  {s:"Førde vidaregåande skule",f:"Vestland",p:"Helse- og oppvekstfag",n:39.4,g:null},
+  {s:"Førde vidaregåande skule",f:"Vestland",p:"Helse- og oppvekstfag (SK 3år)",n:45,g:null},
+  {s:"Førde vidaregåande skule",f:"Vestland",p:"Idrettsfag",n:null,g:null},
+  {s:"Førde vidaregåande skule",f:"Vestland",p:"Kunst, design og arkitektur",n:41.9,g:null},
+  {s:"Førde vidaregåande skule",f:"Vestland",p:"Medier og kommunikasjon",n:36.3,g:null},
+  {s:"Førde vidaregåande skule",f:"Vestland",p:"Naturbruk",n:null,g:null},
+  {s:"Førde vidaregåande skule",f:"Vestland",p:"Restaurant- og matfag",n:36.3,g:null},
+  {s:"Førde vidaregåande skule",f:"Vestland",p:"Salg, service og reiseliv",n:38.8,g:null},
+  {s:"Førde vidaregåande skule",f:"Vestland",p:"Studiespesialisering",n:41.2,g:null},
+  {s:"Førde vidaregåande skule",f:"Vestland",p:"Teknologi- og industrifag",n:27.3,g:null},
+  {s:"Høyanger vidaregåande skule",f:"Vestland",p:"Elektro og datateknologi",n:30.6,g:null},
+  {s:"Høyanger vidaregåande skule",f:"Vestland",p:"Helse- og oppvekstfag",n:null,g:null},
+  {s:"Høyanger vidaregåande skule",f:"Vestland",p:"Teknologi- og industrifag",n:30.6,g:null},
+  {s:"Knarvik vidaregåande skule",f:"Vestland",p:"Bygg- og anleggsteknikk",n:35.9,g:null},
+  {s:"Knarvik vidaregåande skule",f:"Vestland",p:"Elektro og datateknologi",n:38.7,g:null},
+  {s:"Knarvik vidaregåande skule",f:"Vestland",p:"Helse- og oppvekstfag",n:38.7,g:null},
+  {s:"Knarvik vidaregåande skule",f:"Vestland",p:"Studiespesialisering",n:33.8,g:null},
+  {s:"Knarvik vidaregåande skule",f:"Vestland",p:"Teknologi- og industrifag",n:42.7,g:null},
+  {s:"Kvam vidaregåande skule",f:"Vestland",p:"Elektro og datateknologi",n:39.7,g:null},
+  {s:"Kvam vidaregåande skule",f:"Vestland",p:"Helse- og oppvekstfag",n:27.9,g:null},
+  {s:"Kvam vidaregåande skule",f:"Vestland",p:"Studiespesialisering",n:38.3,g:null},
+  {s:"Kvinnherad vidaregåande skule",f:"Vestland",p:"Bygg- og anleggsteknikk",n:35,g:null},
+  {s:"Kvinnherad vidaregåande skule",f:"Vestland",p:"Elektro og datateknologi",n:41.5,g:null},
+  {s:"Kvinnherad vidaregåande skule",f:"Vestland",p:"Helse- og oppvekstfag",n:30,g:null},
+  {s:"Kvinnherad vidaregåande skule",f:"Vestland",p:"Studiespesialisering",n:43.3,g:null},
+  {s:"Kvinnherad vidaregåande skule",f:"Vestland",p:"Teknologi- og industrifag",n:37.6,g:null},
+  {s:"Laksevåg og Bergen Maritime vgs",f:"Vestland",p:"Bygg- og anleggsteknikk",n:36.6,g:null},
+  {s:"Laksevåg og Bergen Maritime vgs",f:"Vestland",p:"Elektro og datateknologi",n:46.3,g:null},
+  {s:"Laksevåg og Bergen Maritime vgs",f:"Vestland",p:"Elektro og datateknologi (SK 3år)",n:47.6,g:null},
+  {s:"Laksevåg og Bergen Maritime vgs",f:"Vestland",p:"Teknologi- og industrifag",n:43.8,g:null},
+  {s:"Langhaugen videregående skole",f:"Vestland",p:"Musikk, dans og drama (dans)",n:47.8,g:null},
+  {s:"Langhaugen videregående skole",f:"Vestland",p:"Musikk, dans og drama (musikk)",n:55.6,g:null},
+  {s:"Langhaugen videregående skole",f:"Vestland",p:"Studiespesialisering",n:48.1,g:null},
+  {s:"Måløy vidaregåande skule",f:"Vestland",p:"Bygg- og anleggsteknikk",n:27.5,g:null},
+  {s:"Måløy vidaregåande skule",f:"Vestland",p:"Helse- og oppvekstfag",n:35.6,g:null},
+  {s:"Måløy vidaregåande skule",f:"Vestland",p:"Naturbruk",n:33.1,g:null},
+  {s:"Måløy vidaregåande skule",f:"Vestland",p:"Studiespesialisering",n:36.3,g:null},
+  {s:"Måløy vidaregåande skule",f:"Vestland",p:"Teknologi- og industrifag",n:null,g:null},
+  {s:"Nordahl Grieg videregående skole",f:"Vestland",p:"Helse- og oppvekstfag",n:37.1,g:null},
+  {s:"Nordahl Grieg videregående skole",f:"Vestland",p:"Helse- og oppvekstfag (SK 3år)",n:41.7,g:null},
+  {s:"Nordahl Grieg videregående skole",f:"Vestland",p:"Medier og kommunikasjon",n:40.2,g:null},
+  {s:"Nordahl Grieg videregående skole",f:"Vestland",p:"Studiespesialisering",n:43.8,g:null},
+  {s:"Odda vidaregåande skule",f:"Vestland",p:"Bygg- og anleggsteknikk",n:38.1,g:null},
+  {s:"Odda vidaregåande skule",f:"Vestland",p:"Elektro og datateknologi",n:36.3,g:null},
+  {s:"Odda vidaregåande skule",f:"Vestland",p:"Helse- og oppvekstfag",n:31.3,g:null},
+  {s:"Odda vidaregåande skule",f:"Vestland",p:"Studiespesialisering",n:null,g:null},
+  {s:"Odda vidaregåande skule",f:"Vestland",p:"Teknologi- og industrifag",n:35.6,g:null},
+  {s:"Olsvikåsen videregående skole",f:"Vestland",p:"Helse- og oppvekstfag",n:38.7,g:null},
+  {s:"Olsvikåsen videregående skole",f:"Vestland",p:"Helse- og oppvekstfag (SK 3år)",n:41.8,g:null},
+  {s:"Olsvikåsen videregående skole",f:"Vestland",p:"Kunst, design og arkitektur",n:41.3,g:null},
+  {s:"Olsvikåsen videregående skole",f:"Vestland",p:"Studiespesialisering",n:44.4,g:null},
+  {s:"Os gymnas",f:"Vestland",p:"Studiespesialisering",n:42.7,g:null},
+  {s:"Os vidaregåande skule",f:"Vestland",p:"Bygg- og anleggsteknikk",n:31.2,g:null},
+  {s:"Os vidaregåande skule",f:"Vestland",p:"Elektro og datateknologi",n:34.2,g:null},
+  {s:"Os vidaregåande skule",f:"Vestland",p:"Helse- og oppvekstfag",n:38.8,g:null},
+  {s:"Os vidaregåande skule",f:"Vestland",p:"Helse- og oppvekstfag (SK 3år)",n:36,g:null},
+  {s:"Os vidaregåande skule",f:"Vestland",p:"Idrettsfag",n:null,g:null},
+  {s:"Os vidaregåande skule",f:"Vestland",p:"Salg, service og reiseliv",n:40.4,g:null},
+  {s:"Os vidaregåande skule",f:"Vestland",p:"Teknologi- og industrifag",n:35.3,g:null},
+  {s:"Osterøy vidaregåande skule",f:"Vestland",p:"Elektro og datateknologi",n:37.2,g:null},
+  {s:"Osterøy vidaregåande skule",f:"Vestland",p:"Helse- og oppvekstfag",n:35.9,g:null},
+  {s:"Osterøy vidaregåande skule",f:"Vestland",p:"Studiespesialisering",n:32.7,g:null},
+  {s:"Osterøy vidaregåande skule",f:"Vestland",p:"Teknologi- og industrifag",n:31.9,g:null},
+  {s:"Sandsli videregående skole",f:"Vestland",p:"Restaurant- og matfag",n:34.4,g:null},
+  {s:"Sandsli videregående skole",f:"Vestland",p:"Salg, service og reiseliv",n:42.5,g:null},
+  {s:"Sandsli videregående skole",f:"Vestland",p:"Studiespesialisering",n:45.9,g:null},
+  {s:"Slåtthaug videregående skole",f:"Vestland",p:"Bygg- og anleggsteknikk",n:34.7,g:null},
+  {s:"Slåtthaug videregående skole",f:"Vestland",p:"Elektro og datateknologi",n:40.7,g:null},
+  {s:"Slåtthaug videregående skole",f:"Vestland",p:"Helse- og oppvekstfag",n:36,g:null},
+  {s:"Slåtthaug videregående skole",f:"Vestland",p:"Teknologi- og industrifag",n:38.2,g:null},
+  {s:"Sogndal vidaregåande skule",f:"Vestland",p:"Bygg- og anleggsteknikk",n:23.8,g:null},
+  {s:"Sogndal vidaregåande skule",f:"Vestland",p:"Elektro og datateknologi",n:37.7,g:null},
+  {s:"Sogndal vidaregåande skule",f:"Vestland",p:"Helse- og oppvekstfag",n:40,g:null},
+  {s:"Sogndal vidaregåande skule",f:"Vestland",p:"Idrettsfag",n:42.4,g:null},
+  {s:"Sogndal vidaregåande skule",f:"Vestland",p:"Restaurant- og matfag",n:25.3,g:null},
+  {s:"Sogndal vidaregåande skule",f:"Vestland",p:"Salg, service og reiseliv",n:32.5,g:null},
+  {s:"Sogndal vidaregåande skule",f:"Vestland",p:"Studiespesialisering",n:null,g:null},
+  {s:"Sogndal vidaregåande skule",f:"Vestland",p:"Teknologi- og industrifag",n:31.6,g:null},
+  {s:"Sotra vidaregåande skule",f:"Vestland",p:"Bygg- og anleggsteknikk",n:30.7,g:null},
+  {s:"Sotra vidaregåande skule",f:"Vestland",p:"Elektro og datateknologi",n:37.8,g:null},
+  {s:"Sotra vidaregåande skule",f:"Vestland",p:"Helse- og oppvekstfag",n:37.1,g:null},
+  {s:"Sotra vidaregåande skule",f:"Vestland",p:"Idrettsfag",n:38.1,g:null},
+  {s:"Sotra vidaregåande skule",f:"Vestland",p:"Restaurant- og matfag",n:32.7,g:null},
+  {s:"Sotra vidaregåande skule",f:"Vestland",p:"Salg, service og reiseliv",n:40.4,g:null},
+  {s:"Sotra vidaregåande skule",f:"Vestland",p:"Studiespesialisering",n:42.7,g:null},
+  {s:"Sotra vidaregåande skule",f:"Vestland",p:"Studiespesialisering (teknologifag)",n:42.3,g:null},
+  {s:"Sotra vidaregåande skule",f:"Vestland",p:"Teknologi- og industrifag",n:40,g:null},
+  {s:"Stend vidaregåande skule",f:"Vestland",p:"Idrettsfag",n:42.7,g:null},
+  {s:"Stend vidaregåande skule",f:"Vestland",p:"Naturbruk",n:null,g:null},
+  {s:"Stend vidaregåande skule",f:"Vestland",p:"Naturbruk (anleggsgartner)",n:26.5,g:null},
+  {s:"Stend vidaregåande skule",f:"Vestland",p:"Naturbruk (dyrefag)",n:32.1,g:null},
+  {s:"Stend vidaregåande skule",f:"Vestland",p:"Naturbruk (friluftsliv)",n:31.9,g:null},
+  {s:"Stend vidaregåande skule",f:"Vestland",p:"Naturbruk (hest)",n:41.8,g:null},
+  {s:"Stend vidaregåande skule",f:"Vestland",p:"Salg, service og reiseliv",n:40,g:null},
+  {s:"Stord vidaregåande skule",f:"Vestland",p:"Bygg- og anleggsteknikk",n:null,g:null},
+  {s:"Stord vidaregåande skule",f:"Vestland",p:"Elektro og datateknologi",n:null,g:null},
+  {s:"Stord vidaregåande skule",f:"Vestland",p:"Idrettsfag",n:37.5,g:null},
+  {s:"Stord vidaregåande skule",f:"Vestland",p:"IT og medieproduksjon",n:36.2,g:null},
+  {s:"Stord vidaregåande skule",f:"Vestland",p:"Medier og kommunikasjon",n:36.9,g:null},
+  {s:"Stord vidaregåande skule",f:"Vestland",p:"Musikk, dans og drama (musikk)",n:42.7,g:null},
+  {s:"Stord vidaregåande skule",f:"Vestland",p:"Salg, service og reiseliv",n:null,g:null},
+  {s:"Stord vidaregåande skule",f:"Vestland",p:"Studiespesialisering",n:35.3,g:null},
+  {s:"Stord vidaregåande skule",f:"Vestland",p:"Teknologi- og industrifag",n:26.7,g:null},
+  {s:"Stryn vidaregåande skule",f:"Vestland",p:"Bygg- og anleggsteknikk",n:20,g:null},
+  {s:"Stryn vidaregåande skule",f:"Vestland",p:"Helse- og oppvekstfag",n:32.6,g:null},
+  {s:"Stryn vidaregåande skule",f:"Vestland",p:"Studiespesialisering",n:null,g:null},
+  {s:"Tertnes vidaregåande skule",f:"Vestland",p:"Studiespesialisering",n:41.9,g:null},
+  {s:"Voss gymnas",f:"Vestland",p:"Frisør, blomst, int, eksp.design",n:35.9,g:null},
+  {s:"Voss gymnas",f:"Vestland",p:"Helse- og oppvekstfag",n:37.1,g:null},
+  {s:"Voss gymnas",f:"Vestland",p:"Idrettsfag",n:31.9,g:null},
+  {s:"Voss gymnas",f:"Vestland",p:"IT og medieproduksjon",n:null,g:null},
+  {s:"Voss gymnas",f:"Vestland",p:"Kunst, design og arkitektur",n:33.9,g:null},
+  {s:"Voss gymnas",f:"Vestland",p:"Musikk, dans og drama (musikk)",n:37.4,g:null},
+  {s:"Voss gymnas",f:"Vestland",p:"Salg, service og reiseliv",n:null,g:null},
+  {s:"Voss gymnas",f:"Vestland",p:"Studiespesialisering",n:null,g:null},
+  {s:"Voss vidaregåande skule",f:"Vestland",p:"Bygg- og anleggsteknikk",n:33.5,g:null},
+  {s:"Voss vidaregåande skule",f:"Vestland",p:"Elektro og datateknologi",n:35.7,g:null},
+  {s:"Voss vidaregåande skule",f:"Vestland",p:"Naturbruk",n:30.4,g:null},
+  {s:"Voss vidaregåande skule",f:"Vestland",p:"Naturbruk (friluftsliv)",n:38.7,g:null},
+  {s:"Voss vidaregåande skule",f:"Vestland",p:"Naturbruk (hest)",n:33.5,g:null},
+  {s:"Voss vidaregåande skule",f:"Vestland",p:"Restaurant- og matfag",n:0,g:null},
+  {s:"Voss vidaregåande skule",f:"Vestland",p:"Teknologi- og industrifag",n:34.4,g:null},
+  {s:"Årdal vidaregåande skule",f:"Vestland",p:"Elektro og datateknologi",n:31.4,g:null},
+  {s:"Årdal vidaregåande skule",f:"Vestland",p:"Studiespesialisering",n:null,g:null},
+  {s:"Årdal vidaregåande skule",f:"Vestland",p:"Teknologi- og industrifag",n:null,g:null},
+  {s:"Årstad videregående skole",f:"Vestland",p:"Elektro og datateknologi",n:40.3,g:null},
+  {s:"Årstad videregående skole",f:"Vestland",p:"Frisør, blomst, int, eksp.design",n:37.3,g:null},
+  {s:"Årstad videregående skole",f:"Vestland",p:"Helse- og oppvekstfag",n:36.4,g:null},
+  {s:"Årstad videregående skole",f:"Vestland",p:"Håndverk, design, produktutv.",n:39.2,g:null},
+  {s:"Årstad videregående skole",f:"Vestland",p:"Kunst, design og arkitektur",n:41.5,g:null},
+  {s:"Årstad videregående skole",f:"Vestland",p:"Teknologi- og industrifag",n:36.9,g:null},
+  {s:"Åsane vidaregåande skule",f:"Vestland",p:"Bygg- og anleggsteknikk",n:36,g:null},
+  {s:"Åsane vidaregåande skule",f:"Vestland",p:"Elektro og datateknologi",n:39.4,g:null},
+  {s:"Åsane vidaregåande skule",f:"Vestland",p:"Helse- og oppvekstfag",n:37.5,g:null},
+  {s:"Åsane vidaregåande skule",f:"Vestland",p:"Idrettsfag",n:43.5,g:null},
+  {s:"Åsane vidaregåande skule",f:"Vestland",p:"Salg, service og reiseliv",n:38.7,g:null},
+  {s:"Åsane vidaregåande skule",f:"Vestland",p:"Studiespesialisering",n:null,g:null},
+  {s:"Åsane vidaregåande skule",f:"Vestland",p:"Teknologi- og industrifag",n:40,g:null},
+  // OSLO (2023/2024)
+  {s:"Blindern vgs",f:"Oslo",p:"Studiespesialisering",n:42.2,g:null},
+  {s:"Edvard Munch vgs",f:"Oslo",p:"Idrettsfag",n:45,g:null},
+  {s:"Edvard Munch vgs",f:"Oslo",p:"Kunst, design og arkitektur",n:44.7,g:null},
+  {s:"Edvard Munch vgs",f:"Oslo",p:"Musikk, dans og drama",n:46.9,g:null},
+  {s:"Edvard Munch vgs",f:"Oslo",p:"Studiespesialisering",n:48.7,g:null},
+  {s:"Elvebakken vgs",f:"Oslo",p:"Idrettsfag",n:44,g:null},
+  {s:"Elvebakken vgs",f:"Oslo",p:"Medier og kommunikasjon",n:48.2,g:null},
+  {s:"Elvebakken vgs",f:"Oslo",p:"Musikk, dans og drama",n:51.6,g:null},
+  {s:"Elvebakken vgs",f:"Oslo",p:"Salg, service og reiseliv",n:37.8,g:null},
+  {s:"Elvebakken vgs",f:"Oslo",p:"Studiespesialisering (IB)",n:52.8,g:null},
+  {s:"Fyrstikkalleen skole",f:"Oslo",p:"IT og medieproduksjon",n:38.8,g:null},
+  {s:"Fyrstikkalleen skole",f:"Oslo",p:"Salg, service og reiseliv",n:42.1,g:null},
+  {s:"Fyrstikkalleen skole",f:"Oslo",p:"Studiespesialisering",n:44.1,g:null},
+  {s:"Foss vgs",f:"Oslo",p:"Studiespesialisering",n:50.2,g:null},
+  {s:"Hartvig Nissens skole",f:"Oslo",p:"Studiespesialisering",n:42.4,g:null},
+  {s:"Hellerud vgs",f:"Oslo",p:"Helse- og oppvekstfag",n:26.3,g:null},
+  {s:"Hellerud vgs",f:"Oslo",p:"Teknologi- og industrifag",n:30.7,g:null},
+  {s:"Hersleb vgs",f:"Oslo",p:"Helse- og oppvekstfag",n:14.6,g:null},
+  {s:"Hersleb vgs",f:"Oslo",p:"Salg, service og reiseliv",n:16.2,g:null},
+  {s:"Holtet vgs",f:"Oslo",p:"Naturbruk",n:24.7,g:null},
+  {s:"Holtet vgs",f:"Oslo",p:"Studiespesialisering",n:42.2,g:null},
+  {s:"Kongshavn vgs",f:"Oslo",p:"Studiespesialisering",n:37.3,g:null},
+  {s:"Kuben vgs",f:"Oslo",p:"Bygg- og anleggsteknikk",n:36.3,g:null},
+  {s:"Kuben vgs",f:"Oslo",p:"Elektro og datateknologi",n:42.9,g:null},
+  {s:"Kuben vgs",f:"Oslo",p:"Helse- og oppvekstfag",n:34.4,g:null},
+  {s:"Kuben vgs",f:"Oslo",p:"Naturbruk",n:36.2,g:null},
+  {s:"Kuben vgs",f:"Oslo",p:"Restaurant- og matfag",n:36.3,g:null},
+  {s:"Kuben vgs",f:"Oslo",p:"Salg, service og reiseliv",n:40.8,g:null},
+  {s:"Kuben vgs",f:"Oslo",p:"Studiespesialisering",n:40.6,g:null},
+  {s:"Kuben vgs",f:"Oslo",p:"Teknologi- og industrifag",n:37.9,g:null},
+  {s:"Lambertseter vgs",f:"Oslo",p:"Idrettsfag",n:42.8,g:null},
+  {s:"Lambertseter vgs",f:"Oslo",p:"Studiespesialisering",n:43.1,g:null},
+  {s:"Bjerke vgs",f:"Oslo",p:"Idrettsfag",n:40,g:null},
+  {s:"Bjerke vgs",f:"Oslo",p:"Studiespesialisering",n:37.7,g:null},
+  {s:"Nydalen vgs",f:"Oslo",p:"Kunst, design og arkitektur",n:37.5,g:null},
+  {s:"Nydalen vgs",f:"Oslo",p:"Medier og kommunikasjon",n:39.2,g:null},
+  {s:"Nydalen vgs",f:"Oslo",p:"Studiespesialisering",n:51.6,g:null},
+  {s:"Oslo handelsgymnasium",f:"Oslo",p:"Salg, service og reiseliv",n:37.1,g:null},
+  {s:"Oslo handelsgymnasium",f:"Oslo",p:"Studiespesialisering",n:38.1,g:null},
+  {s:"Oslo katedralskole",f:"Oslo",p:"Studiespesialisering",n:46.5,g:null},
+  {s:"Etterstad vgs",f:"Oslo",p:"Helse- og oppvekstfag",n:10,g:null},
+  {s:"Etterstad vgs",f:"Oslo",p:"Restaurant- og matfag",n:11.3,g:null},
+  {s:"Etterstad vgs",f:"Oslo",p:"Salg, service og reiseliv",n:33.1,g:null},
+  {s:"Persbråten vgs",f:"Oslo",p:"Idrettsfag",n:null,g:null},
+  {s:"Persbråten vgs",f:"Oslo",p:"Studiespesialisering",n:40,g:null},
+  {s:"Stovner vgs",f:"Oslo",p:"Bygg- og anleggsteknikk",n:10,g:null},
+  {s:"Stovner vgs",f:"Oslo",p:"Elektro og datateknologi",n:null,g:null},
+  {s:"Stovner vgs",f:"Oslo",p:"Helse- og oppvekstfag",n:null,g:null},
+  {s:"Stovner vgs",f:"Oslo",p:"Teknologi- og industrifag",n:9.4,g:null},
+  {s:"Bjørnholt vgs",f:"Oslo",p:"Bygg- og anleggsteknikk",n:null,g:null},
+  {s:"Bjørnholt vgs",f:"Oslo",p:"Elektro og datateknologi",n:null,g:null},
+  {s:"Bjørnholt vgs",f:"Oslo",p:"Teknologi- og industrifag",n:16.4,g:null},
+  {s:"Ullern vgs",f:"Oslo",p:"Idrettsfag",n:37.2,g:null},
+  {s:"Ullern vgs",f:"Oslo",p:"Kunst, design og arkitektur",n:41.2,g:null},
+  {s:"Ullern vgs",f:"Oslo",p:"Musikk, dans og drama",n:45.7,g:null},
+  {s:"Ullern vgs",f:"Oslo",p:"Studiespesialisering",n:46.9,g:null},
+  {s:"Ulsrud vgs",f:"Oslo",p:"Helse- og oppvekstfag",n:null,g:null},
+  {s:"Ulsrud vgs",f:"Oslo",p:"Salg, service og reiseliv",n:16.9,g:null},
+  {s:"Ulsrud vgs",f:"Oslo",p:"Teknologi- og industrifag",n:null,g:null},
+  {s:"Ulsrud vgs",f:"Oslo",p:"Naturbruk",n:32.2,g:null},
+  {s:"Valle Hovin vgs",f:"Oslo",p:"Idrettsfag",n:null,g:null},
+  {s:"Valle Hovin vgs",f:"Oslo",p:"Studiespesialisering",n:48.8,g:null},
+  {s:"Vika vgs",f:"Oslo",p:"Studiespesialisering",n:45,g:null},
+];
+
+const SUBJECTS = [
+  "Norsk (skriftlig)","Norsk (muntlig)","Norsk (sidemål)",
+  "Matematikk","Engelsk","Naturfag","Samfunnsfag","KRLE",
+  "Kunst og håndverk","Mat og helse","Musikk","Kroppsøving",
+  "Fremmedspråk / Fordypning",
+  "Eksamen (skriftlig)","Eksamen (muntlig)"
+];
+
+let currentMode = 'subjects', userScore = 0;
+
+function init() {
+  document.getElementById('subjectsGrid').innerHTML = SUBJECTS.map((s,i) => `
+    <div class="subject-row">
+      <span class="subject-name">${s}</span>
+      <div class="grade-wrap">
+        <input type="text" class="grade-input" id="g${i}" placeholder="–" maxlength="2"
+          onchange="validateInput(this)" oninput="updatePreview()" autocomplete="off">
+      </div>
+    </div>`).join('');
+}
+
+function switchMode(m) {
+  currentMode = m;
+  document.getElementById('modeSubjects').classList.toggle('active', m==='subjects');
+  document.getElementById('modeDirect').classList.toggle('active', m==='direct');
+  document.getElementById('subjectsMode').style.display = m==='subjects'?'':'none';
+  document.getElementById('directMode').classList.toggle('visible', m==='direct');
+  updatePreview();
+}
+
+function getScore() {
+  if (currentMode==='direct') {
+    const v = parseFloat(document.getElementById('directScore').value);
+    return { total: isNaN(v)?0:v, count:0, fritatt:0 };
+  }
+  let sum=0, count=0, fri=0;
+  document.querySelectorAll('#subjectsGrid .grade-input').forEach(el => {
+    const p = parseGrade(el.value);
+    if (!p) return;
+    if (p.fritatt) { fri++; return; }
+    sum += p.value; count++;
+  });
+  return { total: sum, count, fritatt: fri };
+}
+
+function updatePreview() {
+  const {total, count, fritatt} = getScore();
+  const pr = document.getElementById('scorePreview');
+  if (total > 0 || count > 0) {
+    pr.style.display = 'flex';
+    document.getElementById('previewScore').textContent = total.toFixed(1).replace(/\.0$/,'');
+    if (currentMode==='subjects') {
+      let pts=[];
+      if(count>0) pts.push(`${count} fag telt`);
+      if(fritatt>0) pts.push(`${fritatt} fritatt`);
+      document.getElementById('scoreBreakdown').textContent = pts.join(' · ');
+    } else {
+      document.getElementById('scoreBreakdown').textContent = 'manuelt innlegget';
+    }
+  } else { pr.style.display='none'; }
+}
+
+function setStep(n) {
+  [1,2,3,4].forEach(i => {
+    document.getElementById('step'+i).classList.remove('active','done');
+    document.getElementById('card'+i).classList.remove('visible');
+    if(i<n) document.getElementById('step'+i).classList.add('done');
+    else if(i===n) document.getElementById('step'+i).classList.add('active');
+    if(i===n) document.getElementById('card'+i).classList.add('visible');
+  });
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+function goToStep1() { setStep(1); }
+function goToStep2() {
+  userScore = getScore().total;
+  if(userScore<=0){alert('Vennligst skriv inn minst én karakter.');return;}
+  setStep(2);
+}
+function populateSchools() {
+  const county = document.getElementById('countySelect').value;
+  const sel = document.getElementById('schoolSelect');
+  sel.innerHTML = '<option value="">– Velg skole –</option>';
+  if(!county){sel.disabled=true;return;}
+  [...new Set(SD.filter(d=>d.f===county).map(d=>d.s))].sort().forEach(n=>{
+    const o=document.createElement('option'); o.value=n; o.textContent=n; sel.appendChild(o);
+  });
+  sel.disabled=false;
+}
+function populatePrograms() {
+  const school = document.getElementById('schoolSelect').value;
+  const sel = document.getElementById('programSelect');
+  sel.innerHTML='<option value="">– Velg program –</option>';
+  if(!school) return;
+  SD.filter(d=>d.s===school).forEach(d=>{
+    const o=document.createElement('option'); o.value=d.p; o.textContent=d.p; sel.appendChild(o);
+  });
+}
+function goToStep3() {
+  if(!document.getElementById('schoolSelect').value){alert('Velg en skole.');return;}
+  populatePrograms();
+  document.getElementById('card3Sub').textContent = document.getElementById('schoolSelect').value;
+  setStep(3);
+}
+
+function showResult() {
+  const school=document.getElementById('schoolSelect').value;
+  const program=document.getElementById('programSelect').value;
+  if(!program){alert('Velg et utdanningsprogram.');return;}
+  const row=SD.find(d=>d.s===school&&d.p===program);
+  if(!row) return;
+
+  document.getElementById('resultSchool').textContent = school + ' · ' + row.f;
+  document.getElementById('resultProgram').textContent = program;
+
+  const yours=userScore, nedre=row.n, snitt=row.g, hasSnitt=snitt!==null;
+  const isOpen=nedre===null||nedre===0;
+
+  document.getElementById('statYours').textContent=yours.toFixed(1).replace(/\.0$/,'');
+  document.getElementById('statNedre').textContent=isOpen?'*':(nedre.toFixed(1).replace(/\.0$/,''));
+  document.getElementById('statNedreNote').textContent=isOpen?'Alle kom inn':'laveste inntak';
+
+  const sc=document.getElementById('statSnittCard');
+  if(hasSnitt){sc.style.display='';document.getElementById('statSnitt').textContent=snitt.toFixed(2);}
+  else sc.style.display='none';
+
+  const verdict=document.getElementById('resultVerdict');
+  let vC,vI,vT,vB;
+  if(isOpen){
+    vC='verdict-open';vI='🟢';vT='Åpen inngang – alle kom inn!';
+    vB=`Det var ingen nedre poenggrense – alle søkere kom inn.`+(hasSnitt?` Gjennomsnittet var <strong>${snitt.toFixed(2)}</strong>. Du er ${yours>=snitt?'over':'under'} snittet.`:'');
+  } else if(yours>=(hasSnitt?snitt:nedre+5)){
+    vC='verdict-good';vI='🎉';vT=hasSnitt?'Du er over gjennomsnittet!':'Du er godt over nedre grense!';
+    vB=hasSnitt
+      ?`Med <strong>${yours.toFixed(1)}</strong> poeng er du over snittet på <strong>${snitt.toFixed(2)}</strong> og over nedre grense på <strong>${nedre.toFixed(1)}</strong>. Meget gode sjanser!`
+      :`Med <strong>${yours.toFixed(1)}</strong> poeng er du godt over nedre grense på <strong>${nedre.toFixed(1)}</strong>. Gode sjanser!`;
+  } else if(yours>=nedre){
+    const m=(yours-nedre).toFixed(1);
+    vC='verdict-good';vI='✅';vT='Du er over nedre grense!';
+    vB=`Med <strong>${yours.toFixed(1)}</strong> poeng er du <strong>${m} poeng over</strong> laveste inntak på <strong>${nedre.toFixed(1)}</strong>.`+(hasSnitt?` Under snittet (${snitt.toFixed(2)}), men innenfor inntaksområdet.`:'')+' Gode sjanser!';
+  } else if(yours>=nedre-3){
+    const d=(nedre-yours).toFixed(1);
+    vC='verdict-tight';vI='⚠️';vT='Tett – du er litt under nedre grense';
+    vB=`Du mangler <strong>${d} poeng</strong> på fjorårets laveste inntak (<strong>${nedre.toFixed(1)}</strong>). Grensene varierer fra år til år.`;
+  } else {
+    const d=(nedre-yours).toFixed(1);
+    vC='verdict-low';vI='❌';vT='Under nedre grense';
+    vB=`Du mangler <strong>${d} poeng</strong> på laveste inntak på <strong>${nedre.toFixed(1)}</strong>. Vil være utfordrende basert på tallene.`;
+  }
+  verdict.className='result-verdict '+vC;
+  verdict.innerHTML=`<div class="verdict-icon">${vI}</div><div><div class="verdict-title">${vT}</div><div class="verdict-body">${vB}</div></div>`;
+
+  const bs=document.getElementById('barSection');
+  if(!isOpen&&nedre>0){
+    const anc=hasSnitt?snitt:nedre;
+    const minB=Math.max(0,nedre-12), maxB=Math.max(anc+10,yours+5,nedre+15);
+    const r=maxB-minB;
+    const nP=((nedre-minB)/r*100).toFixed(1);
+    const sP=hasSnitt?((snitt-minB)/r*100).toFixed(1):null;
+    const yP=Math.min(100,Math.max(0,(yours-minB)/r*100)).toFixed(1);
+    bs.innerHTML=`
+      <div class="bar-lbl">Din plassering</div>
+      <div class="bar-track" style="margin-bottom:30px;">
+        <div class="bar-fill" style="width:${sP||nP}%;background:linear-gradient(90deg,#d4e5ff,#3b7dd8);"></div>
+        <div style="position:absolute;top:0;bottom:0;left:${nP}%;width:2px;background:#e07b2a;"></div>
+        <div style="position:absolute;bottom:-22px;left:${nP}%;transform:translateX(-50%);font-size:10px;font-weight:700;color:#e07b2a;white-space:nowrap;">Nedre ${nedre}</div>
+        ${sP?`<div style="position:absolute;bottom:-22px;left:${sP}%;transform:translateX(-50%);font-size:10px;font-weight:700;color:#3b7dd8;white-space:nowrap;">Snitt ${snitt.toFixed(1)}</div>`:''}
+        <div class="bar-needle" style="left:${yP}%;"></div>
+      </div>
+      <div class="bar-legend"><span>${(+minB).toFixed(0)} p</span><span>${(+maxB).toFixed(0)} p</span></div>`;
+  } else bs.innerHTML='';
+
+  const yr=row.f==='Oslo'?'2023/2024':'2025/2026';
+  document.getElementById('resultNote').innerHTML=`<strong>Merk:</strong> Tallene er fra ${yr}. Inntaksgrensene varierer hvert år. * = alle søkere kom inn.${!hasSnitt?' Gjennomsnittsdata ikke tilgjengelig for denne skolen.':''} Sjekk alltid med fylkeskommunen for offisielle tall.`;
+  setStep(4);
+}
+
+function resetAll() {
+  document.getElementById('countySelect').value='';
+  document.getElementById('schoolSelect').innerHTML='<option value="">– Velg skole –</option>';
+  document.getElementById('schoolSelect').disabled=true;
+  document.getElementById('programSelect').innerHTML='<option value="">– Velg program –</option>';
+  document.getElementById('directScore').value='';
+  document.querySelectorAll('#subjectsGrid .grade-input').forEach(i=>{i.value='';i.className='grade-input';});
+  document.getElementById('scorePreview').style.display='none';
+  userScore=0; setStep(1);
+}
+
+init();
+</script>
+</body>
+</html>
