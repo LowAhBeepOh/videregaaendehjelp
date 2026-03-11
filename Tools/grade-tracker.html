@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Karaktertrakker – Videregående Hjelp</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --navy: #0d2340; --navy-mid: #1a3a5c; --accent: #3b7dd8;
+    --bg: #f2f5f9; --surface: #ffffff; --surface2: #eef2f8;
+    --text: #0d2340; --text-muted: #5a7399; --border: #d4dff0;
+    --green: #1a9e5c; --orange: #e07b2a; --red: #d63b3b;
+    --radius: 14px; --shadow: 0 4px 24px rgba(13,35,64,0.10);
+  }
+  body { font-family: 'Inter Tight', sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; line-height: 1.5; }
+  header { background: var(--navy); padding: 22px 40px; display: flex; align-items: center; gap: 14px; flex-wrap: wrap; }
+  .header-badge { background: var(--accent); color: #fff; font-size: 11px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; padding: 4px 10px; border-radius: 6px; flex-shrink: 0; }
+  header h1 { color: #fff; font-size: 20px; font-weight: 700; letter-spacing: -0.02em; margin-right: auto; }
+  .back-link { color: rgba(255,255,255,0.7); text-decoration: none; font-size: 14px; font-weight: 500; display: flex; align-items: center; gap: 6px; transition: color 0.2s; }
+  .back-link:hover { color: #fff; }
+  
+  .container { max-width: 860px; margin: 0 auto; padding: 36px 20px 80px; }
+  
+  .card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 30px; box-shadow: var(--shadow); margin-bottom: 24px; }
+  .card-title { font-size: 22px; font-weight: 800; letter-spacing: -0.03em; margin-bottom: 5px; }
+  .card-sub { font-size: 14px; color: var(--text-muted); margin-bottom: 26px; }
+
+  .summary-card { background: var(--navy); color: #fff; padding: 30px; border-radius: var(--radius); display: flex; align-items: center; justify-content: space-between; margin-bottom: 24px; box-shadow: var(--shadow); }
+  .summary-label { font-size: 14px; font-weight: 500; opacity: 0.8; margin-bottom: 4px; }
+  .summary-value { font-size: 48px; font-weight: 800; letter-spacing: -0.04em; line-height: 1; }
+  .summary-sub { font-size: 12px; opacity: 0.5; margin-top: 6px; }
+
+  .subject-list { display: flex; flex-direction: column; gap: 12px; }
+  .subject-item { display: flex; align-items: center; gap: 12px; background: var(--surface2); padding: 12px 16px; border-radius: 10px; border: 1px solid var(--border); transition: all 0.2s; }
+  .subject-item:hover { border-color: var(--accent); background: #fff; }
+  
+  .subject-name-input { flex: 1; border: none; background: transparent; font-family: 'Inter Tight', sans-serif; font-size: 15px; font-weight: 600; color: var(--text); padding: 8px 0; }
+  .subject-name-input:focus { outline: none; }
+  .subject-name-input::placeholder { color: var(--text-muted); opacity: 0.5; }
+
+  .grade-select { width: 60px; padding: 8px; border: 1.5px solid var(--border); border-radius: 8px; font-family: 'Inter Tight', sans-serif; font-size: 15px; font-weight: 700; text-align: center; background: var(--surface); color: var(--text); cursor: pointer; appearance: none; }
+  .grade-select:focus { outline: none; border-color: var(--accent); }
+
+  .btn-remove { background: none; border: none; color: var(--text-muted); cursor: pointer; padding: 8px; border-radius: 6px; display: flex; align-items: center; justify-content: center; transition: all 0.2s; }
+  .btn-remove:hover { background: #fee; color: var(--red); }
+
+  .btn-add { width: 100%; padding: 16px; background: var(--surface); border: 2px dashed var(--border); border-radius: 10px; color: var(--text-muted); font-family: 'Inter Tight', sans-serif; font-size: 15px; font-weight: 600; cursor: pointer; transition: all 0.2s; margin-top: 12px; display: flex; align-items: center; justify-content: center; gap: 8px; }
+  .btn-add:hover { border-color: var(--accent); color: var(--accent); background: var(--surface2); }
+
+  .actions { display: flex; justify-content: flex-end; gap: 12px; margin-top: 24px; }
+  .btn { padding: 10px 20px; border-radius: 8px; font-family: 'Inter Tight', sans-serif; font-size: 14px; font-weight: 600; cursor: pointer; border: none; transition: all 0.2s; }
+  .btn-ghost { background: transparent; color: var(--text-muted); }
+  .btn-ghost:hover { color: var(--red); background: #fee; }
+
+  @media (max-width: 600px) {
+    .summary-card { flex-direction: column; text-align: center; gap: 20px; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>Karaktertrakker</h1>
+  <a href="../tools.html" class="back-link"><span class="material-icons">arrow_back</span> Tilbake</a>
+</header>
+
+<div class="container">
+  
+  <div class="summary-card">
+    <div>
+      <div class="summary-label">Ditt gjennomsnitt</div>
+      <div class="summary-sub">Basert på <span id="subjectCount">0</span> fag</div>
+    </div>
+    <div class="summary-value" id="averageDisplay">0.0</div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">Dine fag</div>
+    <div class="card-sub">Legg til fag og karakterer. Endringer lagres automatisk i nettleseren din.</div>
+    
+    <div class="subject-list" id="subjectList">
+      <!-- Items will be added here -->
+    </div>
+
+    <button class="btn-add" onclick="addSubject()">
+      <span class="material-icons">add</span> Legg til nytt fag
+    </button>
+
+    <div class="actions">
+      <button class="btn btn-ghost" onclick="clearAll()">Nullstill alt</button>
+    </div>
+  </div>
+
+</div>
+
+<script>
+  let subjects = [];
+
+  function init() {
+    const saved = localStorage.getItem('gradeTrackerData');
+    if (saved) {
+      subjects = JSON.parse(saved);
+    } else {
+      // Default subjects
+      subjects = [
+        { id: 1, name: 'Norsk (skriftlig)', grade: '' },
+        { id: 2, name: 'Matematikk', grade: '' },
+        { id: 3, name: 'Engelsk', grade: '' },
+        { id: 4, name: 'Naturfag', grade: '' },
+        { id: 5, name: 'Samfunnsfag', grade: '' },
+        { id: 6, name: 'Kroppsøving', grade: '' }
+      ];
+    }
+    render();
+  }
+
+  function save() {
+    localStorage.setItem('gradeTrackerData', JSON.stringify(subjects));
+    calculateAverage();
+  }
+
+  function addSubject() {
+    subjects.push({
+      id: Date.now(),
+      name: '',
+      grade: ''
+    });
+    render();
+    save();
+  }
+
+  function removeSubject(id) {
+    subjects = subjects.filter(s => s.id !== id);
+    render();
+    save();
+  }
+
+  function updateSubject(id, field, value) {
+    const subject = subjects.find(s => s.id === id);
+    if (subject) {
+      subject[field] = value;
+      save();
+    }
+  }
+
+  function calculateAverage() {
+    let sum = 0;
+    let count = 0;
+    
+    subjects.forEach(s => {
+      const g = parseInt(s.grade);
+      if (!isNaN(g) && g >= 1 && g <= 6) {
+        sum += g;
+        count++;
+      }
+    });
+
+    const avg = count > 0 ? (sum / count).toFixed(2) : '0.0';
+    document.getElementById('averageDisplay').textContent = avg;
+    document.getElementById('subjectCount').textContent = count;
+  }
+
+  function render() {
+    const list = document.getElementById('subjectList');
+    list.innerHTML = '';
+
+    subjects.forEach(s => {
+      const item = document.createElement('div');
+      item.className = 'subject-item';
+      item.innerHTML = `
+        <input type="text" class="subject-name-input" placeholder="Fagnavn..." value="${s.name}" oninput="updateSubject(${s.id}, 'name', this.value)">
+        <select class="grade-select" onchange="updateSubject(${s.id}, 'grade', this.value)">
+          <option value="" ${s.grade === '' ? 'selected' : ''}>-</option>
+          <option value="6" ${s.grade === '6' ? 'selected' : ''}>6</option>
+          <option value="5" ${s.grade === '5' ? 'selected' : ''}>5</option>
+          <option value="4" ${s.grade === '4' ? 'selected' : ''}>4</option>
+          <option value="3" ${s.grade === '3' ? 'selected' : ''}>3</option>
+          <option value="2" ${s.grade === '2' ? 'selected' : ''}>2</option>
+          <option value="1" ${s.grade === '1' ? 'selected' : ''}>1</option>
+        </select>
+        <button class="btn-remove" onclick="removeSubject(${s.id})" title="Fjern fag">
+          <span class="material-icons">delete</span>
+        </button>
+      `;
+      list.appendChild(item);
+    });
+
+    calculateAverage();
+  }
+
+  function clearAll() {
+    if (confirm('Er du sikker på at du vil slette alle fag og karakterer?')) {
+      subjects = [];
+      save();
+      render();
+    }
+  }
+
+  init();
+</script>
+</body>
+</html>

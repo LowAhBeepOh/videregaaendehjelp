@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kostnadskalkulator – Videregående Hjelp</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --navy: #0d2340; --navy-mid: #1a3a5c; --accent: #3b7dd8;
+    --bg: #f2f5f9; --surface: #ffffff; --surface2: #eef2f8;
+    --text: #0d2340; --text-muted: #5a7399; --border: #d4dff0;
+    --green: #1a9e5c; --radius: 14px; --shadow: 0 4px 24px rgba(13,35,64,0.10);
+  }
+  body { font-family: 'Inter Tight', sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; line-height: 1.5; }
+  header { background: var(--navy); padding: 22px 40px; display: flex; align-items: center; gap: 14px; flex-wrap: wrap; }
+  header h1 { color: #fff; font-size: 20px; font-weight: 700; letter-spacing: -0.02em; margin-right: auto; }
+  .back-link { color: rgba(255,255,255,0.7); text-decoration: none; font-size: 14px; font-weight: 500; display: flex; align-items: center; gap: 6px; transition: color 0.2s; }
+  .back-link:hover { color: #fff; }
+  
+  .container { max-width: 600px; margin: 0 auto; padding: 36px 20px 80px; }
+  
+  .card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 30px; box-shadow: var(--shadow); }
+  
+  .input-group { margin-bottom: 20px; }
+  .input-label { display: block; font-size: 14px; font-weight: 600; color: var(--text-muted); margin-bottom: 8px; }
+  .input-field { width: 100%; padding: 12px; border: 1.5px solid var(--border); border-radius: 8px; font-family: 'Inter Tight', sans-serif; font-size: 16px; font-weight: 500; }
+  .input-field:focus { outline: none; border-color: var(--accent); }
+
+  .total-area { margin-top: 30px; padding-top: 20px; border-top: 1px solid var(--border); text-align: center; }
+  .total-label { font-size: 14px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.05em; font-weight: 700; }
+  .total-value { font-size: 42px; font-weight: 800; color: var(--navy); margin: 8px 0; }
+  
+  .comparison { background: var(--surface2); padding: 16px; border-radius: 8px; margin-top: 20px; font-size: 14px; color: var(--text-muted); }
+  .comparison strong { color: var(--text); }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>Kostnadskalkulator</h1>
+  <a href="../tools.html" class="back-link"><span class="material-icons">arrow_back</span> Tilbake</a>
+</header>
+
+<div class="container">
+  
+  <div class="card">
+    <h2 style="font-size: 24px; font-weight: 700; margin-bottom: 24px;">Månedlig budsjett</h2>
+    
+    <div class="input-group">
+      <label class="input-label">Husleie (hvis du flytter hjemmefra)</label>
+      <input type="number" class="input-field" id="rent" placeholder="0" oninput="calculate()">
+    </div>
+    
+    <div class="input-group">
+      <label class="input-label">Mat og drikke</label>
+      <input type="number" class="input-field" id="food" placeholder="0" value="3500" oninput="calculate()">
+    </div>
+    
+    <div class="input-group">
+      <label class="input-label">Transport (busskort etc.)</label>
+      <input type="number" class="input-field" id="transport" placeholder="0" value="500" oninput="calculate()">
+    </div>
+    
+    <div class="input-group">
+      <label class="input-label">Mobil / Internett / Strømming</label>
+      <input type="number" class="input-field" id="misc" placeholder="0" value="400" oninput="calculate()">
+    </div>
+    
+    <div class="input-group">
+      <label class="input-label">Klær og utstyr</label>
+      <input type="number" class="input-field" id="clothes" placeholder="0" value="800" oninput="calculate()">
+    </div>
+
+    <div class="total-area">
+      <div class="total-label">Total per måned</div>
+      <div class="total-value" id="totalDisplay">0 kr</div>
+      <div class="comparison" id="comparisonText">
+        Gjennomsnittlig studentbudsjett er ca. <strong>9 500 kr</strong> (SSB 2024).
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+  function calculate() {
+    const rent = parseFloat(document.getElementById('rent').value) || 0;
+    const food = parseFloat(document.getElementById('food').value) || 0;
+    const transport = parseFloat(document.getElementById('transport').value) || 0;
+    const misc = parseFloat(document.getElementById('misc').value) || 0;
+    const clothes = parseFloat(document.getElementById('clothes').value) || 0;
+
+    const total = rent + food + transport + misc + clothes;
+    
+    document.getElementById('totalDisplay').textContent = total.toLocaleString('no-NO') + ' kr';
+
+    const comp = document.getElementById('comparisonText');
+    if (total > 9500) {
+      comp.innerHTML = `Ditt budsjett er <strong>høyere</strong> enn gjennomsnittet (ca 9 500 kr).`;
+    } else {
+      comp.innerHTML = `Ditt budsjett er <strong>lavere</strong> enn gjennomsnittet (ca 9 500 kr). Bra jobba!`;
+    }
+  }
+
+  calculate();
+</script>
+</body>
+</html>

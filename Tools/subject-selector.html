@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Fagvelger – Videregående Hjelp</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --navy: #0d2340; --navy-mid: #1a3a5c; --accent: #3b7dd8;
+    --bg: #f2f5f9; --surface: #ffffff; --surface2: #eef2f8;
+    --text: #0d2340; --text-muted: #5a7399; --border: #d4dff0;
+    --radius: 14px; --shadow: 0 4px 24px rgba(13,35,64,0.10);
+  }
+  body { font-family: 'Inter Tight', sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; line-height: 1.5; }
+  header { background: var(--navy); padding: 22px 40px; display: flex; align-items: center; gap: 14px; flex-wrap: wrap; }
+  header h1 { color: #fff; font-size: 20px; font-weight: 700; letter-spacing: -0.02em; margin-right: auto; }
+  .back-link { color: rgba(255,255,255,0.7); text-decoration: none; font-size: 14px; font-weight: 500; display: flex; align-items: center; gap: 6px; transition: color 0.2s; }
+  .back-link:hover { color: #fff; }
+  
+  .container { max-width: 800px; margin: 0 auto; padding: 36px 20px 80px; }
+  
+  .quiz-card { background: var(--surface); border-radius: var(--radius); padding: 40px; box-shadow: var(--shadow); text-align: center; }
+  .question { font-size: 24px; font-weight: 700; margin-bottom: 30px; }
+  
+  .options { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 30px; }
+  @media (max-width: 600px) { .options { grid-template-columns: 1fr; } }
+
+  .option-btn { padding: 20px; border: 2px solid var(--border); border-radius: 12px; background: var(--surface); color: var(--text); font-family: 'Inter Tight', sans-serif; font-size: 16px; font-weight: 600; cursor: pointer; transition: all 0.2s; }
+  .option-btn:hover { border-color: var(--accent); background: var(--surface2); transform: translateY(-2px); }
+  .option-btn.selected { border-color: var(--navy); background: var(--navy); color: #fff; }
+
+  .result-area { display: none; margin-top: 40px; border-top: 1px solid var(--border); padding-top: 40px; }
+  .result-title { font-size: 20px; font-weight: 700; color: var(--accent); margin-bottom: 12px; }
+  .result-desc { color: var(--text-muted); font-size: 16px; margin-bottom: 24px; }
+  
+  .program-list { text-align: left; background: var(--surface2); padding: 20px; border-radius: 12px; }
+  .program-item { margin-bottom: 12px; padding-bottom: 12px; border-bottom: 1px solid rgba(0,0,0,0.05); }
+  .program-item:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
+  .program-name { font-weight: 700; font-size: 16px; color: var(--navy); }
+  .program-info { font-size: 14px; color: var(--text-muted); }
+
+  .restart-btn { margin-top: 30px; padding: 12px 24px; background: var(--text-muted); color: #fff; border: none; border-radius: 8px; cursor: pointer; font-family: 'Inter Tight', sans-serif; font-weight: 600; }
+  .restart-btn:hover { background: var(--navy); }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>Fagvelger</h1>
+  <a href="../tools.html" class="back-link"><span class="material-icons">arrow_back</span> Tilbake</a>
+</header>
+
+<div class="container">
+  
+  <div class="quiz-card" id="quizCard">
+    <div class="question" id="questionText">Hva liker du best å jobbe med?</div>
+    <div class="options" id="optionsArea">
+      <!-- Options injected here -->
+    </div>
+    <div class="result-area" id="resultArea">
+      <div class="result-title">Anbefalte utdanningsprogram</div>
+      <div class="result-desc">Basert på dine svar, bør du sjekke ut disse programmene:</div>
+      <div class="program-list" id="programList"></div>
+      <button class="restart-btn" onclick="restart()">Ta testen på nytt</button>
+    </div>
+  </div>
+
+</div>
+
+<script>
+  const questions = [
+    {
+      id: 1,
+      text: "Hva foretrekker du?",
+      options: [
+        { text: "Teoretisk arbeid (lese, skrive, regne)", value: "teori" },
+        { text: "Praktisk arbeid (skape, reparere, pleie)", value: "praksis" }
+      ]
+    },
+    {
+      id: 2,
+      text: "Hvilke fag liker du best på skolen?",
+      options: [
+        { text: "Matte og Naturfag", value: "realfag" },
+        { text: "Språk og Samfunnsfag", value: "samfunn" },
+        { text: "Kunst og Håndverk / Musikk", value: "kreativ" },
+        { text: "Kroppsøving", value: "fysisk" }
+      ]
+    }
+  ];
+
+  let currentStep = 0;
+  let answers = {};
+
+  function init() {
+    showQuestion(0);
+  }
+
+  function showQuestion(index) {
+    const q = questions[index];
+    document.getElementById('questionText').textContent = q.text;
+    const opts = document.getElementById('optionsArea');
+    opts.innerHTML = '';
+    
+    q.options.forEach(opt => {
+      const btn = document.createElement('button');
+      btn.className = 'option-btn';
+      btn.textContent = opt.text;
+      btn.onclick = () => selectOption(opt.value);
+      opts.appendChild(btn);
+    });
+  }
+
+  function selectOption(val) {
+    answers[currentStep] = val;
+    currentStep++;
+    
+    if (currentStep < questions.length) {
+      showQuestion(currentStep);
+    } else {
+      showResult();
+    }
+  }
+
+  function showResult() {
+    document.getElementById('questionText').style.display = 'none';
+    document.getElementById('optionsArea').style.display = 'none';
+    document.getElementById('resultArea').style.display = 'block';
+
+    const type = answers[0]; // teori vs praksis
+    const interest = answers[1]; // realfag, samfunn, kreativ, fysisk
+
+    let recs = [];
+
+    if (type === 'teori') {
+      if (interest === 'realfag') {
+        recs.push({ name: "Studiespesialisering (Realfag)", info: "Fordypning i matematikk, fysikk, kjemi, biologi." });
+        recs.push({ name: "Elektro og datateknologi", info: "Hvis du liker teknologi og data." });
+      } else if (interest === 'samfunn') {
+        recs.push({ name: "Studiespesialisering (Språk/Samfunn)", info: "Fordypning i politikk, historie, språk, psykologi." });
+        recs.push({ name: "Medier og kommunikasjon", info: "Jobbe med kommunikasjon og samfunn." });
+      } else if (interest === 'kreativ') {
+        recs.push({ name: "Musikk, dans og drama", info: "Utvikle dine kunstneriske evner." });
+        recs.push({ name: "Kunst, design og arkitektur", info: "Teoretisk og praktisk kreativt arbeid." });
+      } else if (interest === 'fysisk') {
+        recs.push({ name: "Idrettsfag", info: "Kombiner studiespesialisering med trening." });
+      }
+    } else { // praksis
+      if (interest === 'realfag') {
+        recs.push({ name: "Elektro og datateknologi", info: "Praktisk teknisk arbeid." });
+        recs.push({ name: "Teknologi- og industrifag (TIP)", info: "Mekanikk, kjemiprosess, kjøretøy." });
+      } else if (interest === 'samfunn') {
+        recs.push({ name: "Salg, service og reiseliv", info: "Jobbe med mennesker og salg." });
+        recs.push({ name: "Helse- og oppvekstfag", info: "Omsorg for mennesker." });
+      } else if (interest === 'kreativ') {
+        recs.push({ name: "Frisør, blomster, interiør", info: "Skapende arbeid med hender." });
+        recs.push({ name: "Medier og kommunikasjon", info: "Kreativt arbeid med media." });
+      } else if (interest === 'fysisk') {
+        recs.push({ name: "Bygg- og anleggsteknikk", info: "Fysisk arbeid utendørs/innendørs." });
+        recs.push({ name: "Naturbruk", info: "Jobbe med dyr, skog og jordbruk." });
+      }
+    }
+
+    const list = document.getElementById('programList');
+    list.innerHTML = '';
+    recs.forEach(r => {
+      list.innerHTML += `
+        <div class="program-item">
+          <div class="program-name">${r.name}</div>
+          <div class="program-info">${r.info}</div>
+        </div>
+      `;
+    });
+  }
+
+  function restart() {
+    currentStep = 0;
+    answers = {};
+    document.getElementById('questionText').style.display = 'block';
+    document.getElementById('optionsArea').style.display = 'grid';
+    document.getElementById('resultArea').style.display = 'none';
+    init();
+  }
+
+  init();
+</script>
+</body>
+</html>

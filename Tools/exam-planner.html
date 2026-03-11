@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Eksamensplanlegger – Videregående Hjelp</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --navy: #0d2340; --navy-mid: #1a3a5c; --accent: #3b7dd8;
+    --bg: #f2f5f9; --surface: #ffffff; --surface2: #eef2f8;
+    --text: #0d2340; --text-muted: #5a7399; --border: #d4dff0;
+    --green: #1a9e5c; --radius: 14px; --shadow: 0 4px 24px rgba(13,35,64,0.10);
+  }
+  body { font-family: 'Inter Tight', sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; line-height: 1.5; }
+  header { background: var(--navy); padding: 22px 40px; display: flex; align-items: center; gap: 14px; flex-wrap: wrap; }
+  header h1 { color: #fff; font-size: 20px; font-weight: 700; letter-spacing: -0.02em; margin-right: auto; }
+  .back-link { color: rgba(255,255,255,0.7); text-decoration: none; font-size: 14px; font-weight: 500; display: flex; align-items: center; gap: 6px; transition: color 0.2s; }
+  .back-link:hover { color: #fff; }
+  
+  .container { max-width: 800px; margin: 0 auto; padding: 36px 20px 80px; }
+  
+  .card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 30px; box-shadow: var(--shadow); margin-bottom: 24px; }
+  
+  .input-row { display: flex; gap: 12px; margin-bottom: 20px; }
+  .input-field { flex: 1; padding: 12px; border: 1.5px solid var(--border); border-radius: 8px; font-family: 'Inter Tight', sans-serif; font-size: 14px; }
+  .btn-add { padding: 12px 24px; background: var(--navy); color: #fff; border: none; border-radius: 8px; cursor: pointer; font-weight: 600; }
+  
+  .exam-list { display: flex; flex-direction: column; gap: 16px; }
+  .exam-item { background: var(--surface2); padding: 20px; border-radius: 10px; border-left: 4px solid var(--accent); position: relative; }
+  .exam-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
+  .exam-title { font-size: 18px; font-weight: 700; }
+  .exam-date { font-size: 14px; color: var(--text-muted); font-weight: 600; }
+  .countdown { font-size: 13px; color: var(--accent); font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; }
+  
+  .checklist { display: flex; gap: 16px; margin-top: 12px; }
+  .check-item { display: flex; align-items: center; gap: 8px; font-size: 13px; color: var(--text-muted); cursor: pointer; }
+  .check-box { width: 18px; height: 18px; border: 2px solid var(--border); border-radius: 4px; display: flex; align-items: center; justify-content: center; transition: all 0.2s; }
+  .check-item.checked .check-box { background: var(--green); border-color: var(--green); }
+  .check-item.checked .check-box::after { content: '✓'; color: #fff; font-size: 12px; font-weight: 800; }
+  
+  .btn-delete { position: absolute; top: 12px; right: 12px; background: none; border: none; color: var(--text-muted); cursor: pointer; opacity: 0.5; transition: opacity 0.2s; }
+  .btn-delete:hover { opacity: 1; color: var(--red); }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>Eksamensplanlegger</h1>
+  <a href="../tools.html" class="back-link"><span class="material-icons">arrow_back</span> Tilbake</a>
+</header>
+
+<div class="container">
+  
+  <div class="card">
+    <h2 style="font-size: 24px; font-weight: 700; margin-bottom: 24px;">Legg til eksamen</h2>
+    <div class="input-row">
+      <input type="text" class="input-field" id="examName" placeholder="Fagnavn (f.eks. Matematikk R1)">
+      <input type="date" class="input-field" id="examDate">
+      <button class="btn-add" onclick="addExam()">Legg til</button>
+    </div>
+  </div>
+
+  <div class="exam-list" id="examList">
+    <!-- Exams injected here -->
+  </div>
+
+</div>
+
+<script>
+  let exams = [];
+
+  function init() {
+    const saved = localStorage.getItem('examData');
+    if (saved) exams = JSON.parse(saved);
+    render();
+    setInterval(updateCountdowns, 60000); // Update every minute
+  }
+
+  function save() {
+    localStorage.setItem('examData', JSON.stringify(exams));
+  }
+
+  function addExam() {
+    const name = document.getElementById('examName').value;
+    const date = document.getElementById('examDate').value;
+    
+    if (!name || !date) {
+      alert('Vennligst fyll ut både navn og dato.');
+      return;
+    }
+
+    exams.push({
+      id: Date.now(),
+      name,
+      date,
+      checks: { read: false, notes: false, revised: false }
+    });
+    
+    exams.sort((a,b) => new Date(a.date) - new Date(b.date));
+    
+    document.getElementById('examName').value = '';
+    document.getElementById('examDate').value = '';
+    
+    save();
+    render();
+  }
+
+  function deleteExam(id) {
+    if(confirm('Slette denne eksamenen?')) {
+      exams = exams.filter(e => e.id !== id);
+      save();
+      render();
+    }
+  }
+
+  function toggleCheck(id, key) {
+    const ex = exams.find(e => e.id === id);
+    if (ex) {
+      ex.checks[key] = !ex.checks[key];
+      save();
+      render();
+    }
+  }
+
+  function getDaysLeft(dateStr) {
+    const today = new Date();
+    today.setHours(0,0,0,0);
+    const target = new Date(dateStr);
+    const diff = target - today;
+    return Math.ceil(diff / (1000 * 60 * 60 * 24));
+  }
+
+  function render() {
+    const list = document.getElementById('examList');
+    list.innerHTML = '';
+    
+    exams.forEach(ex => {
+      const days = getDaysLeft(ex.date);
+      let dayText = '';
+      if (days < 0) dayText = 'Fullført';
+      else if (days === 0) dayText = 'I DAG!';
+      else if (days === 1) dayText = 'I morgen!';
+      else dayText = `${days} dager igjen`;
+
+      const el = document.createElement('div');
+      el.className = 'exam-item';
+      el.innerHTML = `
+        <div class="exam-header">
+          <div>
+            <div class="exam-title">${ex.name}</div>
+            <div class="exam-date">${new Date(ex.date).toLocaleDateString('no-NO')}</div>
+          </div>
+          <div class="countdown" style="color: ${days <= 3 && days >= 0 ? 'var(--red)' : 'var(--accent)'}">${dayText}</div>
+        </div>
+        <div class="checklist">
+          <div class="check-item ${ex.checks.read ? 'checked' : ''}" onclick="toggleCheck(${ex.id}, 'read')">
+            <div class="check-box"></div> Lest pensum
+          </div>
+          <div class="check-item ${ex.checks.notes ? 'checked' : ''}" onclick="toggleCheck(${ex.id}, 'notes')">
+            <div class="check-box"></div> Laget notater
+          </div>
+          <div class="check-item ${ex.checks.revised ? 'checked' : ''}" onclick="toggleCheck(${ex.id}, 'revised')">
+            <div class="check-box"></div> Repetert
+          </div>
+        </div>
+        <button class="btn-delete" onclick="deleteExam(${ex.id})"><span class="material-icons">delete</span></button>
+      `;
+      list.appendChild(el);
+    });
+  }
+
+  function updateCountdowns() {
+    render();
+  }
+
+  init();
+</script>
+</body>
+</html>
