@@ -1,0 +1,733 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Eksamen Simulator – Videregående Hjelp</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200;300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+  <style>
+    :root {
+      --primary: #d32f2f;
+      --primary-light: #ef5350;
+      --primary-dark: #b71c1c;
+      --bg: #f8f9fa;
+      --surface: #ffffff;
+      --surface-light: #f5f5f5;
+      --text: #212121;
+      --text-muted: #757575;
+      --border: #e0e0e0;
+      --success: #2e7d32;
+      --error: #c62828;
+      --warning: #f9a825;
+      --shadow: 0 2px 8px rgba(0,0,0,0.08);
+      --shadow-lg: 0 4px 16px rgba(0,0,0,0.12);
+    }
+
+    [data-theme="dark"] {
+      --primary: #ff5252;
+      --primary-light: #ff7070;
+      --primary-dark: #d32f2f;
+      --bg: #121212;
+      --surface: #1e1e1e;
+      --surface-light: #2a2a2a;
+      --text: #ffffff;
+      --text-muted: #b0b0b0;
+      --border: #333333;
+      --success: #66bb6a;
+      --error: #ef5350;
+      --warning: #fbc02d;
+      --shadow: 0 2px 8px rgba(0,0,0,0.30);
+      --shadow-lg: 0 4px 16px rgba(0,0,0,0.40);
+    }
+
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Manrope', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      transition: background 0.3s, color 0.3s;
+      min-height: 100vh;
+    }
+
+    main {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px 0;
+      margin-bottom: 40px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .logo {
+      font-family: 'Inter Tight', sans-serif;
+      font-size: 24px;
+      font-weight: 700;
+      color: var(--primary);
+      text-decoration: none;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 30px;
+      align-items: center;
+      list-style: none;
+    }
+
+    .nav-links a {
+      text-decoration: none;
+      color: var(--text);
+      font-weight: 500;
+      font-size: 14px;
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover {
+      color: var(--primary);
+    }
+
+    /* Simulator Styles */
+    .simulator-container {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 40px;
+      box-shadow: var(--shadow);
+      min-height: 400px;
+      position: relative;
+    }
+
+    /* Screen Transitions */
+    .screen {
+      display: none;
+      animation: fadeIn 0.3s ease;
+    }
+
+    .screen.active {
+      display: block;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Welcome Screen */
+    .welcome-header {
+      text-align: center;
+      margin-bottom: 40px;
+    }
+
+    .welcome-header h1 {
+      font-family: 'Inter Tight', sans-serif;
+      font-size: 36px;
+      margin-bottom: 16px;
+    }
+
+    .subject-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 20px;
+      margin-bottom: 30px;
+    }
+
+    .subject-card {
+      border: 2px solid var(--border);
+      border-radius: 12px;
+      padding: 20px;
+      cursor: pointer;
+      text-align: center;
+      transition: all 0.2s;
+    }
+
+    .subject-card:hover {
+      border-color: var(--primary);
+      background: var(--surface-light);
+    }
+
+    .subject-card.selected {
+      border-color: var(--primary);
+      background: rgba(211, 47, 47, 0.05);
+      color: var(--primary);
+      font-weight: 700;
+    }
+
+    .subject-icon {
+      font-size: 32px;
+      margin-bottom: 12px;
+      color: var(--text-muted);
+    }
+
+    .subject-card.selected .subject-icon {
+      color: var(--primary);
+    }
+
+    .start-btn {
+      display: block;
+      width: 100%;
+      padding: 16px;
+      background: var(--primary);
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-size: 16px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: background 0.2s;
+      margin-top: 20px;
+    }
+
+    .start-btn:hover {
+      background: var(--primary-dark);
+    }
+
+    .start-btn:disabled {
+      background: var(--text-muted);
+      cursor: not-allowed;
+      opacity: 0.5;
+    }
+
+    /* Exam Screen */
+    .exam-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 30px;
+      padding-bottom: 20px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .timer {
+      font-family: 'Inter Tight', sans-serif;
+      font-size: 24px;
+      font-weight: 700;
+      color: var(--primary);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .progress-pill {
+      background: var(--surface-light);
+      padding: 6px 12px;
+      border-radius: 20px;
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--text-muted);
+    }
+
+    .question-container {
+      margin-bottom: 40px;
+    }
+
+    .question-text {
+      font-size: 20px;
+      font-weight: 600;
+      margin-bottom: 24px;
+      font-family: 'Inter Tight', sans-serif;
+    }
+
+    .options-list {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .option-item {
+      display: flex;
+      align-items: center;
+      padding: 16px;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .option-item:hover {
+      background: var(--surface-light);
+      border-color: var(--text-muted);
+    }
+
+    .option-item.selected {
+      border-color: var(--primary);
+      background: rgba(211, 47, 47, 0.05);
+    }
+
+    .option-radio {
+      margin-right: 16px;
+      width: 20px;
+      height: 20px;
+      accent-color: var(--primary);
+    }
+
+    .exam-controls {
+      display: flex;
+      justify-content: space-between;
+      margin-top: auto;
+    }
+
+    .nav-btn {
+      padding: 12px 24px;
+      border: 1px solid var(--border);
+      background: var(--surface);
+      color: var(--text);
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: 600;
+      transition: all 0.2s;
+    }
+
+    .nav-btn:hover {
+      background: var(--surface-light);
+    }
+
+    .nav-btn.primary {
+      background: var(--primary);
+      color: white;
+      border-color: var(--primary);
+    }
+
+    .nav-btn.primary:hover {
+      background: var(--primary-dark);
+    }
+
+    /* Results Screen */
+    .results-header {
+      text-align: center;
+      margin-bottom: 40px;
+    }
+
+    .score-circle {
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      background: var(--surface);
+      border: 8px solid var(--primary);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 20px;
+    }
+
+    .score-value {
+      font-size: 32px;
+      font-weight: 800;
+      font-family: 'Inter Tight', sans-serif;
+      line-height: 1;
+    }
+
+    .score-label {
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: var(--text-muted);
+      margin-top: 4px;
+    }
+
+    .review-list {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      margin-bottom: 40px;
+    }
+
+    .review-item {
+      padding: 20px;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+    }
+
+    .review-item.correct {
+      border-left: 4px solid var(--success);
+    }
+
+    .review-item.incorrect {
+      border-left: 4px solid var(--error);
+    }
+
+    .review-question {
+      font-weight: 600;
+      margin-bottom: 12px;
+    }
+
+    .review-answer {
+      font-size: 14px;
+      margin-bottom: 4px;
+    }
+
+    .review-answer.user {
+      color: var(--text-muted);
+    }
+
+    .review-answer.correct-text {
+      color: var(--success);
+      font-weight: 600;
+    }
+
+    @media (max-width: 600px) {
+      .exam-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 16px;
+      }
+      
+      .simulator-container {
+        padding: 20px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <header>
+      <a href="../interactives.html" class="logo">Videregående Hjelp</a>
+      <nav>
+        <ul class="nav-links">
+          <li><a href="../guides.html">Guider</a></li>
+          <li><a href="../tools.html">Verktøy</a></li>
+          <li><a href="../interactives.html">Tilbake</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <div class="simulator-container">
+      
+      <!-- Screen 1: Welcome / Selection -->
+      <div id="welcome-screen" class="screen active">
+        <div class="welcome-header">
+          <h1>Eksamen Simulator</h1>
+          <p>Velg fag for å starte en realistisk eksamenssimulering.</p>
+        </div>
+        
+        <div class="subject-grid">
+          <div class="subject-card" onclick="selectSubject('math', this)">
+            <div class="material-icons subject-icon">calculate</div>
+            <h3>Matematikk 1T</h3>
+            <p style="font-size: 12px; color: var(--text-muted);">Algebra, Funksjoner, Geometri</p>
+          </div>
+          <div class="subject-card" onclick="selectSubject('english', this)">
+            <div class="material-icons subject-icon">language</div>
+            <h3>Engelsk</h3>
+            <p style="font-size: 12px; color: var(--text-muted);">Grammatikk, Forståelse, Ordforråd</p>
+          </div>
+          <div class="subject-card" onclick="selectSubject('science', this)">
+            <div class="material-icons subject-icon">science</div>
+            <h3>Naturfag</h3>
+            <p style="font-size: 12px; color: var(--text-muted);">Atomer, Energi, Økologi</p>
+          </div>
+          <div class="subject-card" onclick="selectSubject('social', this)">
+            <div class="material-icons subject-icon">public</div>
+            <h3>Samfunnsfag</h3>
+            <p style="font-size: 12px; color: var(--text-muted);">Politikk, Økonomi, Kultur</p>
+          </div>
+        </div>
+
+        <button id="start-btn" class="start-btn" disabled onclick="startExam()">Start Eksamen</button>
+      </div>
+
+      <!-- Screen 2: Exam Interface -->
+      <div id="exam-screen" class="screen">
+        <div class="exam-header">
+          <div class="timer">
+            <span class="material-icons">timer</span>
+            <span id="timer-display">60:00</span>
+          </div>
+          <div class="progress-pill">
+            Spørsmål <span id="current-q-num">1</span> av <span id="total-q-num">10</span>
+          </div>
+        </div>
+
+        <div class="question-container">
+          <div class="question-text" id="question-text">
+            Hva er løsningen på ligningen 2x + 5 = 15?
+          </div>
+          <div class="options-list" id="options-list">
+            <!-- Options generated by JS -->
+          </div>
+        </div>
+
+        <div class="exam-controls">
+          <button class="nav-btn" id="prev-btn" onclick="prevQuestion()" disabled>Forrige</button>
+          <button class="nav-btn primary" id="next-btn" onclick="nextQuestion()">Neste</button>
+        </div>
+      </div>
+
+      <!-- Screen 3: Results -->
+      <div id="results-screen" class="screen">
+        <div class="results-header">
+          <div class="score-circle">
+            <div class="score-value" id="final-score">8/10</div>
+            <div class="score-label">Poeng</div>
+          </div>
+          <h2 id="feedback-title">Godt jobbet!</h2>
+          <p id="feedback-text">Du har god kontroll på dette emnet.</p>
+        </div>
+
+        <div class="review-list" id="review-list">
+          <!-- Review items generated by JS -->
+        </div>
+
+        <button class="start-btn" onclick="location.reload()">Ta ny eksamen</button>
+      </div>
+
+    </div>
+  </main>
+
+  <script>
+    // --- Data ---
+    const questionBank = {
+      math: [
+        { q: "Løs ulikheten: x² - 5x + 6 < 0", options: ["x < 2 eller x > 3", "2 < x < 3", "x < -3 eller x > -2", "-3 < x < -2"], correct: 1 },
+        { q: "Hva er den deriverte av f(x) = 3x² + ln(x)?", options: ["6x + 1/x", "6x + ln(x)", "3x + 1/x", "6x - 1/x"], correct: 0 },
+        { q: "Hva er eksakt verdi av sin(60°)?", options: ["1/2", "√2/2", "√3/2", "1"], correct: 2 },
+        { q: "En trekant har sider 3, 4 og 5. Hva er arealet?", options: ["6", "12", "10", "7.5"], correct: 0 },
+        { q: "Løs ligningssettet: 2x + y = 10 og 3x - y = 5", options: ["x=2, y=6", "x=3, y=4", "x=4, y=2", "x=5, y=0"], correct: 1 },
+        { q: "Hva er definisjonsmengden til f(x) = √(x-2)?", options: ["x > 2", "x ≥ 2", "x < 2", "x ≤ 2"], correct: 1 },
+        { q: "Forenkle uttrykket: (a² - b²) / (a - b)", options: ["a - b", "a + b", "a² + b²", "1"], correct: 1 },
+        { q: "Hva er sannsynligheten for å få sum 12 med to terninger?", options: ["1/6", "1/12", "1/36", "1/18"], correct: 2 },
+        { q: "Hvilken funksjon er en eksponentialfunksjon?", options: ["f(x) = x²", "f(x) = 2x", "f(x) = 2^x", "f(x) = 1/x"], correct: 2 },
+        { q: "Hva er verdien av log(1000)?", options: ["2", "3", "10", "100"], correct: 1 }
+      ],
+      english: [
+        { q: "What literary device is used in 'The wind whispered through the trees'?", options: ["Metaphor", "Simile", "Personification", "Alliteration"], correct: 2 },
+        { q: "Which sentence uses the subjunctive mood correctly?", options: ["I wish I was there.", "I wish I were there.", "I wish I am there.", "I wish I will be there."], correct: 1 },
+        { q: "What does the idiom 'Devil's Advocate' mean?", options: ["Someone who is evil", "To argue against a popular view for the sake of debate", "A lawyer for criminals", "To agree with everyone"], correct: 1 },
+        { q: "Identify the error: 'Neither of the boys are going to the party.'", options: ["Neither", "of", "are", "going"], correct: 2 },
+        { q: "What is the primary theme of Orwell's '1984'?", options: ["Romance", "Totalitarianism", "Adventure", "Comedy"], correct: 1 },
+        { q: "Choose the correct synonym for 'Ephemeral'", options: ["Lasting", "Short-lived", "Heavy", "Bright"], correct: 1 },
+        { q: "Which word completes the sentence: 'The politician's speech was full of _____ rhetoric.'", options: ["vacuous", "tangible", "lucid", "stoic"], correct: 0 },
+        { q: "What is the past participle of 'swim'?", options: ["Swam", "Swum", "Swimmed", "Swimming"], correct: 1 },
+        { q: "In which sentence is the comma used correctly?", options: ["Lets eat grandma.", "Lets eat, grandma.", "Lets, eat grandma.", "Lets eat grandma,"], correct: 1 },
+        { q: "What does 'Ubiquitous' mean?", options: ["Rare", "Present everywhere", "Unique", "Hidden"], correct: 1 }
+      ],
+      science: [
+        { q: "Hva er elektronkonfigurasjonen til Karbon (atomnummer 6)?", options: ["2, 4", "2, 6", "4, 2", "2, 8"], correct: 0 },
+        { q: "Hvilken bindingstype er sterkest?", options: ["Hydrogenbinding", "Kovalent binding", "Van der Waals krefter", "Dipolbinding"], correct: 1 },
+        { q: "Hva er formelen for kinetisk energi?", options: ["E = mc²", "E = mgh", "E = 1/2 mv²", "E = Fs"], correct: 2 },
+        { q: "Hva kalles prosessen der DNA kopieres til RNA?", options: ["Translasjon", "Transkripsjon", "Replikasjon", "Mutasjon"], correct: 1 },
+        { q: "Hva er Newtons første lov også kjent som?", options: ["Kraftloven", "Treghetsloven", "Handlingsloven", "Gravitasjonsloven"], correct: 1 },
+        { q: "Hvilken gass er hovedårsaken til drivhuseffekten?", options: ["Oksygen", "Nitrogen", "Karbondioksid", "Argon"], correct: 2 },
+        { q: "Hva er pH i en 0.1 M HCl løsning?", options: ["0.1", "1", "7", "13"], correct: 1 },
+        { q: "Hva skjer med trykket i en gass hvis volumet halveres (ved konstant temp)?", options: ["Det halveres", "Det forblir uendret", "Det dobles", "Det firedobles"], correct: 2 },
+        { q: "Hvilken celledel er ansvarlig for energiproduksjon?", options: ["Kjernen", "Ribosomet", "Mitokondriet", "Golgiapparatet"], correct: 2 },
+        { q: "Hva er en isotop?", options: ["Atomer med ulikt antall protoner", "Atomer med ulikt antall nøytroner", "Atomer med ulik ladning", "Ioner"], correct: 1 }
+      ],
+      social: [
+        { q: "Hva kjennetegner en parlamentarisk styringsform?", options: ["Presidenten har all makt", "Regjeringen utgår fra Stortinget", "Domstolene lager lover", "Kongen bestemmer regjeringen"], correct: 1 },
+        { q: "Hva er forskjellen på BNP og BNP per innbygger?", options: ["Ingen forskjell", "BNP er total verdiskaping, den andre deler på befolkning", "BNP per innbygger inkluderer oljefondet", "BNP måler kun eksport"], correct: 1 },
+        { q: "Hva menes med 'maktfordelingsprinsippet'?", options: ["Makten er delt mellom stat og kommune", "Makten er delt mellom lovgivende, utøvende og dømmende makt", "Makten er delt mellom konge og folk", "Makten er delt mellom rike og fattige"], correct: 1 },
+        { q: "Hva var hovedårsaken til den kalde krigen?", options: ["Religiøs konflikt", "Ideologisk konflikt mellom USA og Sovjetunionen", "Kamp om landområder i Afrika", "Handelskrig mellom Kina og USA"], correct: 1 },
+        { q: "Hva er en 'blandingsøkonomi'?", options: ["Kun statlig eie", "Kun privat eie", "Kombinasjon av markedsøkonomi og statlig styring", "Bytteøkonomi"], correct: 2 },
+        { q: "Hvilket organ er FNs øverste beslutningsorgan?", options: ["Generalforsamlingen", "Sikkerhetsrådet", "Domstolen i Haag", "Sekretariatet"], correct: 1 },
+        { q: "Hva betyr begrepet 'lobbyvirksomhet'?", options: ["Å jobbe i hotellobby", "Å påvirke politikere utenfor formelle kanaler", "Å demonstrere", "Å stemme ved valg"], correct: 1 },
+        { q: "Når fikk kvinner stemmerett i Norge?", options: ["1814", "1898", "1913", "1945"], correct: 2 },
+        { q: "Hva er EØS-avtalen?", options: ["Norges medlemskap i EU", "En handelsavtale som gir tilgang til EUs indre marked", "En militær allianse", "En klimaavtale"], correct: 1 },
+        { q: "Hva menes med 'velferdsstaten'?", options: ["At alle er rike", "At staten har ansvar for borgernes grunnleggende velferd", "At vi har lave skatter", "At vi ikke har private bedrifter"], correct: 1 }
+      ]
+    };
+
+    // --- State ---
+    let currentSubject = null;
+    let questions = [];
+    let userAnswers = []; // Array of indices
+    let currentQuestionIndex = 0;
+    let timerInterval;
+    let timeRemaining = 60 * 60; // 60 minutes in seconds
+
+    // --- Elements ---
+    const screens = {
+      welcome: document.getElementById('welcome-screen'),
+      exam: document.getElementById('exam-screen'),
+      results: document.getElementById('results-screen')
+    };
+
+    // --- Functions ---
+
+    function selectSubject(subject, element) {
+      currentSubject = subject;
+      
+      // Update UI selection
+      document.querySelectorAll('.subject-card').forEach(card => {
+        card.classList.remove('selected');
+      });
+      element.classList.add('selected');
+      
+      document.getElementById('start-btn').disabled = false;
+    }
+
+    function startExam() {
+      if (!currentSubject) return;
+
+      // Load questions
+      questions = [...questionBank[currentSubject]]; // Copy array
+      shuffleArray(questions);
+      userAnswers = new Array(questions.length).fill(null);
+      currentQuestionIndex = 0;
+
+      // Initialize UI
+      document.getElementById('total-q-num').textContent = questions.length;
+      switchScreen('exam');
+      loadQuestion(0);
+      timeRemaining = 60 * 60; // Reset timer to 60 minutes
+      startTimer();
+    }
+
+    function shuffleArray(array) {
+      for (let i = array.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]];
+      }
+    }
+
+    function switchScreen(screenName) {
+      Object.values(screens).forEach(s => s.classList.remove('active'));
+      screens[screenName].classList.add('active');
+    }
+
+    function loadQuestion(index) {
+      const q = questions[index];
+      document.getElementById('current-q-num').textContent = index + 1;
+      document.getElementById('question-text').textContent = q.q;
+
+      const optionsList = document.getElementById('options-list');
+      optionsList.innerHTML = '';
+
+      q.options.forEach((opt, i) => {
+        const el = document.createElement('div');
+        el.className = `option-item ${userAnswers[index] === i ? 'selected' : ''}`;
+        el.onclick = () => selectOption(i);
+        el.innerHTML = `
+          <input type="radio" name="opt" class="option-radio" ${userAnswers[index] === i ? 'checked' : ''}>
+          <span>${opt}</span>
+        `;
+        optionsList.appendChild(el);
+      });
+
+      // Update Nav Buttons
+      document.getElementById('prev-btn').disabled = index === 0;
+      const nextBtn = document.getElementById('next-btn');
+      if (index === questions.length - 1) {
+        nextBtn.textContent = 'Fullfør';
+        nextBtn.onclick = finishExam;
+      } else {
+        nextBtn.textContent = 'Neste';
+        nextBtn.onclick = nextQuestion;
+      }
+    }
+
+    function selectOption(optionIndex) {
+      userAnswers[currentQuestionIndex] = optionIndex;
+      // Re-render to update styling
+      loadQuestion(currentQuestionIndex);
+    }
+
+    function prevQuestion() {
+      if (currentQuestionIndex > 0) {
+        currentQuestionIndex--;
+        loadQuestion(currentQuestionIndex);
+      }
+    }
+
+    function nextQuestion() {
+      if (currentQuestionIndex < questions.length - 1) {
+        currentQuestionIndex++;
+        loadQuestion(currentQuestionIndex);
+      }
+    }
+
+    function startTimer() {
+      updateTimerDisplay();
+      timerInterval = setInterval(() => {
+        timeRemaining--;
+        updateTimerDisplay();
+        if (timeRemaining <= 0) {
+          finishExam();
+        }
+      }, 1000);
+    }
+
+    function updateTimerDisplay() {
+      const minutes = Math.floor(timeRemaining / 60);
+      const seconds = timeRemaining % 60;
+      document.getElementById('timer-display').textContent = 
+        `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+    }
+
+    function finishExam() {
+      // Check for unanswered questions
+      const unanswered = userAnswers.filter(a => a === null).length;
+      if (unanswered > 0) {
+        if (!confirm(`Du har ${unanswered} ubesvarte spørsmål. Er du sikker på at du vil levere?`)) {
+          return;
+        }
+      }
+
+      clearInterval(timerInterval);
+      
+      // Calculate Score
+      let score = 0;
+      questions.forEach((q, i) => {
+        if (userAnswers[i] === q.correct) score++;
+      });
+
+      // Show Results
+      document.getElementById('final-score').textContent = `${score}/${questions.length}`;
+      
+      const percentage = (score / questions.length) * 100;
+      let title = "Godt jobbet!";
+      let text = "Du har stålkontroll.";
+      
+      if (percentage < 40) {
+        title = "Prøv igjen!";
+        text = "Du trenger litt mer øving.";
+      } else if (percentage < 70) {
+        title = "Bra!";
+        text = "Du er på god vei, men kan bli enda bedre.";
+      } else if (percentage === 100) {
+        title = "Perfekt!";
+        text = "Alt riktig! Imponerende.";
+      }
+
+      document.getElementById('feedback-title').textContent = title;
+      document.getElementById('feedback-text').textContent = text;
+
+      // Generate Review
+      const reviewList = document.getElementById('review-list');
+      reviewList.innerHTML = '';
+      
+      questions.forEach((q, i) => {
+        const isCorrect = userAnswers[i] === q.correct;
+        const userAnswerText = userAnswers[i] !== null ? q.options[userAnswers[i]] : "Ingen svar";
+        const item = document.createElement('div');
+        item.className = `review-item ${isCorrect ? 'correct' : 'incorrect'}`;
+        
+        item.innerHTML = `
+          <div class="review-question">${i + 1}. ${q.q}</div>
+          <div class="review-answer user">Ditt svar: ${userAnswerText}</div>
+          ${!isCorrect ? `<div class="review-answer correct-text">Riktig svar: ${q.options[q.correct]}</div>` : ''}
+        `;
+        reviewList.appendChild(item);
+      });
+
+      switchScreen('results');
+    }
+
+  </script>
+</body>
+</html>

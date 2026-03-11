@@ -1,0 +1,634 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hvilket program passer deg? — Videregående Hjelp</title>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=DM+Sans:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #1a1a1a;
+    --card: #242424;
+    --card2: #2c2c2c;
+    --border: #333;
+    --red: #f05a4f;
+    --red-dark: #c9392e;
+    --red-glow: rgba(240, 90, 79, 0.18);
+    --text: #f0f0f0;
+    --muted: #888;
+    --white: #ffffff;
+  }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'DM Sans', sans-serif;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem 1rem;
+  }
+
+  /* Subtle noise texture */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .container {
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    max-width: 680px;
+  }
+
+  /* Header */
+  .quiz-header {
+    text-align: center;
+    margin-bottom: 2.5rem;
+  }
+
+  .quiz-header .badge {
+    display: inline-block;
+    background: var(--red-glow);
+    border: 1px solid var(--red);
+    color: var(--red);
+    font-family: 'Sora', sans-serif;
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    padding: 0.3rem 0.9rem;
+    border-radius: 100px;
+    margin-bottom: 1rem;
+  }
+
+  .quiz-header h1 {
+    font-family: 'Sora', sans-serif;
+    font-size: clamp(1.8rem, 5vw, 2.6rem);
+    font-weight: 800;
+    line-height: 1.15;
+    color: var(--white);
+    margin-bottom: 0.75rem;
+  }
+
+  .quiz-header p {
+    color: var(--muted);
+    font-size: 1rem;
+    line-height: 1.6;
+  }
+
+  /* Progress bar */
+  .progress-wrap {
+    margin-bottom: 2rem;
+  }
+
+  .progress-meta {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.8rem;
+    color: var(--muted);
+    margin-bottom: 0.5rem;
+    font-family: 'Sora', sans-serif;
+    font-weight: 600;
+  }
+
+  .progress-track {
+    height: 4px;
+    background: var(--border);
+    border-radius: 2px;
+    overflow: hidden;
+  }
+
+  .progress-fill {
+    height: 100%;
+    background: var(--red);
+    border-radius: 2px;
+    transition: width 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  /* Question card */
+  .question-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 2rem;
+    animation: slideIn 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  @keyframes slideIn {
+    from { opacity: 0; transform: translateY(14px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  .question-num {
+    font-family: 'Sora', sans-serif;
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: var(--red);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-bottom: 0.75rem;
+  }
+
+  .question-text {
+    font-family: 'Sora', sans-serif;
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: var(--white);
+    line-height: 1.4;
+    margin-bottom: 1.75rem;
+  }
+
+  /* Answer options */
+  .options {
+    display: grid;
+    gap: 0.75rem;
+  }
+
+  .option-btn {
+    background: var(--card2);
+    border: 1.5px solid var(--border);
+    border-radius: 10px;
+    padding: 1rem 1.25rem;
+    text-align: left;
+    cursor: pointer;
+    transition: border-color 0.18s, background 0.18s, transform 0.12s;
+    display: flex;
+    align-items: center;
+    gap: 0.9rem;
+    color: var(--text);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.95rem;
+    line-height: 1.45;
+  }
+
+  .option-btn:hover {
+    border-color: var(--red);
+    background: var(--red-glow);
+    transform: translateX(3px);
+  }
+
+  .option-btn.selected {
+    border-color: var(--red);
+    background: var(--red-glow);
+  }
+
+  .option-letter {
+    flex-shrink: 0;
+    width: 28px;
+    height: 28px;
+    border-radius: 6px;
+    background: var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Sora', sans-serif;
+    font-weight: 700;
+    font-size: 0.75rem;
+    color: var(--muted);
+    transition: background 0.18s, color 0.18s;
+  }
+
+  .option-btn:hover .option-letter,
+  .option-btn.selected .option-letter {
+    background: var(--red);
+    color: white;
+  }
+
+  /* Next button */
+  .btn-next {
+    margin-top: 1.5rem;
+    width: 100%;
+    padding: 1rem;
+    background: var(--red);
+    border: none;
+    border-radius: 10px;
+    color: white;
+    font-family: 'Sora', sans-serif;
+    font-weight: 700;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background 0.18s, transform 0.12s;
+    display: none;
+  }
+
+  .btn-next:hover { background: var(--red-dark); transform: translateY(-1px); }
+  .btn-next.visible { display: block; animation: fadeUp 0.25s ease; }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(8px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ── RESULT ── */
+  .result-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 2.5rem 2rem;
+    text-align: center;
+    animation: slideIn 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .result-icon {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+  }
+
+  .result-label {
+    font-family: 'Sora', sans-serif;
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: var(--red);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    margin-bottom: 0.5rem;
+  }
+
+  .result-title {
+    font-family: 'Sora', sans-serif;
+    font-size: clamp(1.5rem, 4vw, 2rem);
+    font-weight: 800;
+    color: var(--white);
+    margin-bottom: 1rem;
+  }
+
+  .result-desc {
+    color: var(--muted);
+    font-size: 0.95rem;
+    line-height: 1.7;
+    margin-bottom: 2rem;
+    max-width: 480px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .result-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    align-items: center;
+  }
+
+  .btn-vilbli {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: var(--red);
+    color: white;
+    font-family: 'Sora', sans-serif;
+    font-weight: 700;
+    font-size: 0.95rem;
+    padding: 0.9rem 2rem;
+    border-radius: 10px;
+    text-decoration: none;
+    transition: background 0.18s, transform 0.12s;
+    width: 100%;
+    max-width: 340px;
+    justify-content: center;
+  }
+
+  .btn-vilbli:hover { background: var(--red-dark); transform: translateY(-1px); }
+
+  .btn-restart {
+    background: transparent;
+    border: 1.5px solid var(--border);
+    color: var(--muted);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.9rem;
+    padding: 0.8rem 2rem;
+    border-radius: 10px;
+    cursor: pointer;
+    width: 100%;
+    max-width: 340px;
+    transition: border-color 0.18s, color 0.18s;
+  }
+
+  .btn-restart:hover { border-color: var(--red); color: var(--text); }
+
+  /* Other matches */
+  .other-matches {
+    margin-top: 2rem;
+    text-align: left;
+    border-top: 1px solid var(--border);
+    padding-top: 1.5rem;
+  }
+
+  .other-matches h3 {
+    font-family: 'Sora', sans-serif;
+    font-size: 0.8rem;
+    font-weight: 700;
+    color: var(--muted);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin-bottom: 0.75rem;
+  }
+
+  .match-pills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  .match-pill {
+    background: var(--card2);
+    border: 1px solid var(--border);
+    border-radius: 100px;
+    padding: 0.3rem 0.85rem;
+    font-size: 0.82rem;
+    color: var(--text);
+  }
+</style>
+</head>
+<body>
+
+<div class="container">
+  <div class="quiz-header">
+    <div class="badge">Interaktiv quiz</div>
+    <h1>Hvilket program passer deg?</h1>
+    <p>Svar på 5 spørsmål og finn ut hvilke av de 15 utdanningsprogrammene<br>på videregående som passer deg best.</p>
+  </div>
+
+  <div id="quiz-area"></div>
+</div>
+
+<script>
+// ── DATA ──────────────────────────────────────────────────────────────────
+
+const programs = {
+  ST: {
+    name: "Studiespesialisering",
+    icon: "📚",
+    desc: "Bredt studieprogram som forbereder deg til høyere utdanning. Du kan velge fordypning innen realfag, språk, samfunnsfag og økonomi.",
+    vilbli: "https://www.vilbli.no/nb/nb/no/studiespesialisering/program/v.st"
+  },
+  ID: {
+    name: "Idrettsfag",
+    icon: "⚽",
+    desc: "Kombinerer teori og praksis innen idrett, trening og helse. Passer deg som er aktiv og vil jobbe med idrett eller ta høyere utdanning.",
+    vilbli: "https://www.vilbli.no/nb/nb/no/idrettsfag/program/v.id"
+  },
+  MD: {
+    name: "Musikk, dans og drama",
+    icon: "🎭",
+    desc: "Kreativt program med fordypning i musikk, dans eller drama. Perfekt for deg med scenekunst i blodet.",
+    vilbli: "https://www.vilbli.no/nb/nb/no/musikk-dans-og-drama/program/v.md"
+  },
+  KD: {
+    name: "Kunst, design og arkitektur",
+    icon: "🎨",
+    desc: "Utforsk visuell kunst, design og arkitektur. Passer deg som er kreativ og visuelt orientert.",
+    vilbli: "https://www.vilbli.no/nb/nb/no/kunst-design-og-arkitektur/program/v.kd"
+  },
+  ME: {
+    name: "Medier og kommunikasjon",
+    icon: "🎬",
+    desc: "Lær om film, foto, journalistikk og digital kommunikasjon. For deg som vil jobbe med media og innholdsproduksjon.",
+    vilbli: "https://www.vilbli.no/nb/nb/no/medier-og-kommunikasjon/program/v.me"
+  },
+  BA: {
+    name: "Bygg- og anleggsteknikk",
+    icon: "🏗️",
+    desc: "Praktisk program innen byggebransjen — fra tømrer og murer til anleggsmaskinføring og rørlegger.",
+    vilbli: "https://www.vilbli.no/nb/nb/no/bygg-og-anleggsteknikk/program/v.ba"
+  },
+  EL: {
+    name: "Elektro og datateknologi",
+    icon: "⚡",
+    desc: "Arbeid med elektronikk, automasjon, IT-systemer og datanettverk. Etterspurt kompetanse i en digital verden.",
+    vilbli: "https://www.vilbli.no/nb/nb/no/elektro-og-datateknologi/program/v.el"
+  },
+  HS: {
+    name: "Helse- og oppvekstfag",
+    icon: "🏥",
+    desc: "Arbeid med mennesker innen helse, omsorg og barnehage/skole. Passer deg som er empatisk og liker å hjelpe andre.",
+    vilbli: "https://www.vilbli.no/nb/nb/no/helse-og-oppvekstfag/program/v.hs"
+  },
+  IP: {
+    name: "Informasjonsteknologi og medieproduksjon",
+    icon: "💻",
+    desc: "Programmering, nettverk, IT-drift og medieproduksjon. Topp valg for deg som er interessert i teknologi og kreativ digital produksjon.",
+    vilbli: "https://www.vilbli.no/nb/nb/no/informasjonsteknologi-og-medieproduksjon/program/v.ip"
+  },
+  NA: {
+    name: "Naturbruk",
+    icon: "🌿",
+    desc: "Landbruk, gartneri, skogbruk, hest og akvakultur. Passer deg som er glad i natur, dyr og friluftsliv.",
+    vilbli: "https://www.vilbli.no/nb/nb/no/naturbruk/program/v.na"
+  },
+  RM: {
+    name: "Restaurant- og matfag",
+    icon: "🍳",
+    desc: "Kokk, baker, konditor eller servitør. For deg med lidenskap for mat, drikke og gjestfrihet.",
+    vilbli: "https://www.vilbli.no/nb/nb/no/restaurant-og-matfag/program/v.rm"
+  },
+  SS: {
+    name: "Salg, service og reiseliv",
+    icon: "✈️",
+    desc: "Arbeid innen handel, reiseliv, transport og logistikk. Passer deg som er utadvendt og liker å jobbe med kunder.",
+    vilbli: "https://www.vilbli.no/nb/nb/no/salg-service-og-reiseliv/program/v.ss"
+  },
+  TP: {
+    name: "Teknologi- og industrifag",
+    icon: "🔧",
+    desc: "Industrimekanikk, sveis, CNC og industriell produksjon. For deg som liker å jobbe med maskiner og teknisk presisjon.",
+    vilbli: "https://www.vilbli.no/nb/nb/no/teknologi-og-industrifag/program/v.tp"
+  },
+  FO: {
+    name: "Frisør, blomster, interiør og eksponeringsdesign",
+    icon: "✂️",
+    desc: "Kreativt yrkesfag innen frisør, blomsterdekorasjon og interiørdesign. Passer deg med sans for estetikk og håndverk.",
+    vilbli: "https://www.vilbli.no/nb/nb/no/frisoer-blomster-interioe-og-eksponeringsdesign/program/v.fo"
+  },
+  SB: {
+    name: "Service og samferdsel",
+    icon: "🚌",
+    desc: "Transport, logistikk, post og administrasjon. For deg som vil jobbe i samferdselssektoren.",
+    vilbli: "https://www.vilbli.no/nb/nb/no/service-og-samferdsel/program/v.ss"
+  }
+};
+
+// Questions: each answer has weights for program keys
+const questions = [
+  {
+    text: "Hva liker du best å gjøre på fritiden?",
+    options: [
+      { text: "Lese, skrive eller diskutere ideer", weights: { ST: 3, MD: 1, ME: 1 } },
+      { text: "Trene, spille sport eller være aktiv", weights: { ID: 3, NA: 1, HS: 1 } },
+      { text: "Skape ting — tegne, designe, bygge eller lage musikk", weights: { KD: 3, MD: 2, ME: 2, BA: 1 } },
+      { text: "Fikle med teknologi, kode eller elektronikk", weights: { IP: 3, EL: 3, TP: 1 } },
+      { text: "Hjelpe andre, være sosial og ta vare på folk rundt deg", weights: { HS: 3, SS: 2, SB: 1 } }
+    ]
+  },
+  {
+    text: "Hva er viktigst for deg i en fremtidig jobb?",
+    options: [
+      { text: "Høy lønn og karrieremuligheter i akademia eller næringsliv", weights: { ST: 3, IP: 1 } },
+      { text: "Jobbe praktisk med hendene og se konkrete resultater", weights: { BA: 3, TP: 3, EL: 2, NA: 2 } },
+      { text: "Uttrykke kreativitet og jobbe med kunst eller kultur", weights: { MD: 3, KD: 3, ME: 2, FO: 2 } },
+      { text: "Hjelpe og jobbe tett med mennesker", weights: { HS: 3, SS: 2, SB: 1 } },
+      { text: "Frihet, variasjon og oppleve nye ting", weights: { SS: 2, RM: 2, NA: 2, ID: 1 } }
+    ]
+  },
+  {
+    text: "Hvilken type oppgaver synes du er mest spennende på skolen?",
+    options: [
+      { text: "Matte, naturfag og problemløsning", weights: { ST: 2, IP: 2, EL: 2, TP: 1 } },
+      { text: "Norsk, samfunnsfag, historie og språk", weights: { ST: 2, ME: 2, SS: 1 } },
+      { text: "Praktiske fag som kunst, mat og sløyd", weights: { KD: 2, RM: 3, BA: 2, FO: 2 } },
+      { text: "Gym, friluft og helsefag", weights: { ID: 3, HS: 2, NA: 2 } },
+      { text: "IT, programmering og mediafag", weights: { IP: 3, EL: 2, ME: 2 } }
+    ]
+  },
+  {
+    text: "Hvordan vil du helst lære noe nytt?",
+    options: [
+      { text: "Lese og høre på forelesninger, deretter diskutere", weights: { ST: 3, ID: 1, HS: 1 } },
+      { text: "Prøve selv, gjøre feil og lære av dem", weights: { BA: 2, TP: 2, EL: 2, IP: 2, RM: 2 } },
+      { text: "Se det gjort visuelt eller høre det fremført", weights: { MD: 3, KD: 2, ME: 2 } },
+      { text: "Ute i felten, i naturen eller i en arbeidssituasjon", weights: { NA: 3, ID: 2, SB: 2, SS: 1 } },
+      { text: "Jobbe med andre og lære gjennom samarbeid", weights: { HS: 2, SS: 2, FO: 2, MD: 1 } }
+    ]
+  },
+  {
+    text: "Hvor ser du deg selv om 10 år?",
+    options: [
+      { text: "På universitetet eller i en krevende akademisk karriere", weights: { ST: 4, ID: 1 } },
+      { text: "Som fagarbeider med eget firma eller solid håndverk", weights: { BA: 3, TP: 3, EL: 3, FO: 2, RM: 2 } },
+      { text: "I en kreativ bransje — media, kunst, musikk eller design", weights: { MD: 4, KD: 4, ME: 3, IP: 2 } },
+      { text: "I helse, skole, barnehage eller sosialt arbeid", weights: { HS: 4, ST: 1 } },
+      { text: "I en service-orientert jobb, reise, natur eller teknologi", weights: { SS: 3, NA: 3, SB: 2, IP: 2 } }
+    ]
+  }
+];
+
+// ── STATE ─────────────────────────────────────────────────────────────────
+
+let currentQ = 0;
+let selectedOption = null;
+let scores = {};
+Object.keys(programs).forEach(k => scores[k] = 0);
+
+// ── RENDER ────────────────────────────────────────────────────────────────
+
+function render() {
+  const area = document.getElementById('quiz-area');
+  if (currentQ < questions.length) {
+    renderQuestion(area);
+  } else {
+    renderResult(area);
+  }
+}
+
+function renderQuestion(area) {
+  const q = questions[currentQ];
+  const letters = ['A','B','C','D','E'];
+  const progress = (currentQ / questions.length) * 100;
+
+  area.innerHTML = `
+    <div class="progress-wrap">
+      <div class="progress-meta">
+        <span>Spørsmål ${currentQ + 1} av ${questions.length}</span>
+        <span>${Math.round(progress)}%</span>
+      </div>
+      <div class="progress-track">
+        <div class="progress-fill" style="width: ${progress}%"></div>
+      </div>
+    </div>
+
+    <div class="question-card">
+      <div class="question-num">Spørsmål ${currentQ + 1}</div>
+      <div class="question-text">${q.text}</div>
+      <div class="options" id="options">
+        ${q.options.map((opt, i) => `
+          <button class="option-btn" data-index="${i}" onclick="selectOption(${i})">
+            <span class="option-letter">${letters[i]}</span>
+            <span>${opt.text}</span>
+          </button>
+        `).join('')}
+      </div>
+      <button class="btn-next" id="btn-next" onclick="nextQuestion()">
+        ${currentQ === questions.length - 1 ? 'Se resultatet →' : 'Neste spørsmål →'}
+      </button>
+    </div>
+  `;
+  selectedOption = null;
+}
+
+function selectOption(index) {
+  selectedOption = index;
+  document.querySelectorAll('.option-btn').forEach((btn, i) => {
+    btn.classList.toggle('selected', i === index);
+  });
+  const btn = document.getElementById('btn-next');
+  btn.classList.add('visible');
+}
+
+function nextQuestion() {
+  if (selectedOption === null) return;
+
+  // Add weights
+  const weights = questions[currentQ].options[selectedOption].weights;
+  Object.entries(weights).forEach(([k, v]) => {
+    if (scores[k] !== undefined) scores[k] += v;
+  });
+
+  currentQ++;
+  render();
+}
+
+function renderResult(area) {
+  // Sort programs by score
+  const sorted = Object.entries(scores)
+    .sort((a, b) => b[1] - a[1])
+    .map(([k]) => k);
+
+  const topKey = sorted[0];
+  const top = programs[topKey];
+  const runners = sorted.slice(1, 4).map(k => programs[k].name);
+
+  area.innerHTML = `
+    <div class="result-card">
+      <div class="result-icon">${top.icon}</div>
+      <div class="result-label">Din beste match</div>
+      <div class="result-title">${top.name}</div>
+      <div class="result-desc">${top.desc}</div>
+      <div class="result-actions">
+        <a class="btn-vilbli" href="${top.vilbli}" target="_blank" rel="noopener">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+          Les mer på Vilbli.no
+        </a>
+        <button class="btn-restart" onclick="restart()">↩ Ta quizen på nytt</button>
+      </div>
+
+      <div class="other-matches">
+        <h3>Andre gode matcher for deg</h3>
+        <div class="match-pills">
+          ${runners.map(name => `<span class="match-pill">${name}</span>`).join('')}
+        </div>
+      </div>
+    </div>
+  `;
+}
+
+function restart() {
+  currentQ = 0;
+  selectedOption = null;
+  Object.keys(scores).forEach(k => scores[k] = 0);
+  render();
+}
+
+// ── INIT ──────────────────────────────────────────────────────────────────
+render();
+</script>
+</body>
+</html>
