@@ -58,7 +58,7 @@
 
     /* Layout */
     main {
-      max-width: 1000px;
+      max-width: 1400px;
       margin: 0 auto;
       padding: 0 16px 40px 16px;
     }
@@ -82,7 +82,7 @@
     }
 
     .header-content {
-      max-width: 1000px;
+      max-width: 1400px;
       margin: 0 auto;
       display: flex;
       justify-content: space-between;
@@ -322,54 +322,23 @@
     @media (min-width: 768px) {
       .bento-grid {
         grid-template-columns: repeat(2, 1fr);
-        grid-template-rows: repeat(5, minmax(240px, auto));
       }
-      
-      /* Grid positioning - separate from card styling */
-      .pos-1-1 {
-        grid-column: 1 / 2;
-        grid-row: 1 / 2;
+    }
+
+    @media (min-width: 1024px) {
+      .bento-grid {
+        grid-template-columns: repeat(4, 1fr);
       }
-      
-      .pos-2-1 {
-        grid-column: 2 / 3;
-        grid-row: 1 / 2;
-      }
-      
-      .pos-1-2 {
-        grid-column: 1 / 2;
-        grid-row: 2 / 3;
-      }
-      
-      .pos-2-2 {
-        grid-column: 2 / 3;
-        grid-row: 2 / 3;
-      }
-      
-      .pos-1-3 {
-        grid-column: 1 / 2;
-        grid-row: 3 / 4;
-      }
-      
-      .pos-2-3 {
-        grid-column: 2 / 3;
-        grid-row: 3 / 4;
-      }
-      
-      .pos-1-4 {
-        grid-column: 1 / 2;
-        grid-row: 4 / 5;
-      }
-      
-      .pos-2-4 {
-        grid-column: 2 / 3;
-        grid-row: 4 / 5;
-      }
-      
-      .pos-full {
-        grid-column: 1 / 3;
-        grid-row: 5 / 6;
-        min-height: 180px;
+    }
+
+    /* Special grid items */
+    .grid-item-featured {
+      grid-column: 1 / -1;
+    }
+
+    @media (min-width: 1024px) {
+      .grid-item-featured {
+        grid-column: span 2;
       }
     }
 
@@ -483,6 +452,44 @@
 
     .card-interactive {
         background: var(--card-red);
+    }
+
+    .card-fun-fact {
+      background: var(--card-green);
+      color: #000;
+    }
+
+    .card-fun-fact .card-title {
+      font-family: 'Manrope', sans-serif;
+      font-weight: 600;
+      font-style: normal;
+      font-size: 18px;
+      color: #000;
+    }
+
+    @media (min-width: 480px) {
+      .card-fun-fact .card-title {
+        font-size: 20px;
+      }
+    }
+
+    @media (min-width: 768px) {
+      .card-fun-fact .card-title {
+        font-size: 22px;
+      }
+    }
+
+    .fun-fact-label {
+      font-size: 12px;
+      font-weight: 600;
+      opacity: 0.7;
+      margin-bottom: 8px;
+    }
+
+    @media (min-width: 480px) {
+      .fun-fact-label {
+        font-size: 13px;
+      }
     }
 
     .card-updates {
@@ -603,69 +610,155 @@
       </a>
     </div>
 
-    <div class="bento-grid">
-      <!-- Fravær og fraværsgrense (Frequently Asked) -->
-      <a href="Guides/absence-rules.html" class="bento-card card-guides pos-1-1">
-        <div class="card-title">Fraværsgrensen?</div>
-      </a>
-
-      <!-- Søknadsprosessen til VGS (Important) -->
-      <a href="Guides/vgs-application-process.html" class="bento-card card-guides pos-2-1">
-        <div class="card-title">Søk til VGS</div>
-      </a>
-
-      <!-- Stipend og økonomi (Frequently Asked) -->
-      <a href="Guides/student-finances.html" class="bento-card card-guides pos-1-2">
-        <div class="card-title">Få stipend</div>
-      </a>
-
-      <!-- Eksamen i videregående (Important) -->
-      <a href="Guides/exams-in-vgs.html" class="bento-card card-guides pos-2-2">
-        <div class="card-title">Eksamenstips</div>
-      </a>
-
-      <!-- Inntakskalkulator -->
-      <a href="Tools/inntakskalkulator.html" class="bento-card card-tools pos-1-3">
-        <div class="card-title">Inntakskalkulator</div>
-        <div class="card-icon">
-          <span class="material-icons">arrow_forward</span>
-        </div>
-      </a>
-
-      <!-- Bedre Karakterer -->
-      <a href="Guides/grades-system.html" class="bento-card card-guides pos-2-3">
-        <div class="card-title">Hvordan få bedre karakterer?</div>
-      </a>
-
-      <!-- Eksamen Simulator -->
-      <a href="Interactives/exam-simulator.html" class="bento-card card-interactive pos-1-4">
-        <div class="card-title" style="font-family: 'Inter Tight', sans-serif; font-weight: 650; font-size: 32px; color: var(--card-pale);">VGS-Hjelp sin Eksamen (2026)</div>
-        <div class="card-icon" style="width:25%; border-radius: 600px;">
-          <span class="card-title">Prøv</span>
-        </div>
-      </a>
-
-      <!-- Usikkert valg -->
-      <a href="Tools/program-finder.html" class="bento-card card-tools pos-2-4">
-        <div class="card-title">Usikkert på hva å velg?</div>
-        <div class="card-icon">
-          <span class="material-icons">arrow_forward</span>
-        </div>
-      </a>
-      
-      <!-- Oppdateringer -->
-       <a href="#" class="bento-card card-updates pos-full">
-        <div class="card-title" style="margin-bottom: 16px;">Oppdateringer</div>
-        <div class="card-updates-content">
-          <div style="margin-bottom: 8px;"><strong>Ny kalkulator</strong> • Lagt til støtte for Rogaland og Akershus</div>
-          <div><strong>Nettside</strong> • Nytt design lansert!</div>
-        </div>
-      </a>
-
+    <div class="bento-grid" id="bentoGrid">
+      <!-- Content populated by JavaScript -->
     </div>
   </main>
 
   <script>
+    // Data for all available content
+    const contentData = {
+      guides: [
+        { title: "Fraværsgrensen?", url: "Guides/absence-rules.html" },
+        { title: "Søk til VGS", url: "Guides/vgs-application-process.html" },
+        { title: "Få stipend", url: "Guides/student-finances.html" },
+        { title: "Eksamenstips", url: "Guides/exams-in-vgs.html" },
+        { title: "Hvordan få bedre karakterer?", url: "Guides/grades-system.html" },
+        { title: "Karaktersystem", url: "Guides/grades-system.html" },
+        { title: "Motivasjon", url: "Guides/motivation.html" },
+        { title: "Studier bedre", url: "Guides/study-better-and-grades.html" },
+        { title: "Fagvalg", url: "Guides/program-choice.html" },
+        { title: "Starte på VGS", url: "Guides/new-students.html" },
+        { title: "Nåværende elev", url: "Guides/current-students.html" },
+        { title: "Forhold og skole", url: "Guides/student-rights-and-school-life.html" },
+        { title: "Dårlige karakterer", url: "Guides/failing-grades.html" },
+        { title: "Privat eksamen", url: "Guides/privatist.html" },
+        { title: "Bytte skole", url: "Guides/change-school-or-program.html" },
+        { title: "Lærlingeplasser", url: "Guides/apprenticeships-and-vocational.html" },
+        { title: "Venteliste", url: "Guides/waitlist.html" },
+        { title: "Ferdig på VGS", url: "Guides/finished-students.html" }
+      ],
+      tools: [
+        { title: "Inntakskalkulator", url: "Tools/inntakskalkulator.html", icon: "arrow_forward" },
+        { title: "Usikkert på hva å velge?", url: "Tools/program-finder.html", icon: "arrow_forward" },
+        { title: "Karaktertracker", url: "Tools/grade-tracker.html", icon: "arrow_forward" },
+        { title: "Poenggrense", url: "Tools/point-limit.html", icon: "arrow_forward" }
+      ],
+      interactives: [
+        { title: "Eksamen Simulator 2026", url: "Interactives/exam-simulator.html", label: "Prøv" },
+        { title: "Fagordbok Flashcards", url: "Interactives/fagordbok-flashcards.html", label: "Quiz" },
+        { title: "VGS Grunnleggende Quiz", url: "Interactives/vgs-basics-quiz.html", label: "Test" }
+      ]
+    };
+
+    // Fun facts that rotate bi-weekly
+    const funFacts = [
+      "Elever som velger programfag på VGS får ofte bedre møtefrekvens enn de som bare tar allmenne fag.",
+      "I 2022 var matematikk ett av de fagene med størst andel karakteren 5 og 6, men også flest stryk.",
+      "Eksamen i VGS er valgfri for elever med gjennomsnitt 5.0 eller høyere - de kan få vitnemål uten å møte til eksamen.",
+      "Fylker som Rogaland og Akershus har historisk høyere inntakskvoter enn andre fylker på søknadsprosessen.",
+      "Læreplanen for VGS ble sist revidert i 2020, med særlig fokus på digital kompetanse og bærekraft.",
+      "Karakterer blir satt på skala 1-6, men internt bruker noen fylker en 0-6 skala for interne vurderinger.",
+      "Fravær på mer enn 10% av timetallet kan resultere i at du mister retten til vitnemål, selv med godkjente karakterer.",
+      "Elever som dropper ut av VGS har statlig plikt til å delta i introduksjonsprogrammet inntil fylte 20 år.",
+      "Privatister kan ta eksamen fra privatistordningen og samle karakterer fra flere eksamenstermer for å få vitnemål.",
+      "Søknadsrunden til VGS skjer vanligvis på hausten året før du skal starte, som regel i oktober-november.",
+      "Stipendordningen i Norge gir rundt 1.5 milliarder kroner årlig til elever som trenger økonomisk støtte.",
+      "Elever med dysleksi eller andre lærevansker har rett til ekstra tid under eksamen - ofte 25% eller 50% mer tid.",
+      "Yrkesfagene i VGS kombinerer læreplasser på bedrift med undervisning på skolen, vanligvis 2 år skole og 2 år bedrift.",
+      "Karakterer fra VGS-vitnemålet har varighet på 5 år for opptak til høyere utdanning i Norge."
+    ];
+
+    // Get bi-weekly fun fact (changes every 2 weeks)
+    function getTodaysFunFact() {
+      const today = new Date();
+      const startDate = new Date('2026-03-23');
+      const daysDiff = Math.floor((today - startDate) / (1000 * 60 * 60 * 24));
+      const biWeeklyIndex = Math.floor(daysDiff / 14) % funFacts.length;
+      return funFacts[biWeeklyIndex];
+    }
+
+    // Shuffle array (Fisher-Yates)
+    function shuffleArray(array) {
+      const arr = [...array];
+      for (let i = arr.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [arr[i], arr[j]] = [arr[j], arr[i]];
+      }
+      return arr;
+    }
+
+    // Create a random selection of cards
+    function generateGrid() {
+      const grid = document.getElementById('bentoGrid');
+      
+      // Get random items from each category
+      const shuffledGuides = shuffleArray(contentData.guides).slice(0, 8);
+      const shuffledTools = shuffleArray(contentData.tools).slice(0, 2);
+      const shuffledInteractives = shuffleArray(contentData.interactives).slice(0, 2);
+
+      // Combine all items
+      let items = [...shuffledGuides, ...shuffledTools, ...shuffledInteractives];
+      let html = '';
+
+      // Add fun fact as featured item
+      html += `
+        <div class="bento-card card-fun-fact grid-item-featured">
+          <div>
+            <div class="fun-fact-label">💡 Fun Fact (Update hvert 14. dag)</div>
+            <div class="card-title">${getTodaysFunFact()}</div>
+          </div>
+        </div>
+      `;
+
+      // Add all content cards
+      items.forEach(item => {
+        if (item.icon) {
+          // Tool card
+          html += `
+            <a href="${item.url}" class="bento-card card-tools">
+              <div class="card-title">${item.title}</div>
+              <div class="card-icon">
+                <span class="material-icons">${item.icon}</span>
+              </div>
+            </a>
+          `;
+        } else if (item.label) {
+          // Interactive card
+          html += `
+            <a href="${item.url}" class="bento-card card-interactive">
+              <div class="card-title" style="font-family: 'Inter Tight', sans-serif; font-weight: 650; color: var(--card-pale);">${item.title}</div>
+              <div class="card-icon" style="width:25%; border-radius: 600px;">
+                <span class="card-title" style="font-size: 14px;">${item.label}</span>
+              </div>
+            </a>
+          `;
+        } else {
+          // Guide card
+          html += `
+            <a href="${item.url}" class="bento-card card-guides">
+              <div class="card-title">${item.title}</div>
+            </a>
+          `;
+        }
+      });
+
+      // Add link to Updates page
+      html += `
+        <a href="updates.html" class="bento-card card-updates">
+          <div class="card-title" style="margin-bottom: 16px;">Oppdateringer</div>
+          <div class="card-updates-content">
+            <div style="color: var(--text-muted);">Se alle oppdateringer og nyheter →</div>
+          </div>
+        </a>
+      `;
+
+      grid.innerHTML = html;
+    }
+
+    // Generate grid on page load
+    document.addEventListener('DOMContentLoaded', generateGrid);
+
     // Search Functionality
     const searchInput = document.getElementById('searchInput');
     const searchResults = document.getElementById('searchResults');

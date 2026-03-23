@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Oppdateringer - Videregående Hjelp</title>
+  <link rel="shortcut icon" href="vgshjelp-logo.png" type="image/x-icon">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200;300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+  <style>
+    :root {
+      /* Bold Palette */
+      --bg: #050505; 
+      --text: #ffffff;
+      --text-muted: #888;
+      
+      --card-red: #d40b00;
+      --card-lime: #D0F54E;
+      --card-blue: #5865F2;
+      --card-orange: #FF9F0A;
+      --card-green: #30D158;
+      --card-pale: #F2F2F7;
+      
+      --surface: #1c1c1e;
+      --border: #2c2c2e;
+      
+      /* Typography */
+      --font-display: 'Inter Tight', sans-serif;
+      --font-body: 'Manrope', sans-serif;
+    }
+
+    [data-theme="light"] {
+      --bg: #ffffff;
+      --text: #000000;
+      --text-muted: #555;
+      --surface: #f2f2f7;
+      --border: #e5e5ea;
+    }
+
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: var(--font-body);
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    /* Layout */
+    main {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 0 16px 40px 16px;
+    }
+
+    /* Header */
+    header {
+      padding: 12px 0;
+      margin-bottom: 24px;
+      border-bottom: 1px solid var(--border);
+    }
+    
+    @media (min-width: 480px) {
+      main {
+        padding: 0 20px 60px 20px;
+      }
+      
+      header {
+        padding: 20px 0;
+        margin-bottom: 40px;
+      }
+    }
+
+    .header-content {
+      max-width: 1400px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0 16px;
+    }
+    
+    @media (min-width: 480px) {
+      .header-content {
+        padding: 0 20px;
+      }
+    }
+
+    .logo {
+      font-family: var(--font-display);
+      font-size: 20px;
+      font-weight: 800;
+      color: var(--text);
+      text-decoration: none;
+      letter-spacing: -0.03em;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 12px;
+    }
+
+    .nav-links a {
+      color: var(--text-muted);
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 13px;
+      transition: color 0.2s;
+    }
+    
+    @media (min-width: 480px) {
+      .logo {
+        font-size: 24px;
+      }
+      
+      .nav-links {
+        gap: 24px;
+      }
+      
+      .nav-links a {
+        font-size: 15px;
+      }
+    }
+
+    .nav-links a:hover {
+      color: var(--text);
+    }
+
+    .nav-links a.active {
+      color: var(--text);
+    }
+
+    /* Page Title */
+    .page-title {
+      font-family: var(--font-display);
+      font-size: 32px;
+      font-weight: 800;
+      margin-bottom: 40px;
+      letter-spacing: -0.03em;
+    }
+
+    @media (min-width: 768px) {
+      .page-title {
+        font-size: 48px;
+      }
+    }
+
+    /* Updates Container */
+    .updates-container {
+      display: grid;
+      gap: 24px;
+    }
+
+    @media (min-width: 768px) {
+      .updates-container {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    .update-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      padding: 24px;
+      border-radius: 12px;
+      transition: all 0.2s;
+    }
+
+    @media (min-width: 480px) {
+      .update-card {
+        padding: 32px;
+      }
+    }
+
+    .update-card:hover {
+      transform: translateY(-2px);
+      border-color: var(--text-muted);
+    }
+
+    .update-date {
+      font-size: 12px;
+      color: var(--text-muted);
+      font-weight: 600;
+      margin-bottom: 8px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .update-title {
+      font-family: var(--font-display);
+      font-size: 20px;
+      font-weight: 700;
+      margin-bottom: 12px;
+      color: var(--text);
+    }
+
+    @media (min-width: 480px) {
+      .update-title {
+        font-size: 24px;
+      }
+    }
+
+    .update-content {
+      font-size: 14px;
+      color: var(--text-muted);
+      line-height: 1.6;
+    }
+
+    @media (min-width: 480px) {
+      .update-content {
+        font-size: 15px;
+      }
+    }
+
+    .update-badge {
+      display: inline-block;
+      background: var(--card-lime);
+      color: #000;
+      padding: 4px 12px;
+      border-radius: 20px;
+      font-size: 11px;
+      font-weight: 700;
+      margin-top: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .back-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--text-muted);
+      text-decoration: none;
+      font-weight: 600;
+      margin-bottom: 32px;
+      transition: color 0.2s;
+    }
+
+    .back-link:hover {
+      color: var(--text);
+    }
+
+    .back-link .material-icons {
+      font-size: 20px;
+    }
+
+    /* Footer */
+    footer {
+      margin-top: 40px;
+      text-align: center;
+      color: var(--text-muted);
+      font-size: 12px;
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <header>
+      <div class="header-content">
+        <a href="/" class="logo">Videregående Hjelp</a>
+        <nav class="nav-links">
+          <a href="guides.html">Guider</a>
+          <a href="tools.html">Verktøy</a>
+          <a href="interactives.html">Interaktivt</a>
+        </nav>
+      </div>
+    </header>
+
+    <a href="/" class="back-link">
+      <span class="material-icons">arrow_back</span>
+      Tilbake til hovedside
+    </a>
+
+    <h1 class="page-title">Oppdateringer</h1>
+
+    <div class="updates-container">
+      <!-- March 2026 -->
+      <div class="update-card">
+        <div class="update-date">23. mars 2026</div>
+        <div class="update-title">Bedre design (igjen)</div>
+        <div class="update-content">
+          Videregående Hjelp har fått et bedre design.
+        </div>
+        <div class="update-badge">Nett</div>
+      </div>
+    </div>
+  </main>
+
+  <script>
+    // Simple theme init
+    if (!localStorage.getItem('theme')) {
+      localStorage.setItem('theme', 'dark');
+    }
+    document.documentElement.setAttribute('data-theme', localStorage.getItem('theme'));
+
+    // Mark this nav link as active
+    const currentPage = window.location.pathname;
+    if (currentPage.includes('updates.html')) {
+      // Could add active styling if needed
+    }
+  </script>
+</body>
+</html>
