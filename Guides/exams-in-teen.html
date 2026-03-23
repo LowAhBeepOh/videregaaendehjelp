@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Eksamen i ungdomsskolen – Videregående Hjelp</title>
+  <link rel="shortcut icon" href="../vgshjelp-logo.png" type="image/x-icon">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200;300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+  <style>
+    :root {
+      --primary: #d32f2f; --primary-light: #ef5350; --primary-dark: #b71c1c;
+      --bg: #f8f9fa; --surface: #ffffff; --surface-light: #f5f5f5;
+      --text: #212121; --text-muted: #757575; --border: #e0e0e0;
+      --shadow: 0 2px 8px rgba(0,0,0,0.08); --shadow-lg: 0 4px 16px rgba(0,0,0,0.12);
+    }
+    [data-theme="dark"] {
+      --primary: #ff5252; --primary-light: #ff7070; --primary-dark: #d32f2f;
+      --bg: #121212; --surface: #1e1e1e; --surface-light: #2a2a2a;
+      --text: #ffffff; --text-muted: #b0b0b0; --border: #333333;
+      --shadow: 0 2px 8px rgba(0,0,0,0.30); --shadow-lg: 0 4px 16px rgba(0,0,0,0.40);
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'Manrope', sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; transition: background 0.3s, color 0.3s; min-height: 100vh; }
+    main { max-width: 900px; margin: 0 auto; padding: 0 20px; }
+    header { display: flex; justify-content: space-between; align-items: center; padding: 20px 0; margin-bottom: 40px; border-bottom: 1px solid var(--border); }
+    .logo { font-family: 'Inter Tight', sans-serif; font-size: 24px; font-weight: 700; color: var(--primary); text-decoration: none; }
+    .header-controls { display: flex; gap: 20px; align-items: center; }
+    .nav-links { display: flex; gap: 30px; align-items: center; list-style: none; }
+    .nav-links a { text-decoration: none; color: var(--text); font-weight: 500; font-size: 14px; transition: color 0.2s; }
+    .nav-links a:hover, .nav-links a.active { color: var(--primary); }
+    .nav-links a.active { font-weight: 700; }
+    .settings-btn { background: none; border: none; cursor: pointer; font-size: 24px; color: var(--text); transition: color 0.2s; display: flex; align-items: center; }
+    .settings-btn:hover { color: var(--primary); }
+    .material-icons { font-size: 24px; }
+    .page-header { margin-bottom: 50px; }
+    .page-header h1 { font-family: 'Inter Tight', sans-serif; font-size: 42px; font-weight: 700; margin-bottom: 12px; letter-spacing: -0.02em; }
+    .page-header p { font-size: 16px; color: var(--text-muted); margin-bottom: 20px; }
+    .content { background: var(--surface); border: 1px solid var(--border); border-radius: 16px; padding: 40px; margin-bottom: 60px; line-height: 1.8; }
+    .content h2 { font-family: 'Inter Tight', sans-serif; font-size: 28px; font-weight: 700; margin: 40px 0 20px 0; letter-spacing: -0.02em; }
+    .content h2:first-child { margin-top: 0; }
+    .content h3 { font-family: 'Inter Tight', sans-serif; font-size: 20px; font-weight: 700; margin: 30px 0 15px 0; color: var(--primary); }
+    .content p { margin-bottom: 16px; color: var(--text-muted); }
+    .content ul, .content ol { margin-left: 20px; margin-bottom: 16px; color: var(--text-muted); }
+    .content li { margin-bottom: 8px; }
+    .content strong { color: var(--text); font-weight: 700; }
+    .highlight-box { background: var(--surface-light); border-left: 4px solid var(--primary); padding: 20px; border-radius: 8px; margin: 24px 0; color: var(--text-muted); }
+    .highlight-box strong { color: var(--text); }
+    .info-box { background: var(--surface-light); border-left: 4px solid #5865F2; padding: 20px; border-radius: 8px; margin: 24px 0; color: var(--text-muted); }
+    .info-box strong { color: var(--text); }
+    .green-box { background: var(--surface-light); border-left: 4px solid #30D158; padding: 20px; border-radius: 8px; margin: 24px 0; color: var(--text-muted); }
+    .green-box strong { color: var(--text); }
+    .exam-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin: 20px 0; }
+    .exam-card { background: var(--surface-light); border: 1px solid var(--border); border-radius: 12px; padding: 20px; }
+    .exam-card .exam-label { font-size: 12px; color: var(--text-muted); margin-bottom: 6px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; }
+    .exam-card .exam-title { font-family: 'Inter Tight', sans-serif; font-size: 18px; font-weight: 700; margin-bottom: 10px; }
+    .exam-card .exam-desc { font-size: 13px; color: var(--text-muted); }
+    .exam-card ul { margin: 8px 0 0 16px; font-size: 13px; }
+    .timeline { display: flex; flex-direction: column; gap: 0; margin: 20px 0; }
+    .timeline-item { display: flex; gap: 16px; padding: 16px 0; border-bottom: 1px solid var(--border); }
+    .timeline-item:last-child { border-bottom: none; }
+    .timeline-date { font-family: 'Inter Tight', sans-serif; font-weight: 700; font-size: 13px; color: var(--primary); min-width: 100px; padding-top: 2px; }
+    .timeline-content { font-size: 14px; color: var(--text-muted); }
+    .timeline-content strong { color: var(--text); }
+    .poeng-example { background: var(--surface-light); border: 1px solid var(--border); border-radius: 12px; padding: 20px; margin: 20px 0; font-family: 'Inter Tight', sans-serif; }
+    .poeng-example .poeng-row { display: flex; justify-content: space-between; padding: 8px 0; border-bottom: 1px solid var(--border); font-size: 14px; color: var(--text-muted); }
+    .poeng-example .poeng-row:last-child { border-bottom: none; font-weight: 700; color: var(--text); font-size: 16px; }
+    .poeng-example .poeng-row span:last-child { font-weight: 700; color: var(--text); }
+    .back-link { display: inline-flex; align-items: center; gap: 8px; color: var(--primary); text-decoration: none; font-weight: 600; margin-bottom: 20px; transition: gap 0.2s; }
+    .back-link:hover { gap: 12px; }
+    footer { border-top: 1px solid var(--border); padding: 40px 0; text-align: center; color: var(--text-muted); font-size: 14px; }
+    .settings-modal { display: none; position: fixed; bottom: 20px; right: 20px; background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 20px; box-shadow: var(--shadow-lg); z-index: 1000; width: 280px; }
+    .settings-modal.show { display: block; animation: slideUp 0.3s ease; }
+    @keyframes slideUp { from { transform: translateY(20px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+    .settings-modal h3 { font-family: 'Inter Tight', sans-serif; font-size: 16px; font-weight: 700; margin-bottom: 16px; display: flex; justify-content: space-between; align-items: center; }
+    .close-settings { background: none; border: none; cursor: pointer; font-size: 20px; color: var(--text); padding: 0; }
+    .theme-options { display: flex; flex-direction: column; gap: 12px; }
+    .theme-option { padding: 12px 16px; border: 1px solid var(--border); border-radius: 8px; background: transparent; cursor: pointer; font-family: 'Manrope', sans-serif; font-size: 14px; color: var(--text); transition: all 0.2s; display: flex; align-items: center; gap: 8px; }
+    .theme-option:hover { border-color: var(--primary); background: var(--surface-light); }
+    .theme-option.active { background: var(--primary); color: white; border-color: var(--primary); }
+    .radio { width: 18px; height: 18px; border: 2px solid currentColor; border-radius: 50%; display: flex; align-items: center; justify-content: center; }
+    .theme-option.active .radio::after { content: ''; width: 8px; height: 8px; background: currentColor; border-radius: 50%; }
+    .modal-overlay { display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.3); z-index: 999; }
+    .modal-overlay.show { display: block; }
+    @media (max-width: 768px) {
+      .page-header h1 { font-size: 28px; }
+      .content { padding: 24px; }
+      header { flex-wrap: wrap; justify-content: space-between; }
+      .exam-grid { grid-template-columns: 1fr; }
+      .timeline-item { flex-direction: column; gap: 4px; }
+      .timeline-date { min-width: unset; }
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <header>
+      <a href="/" class="logo">Videregående Hjelp</a>
+      <div class="header-controls">
+        <nav>
+          <ul class="nav-links">
+            <li><a href="/guides.html" class="active">Guider</a></li>
+            <li><a href="/tools.html">Verktøy</a></li>
+            <li><a href="/interactives.html">Interaktivt</a></li>
+          </ul>
+        </nav>
+        <button class="settings-btn" id="settingsBtn" aria-label="Settings">
+          <span class="material-icons">settings</span>
+        </button>
+      </div>
+    </header>
+
+    <a href="/guides.html" class="back-link">
+      <span class="material-icons" style="font-size: 20px;">arrow_back</span> Tilbake til alle guider
+    </a>
+
+    <section class="page-header">
+      <h1>Eksamen i ungdomsskolen</h1>
+      <p>Alt du trenger å vite om skriftlig og muntlig eksamen på 10. trinn – og hvordan karakterene påvirker sjansene dine til å komme inn på VGS.</p>
+    </section>
+
+    <section class="content">
+
+      <h2>Hva slags eksamen har du i 10. klasse?</h2>
+
+      <p>Alle elever på 10. trinn trekkes ut til to eksamener: én skriftlig og én muntlig. De to trekkene skjer uavhengig av hverandre, så du kan i prinsippet komme opp i det samme faget to ganger.</p>
+
+      <div class="exam-grid">
+        <div class="exam-card">
+          <div class="exam-label">Sentralt gitt</div>
+          <div class="exam-title">Skriftlig eksamen</div>
+          <div class="exam-desc">Samme oppgaver for alle elever i hele landet, utarbeidet av Udir. Du trekkes ut til <strong>ett</strong> av disse fagene:
+            <ul>
+              <li>Norsk (to dager: hovedmål + sidemål)</li>
+              <li>Matematikk (én dag, todelt)</li>
+              <li>Engelsk (én dag)</li>
+            </ul>
+          </div>
+        </div>
+        <div class="exam-card">
+          <div class="exam-label">Lokalt gitt</div>
+          <div class="exam-title">Muntlig eksamen</div>
+          <div class="exam-desc">Oppgavene lages av skolen din. Du kan trekkes opp i de fleste fag, blant annet:
+            <ul>
+              <li>Norsk, engelsk, matematikk</li>
+              <li>Naturfag, KRLE, samfunnsfag</li>
+              <li>Fremmedspråk (tysk, spansk, osv.)</li>
+              <li>Arbeidslivsfag og andre valgfag</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <h2>Datoer og trekning (våren 2026)</h2>
+
+      <p>Udir fastsetter datoene for skriftlig eksamen. Her er den typiske tidslinja for 10. trinn:</p>
+
+      <div class="timeline">
+        <div class="timeline-item">
+          <div class="timeline-date">13. mai</div>
+          <div class="timeline-content"><strong>Trekkdag skriftlig</strong> – kl. 09:00 får du vite hvilken skriftlig eksamen du skal ta.</div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-date">20. mai</div>
+          <div class="timeline-content"><strong>Skriftlig eksamen engelsk</strong></div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-date">21. mai</div>
+          <div class="timeline-content"><strong>Skriftlig eksamen norsk, hovedmål</strong></div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-date">22. mai</div>
+          <div class="timeline-content"><strong>Skriftlig eksamen norsk, sidemål</strong> – kun for dem trukket opp i norsk. Elever med fritak for sidemål har bare én dag.</div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-date">26. mai</div>
+          <div class="timeline-content"><strong>Skriftlig eksamen matematikk</strong></div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-date">Mai–juni</div>
+          <div class="timeline-content"><strong>Muntlig eksamen</strong> – datoene settes av den enkelte skole. Du får vite fag 48 timer før og oppgave/tema 24 timer før.</div>
+        </div>
+      </div>
+
+      <div class="highlight-box">
+        <strong>⚠️ Fritak:</strong> Noen elever har fritak fra eksamen i enkeltfag (f.eks. sidemål). Blir du trukket opp i et fag du har fritak i, slipper du eksamen – men du følger likevel timeplanen til eksamensgruppen din.
+      </div>
+
+      <h2>Slik fungerer skriftlig eksamen</h2>
+
+      <h3>Norsk</h3>
+      <p>Norsk skriftlig er en <strong>heldigital eksamen</strong> som gjennomføres over to dager. Dag 1 besvarer du på hovedmål, dag 2 på sidemål. Begge dagene regnes som separate eksamener med egne karakterer. Du har tilgang til utvalgte nettbaserte hjelpemidler som skolen informerer om på forhånd.</p>
+
+      <h3>Matematikk</h3>
+      <p>Matematikk er en todelt eksamen på én dag. <strong>Del 1</strong> gjennomføres uten hjelpemidler, og <strong>del 2</strong> med hjelpemidler (kalkulator og formelark). Du leverer del 1 før del 2 starter – og det er ikke lov å gå tilbake.</p>
+
+      <h3>Engelsk</h3>
+      <p>Engelskeksamen gjennomføres digitalt på én dag. Du kan bruke visse nettbaserte hjelpemidler. Oppgavene tester lesing, skriving og tekstforståelse.</p>
+
+      <div class="info-box">
+        <strong>💡 Kildebruk:</strong> Bruker du kilder på eksamen, skal disse oppgis slik at sensor kan finne frem til dem. Mangelfull eller uselvstendig kildebruk kan gi lavere karakter.
+      </div>
+
+      <h2>Slik fungerer muntlig eksamen</h2>
+
+      <p>Muntlig eksamen er <strong>lokalt gitt</strong>, altså laget og sensurert av lærere ved din skole (ofte med ekstern sensor). Slik foregår det:</p>
+      <ol>
+        <li>Du får vite <strong>eksamensfaget 48 timer før</strong> eksamen.</li>
+        <li>Du mottar <strong>tema eller problemstilling 24 timer før</strong> og bruker denne tiden til forberedelse.</li>
+        <li>Selve eksamen varer <strong>inntil 30 minutter</strong> (muntlig-praktisk inntil 45 minutter).</li>
+        <li>Du kan velge å gå opp <strong>alene, i par eller i trio</strong> – men du får uansett en individuell karakter.</li>
+      </ol>
+
+      <div class="highlight-box">
+        <strong>⚠️ Råd om gruppevalg:</strong> De fleste elever viser kompetansen sin best ved å gå opp alene. I par og trio er det lettere å bli glemt av sensor. Snakk med læreren din dersom du er usikker.
+      </div>
+
+      <h2>Hva betyr eksamenskarakterene dine?</h2>
+
+      <p>Eksamenskarakterene fra 10. trinn er <strong>direkte avgjørende for hvilken VGS du kommer inn på</strong>. De inngår i poengsummen du bruker i søknaden til videregående opplæring via Vigo.</p>
+
+      <p>Poengsummen regnes slik:</p>
+      <div class="poeng-example">
+        <div class="poeng-row"><span>Summer alle standpunkt- og eksamenskarakterer</span><span>f.eks. sum = 135</span></div>
+        <div class="poeng-row"><span>Del på antall karakterer du har</span><span>÷ 30 karakterer</span></div>
+        <div class="poeng-row"><span>Gjennomsnittskarakter</span><span>= 4,50</span></div>
+        <div class="poeng-row"><span>Gang med 10</span><span>× 10</span></div>
+        <div class="poeng-row"><span>Din inntagspoengsum</span><span>= 45,0 poeng</span></div>
+      </div>
+
+      <p>Alle avsluttende karakterer teller – altså alle standpunktkarakterer og alle eksamenskarakterer. Har du norsk over to eksamenskarakterer (hovedmål og sidemål), teller begge.</p>
+
+      <div class="green-box">
+        <strong>✅ Eksamenskarakteren og standpunktkarakteren er likestilte</strong> – begge inngår enkeltvis i beregningen. En sterk eksamenskarakter kan løfte snittet ditt selv om standpunktet var svakere, og omvendt.
+      </div>
+
+      <h2>Kan du klage på karakteren?</h2>
+
+      <h3>Skriftlig eksamen</h3>
+      <p>Du kan klage på karakteren til skriftlig eksamen. Du trenger <strong>ikke å begrunne klagen</strong> – det er nok å si at du ønsker å klage. Klagefristen er normalt <strong>10 dager</strong> fra du fikk vite karakteren. En ekstern klagenemnd vurderer besvarelsen på nytt, og karakteren kan gå opp, stå uendret, eller gå ned.</p>
+
+      <h3>Muntlig eksamen</h3>
+      <p>Du <strong>kan ikke klage på selve karakteren</strong> til muntlig eksamen – sensor er til stede og har gjort en direkte vurdering. Du kan imidlertid klage på <strong>formelle feil</strong> ved gjennomføringen, for eksempel hvis forberedelsestiden var for kort eller eksamensprosedyrene ikke ble fulgt.</p>
+
+      <h2>Tips til forberedelse</h2>
+
+      <h3>Skriftlig</h3>
+      <ul>
+        <li><strong>Øv på tidligere eksamensoppgaver</strong> – disse finner du gratis på <a href="https://www.udir.no/eksamen-og-prover/eksamen/tidligere-eksamensoppgaver/" style="color: var(--primary);" target="_blank">udir.no</a>. Det er den beste måten å forstå hva som forventes.</li>
+        <li><strong>Lær deg eksamensformatet</strong> for det faget du kan risikere å trekke. Vet du på forhånd hvordan matematikkdelen uten hjelpemidler ser ut, slipper du overraskelser.</li>
+        <li><strong>Øv på kildebruk</strong> i norsk og engelsk – vurderingsveiledningen legger stor vekt på dette.</li>
+      </ul>
+
+      <h3>Muntlig</h3>
+      <ul>
+        <li><strong>Øv på å snakke høyt</strong> om faglige temaer. Sensor vil at du skal resonere, ikke bare gjengi fakta.</li>
+        <li><strong>Bruk de 24 timene godt</strong> – lag en disposisjon og noter nøkkelpunkter. Du kan ta med notater inn til eksamen.</li>
+        <li><strong>Vær forberedt på oppfølgingsspørsmål</strong> – sensor vil gå dypere i det du sier, så unngå å si ting du ikke kan mer om.</li>
+      </ul>
+
+      <h2>Nyttige lenker</h2>
+      <ul>
+        <li><a href="https://eksamensplan.udir.no/?oppl%C3%A6ringsniv%C3%A5=GS" style="color: var(--primary);" target="_blank">Udir – Eksamensdatoer grunnskolen</a></li>
+        <li><a href="https://ndla.no" style="color: var(--primary);" target="_blank">NDLA – Gratis digitale læremidler for alle fag</a></li>
+        <li><a href="https://www.vilbli.no/nb/no/a/inntaksregler-og-poengberegning-6" style="color: var(--primary);" target="_blank">Vilbli.no – Slik beregnes inntakspoengsum til VGS</a></li>
+        <li><a href="https://www.ung.no/oss/386903" style="color: var(--primary);" target="_blank">Ung.no – Vanlige spørsmål om eksamen i 10. klasse</a></li>
+      </ul>
+
+    </section>
+  </main>
+
+  <footer>
+    <p>&copy; 2026 Videregående Hjelp. Et åpent prosjekt for alle.</p>
+  </footer>
+
+  <div class="modal-overlay" id="modalOverlay"></div>
+  <div class="settings-modal" id="settingsModal">
+    <h3>Innstillinger<button class="close-settings" id="closeSettings">×</button></h3>
+    <div class="theme-options">
+      <button class="theme-option" data-theme="system" onclick="setTheme('system')"><span class="radio"></span>System tema</button>
+      <button class="theme-option" data-theme="light" onclick="setTheme('light')"><span class="radio"></span>Lyst tema</button>
+      <button class="theme-option" data-theme="dark" onclick="setTheme('dark')"><span class="radio"></span>Mørkt tema</button>
+    </div>
+  </div>
+
+  <script>
+    function initTheme() { setTheme(localStorage.getItem('theme') || 'system'); }
+    function setTheme(theme) {
+      localStorage.setItem('theme', theme);
+      let final = theme === 'system' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme;
+      document.documentElement.setAttribute('data-theme', final);
+      document.querySelectorAll('.theme-option').forEach(b => b.classList.remove('active'));
+      document.querySelector(`[data-theme="${theme}"]`).classList.add('active');
+    }
+    const settingsBtn = document.getElementById('settingsBtn');
+    const settingsModal = document.getElementById('settingsModal');
+    const closeSettings = document.getElementById('closeSettings');
+    const modalOverlay = document.getElementById('modalOverlay');
+    settingsBtn.addEventListener('click', () => { settingsModal.classList.toggle('show'); modalOverlay.classList.toggle('show'); });
+    closeSettings.addEventListener('click', () => { settingsModal.classList.remove('show'); modalOverlay.classList.remove('show'); });
+    modalOverlay.addEventListener('click', () => { settingsModal.classList.remove('show'); modalOverlay.classList.remove('show'); });
+    window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', () => { if ((localStorage.getItem('theme') || 'system') === 'system') initTheme(); });
+    initTheme();
+  </script>
+</body>
+</html>

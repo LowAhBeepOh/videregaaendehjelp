@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Førstegangsvitnemål: Hva det er og hva det betyr for opptak – Videregående Hjelp</title>
+  <link rel="shortcut icon" href="../vgshjelp-logo.png" type="image/x-icon">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200;300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+  <style>
+    :root {
+      --primary: #d32f2f; --primary-light: #ef5350; --primary-dark: #b71c1c;
+      --bg: #f8f9fa; --surface: #ffffff; --surface-light: #f5f5f5;
+      --text: #212121; --text-muted: #757575; --border: #e0e0e0;
+      --shadow: 0 2px 8px rgba(0,0,0,0.08); --shadow-lg: 0 4px 16px rgba(0,0,0,0.12);
+    }
+    [data-theme="dark"] {
+      --primary: #ff5252; --primary-light: #ff7070; --primary-dark: #d32f2f;
+      --bg: #121212; --surface: #1e1e1e; --surface-light: #2a2a2a;
+      --text: #ffffff; --text-muted: #b0b0b0; --border: #333333;
+      --shadow: 0 2px 8px rgba(0,0,0,0.30); --shadow-lg: 0 4px 16px rgba(0,0,0,0.40);
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'Manrope', sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; transition: background 0.3s, color 0.3s; min-height: 100vh; }
+    main { max-width: 900px; margin: 0 auto; padding: 0 20px; }
+    header { display: flex; justify-content: space-between; align-items: center; padding: 20px 0; margin-bottom: 40px; border-bottom: 1px solid var(--border); }
+    .logo { font-family: 'Inter Tight', sans-serif; font-size: 24px; font-weight: 700; color: var(--primary); text-decoration: none; }
+    .header-controls { display: flex; gap: 20px; align-items: center; }
+    .nav-links { display: flex; gap: 30px; align-items: center; list-style: none; }
+    .nav-links a { text-decoration: none; color: var(--text); font-weight: 500; font-size: 14px; transition: color 0.2s; }
+    .nav-links a:hover, .nav-links a.active { color: var(--primary); }
+    .nav-links a.active { font-weight: 700; }
+    .settings-btn { background: none; border: none; cursor: pointer; font-size: 24px; color: var(--text); transition: color 0.2s; display: flex; align-items: center; }
+    .settings-btn:hover { color: var(--primary); }
+    .material-icons { font-size: 24px; }
+    .page-header { margin-bottom: 50px; }
+    .page-header h1 { font-family: 'Inter Tight', sans-serif; font-size: 42px; font-weight: 700; margin-bottom: 12px; letter-spacing: -0.02em; }
+    .page-header p { font-size: 16px; color: var(--text-muted); margin-bottom: 20px; }
+    .content { background: var(--surface); border: 1px solid var(--border); border-radius: 16px; padding: 40px; margin-bottom: 60px; line-height: 1.8; }
+    .content h2 { font-family: 'Inter Tight', sans-serif; font-size: 28px; font-weight: 700; margin: 40px 0 20px 0; letter-spacing: -0.02em; }
+    .content h2:first-child { margin-top: 0; }
+    .content h3 { font-family: 'Inter Tight', sans-serif; font-size: 20px; font-weight: 700; margin: 30px 0 15px 0; color: var(--primary); }
+    .content p { margin-bottom: 16px; color: var(--text-muted); }
+    .content ul, .content ol { margin-left: 20px; margin-bottom: 16px; color: var(--text-muted); }
+    .content li { margin-bottom: 8px; }
+    .content strong { color: var(--text); font-weight: 700; }
+    .highlight-box { background: var(--surface-light); border-left: 4px solid var(--primary); padding: 20px; border-radius: 8px; margin: 24px 0; color: var(--text-muted); }
+    .highlight-box strong { color: var(--text); }
+    .info-box { background: var(--surface-light); border-left: 4px solid #5865F2; padding: 20px; border-radius: 8px; margin: 24px 0; color: var(--text-muted); }
+    .info-box strong { color: var(--text); }
+    .quota-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin: 20px 0; }
+    .quota-card { background: var(--surface-light); border: 1px solid var(--border); border-radius: 12px; padding: 20px; }
+    .quota-card .quota-label { font-size: 13px; color: var(--text-muted); margin-bottom: 8px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; }
+    .quota-card .quota-title { font-family: 'Inter Tight', sans-serif; font-size: 18px; font-weight: 700; margin-bottom: 8px; }
+    .quota-card .quota-desc { font-size: 13px; color: var(--text-muted); }
+    .quota-card ul { margin: 8px 0 0 16px; font-size: 13px; }
+    .back-link { display: inline-flex; align-items: center; gap: 8px; color: var(--primary); text-decoration: none; font-weight: 600; margin-bottom: 20px; transition: gap 0.2s; }
+    .back-link:hover { gap: 12px; }
+    .change-badge { display: inline-block; background: #FF9F0A; color: #000; font-size: 11px; font-weight: 700; padding: 2px 8px; border-radius: 20px; margin-left: 8px; vertical-align: middle; }
+    footer { border-top: 1px solid var(--border); padding: 40px 0; text-align: center; color: var(--text-muted); font-size: 14px; }
+    .settings-modal { display: none; position: fixed; bottom: 20px; right: 20px; background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 20px; box-shadow: var(--shadow-lg); z-index: 1000; width: 280px; }
+    .settings-modal.show { display: block; animation: slideUp 0.3s ease; }
+    @keyframes slideUp { from { transform: translateY(20px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+    .settings-modal h3 { font-family: 'Inter Tight', sans-serif; font-size: 16px; font-weight: 700; margin-bottom: 16px; display: flex; justify-content: space-between; align-items: center; }
+    .close-settings { background: none; border: none; cursor: pointer; font-size: 20px; color: var(--text); padding: 0; }
+    .theme-options { display: flex; flex-direction: column; gap: 12px; }
+    .theme-option { padding: 12px 16px; border: 1px solid var(--border); border-radius: 8px; background: transparent; cursor: pointer; font-family: 'Manrope', sans-serif; font-size: 14px; color: var(--text); transition: all 0.2s; display: flex; align-items: center; gap: 8px; }
+    .theme-option:hover { border-color: var(--primary); background: var(--surface-light); }
+    .theme-option.active { background: var(--primary); color: white; border-color: var(--primary); }
+    .radio { width: 18px; height: 18px; border: 2px solid currentColor; border-radius: 50%; display: flex; align-items: center; justify-content: center; }
+    .theme-option.active .radio::after { content: ''; width: 8px; height: 8px; background: currentColor; border-radius: 50%; }
+    .modal-overlay { display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.3); z-index: 999; }
+    .modal-overlay.show { display: block; }
+    @media (max-width: 768px) {
+      .page-header h1 { font-size: 28px; }
+      .content { padding: 24px; }
+      header { flex-wrap: wrap; justify-content: space-between; }
+      .quota-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <header>
+      <a href="/" class="logo">Videregående Hjelp</a>
+      <div class="header-controls">
+        <nav>
+          <ul class="nav-links">
+            <li><a href="/guides.html" class="active">Guider</a></li>
+            <li><a href="/tools.html">Verktøy</a></li>
+            <li><a href="/interactives.html">Interaktivt</a></li>
+          </ul>
+        </nav>
+        <button class="settings-btn" id="settingsBtn" aria-label="Settings">
+          <span class="material-icons">settings</span>
+        </button>
+      </div>
+    </header>
+
+    <a href="/guides.html" class="back-link">
+      <span class="material-icons" style="font-size: 20px;">arrow_back</span> Tilbake til alle guider
+    </a>
+
+    <section class="page-header">
+      <h1>Førstegangsvitnemål</h1>
+      <p>Hva er det, hvem får det, og hva betyr det når du søker høyere utdanning? Her er alt du trenger å vite.</p>
+    </section>
+
+    <section class="content">
+
+      <h2>Hva er et førstegangsvitnemål?</h2>
+
+      <p>Et <strong>førstegangsvitnemål</strong> er vitnemålet du får når du fullfører og består videregående skole på normert tid – altså tre år (eller fire år for noen yrkesfaglige løp). Det utstedes av skolen din og er merket som «førstegangsvitnemål» direkte på dokumentet.</p>
+
+      <p>Vitnemålet er ikke noe du søker om – du får det automatisk dersom du oppfyller kravene. Det er dette vitnemålet du bruker som utgangspunkt når du søker høyere utdanning gjennom Samordna opptak.</p>
+
+      <div class="highlight-box">
+        <strong>Viktig:</strong> Førstegangsvitnemålet er kun gyldig til og med det året du fyller <strong>21 år</strong> (frem til 2028). Etter det søker du bare i ordinær kvote, uansett om du har et førstegangsvitnemål.
+      </div>
+
+      <h2>Hvem får førstegangsvitnemål?</h2>
+
+      <p>Du får førstegangsvitnemål dersom du:</p>
+      <ul>
+        <li>Har bestått et <strong>studieforberedende utdanningsprogram</strong> (f.eks. studiespesialisering, idrettsfag, musikk/dans/drama) på normert tid, eller</li>
+        <li>Har bestått et <strong>yrkesfaglig program</strong> og tatt Vg4 påbygg til generell studiekompetanse på normert tid, eller</li>
+        <li>Har yrkesfaglig vitnemål og har tatt studiekompetansefagene i tillegg på normert tid</li>
+      </ul>
+
+      <p>Yrkesfaglige elever som <em>ikke</em> tar påbygg eller studiekompetansefag, får <strong>ikke</strong> et førstegangsvitnemål som gir generell studiekompetanse.</p>
+
+      <h2>Førstegangsvitnemål og opptak til høyere utdanning</h2>
+
+      <p>Når du søker universiteter og høyskoler via Samordna opptak, fordeles studieplassene i to kvoter. Førstegangsvitnemålet gir deg tilgang til den ene av disse:</p>
+
+      <div class="quota-grid">
+        <div class="quota-card">
+          <div class="quota-label">Kvote 1</div>
+          <div class="quota-title">Førstegangsvitnemål</div>
+          <div class="quota-desc">50 % av alle studieplassene (65 % fra 2028). For deg som er 21 år eller yngre med uendret vitnemål.
+            <ul>
+              <li>Karakterpoeng (snitt × 10)</li>
+              <li>Realfagspoeng</li>
+              <li>Språkpoeng</li>
+            </ul>
+          </div>
+        </div>
+        <div class="quota-card">
+          <div class="quota-label">Kvote 2</div>
+          <div class="quota-title">Ordinær kvote</div>
+          <div class="quota-desc">50 % av alle studieplassene. Alle søkere vurderes her.
+            <ul>
+              <li>Karakterpoeng</li>
+              <li>Realfagspoeng</li>
+              <li>Språkpoeng</li>
+              <li>+ Alderspoeng og tilleggspoeng</li>
+              <li>+ Forbedrede karakterer fra privatist</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <p>Du vurderes <strong>automatisk i begge kvoter</strong> av Samordna opptak, og plasseres i den kvoten som er best for deg. Du trenger ikke gjøre noe selv.</p>
+
+      <div class="info-box">
+        <strong>💡 Fordelen med førstegangsvitnemålskvoten:</strong> Du konkurrerer ikke mot søkere som har brukt mange år på å samle alderspoeng og tilleggspoeng. Poenggrensene er som regel lavere enn i ordinær kvote, noe som gjør det lettere å komme inn på populære studier.
+      </div>
+
+      <h2>Slik beregnes poengene dine</h2>
+
+      <p>Karakterpoengene er enkle å beregne: ta gjennomsnittet av alle karakterene dine fra VGS og gang med 10. Har du for eksempel et snitt på 4,5 gir det deg <strong>45 karakterpoeng</strong>.</p>
+
+      <p>I tillegg kan du få ekstrapoeng for realfag og fremmedspråk som er med i vitnemålet:</p>
+      <ul>
+        <li><strong>Realfagspoeng:</strong> For programfag i realfag (maks 4 poeng totalt, halveres fra 2028)</li>
+        <li><strong>Språkpoeng:</strong> For fremmedspråk på programfagnivå (f.eks. tysk, spansk, fransk)</li>
+      </ul>
+
+      <p>Det maksimale du kan oppnå med et vitnemål der alt er seksere, er <strong>60 karakterpoeng</strong>.</p>
+
+      <h2>Hva skjer om du mister førstegangsvitnemålet?</h2>
+
+      <p>Du <strong>mister</strong> retten til å bruke førstegangsvitnemålet i opptaket dersom du tar opp eller endrer fag som privatist <em>etter</em> at du er ferdig med videregående. Da søker du kun i ordinær kvote.</p>
+
+      <h3>Du beholder det dersom:</h3>
+      <ul>
+        <li>Du forbedrer karakterer som privatist <strong>mens du ennå er elev</strong> i videregående (innenfor normaltiden)</li>
+        <li>Du tar nye fag som privatist som supplement (ikke som erstatning for fag du allerede har tatt som elev)</li>
+        <li>Du tar privatisteksamen i et fremmedspråk fordi skolen ikke tilbyr det</li>
+      </ul>
+
+      <h3>Du mister det dersom:</h3>
+      <ul>
+        <li>Du tar opp eller forbedrer fag som privatist <strong>etter</strong> at treårsløpet er avsluttet</li>
+        <li>Du erstatter et fag du tok som elev med et annet fag via privatistordningen (med unntak av 1T/1P i matematikk)</li>
+      </ul>
+
+      <div class="highlight-box">
+        <strong>⚠️ Viktig strategi:</strong> Ønsker du å forbedre en karakter, er det mye bedre å gjøre det som privatist <em>mens du ennå går på skolen</em> – for eksempel forbedre en Vg1-karakter i løpet av Vg2 eller Vg3. Da beholder du førstegangsvitnemålet og får forbedringen med deg.
+      </div>
+
+      <h2>Kommende endringer fra 2028 <span class="change-badge">NY REGEL</span></h2>
+
+      <p>Regjeringen har vedtatt store endringer i opptakssystemet. De viktigste for førstegangsvitnemålet trer i kraft fra studieåret 2028–29:</p>
+      <ul>
+        <li><strong>Kvoten økes</strong> fra 50 % til 65 % av alle studieplassene</li>
+        <li><strong>Aldersgrensen heves</strong> fra 21 til 23 år, slik at flere unge kan konkurrere i kvoten</li>
+        <li><strong>Tilleggspoeng reduseres kraftig</strong> – fra maks 14 poeng i dag til maks 4 poeng, noe som gjør det mindre lønnsomt å bruke år på å samle tilleggspoeng i ordinær kvote</li>
+        <li><strong>Kjønnspoeng avvikles</strong> fra 2028–29</li>
+      </ul>
+
+      <p>Disse endringene gjelder <strong>alle som søker opptak fra 2028</strong>, uavhengig av når de fullførte VGS. Går du i Vg1 i skoleåret 2025–26, er du det første kullet som berøres av de nye tilleggspoeng-reglene.</p>
+
+      <h2>Yrkesfag og førstegangsvitnemål</h2>
+
+      <p>Går du yrkesfag og vil ha generell studiekompetanse (og dermed mulighet til å søke med førstegangsvitnemål), er det to veier:</p>
+      <ul>
+        <li><strong>Vg4 påbygg:</strong> Et ekstra år med fellesfag etter Vg2 eller etter fagbrev. Gir generell studiekompetanse og førstegangsvitnemål dersom gjennomført på normert tid.</li>
+        <li><strong>Studiekompetansefag i tillegg:</strong> Du tar nødvendige fellesfag ved siden av det yrkesfaglige løpet.</li>
+      </ul>
+
+      <h2>Nyttige lenker</h2>
+      <ul>
+        <li><a href="https://www.samordnaopptak.no/universitet-og-hogskole/opptakskvoter/kvote-for-forstegangsvitnemal.html" style="color: var(--primary);" target="_blank">Samordna opptak – Kvote for førstegangsvitnemål</a></li>
+        <li><a href="https://www.samordnaopptak.no/universitet-og-hogskole/aktuelt/nye-regler-for-opptak-til-hoyere-utdanning.html" style="color: var(--primary);" target="_blank">Samordna opptak – Nye opptaksregler fra 2027/2028</a></li>
+        <li><a href="https://utdanning.no/tema/universitet_og_hogskole/slik_beregner_du_poeng" style="color: var(--primary);" target="_blank">utdanning.no – Slik beregner du poeng</a></li>
+        <li><a href="https://www.regjeringen.no/no/aktuelt/slik-blir-de-nye-reglene-for-opptak-til-hoyere-utdanning/id3118553/" style="color: var(--primary);" target="_blank">Regjeringen.no – De nye opptaksreglene forklart</a></li>
+        <li><a href="https://www.udir.no/regelverkstolkninger/opplaring/Vitnemal/svar-pa-sporsmal-om-forstegangsvitnemal/" style="color: var(--primary);" target="_blank">Udir – Svar på spørsmål om førstegangsvitnemål</a></li>
+      </ul>
+
+    </section>
+  </main>
+
+  <footer>
+    <p>&copy; 2026 Videregående Hjelp. Et åpent prosjekt for alle.</p>
+  </footer>
+
+  <div class="modal-overlay" id="modalOverlay"></div>
+  <div class="settings-modal" id="settingsModal">
+    <h3>Innstillinger<button class="close-settings" id="closeSettings">×</button></h3>
+    <div class="theme-options">
+      <button class="theme-option" data-theme="system" onclick="setTheme('system')"><span class="radio"></span>System tema</button>
+      <button class="theme-option" data-theme="light" onclick="setTheme('light')"><span class="radio"></span>Lyst tema</button>
+      <button class="theme-option" data-theme="dark" onclick="setTheme('dark')"><span class="radio"></span>Mørkt tema</button>
+    </div>
+  </div>
+
+  <script>
+    function initTheme() { setTheme(localStorage.getItem('theme') || 'system'); }
+    function setTheme(theme) {
+      localStorage.setItem('theme', theme);
+      let final = theme === 'system' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme;
+      document.documentElement.setAttribute('data-theme', final);
+      document.querySelectorAll('.theme-option').forEach(b => b.classList.remove('active'));
+      document.querySelector(`[data-theme="${theme}"]`).classList.add('active');
+    }
+    const settingsBtn = document.getElementById('settingsBtn');
+    const settingsModal = document.getElementById('settingsModal');
+    const closeSettings = document.getElementById('closeSettings');
+    const modalOverlay = document.getElementById('modalOverlay');
+    settingsBtn.addEventListener('click', () => { settingsModal.classList.toggle('show'); modalOverlay.classList.toggle('show'); });
+    closeSettings.addEventListener('click', () => { settingsModal.classList.remove('show'); modalOverlay.classList.remove('show'); });
+    modalOverlay.addEventListener('click', () => { settingsModal.classList.remove('show'); modalOverlay.classList.remove('show'); });
+    window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', () => { if ((localStorage.getItem('theme') || 'system') === 'system') initTheme(); });
+    initTheme();
+  </script>
+</body>
+</html>
