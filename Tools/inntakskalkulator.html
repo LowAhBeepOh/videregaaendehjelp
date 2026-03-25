@@ -287,11 +287,99 @@
   .bar-marker-label { position: absolute; top: 20px; transform: translateX(-50%); font-size: 12px; font-weight: 700; color: var(--text-muted); white-space: nowrap; }
   .user-needle { position: absolute; top: -10px; bottom: -10px; width: 2px; z-index: 3; }
 
+  .sources-section {
+    margin-top: 80px;
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    overflow: hidden;
+  }
+
+  .sources-header {
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+    user-select: none;
+    transition: background 0.2s;
+    background: white;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .sources-header:hover {
+    background: #f0f0f0;
+  }
+
+  .sources-header-title {
+    font-size: 16px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--text);
+  }
+
+  .sources-toggle-icon {
+    transition: transform 0.3s ease;
+    font-size: 24px;
+    color: var(--text-muted);
+  }
+
+  .sources-toggle-icon.open {
+    transform: rotate(180deg);
+  }
+
+  .sources-content {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease, padding 0.3s ease;
+    background: white;
+  }
+
+  .sources-content.open {
+    max-height: 800px;
+    overflow-y: auto;
+  }
+
+  .sources-list {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .source-item {
+    padding: 12px 16px;
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    font-size: 14px;
+    transition: all 0.2s;
+  }
+
+  .source-item:hover {
+    border-color: var(--primary);
+    box-shadow: 0 2px 8px rgba(211, 47, 47, 0.1);
+  }
+
+  .source-item a {
+    color: var(--primary);
+    text-decoration: none;
+    font-weight: 600;
+    word-break: break-all;
+  }
+
+  .source-item a:hover {
+    text-decoration: underline;
+  }
+
   @media (max-width: 900px) {
     .result-grid { grid-template-columns: 1fr; gap: 40px; }
     .minimal-header, .container { padding: 20px; }
     .card-title { font-size: 36px; }
     .steps { gap: 20px; overflow-x: auto; padding-bottom: 10px; }
+    .sources-content.open { max-height: 600px; }
   }
 </style>
 </head>
@@ -329,7 +417,7 @@
     <div id="directMode" style="display:none;">
       <div class="select-group">
         <label>Dine grunnskolepoeng</label>
-        <input type="number" class="grade-input" id="directScore" placeholder="0.0" oninput="updatePreview()" style="max-width: 200px;">
+        <input type="number" class="grade-input" id="directScore" placeholder="0.0" value="40" oninput="updatePreview()" style="max-width: 200px;">
       </div>
     </div>
 
@@ -439,6 +527,45 @@
     <div class="btn-row">
       <button class="btn btn-ghost" onclick="goToStep3()">Endre valg</button>
       <button class="btn btn-primary" onclick="resetAll()">Start på nytt</button>
+    </div>
+  </div>
+
+  <!-- SOURCES -->
+  <div class="sources-section">
+    <div class="sources-header" onclick="toggleSources()">
+      <div class="sources-header-title">
+        <span class="material-icons">source</span>
+        Kilder
+      </div>
+      <span class="material-icons sources-toggle-icon" id="sourcesIcon">expand_less</span>
+    </div>
+    <div class="sources-content" id="sourcesContent">
+      <div class="sources-list">
+        <div class="source-item">
+          <a href="https://mrfylke.no/tenester/skole-og-opplaring/opplaring-i-skole/overgang-og-innsoking-til-vidaregaande/poenggrenser/" target="_blank">https://mrfylke.no/tenester/skole-og-opplaring/opplaring-i-skole/overgang-og-innsoking-til-vidaregaande/poenggrenser/</a>
+        </div>
+        <div class="source-item">
+          <a href="https://www.vestlandfylke.no/utdanning-og-karriere/elev/soknad-inntak/test-poenggrenser/" target="_blank">https://www.vestlandfylke.no/utdanning-og-karriere/elev/soknad-inntak/test-poenggrenser/</a>
+        </div>
+        <div class="source-item">
+          <a href="https://www.minskole.no/DynamicContent//Documents/541-bus-Poenggrense2024_2025-c6f7fdef-9054.pdf" target="_blank">https://www.minskole.no/DynamicContent//Documents/541-bus-Poenggrense2024_2025-c6f7fdef-9054.pdf</a>
+        </div>
+        <div class="source-item">
+          <a href="https://lofsrud.osloskolen.no/siteassets/dokumenter/radgivertjenesten/2024-nedre-poenggrense-1.-inntak-vg1.pdf" target="_blank">https://lofsrud.osloskolen.no/siteassets/dokumenter/radgivertjenesten/2024-nedre-poenggrense-1.-inntak-vg1.pdf</a>
+        </div>
+        <div class="source-item">
+          <a href="https://afk.no/tjenester/skole-og-opplaring/opplaring-i-skole/soke-skoleplass/poenggrenser.222835.aspx" target="_blank">https://afk.no/tjenester/skole-og-opplaring/opplaring-i-skole/soke-skoleplass/poenggrenser.222835.aspx</a>
+        </div>
+        <div class="source-item">
+          <a href="https://bfk.no/tjenester/skole-og-opplaring/opplaring-i-skole/soke-skoleplass/nedre-poenggrense-for-inntak-buskerud-2025-2026.207338.aspx" target="_blank">https://bfk.no/tjenester/skole-og-opplaring/opplaring-i-skole/soke-skoleplass/nedre-poenggrense-for-inntak-buskerud-2025-2026.207338.aspx</a>
+        </div>
+        <div class="source-item">
+          <a href="https://res.cloudinary.com/faktisk/image/upload/s--xOIK7rKH--/s5c7ea42b62fjl7z3amo" target="_blank">https://res.cloudinary.com/faktisk/image/upload/s--xOIK7rKH--/s5c7ea42b62fjl7z3amo</a>
+        </div>
+        <div class="source-item">
+          <a href="https://www.minskole.no/DynamicContent//Documents/1013-bus-1b091f86-3b4f-4195-b200-14b54de7b442.pdf" target="_blank">https://www.minskole.no/DynamicContent//Documents/1013-bus-1b091f86-3b4f-4195-b200-14b54de7b442.pdf</a>
+        </div>
+      </div>
     </div>
   </div>
 </div>
@@ -562,12 +689,67 @@ function switchMode(m) {
 function updatePreview() {
   const {total, count} = getScore();
   const pr = document.getElementById('scorePreview');
-  if (total > 0) {
+  const previewScoreEl = document.getElementById('previewScore');
+  
+  // Easter egg: 676767 shows a GIF
+  if (total === 676767) {
+    window.location.href = 'https://tenor.com/view/sixseven-six-seven-six-seve-67-gif-14143337669032958349';
+    return;
+  }
+  
+  if (total > 0 || currentMode === 'direct') {
     pr.style.display = 'flex';
-    document.getElementById('previewScore').textContent = total.toFixed(1);
+    
+    // Easter eggs and custom messages
+    let displayText = total.toFixed(1);
+    
+    if (total === 696969) {
+      displayText = "💖";
+      previewScoreEl.textContent = displayText;
+      setTimeout(() => window.location.href = 'https://www.youtube.com/watch?v=dQw4w9WgXcQ', 500);
+    } else if (total > 9000) {
+      displayText = "it's over 9000";
+      previewScoreEl.textContent = displayText;
+    } else if (total > 1000) {
+      displayText = "🤯";
+      previewScoreEl.textContent = displayText;
+    } else if (total > 500) {
+      displayText = "gang du har ikke så mye";
+      previewScoreEl.textContent = displayText;
+    } else if (total > 100) {
+      displayText = "an IQ too high?";
+      previewScoreEl.textContent = displayText;
+    } else if (total === 69) {
+      displayText = "💔";
+      previewScoreEl.textContent = displayText;
+    } else if (total === 67) {
+      displayText = "haha";
+      previewScoreEl.textContent = displayText;
+    } else if (total > 60) {
+      displayText = "hm";
+      previewScoreEl.textContent = displayText;
+    } else if (total === 6.7) {
+      displayText = "haha";
+      previewScoreEl.textContent = displayText;
+    } else if (total < 10 && total > 0) {
+      displayText = "tror ikke det går";
+      previewScoreEl.textContent = displayText;
+    } else if (total === 0) {
+      displayText = "😥😥😥";
+      previewScoreEl.textContent = displayText;
+    } else if (total < 0) {
+      displayText = "skill issue";
+      previewScoreEl.textContent = displayText;
+    } else {
+      previewScoreEl.textContent = displayText;
+    }
+    
     document.getElementById('scoreBreakdown').textContent = currentMode === 'subjects' ? `${count} fag registrert` : 'Manuell inntasting';
-  } else pr.style.display = 'none';
+  } else if (total <= 0 && currentMode === 'subjects') {
+    pr.style.display = 'none';
+  }
 }
+
 
 function getScore() {
   if (currentMode === 'direct') {
@@ -599,7 +781,10 @@ function setStep(n) {
 function goToStep1() { setStep(1); }
 function goToStep2() {
   userScore = getScore().total;
-  if(userScore <= 0) { alert('Vennligst legg inn karakterer først.'); return; }
+  if(userScore < 10 || userScore > 60) { 
+    alert('Poengsumin må vere mellom 10 og 60.'); 
+    return; 
+  }
   setStep(2);
 }
 function goToStep3() {
@@ -758,6 +943,13 @@ function getCSSVar(name) {
 
 function resetAll() {
   location.reload();
+}
+
+function toggleSources() {
+  const content = document.getElementById('sourcesContent');
+  const icon = document.getElementById('sourcesIcon');
+  content.classList.toggle('open');
+  icon.classList.toggle('open');
 }
 
 init();
