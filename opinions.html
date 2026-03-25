@@ -1,0 +1,683 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Meninger – Videregående Hjelp</title>
+  <link rel="shortcut icon" href="vgshjelp-logo.png" type="image/x-icon">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200;300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+  <style>
+    :root {
+      --bg: #050505;
+      --text: #ffffff;
+      --text-muted: #888;
+      --card-red: #d40b00;
+      --card-lime: #D0F54E;
+      --card-blue: #5865F2;
+      --card-orange: #FF9F0A;
+      --card-green: #30D158;
+      --card-pale: #F2F2F7;
+      --surface: #1c1c1e;
+      --border: #2c2c2e;
+      --font-display: 'Inter Tight', sans-serif;
+      --font-body: 'Manrope', sans-serif;
+    }
+
+    [data-theme="light"] {
+      --bg: #ffffff;
+      --text: #000000;
+      --text-muted: #555;
+      --surface: #f2f2f7;
+      --border: #e5e5ea;
+    }
+
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: var(--font-body);
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.5;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    /* ─── Header ─── */
+    header {
+      padding: 12px 0;
+      margin-bottom: 0;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .header-content {
+      max-width: 1400px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0 16px;
+    }
+
+    @media (min-width: 480px) {
+      header { padding: 20px 0; }
+      .header-content { padding: 0 20px; }
+    }
+
+    .logo {
+      font-family: var(--font-display);
+      font-size: 20px;
+      font-weight: 800;
+      color: var(--text);
+      text-decoration: none;
+      letter-spacing: -0.03em;
+    }
+
+    @media (min-width: 480px) { .logo { font-size: 24px; } }
+
+    .nav-links {
+      display: flex;
+      gap: 12px;
+    }
+
+    .nav-links a {
+      color: var(--text-muted);
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 13px;
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover { color: var(--text); }
+
+    @media (min-width: 480px) {
+      .nav-links { gap: 24px; }
+      .nav-links a { font-size: 15px; }
+    }
+
+    /* ─── Page hero ─── */
+    .page-hero {
+      border-bottom: 1px solid var(--border);
+      padding: 40px 16px 32px;
+    }
+
+    @media (min-width: 480px) {
+      .page-hero { padding: 60px 20px 40px; }
+    }
+
+    .page-hero-inner {
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+
+    .page-tag {
+      display: inline-block;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      background: var(--card-red);
+      color: #fff;
+      padding: 4px 10px;
+      border-radius: 4px;
+      margin-bottom: 16px;
+    }
+
+    .page-title {
+      font-family: 'Instrument Serif', serif;
+      font-size: clamp(40px, 8vw, 96px);
+      font-style: italic;
+      font-weight: 400;
+      line-height: 0.92;
+      letter-spacing: -0.03em;
+      color: var(--text);
+      margin-bottom: 20px;
+    }
+
+    .page-desc {
+      font-size: 15px;
+      color: var(--text-muted);
+      max-width: 520px;
+      line-height: 1.6;
+    }
+
+    @media (min-width: 480px) {
+      .page-desc { font-size: 17px; }
+    }
+
+    /* ─── Main layout ─── */
+    .page-body {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 0 16px 80px;
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 0;
+    }
+
+    @media (min-width: 900px) {
+      .page-body {
+        grid-template-columns: 1fr 320px;
+        gap: 0;
+        padding: 0 20px 80px;
+      }
+    }
+
+    /* ─── Opinions feed ─── */
+    .feed {
+      border-right: none;
+      padding: 32px 0;
+    }
+
+    @media (min-width: 900px) {
+      .feed {
+        border-right: 1px solid var(--border);
+        padding: 40px 40px 40px 0;
+      }
+    }
+
+    .feed-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 28px;
+    }
+
+    .feed-label {
+      font-family: var(--font-display);
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+    }
+
+    .filter-group {
+      display: flex;
+      gap: 6px;
+    }
+
+    .filter-btn {
+      background: none;
+      border: 1px solid var(--border);
+      color: var(--text-muted);
+      font-family: var(--font-body);
+      font-size: 12px;
+      font-weight: 600;
+      padding: 5px 12px;
+      border-radius: 999px;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+
+    .filter-btn:hover,
+    .filter-btn.active {
+      background: var(--text);
+      color: var(--bg);
+      border-color: var(--text);
+    }
+
+    .opinion-empty {
+      margin-top: 20px;
+      text-align: center;
+      color: var(--text-muted);
+      padding: 32px 16px;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+    }
+
+    .opinion-empty p {
+      margin-top: 12px;
+      font-size: 16px;
+    }
+
+    .opinion-empty img.opinion-empty-icon {
+      display: block;
+      margin: 0 auto;
+      width: 48px;
+      height: 48px;
+      max-width: 64px;
+      max-height: 64px;
+      object-fit: contain;
+    }
+
+    [data-theme="light"] .opinion-empty img.opinion-empty-icon {
+      content: url('Assets/Icons/sad-black.svg');
+    }
+
+    [data-theme="dark"] .opinion-empty img.opinion-empty-icon {
+      content: url('Assets/Icons/sad-white.svg');
+    }
+
+    /* ─── Opinion card ─── */
+    .opinion-card {
+      border-bottom: 1px solid var(--border);
+      padding: 28px 0;
+      position: relative;
+    }
+
+    .opinion-card:first-of-type {
+      padding-top: 0;
+    }
+
+    .opinion-meta {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 14px;
+    }
+
+    .avatar {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 14px;
+      font-weight: 800;
+      font-family: var(--font-display);
+      flex-shrink: 0;
+    }
+
+    .meta-text {
+      flex: 1;
+    }
+
+    .meta-name {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--text);
+    }
+
+    .meta-info {
+      font-size: 12px;
+      color: var(--text-muted);
+    }
+
+    .opinion-badge {
+      font-size: 11px;
+      font-weight: 700;
+      padding: 3px 8px;
+      border-radius: 4px;
+      white-space: nowrap;
+    }
+
+    .badge-elev {
+      background: rgba(208, 245, 78, 0.15);
+      color: #b8d93e;
+    }
+
+    .badge-laerer {
+      background: rgba(88, 101, 242, 0.2);
+      color: #8891f5;
+    }
+
+    .badge-ny {
+      background: var(--card-red);
+      color: #fff;
+    }
+
+    .opinion-topic {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 8px;
+    }
+
+    .opinion-quote {
+      font-family: 'Instrument Serif', serif;
+      font-size: clamp(20px, 3vw, 26px);
+      font-style: italic;
+      line-height: 1.25;
+      color: var(--text);
+      margin-bottom: 14px;
+      letter-spacing: -0.01em;
+    }
+
+    .opinion-body {
+      font-size: 14px;
+      line-height: 1.7;
+      color: var(--text-muted);
+    }
+
+    @media (min-width: 480px) {
+      .opinion-body { font-size: 15px; }
+    }
+
+    .opinion-date {
+      font-size: 11px;
+      color: var(--text-muted);
+      margin-top: 12px;
+      opacity: 0.6;
+    }
+
+    /* ─── Sidebar ─── */
+    .sidebar {
+      padding: 32px 0;
+    }
+
+    @media (min-width: 900px) {
+      .sidebar {
+        padding: 40px 0 40px 40px;
+      }
+    }
+
+    .sidebar-section {
+      margin-bottom: 40px;
+    }
+
+    .sidebar-label {
+      font-family: var(--font-display);
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 16px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    /* Discord CTA */
+    .discord-cta {
+      background: var(--card-blue);
+      border-radius: 8px;
+      padding: 24px;
+      color: #fff;
+    }
+
+    .discord-cta-title {
+      font-family: var(--font-display);
+      font-size: 18px;
+      font-weight: 800;
+      margin-bottom: 6px;
+      letter-spacing: -0.02em;
+    }
+
+    .discord-cta-desc {
+      font-size: 13px;
+      opacity: 0.85;
+      line-height: 1.5;
+      margin-bottom: 16px;
+    }
+
+    .discord-btn {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: #fff;
+      color: var(--card-blue);
+      padding: 10px 16px;
+      border-radius: 6px;
+      font-family: var(--font-display);
+      font-weight: 800;
+      font-size: 14px;
+      text-decoration: none;
+      width: fit-content;
+      transition: opacity 0.2s;
+    }
+
+    .discord-btn:hover { opacity: 0.9; }
+
+    .discord-btn svg {
+      width: 18px;
+      height: 18px;
+      fill: var(--card-blue);
+    }
+
+    /* Stats */
+    .stat-row {
+      display: flex;
+      justify-content: space-between;
+      padding: 10px 0;
+      border-bottom: 1px solid var(--border);
+      font-size: 14px;
+    }
+
+    .stat-row:last-child { border-bottom: none; }
+    .stat-label { color: var(--text-muted); }
+    .stat-value { font-weight: 700; }
+
+    /* Topics list */
+    .topic-pill {
+      display: inline-block;
+      padding: 5px 12px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--text-muted);
+      margin: 0 4px 6px 0;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+
+    .topic-pill:hover {
+      color: var(--text);
+      border-color: var(--text);
+    }
+
+    /* Submit CTA */
+    .submit-cta {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 20px;
+    }
+
+    .submit-cta p {
+      font-size: 13px;
+      color: var(--text-muted);
+      line-height: 1.6;
+      margin-bottom: 14px;
+    }
+
+    .submit-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      color: var(--text);
+      font-size: 13px;
+      font-weight: 700;
+      text-decoration: none;
+      border-bottom: 2px solid var(--card-red);
+      padding-bottom: 2px;
+      transition: opacity 0.15s;
+    }
+
+    .submit-link:hover { opacity: 0.7; }
+
+    /* Hidden cards */
+    .opinion-card.hidden { display: none; }
+
+    /* Footer */
+    footer {
+      margin-top: 40px;
+      text-align: center;
+      color: var(--text-muted);
+      font-size: 12px;
+      padding-bottom: 40px;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="header-content">
+      <a href="index.html" class="logo">Videregående Hjelp</a>
+      <nav class="nav-links">
+        <a href="guides.html">Guider</a>
+        <a href="tools.html">Verktøy</a>
+        <a href="interactives.html">Interaktivt</a>
+      </nav>
+    </div>
+  </header>
+
+  <div class="page-hero">
+    <div class="page-hero-inner">
+      <h1 class="page-title">Meninger</h1>
+    </div>
+  </div>
+
+  <div class="page-body">
+    <!-- Main feed -->
+    <main class="feed">
+      <div class="feed-header">
+        <span class="feed-label">Alle meninger</span>
+        <div class="filter-group">
+          <button class="filter-btn active" data-filter="alle">Alle</button>
+          <button class="filter-btn" data-filter="elev">Elever</button>
+          <button class="filter-btn" data-filter="laerer">Lærere</button>
+        </div>
+      </div>
+
+      <div id="opinionsFeed">
+        <!-- Populated by JS -->
+      </div>
+    </main>
+
+    <!-- Sidebar -->
+    <aside class="sidebar">
+
+      <!-- Discord -->
+      <div class="sidebar-section">
+        <div class="sidebar-label">Bli med i diskusjonen</div>
+        <div class="discord-cta" style="background: #333;">
+          <div class="discord-cta-title">Discord er ikke laget enda</div>
+          <div class="discord-cta-desc">Funksjon utilgjengelig foreløpig.</div>
+          <button class="discord-btn" disabled style="cursor: not-allowed; opacity:0.7;">
+            Ikke tilgjengelig
+          </button>
+        </div>
+      </div>
+
+      <!-- Stats -->
+      <div class="sidebar-section">
+        <div class="sidebar-label">Statistikk</div>
+        <div class="stat-row">
+          <span class="stat-label">Totale meninger</span>
+          <span class="stat-value" id="statTotal">–</span>
+        </div>
+        <div class="stat-row">
+          <span class="stat-label">Fra elever</span>
+          <span class="stat-value" id="statElever">–</span>
+        </div>
+        <div class="stat-row">
+          <span class="stat-label">Fra lærere</span>
+          <span class="stat-value" id="statLaerere">–</span>
+        </div>
+        <div class="stat-row">
+          <span class="stat-label">Siste mening</span>
+          <span class="stat-value" id="statSiste">–</span>
+        </div>
+      </div>
+
+      <!-- Topics -->
+      <div class="sidebar-section">
+        <div class="sidebar-label">Populære temaer</div>
+        <div id="topicsList"></div>
+      </div>
+
+    </aside>
+  </div>
+
+  <script>
+    // ─── Opinion data ───
+    // Ingen ekte meninger ennå. Legg til i backend/google sheet etc.
+    // Eksempel (kommentert):
+    // const opinions = [
+    //   {
+    //     id: 1,
+    //     role: "elev",
+    //     topic: "Karakterpress",
+    //     quote: "Vi snakker mye om psykisk helse, men karakterpresset bare øker.",
+    //     body: "Alle sier at vi skal ta vare på oss selv, men hvert eneste foreldremøte handler om karakterer og poenggrenser. Det blir litt hult til slutt.",
+    //     date: "20. mars 2026"
+    //   }
+    // ];
+    const opinions = [];
+
+    // ─── Render feed ───
+    const avatarColors = {};
+    opinions.forEach(o => avatarColors[o.id] = o.avatarColor);
+
+    function renderOpinions(filter = 'alle') {
+      const feed = document.getElementById('opinionsFeed');
+      const filtered = filter === 'alle' ? opinions : opinions.filter(o => o.role === filter);
+
+      if (filtered.length === 0) {
+        const sadIconSrc = document.documentElement.getAttribute('data-theme') === 'light'
+          ? 'Assets/Icons/sad-black.svg'
+          : 'Assets/Icons/sad-white.svg';
+
+        feed.innerHTML = `
+          <div class="opinion-empty">
+            <img id="opinionSadIcon" class="opinion-empty-icon" src="${sadIconSrc}" alt="Trist ikon" />
+            <p>Ingen meninger enda...</p>
+          </div>
+        `;
+        return;
+      }
+
+      feed.innerHTML = filtered.map((o, i) => {
+        const isNewest = i === 0 && filter === 'alle';
+
+        return `
+          <article class="opinion-card" data-role="${o.role}">
+            <div class="opinion-topic">${o.topic}</div>
+            <blockquote class="opinion-quote">«${o.quote}»</blockquote>
+            <p class="opinion-body">${o.body}</p>
+            <div class="opinion-date">${o.date}</div>
+            ${isNewest ? '<span class="opinion-badge badge-ny">Ny</span>' : ''}
+          </article>
+        `;
+      }).join('');
+    }
+
+    // ─── Stats ───
+    function renderStats() {
+      document.getElementById('statTotal').textContent = opinions.length;
+      document.getElementById('statElever').textContent = opinions.filter(o => o.role === 'elev').length;
+      document.getElementById('statLaerere').textContent = opinions.filter(o => o.role === 'laerer').length;
+      document.getElementById('statSiste').textContent = opinions.length ? opinions[0].date : '–';
+    }
+
+    // ─── Topics ───
+    function renderTopics() {
+      const topics = [...new Set(opinions.slice(0, 10).map(o => o.topic))];
+      document.getElementById('topicsList').innerHTML = topics
+        .map(t => `<span class="topic-pill" data-topic="${t}">${t}</span>`)
+        .join('');
+    }
+
+    // ─── Filters ───
+    document.querySelectorAll('.filter-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        renderOpinions(btn.dataset.filter);
+      });
+    });
+
+    // ─── Init ───
+    renderOpinions();
+    renderStats();
+    renderTopics();
+
+    // Theme
+    if (!localStorage.getItem('theme')) localStorage.setItem('theme', 'dark');
+    document.documentElement.setAttribute('data-theme', localStorage.getItem('theme'));
+  </script>
+</body>
+</html>

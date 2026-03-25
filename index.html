@@ -651,6 +651,20 @@
       ]
     };
 
+    // Opinions: blant annet brukt av opinions-siden og index.
+    // For nå er dette tomt ift. ekte innhold. Eksempel (kommentert):
+    // const opinions = [
+    //   {
+    //     id: 1,
+    //     role: "elev",
+    //     topic: "Karakterpress",
+    //     quote: "Vi snakker mye om psykisk helse, men karakterpresset bare øker.",
+    //     body: "Alle sier at vi skal ta vare på oss selv, men hvert eneste foreldremøte handler om karakterer og poenggrenser.",
+    //     date: "20. mars 2026"
+    //   }
+    // ];
+    const opinions = [];
+
     // Fun facts that rotate bi-weekly
     const funFacts = [
       "Elever som velger programfag på VGS får ofte bedre møtefrekvens enn de som bare tar allmenne fag.",
@@ -676,6 +690,42 @@
       const daysDiff = Math.floor((today - startDate) / (1000 * 60 * 60 * 24));
       const biWeeklyIndex = Math.floor(daysDiff / 14) % funFacts.length;
       return funFacts[biWeeklyIndex];
+    }
+
+    function getOpinionSummaryText() {
+      if (!opinions || opinions.length === 0) {
+        return '<div style="margin-top:16px;font-size:16px;color:#fff;">Ingen meninger enda.</div>';
+      }
+      const latest = opinions[0];
+      return `
+        <div style="font-size:14px;opacity:0.9;margin-bottom:8px;">${latest.topic}</div>
+        <div style="font-size:18px;font-weight:600;line-height:1.2;">${latest.quote}</div>
+        <div style="margin-top:10px;font-size:14px;opacity:0.8;">${latest.body}</div>
+        <div style="margin-top:10px;font-size:12px;opacity:0.7;">${latest.date}</div>
+      `;
+    }
+
+    let opinionRotationIndex = 0;
+    function rotateOpinions() {
+      if (!opinions || opinions.length === 0) return;
+      const opinionBox = document.getElementById('opinionBoxContent');
+      if (!opinionBox) return;
+
+      const visible = opinions[Math.min(opinionRotationIndex, opinions.length - 1)];
+      opinionBox.innerHTML = `
+        <div style="font-size:14px;opacity:0.9;margin-bottom:8px;">${visible.topic}</div>
+        <div style="font-size:18px;font-weight:600;line-height:1.2;">${visible.quote}</div>
+        <div style="margin-top:10px;font-size:14px;opacity:0.8;">${visible.body}</div>
+        <div style="margin-top:10px;font-size:12px;opacity:0.7;">${visible.date}</div>
+      `;
+
+      opinionRotationIndex = (opinionRotationIndex + 1) % Math.min(3, opinions.length);
+    }
+
+    function startOpinionCycler() {
+      if (!opinions || opinions.length === 0) return;
+      rotateOpinions();
+      setInterval(rotateOpinions, 6000);
     }
 
     // Shuffle array (Fisher-Yates)
@@ -709,6 +759,18 @@
             <div class="card-title">${getTodaysFunFact()}</div>
           </div>
         </div>
+      `;
+
+      // Add opinions panel as featured item next to fun fact
+      html += `
+        <a href="opinions.html" class="bento-card card-discord grid-item-featured" style="color:#fff; text-decoration: none;">
+          <div>
+            <div class="fun-fact-label">Meninger</div>
+            <div id="opinionBoxContent" style="margin-top: 8px; font-size: 16px; line-height: 1.3;">
+              ${getOpinionSummaryText()}
+            </div>
+          </div>
+        </a>
       `;
 
       // Add all content cards
@@ -757,7 +819,10 @@
     }
 
     // Generate grid on page load
-    document.addEventListener('DOMContentLoaded', generateGrid);
+    document.addEventListener('DOMContentLoaded', () => {
+      generateGrid();
+      startOpinionCycler();
+    });
 
     // Search Functionality
     const searchInput = document.getElementById('searchInput');
