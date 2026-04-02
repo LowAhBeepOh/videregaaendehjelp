@@ -577,13 +577,16 @@
       const btn = document.getElementById('signupBtn');
       btn.disabled = true; btn.textContent = 'Oppretter konto...';
 
-      const {data, error } = await sb.auth.signUp({
+      const { data, error } = await sb.auth.signUp({
         email,
         password: pass,
         options: {
-          emailRedirectTo: 'https://lowahbeepoh.github.io/videregaaendehjelp/opinions.html'
-        }
+          emailRedirectTo: 'https://lowahbeepoh.github.io/videregaaendehjelp/opinions.html',
+        },
       });
+      
+      console.log('signUp data:', data);
+      console.log('signUp error:', error);
       btn.disabled = false; btn.textContent = 'Opprett konto';
 
       if (error) {
