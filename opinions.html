@@ -169,6 +169,30 @@
     .form-success .success-icon { font-size: 40px; margin-bottom: 12px; }
     .form-success p { font-size: 15px; color: var(--text-muted); }
     .form-success strong { color: var(--text); }
+  
+    .filter-group { display: flex; gap: 6px; flex-wrap: wrap; }
+    .user-card { align-items: flex-start; flex-wrap: wrap; }
+    .user-info { min-width: 0; }
+    .user-email { font-size: 11px; color: var(--text-muted); margin-top: 2px; word-break: break-word; }
+    .user-actions { display: flex; gap: 8px; flex-wrap: wrap; margin-left: auto; }
+    .edit-profile-btn {
+      background: none; border: 1px solid var(--border); color: var(--text-muted);
+      font-size: 11px; font-weight: 600; padding: 4px 8px; border-radius: 4px;
+      cursor: pointer; transition: all 0.15s;
+    }
+    .edit-profile-btn:hover { color: var(--text); border-color: var(--text); }
+    .readonly-field {
+      background: rgba(255,255,255,0.03); border: 1px solid var(--border);
+      border-radius: 6px; padding: 10px 12px; color: var(--text-muted);
+      font-size: 14px; word-break: break-word;
+    }
+    .stat-row.compact { align-items: center; gap: 12px; }
+    .stat-group-label { color: var(--text-muted); font-size: 13px; }
+    .stat-group-value { font-weight: 700; margin-left: auto; font-size: 13px; }
+    .opinion-meta { align-items: flex-start; }
+    .opinion-badges { display: flex; gap: 6px; flex-wrap: wrap; justify-content: flex-end; }
+    .opinion-badge.badge-role { text-transform: none; }
+
   </style>
 </head>
 <body>
@@ -194,11 +218,7 @@
     <main class="feed">
       <div class="feed-header">
         <span class="feed-label">Alle meninger</span>
-        <div class="filter-group">
-          <button class="filter-btn active" data-filter="alle">Alle</button>
-          <button class="filter-btn" data-filter="elev">Elever</button>
-          <button class="filter-btn" data-filter="laerer">Lærere</button>
-        </div>
+        <div class="filter-group" id="filterGroup"></div>
       </div>
       <div id="opinionsFeed">
         <div class="feed-loading"><div class="spinner"></div>Laster meninger...</div>
@@ -212,10 +232,7 @@
       </div>
       <div class="sidebar-section">
         <div class="sidebar-label">Statistikk</div>
-        <div class="stat-row"><span class="stat-label">Totale meninger</span><span class="stat-value" id="statTotal">–</span></div>
-        <div class="stat-row"><span class="stat-label">Fra elever</span><span class="stat-value" id="statElever">–</span></div>
-        <div class="stat-row"><span class="stat-label">Fra lærere</span><span class="stat-value" id="statLaerere">–</span></div>
-        <div class="stat-row"><span class="stat-label">Siste mening</span><span class="stat-value" id="statSiste">–</span></div>
+        <div id="statsList"></div>
       </div>
       <div class="sidebar-section">
         <div class="sidebar-label">Populære temaer</div>
@@ -254,14 +271,15 @@
         <div class="modal-panel" id="panel-signup">
           <div class="form-group">
             <label class="form-label" for="signupName">Visningsnavn</label>
-            <input class="form-input" type="text" id="signupName" placeholder="f.eks. Elev fra Vestland" maxlength="40">
+            <input class="form-input" type="text" id="signupName" placeholder="f.eks. Sander" maxlength="40">
           </div>
           <div class="form-group">
-            <label class="form-label" for="signupRole">Jeg er en</label>
-            <select class="form-select" id="signupRole">
-              <option value="elev">Elev</option>
-              <option value="laerer">Lærer</option>
-            </select>
+            <label class="form-label" for="signupRole">Rolle</label>
+            <select class="form-select" id="signupRole"></select>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="signupCounty">Fylke (valgfritt)</label>
+            <select class="form-select" id="signupCounty"></select>
           </div>
           <div class="form-group">
             <label class="form-label" for="signupEmail">E-post</label>
@@ -298,6 +316,34 @@
         <button class="form-btn" id="submitOpinionBtn">Publiser mening</button>
       </div>
 
+      <div id="editProfilePanel" style="display:none;">
+        <h2 class="modal-title">Rediger profil</h2>
+        <p class="modal-subtitle">Endre navn, rolle og fylke. E-posten din er bare synlig for deg her.</p>
+
+        <div class="form-group">
+          <label class="form-label" for="profileName">Visningsnavn</label>
+          <input class="form-input" type="text" id="profileName" maxlength="40">
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="profileRole">Rolle</label>
+          <select class="form-select" id="profileRole"></select>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="profileCounty">Fylke (valgfritt)</label>
+          <select class="form-select" id="profileCounty"></select>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Din e-post</label>
+          <div class="readonly-field" id="profileEmailView">–</div>
+        </div>
+
+        <div class="form-error" id="profileError"></div>
+        <button class="form-btn" id="saveProfileBtn">Lagre endringer</button>
+      </div>
+
       <div id="successPanel" style="display:none;">
         <div class="form-success">
           <div class="success-icon">🎉</div>
@@ -307,13 +353,33 @@
     </div>
   </div>
 
-  <script>
+    <script>
     // ══════════════════════════════════════════════════
     //  CONFIG
     // ══════════════════════════════════════════════════
     const SUPABASE_URL  = 'https://wqmkwcrlvgfczbueseip.supabase.co';
-    const SUPABASE_ANON = 'sb_publishable_XCDS-VsKHGbOXaaiUWaHIg_sH3sCfLJ';
+    const SUPABASE_ANON  = 'sb_publishable_XCDS-VsKHGbOXaaiUWaHIg_sH3sCfLJ';
     const COOLDOWN_MS   = 5 * 60 * 1000; // 5 minutter
+
+    const ROLE_OPTIONS = [
+      { value: 'ungdom',   label: 'Ungdom' },
+      { value: 'vg1',      label: 'VG1' },
+      { value: 'vg2',      label: 'VG2' },
+      { value: 'vg3',      label: 'VG3' },
+      { value: 'hoyskole', label: 'Høyskole' },
+      { value: 'alumni',   label: 'Alumni' },
+      { value: 'laerer',   label: 'Lærer' },
+    ];
+
+    const COUNTY_OPTIONS = [
+      '',
+      'Østfold', 'Akershus', 'Oslo', 'Innlandet', 'Buskerud', 'Vestfold', 'Telemark',
+      'Agder', 'Rogaland', 'Vestland', 'Møre og Romsdal', 'Trøndelag', 'Nordland',
+      'Troms', 'Finnmark'
+    ];
+
+    const ROLE_LABELS = Object.fromEntries(ROLE_OPTIONS.map(r => [r.value, r.label]));
+    const COUNTY_LABELS = Object.fromEntries(COUNTY_OPTIONS.filter(Boolean).map(c => [c, c]));
 
     const sb = supabase.createClient(SUPABASE_URL, SUPABASE_ANON);
 
@@ -329,6 +395,61 @@
 
     function isMod() {
       return currentProfile?.mod_role === 'moderator' || currentProfile?.mod_role === 'admin';
+    }
+
+    function normalizeRole(role) {
+      const value = String(role || '').toLowerCase();
+      if (value === 'elev') return 'ungdom';
+      if (value === 'laerer') return 'laerer';
+      if (ROLE_LABELS[value]) return value;
+      return 'ungdom';
+    }
+
+    function displayRole(role) {
+      return ROLE_LABELS[normalizeRole(role)] || 'Ungdom';
+    }
+
+    function displayCounty(county) {
+      const value = String(county || '').trim();
+      return COUNTY_LABELS[value] || '';
+    }
+
+    function escHtml(str) {
+      return String(str ?? '')
+        .replace(/&/g,'&amp;')
+        .replace(/</g,'&lt;')
+        .replace(/>/g,'&gt;')
+        .replace(/"/g,'&quot;');
+    }
+
+    function populateSelect(selectId, options, selectedValue = '') {
+      const el = document.getElementById(selectId);
+      if (!el) return;
+      el.innerHTML = options.map(opt => {
+        const value = typeof opt === 'string' ? opt : opt.value;
+        const label = typeof opt === 'string' ? opt : opt.label;
+        const selected = String(value) === String(selectedValue) ? ' selected' : '';
+        return `<option value="${escHtml(value)}"${selected}>${escHtml(label)}</option>`;
+      }).join('');
+    }
+
+    function renderRoleAndCountySelects() {
+      populateSelect('signupRole', ROLE_OPTIONS);
+      populateSelect('profileRole', ROLE_OPTIONS, normalizeRole(currentProfile?.role || 'ungdom'));
+
+      populateSelect('signupCounty', COUNTY_OPTIONS.map(v => v ? { value: v, label: v } : { value: '', label: 'Ikke valgt' }));
+      populateSelect('profileCounty', COUNTY_OPTIONS.map(v => v ? { value: v, label: v } : { value: '', label: 'Ikke valgt' }), currentProfile?.county || '');
+    }
+
+    function renderFilters() {
+      const group = document.getElementById('filterGroup');
+      if (!group) return;
+      const items = [{ value: 'alle', label: 'Alle' }, ...ROLE_OPTIONS];
+      group.innerHTML = items.map(item => `
+        <button class="filter-btn ${activeFilter === item.value ? 'active' : ''}" data-filter="${escHtml(item.value)}">
+          ${escHtml(item.label)}
+        </button>
+      `).join('');
     }
 
     // ══════════════════════════════════════════════════
@@ -384,12 +505,22 @@
       return data;
     }
 
+    function normalizeProfile(profile) {
+      if (!profile) return null;
+      return {
+        ...profile,
+        role: normalizeRole(profile.role),
+        county: profile.county || '',
+      };
+    }
+
     async function refreshAuth() {
       const { data: { session } } = await sb.auth.getSession();
       currentUser    = session?.user ?? null;
-      currentProfile = currentUser ? await loadProfile(currentUser.id) : null;
+      currentProfile = currentUser ? normalizeProfile(await loadProfile(currentUser.id)) : null;
       if (currentUser) await loadMyReactions();
       renderAuthArea();
+      renderRoleAndCountySelects();
     }
 
     function renderAuthArea() {
@@ -399,14 +530,19 @@
         const modLabel = currentProfile.mod_role === 'admin'      ? ' · Admin'
                        : currentProfile.mod_role === 'moderator'  ? ' · Moderator' : '';
         const rem = getRemainingMs();
+        const county = currentProfile.county ? ` · ${escHtml(currentProfile.county)}` : '';
         area.innerHTML = `
           <div class="user-card">
-            <div class="user-avatar" style="${isMod() ? 'background:#FF9F0A' : ''}">${initials}</div>
+            <div class="user-avatar" style="${isMod() ? 'background:#FF9F0A' : ''}">${escHtml(initials)}</div>
             <div class="user-info">
-              <div class="user-name">${escHtml(currentProfile.display_name)}</div>
-              <div class="user-role">${currentProfile.role === 'elev' ? 'Elev' : 'Lærer'}${modLabel}</div>
+              <div class="user-name">${escHtml(currentProfile.display_name || 'Ukjent')}</div>
+              <div class="user-role">${escHtml(displayRole(currentProfile.role))}${county}${modLabel}</div>
+              <div class="user-email">${escHtml(currentUser.email || '')}</div>
             </div>
-            <button class="sign-out-btn" id="signOutBtn">Logg ut</button>
+            <div class="user-actions">
+              <button class="edit-profile-btn" id="editProfileBtn">Rediger profil</button>
+              <button class="sign-out-btn" id="signOutBtn">Logg ut</button>
+            </div>
           </div>
           <button class="open-modal-btn" id="openWriteBtn" ${rem > 0 ? 'disabled' : ''}>
             <span class="material-icons" style="font-size:16px;">${rem > 0 ? 'timer' : 'edit'}</span>
@@ -416,6 +552,7 @@
             ${rem > 0 ? `Neste mening om <span>${formatCountdown(rem)}</span>` : ''}
           </div>`;
         document.getElementById('signOutBtn').addEventListener('click', signOut);
+        document.getElementById('editProfileBtn').addEventListener('click', openEditProfilePanel);
         document.getElementById('openWriteBtn').addEventListener('click', openWritePanel);
         if (rem > 0) startCooldownUI();
       } else {
@@ -437,6 +574,8 @@
       if (cooldownTimer) { clearInterval(cooldownTimer); cooldownTimer = null; }
       renderAuthArea();
       renderOpinions(activeFilter);
+      renderFilters();
+      renderStats();
     }
 
     // ══════════════════════════════════════════════════
@@ -464,7 +603,6 @@
         myReactions[opinionId] = type;
       }
 
-      // Re-fetch counts for this opinion
       const { data } = await sb.from('reactions').select('type').eq('opinion_id', opinionId);
       const ups   = (data || []).filter(r => r.type === 'up').length;
       const downs = (data || []).filter(r => r.type === 'down').length;
@@ -472,7 +610,6 @@
       const op = allOpinions.find(o => o.id === opinionId);
       if (op) { op._ups = ups; op._downs = downs; }
 
-      // Replace just the footer of this card
       const card = document.getElementById(`card-${opinionId}`);
       if (card) {
         const oldFooter = card.querySelector('.opinion-footer');
@@ -502,23 +639,43 @@
     // ══════════════════════════════════════════════════
     const backdrop = document.getElementById('modalBackdrop');
 
+    function hideAllPanels() {
+      document.getElementById('modalContent').style.display = 'none';
+      document.getElementById('writePanel').style.display = 'none';
+      document.getElementById('editProfilePanel').style.display = 'none';
+      document.getElementById('successPanel').style.display = 'none';
+    }
+
     function openModal()  { resetModal(); backdrop.classList.add('open'); }
     function closeModal() { backdrop.classList.remove('open'); }
     function resetModal() {
       document.getElementById('modalContent').style.display = '';
       document.getElementById('writePanel').style.display   = 'none';
+      document.getElementById('editProfilePanel').style.display = 'none';
       document.getElementById('successPanel').style.display = 'none';
       document.getElementById('verifyNotice').classList.remove('visible');
       setTab('login');
     }
+
     function openWritePanel() {
-      document.getElementById('modalContent').style.display = 'none';
+      hideAllPanels();
       document.getElementById('writePanel').style.display   = '';
       document.getElementById('successPanel').style.display = 'none';
       document.getElementById('writeSubtitle').textContent  = `Innlogget som ${currentProfile?.display_name ?? ''}`;
       ['opinionTopic','opinionQuote','opinionBody'].forEach(id => document.getElementById(id).value = '');
       document.getElementById('quoteCount').textContent = '0 / 120';
       document.getElementById('bodyCount').textContent  = '0 / 600';
+      backdrop.classList.add('open');
+    }
+
+    function openEditProfilePanel() {
+      hideAllPanels();
+      document.getElementById('editProfilePanel').style.display = '';
+      document.getElementById('profileName').value = currentProfile?.display_name || '';
+      document.getElementById('profileRole').value = normalizeRole(currentProfile?.role || 'ungdom');
+      document.getElementById('profileCounty').value = currentProfile?.county || '';
+      document.getElementById('profileEmailView').textContent = currentUser?.email || '–';
+      document.getElementById('profileError').classList.remove('visible');
       backdrop.classList.add('open');
     }
 
@@ -532,7 +689,9 @@
     }
     document.querySelectorAll('.modal-tab').forEach(btn => btn.addEventListener('click', () => setTab(btn.dataset.tab)));
 
-    // ── Login ──
+    // ══════════════════════════════════════════════════
+    //  LOGIN / SIGNUP / PROFILE SAVE
+    // ══════════════════════════════════════════════════
     document.getElementById('loginBtn').addEventListener('click', async () => {
       const email = document.getElementById('loginEmail').value.trim();
       const pass  = document.getElementById('loginPassword').value;
@@ -559,95 +718,130 @@
       openWritePanel();
     });
 
-    // ── Sign up ──
-document.getElementById('signupBtn').addEventListener('click', async () => {
-  const name  = document.getElementById('signupName').value.trim();
-  const role  = document.getElementById('signupRole').value;
-  const email = document.getElementById('signupEmail').value.trim();
-  const pass  = document.getElementById('signupPassword').value;
+    document.getElementById('signupBtn').addEventListener('click', async () => {
+      const name  = document.getElementById('signupName').value.trim();
+      const role  = normalizeRole(document.getElementById('signupRole').value);
+      const county = document.getElementById('signupCounty').value || null;
+      const email = document.getElementById('signupEmail').value.trim();
+      const pass  = document.getElementById('signupPassword').value;
 
-  const errEl = document.getElementById('signupError');
-  errEl.classList.remove('visible');
+      const errEl = document.getElementById('signupError');
+      errEl.classList.remove('visible');
 
-  if (!name || !email || pass.length < 6) {
-    errEl.textContent = 'Fyll ut alle feltene. Passord må være minst 6 tegn.';
-    errEl.classList.add('visible');
-    return;
-  }
+      if (!name || !email || pass.length < 6) {
+        errEl.textContent = 'Fyll ut alle feltene. Passord må være minst 6 tegn.';
+        errEl.classList.add('visible');
+        return;
+      }
 
-  const btn = document.getElementById('signupBtn');
-  btn.disabled = true;
-  btn.textContent = 'Oppretter konto...';
+      const btn = document.getElementById('signupBtn');
+      btn.disabled = true;
+      btn.textContent = 'Oppretter konto...';
 
-  const { data, error } = await sb.auth.signUp({
-    email,
-    password: pass,
-    options: {
-      emailRedirectTo: 'https://lowahbeepoh.github.io/videregaaendehjelp/opinions.html',
-    },
-  });
+      const { error } = await sb.auth.signUp({
+        email,
+        password: pass,
+        options: {
+          emailRedirectTo: 'https://lowahbeepoh.github.io/videregaaendehjelp/opinions.html',
+        },
+      });
 
-  console.log('signUp data:', data);
-  console.log('signUp error:', error);
+      btn.disabled = false;
+      btn.textContent = 'Opprett konto';
 
-  btn.disabled = false;
-  btn.textContent = 'Opprett konto';
+      if (error) {
+        errEl.textContent = error.message;
+        errEl.classList.add('visible');
+        return;
+      }
 
-  if (error) {
-    errEl.textContent = error.message;
-    errEl.classList.add('visible');
-    return;
-  }
+      setTab('login');
+      document.getElementById('verifyNotice').classList.add('visible');
 
-  // Always switch to login tab + show verify notice (since session may not exist yet)
-  setTab('login');
-  document.getElementById('verifyNotice').classList.add('visible');
+      const upsertProfileFor = async (userId) => {
+        const { error: upsertError } = await sb.from('profiles').upsert(
+          {
+            id: userId,
+            display_name: name,
+            role,
+            county,
+            mod_role: 'user',
+          },
+          { onConflict: 'id' }
+        );
 
-  // If we’re already signed in (rare, depends on confirmation settings), upsert now.
-  const upsertProfileFor = async (userId) => {
-    const { error: upsertError } = await sb.from('profiles').upsert(
-      {
-        id: userId,
-        display_name: name,
-        role,
-        mod_role: 'user',
-      },
-      { onConflict: 'id' }
-    );
+        if (upsertError) {
+          console.error('profiles upsert failed:', upsertError);
+        }
+      };
 
-    if (upsertError) {
-      console.error('profiles upsert failed:', upsertError);
-      // brah
-    }
-  };
+      try {
+        const { data: { session } } = await sb.auth.getSession();
 
-  try {
-    // Check for an existing session
-    const { data: { session } } = await sb.auth.getSession();
+        if (session?.user?.id) {
+          await upsertProfileFor(session.user.id);
+          await refreshAuth();
+          return;
+        }
 
-    if (session?.user?.id) {
-      await upsertProfileFor(session.user.id);
-      // refreshAuth() will load currentProfile + update UI
-      await refreshAuth();
-      return;
-    }
-
-    // Otherwise: wait until the user becomes authenticated, then upsert.
-    const subscription = sb.auth.onAuthStateChange(async (event, session) => {
-      if (event === 'SIGNED_IN' && session?.user?.id) {
-        subscription.data.unsubscribe(); // safe-ish: stop listening after SIGNED_IN
-        await upsertProfileFor(session.user.id);
-        await refreshAuth();
+        const { data: { subscription } } = sb.auth.onAuthStateChange(async (event, session) => {
+          if (event === 'SIGNED_IN' && session?.user?.id) {
+            subscription.unsubscribe();
+            await upsertProfileFor(session.user.id);
+            await refreshAuth();
+          }
+        });
+      } catch (e) {
+        console.error('ensure session/upsert flow failed:', e);
       }
     });
 
-    // Note: after email confirmation, SIGNED_IN should fire, and this will run.
-  } catch (e) {
-    console.error('ensure session/upsert flow failed:', e);
-  }
-});
+    document.getElementById('saveProfileBtn').addEventListener('click', async () => {
+      const name = document.getElementById('profileName').value.trim();
+      const role = normalizeRole(document.getElementById('profileRole').value);
+      const county = document.getElementById('profileCounty').value || null;
+      const errEl = document.getElementById('profileError');
+      errEl.classList.remove('visible');
 
-    // ── Char counters ──
+      if (!name) {
+        errEl.textContent = 'Skriv inn et visningsnavn.';
+        errEl.classList.add('visible');
+        return;
+      }
+
+      const btn = document.getElementById('saveProfileBtn');
+      btn.disabled = true;
+      btn.textContent = 'Lagrer...';
+
+      const { error } = await sb.from('profiles').upsert(
+        {
+          id: currentUser.id,
+          display_name: name,
+          role,
+          county,
+          mod_role: currentProfile?.mod_role || 'user',
+        },
+        { onConflict: 'id' }
+      );
+
+      btn.disabled = false;
+      btn.textContent = 'Lagre endringer';
+
+      if (error) {
+        errEl.textContent = error.message || 'Noe gikk galt.';
+        errEl.classList.add('visible');
+        return;
+      }
+
+      currentProfile = { ...currentProfile, display_name: name, role, county };
+      await refreshAuth();
+      closeModal();
+      renderOpinions(activeFilter);
+    });
+
+    // ══════════════════════════════════════════════════
+    //  CHAR COUNTERS
+    // ══════════════════════════════════════════════════
     document.getElementById('opinionQuote').addEventListener('input', function() {
       const el = document.getElementById('quoteCount');
       el.textContent = `${this.value.length} / 120`;
@@ -659,7 +853,9 @@ document.getElementById('signupBtn').addEventListener('click', async () => {
       el.classList.toggle('over', this.value.length > 600);
     });
 
-    // ── Submit ──
+    // ══════════════════════════════════════════════════
+    //  SUBMIT OPINION
+    // ══════════════════════════════════════════════════
     document.getElementById('submitOpinionBtn').addEventListener('click', async () => {
       const topic = document.getElementById('opinionTopic').value.trim();
       const quote = document.getElementById('opinionQuote').value.trim();
@@ -683,8 +879,13 @@ document.getElementById('signupBtn').addEventListener('click', async () => {
       btn.disabled = true; btn.textContent = 'Publiserer...';
 
       const { error } = await sb.from('meninger').insert({
-        user_id: currentUser.id, display_name: currentProfile.display_name,
-        role: currentProfile.role, topic, quote, body: body || null
+        user_id: currentUser.id,
+        display_name: currentProfile.display_name,
+        role: currentProfile.role,
+        county: currentProfile.county || null,
+        topic,
+        quote,
+        body: body || null
       });
 
       btn.disabled = false; btn.textContent = 'Publiser mening';
@@ -736,12 +937,16 @@ document.getElementById('signupBtn').addEventListener('click', async () => {
       });
 
       allOpinions = (opRes.data || []).map(o => ({
-        ...o, _ups: counts[o.id]?.up ?? 0, _downs: counts[o.id]?.down ?? 0
+        ...o,
+        role: normalizeRole(o.role),
+        _ups: counts[o.id]?.up ?? 0,
+        _downs: counts[o.id]?.down ?? 0
       }));
 
       renderOpinions(activeFilter);
       renderStats();
       renderTopics();
+      renderFilters();
     }
 
     function formatDate(iso) {
@@ -762,23 +967,25 @@ document.getElementById('signupBtn').addEventListener('click', async () => {
         const initials  = (o.display_name || '?').charAt(0).toUpperCase();
         const color     = colorForName(o.display_name || '?');
         const isNew     = i === 0 && filter === 'alle';
-        const badge     = o.role === 'elev'
-          ? '<span class="opinion-badge badge-elev">Elev</span>'
-          : '<span class="opinion-badge badge-laerer">Lærer</span>';
+        const badge     = `<span class="opinion-badge badge-role">${escHtml(displayRole(o.role))}</span>`;
+        const county    = o.county ? `<span class="opinion-badge">${escHtml(o.county)}</span>` : '';
         const deleteBtn = isMod()
           ? `<button class="delete-btn" data-id="${o.id}" title="Slett"><span class="material-icons" style="font-size:16px;">delete</span></button>` : '';
 
         return `
-          <article class="opinion-card" data-role="${o.role}" id="card-${o.id}">
+          <article class="opinion-card" data-role="${escHtml(o.role)}" id="card-${o.id}">
             <div class="opinion-meta">
-              <div class="avatar" style="background:${color};color:#fff">${initials}</div>
+              <div class="avatar" style="background:${color};color:#fff">${escHtml(initials)}</div>
               <div class="meta-text">
                 <div class="meta-name">${escHtml(o.display_name)}</div>
-                <div class="meta-info">${formatDate(o.created_at)}</div>
+                <div class="meta-info">${escHtml(formatDate(o.created_at))}${o.county ? ` · ${escHtml(o.county)}` : ''}</div>
               </div>
-              ${badge}
-              ${isNew ? '<span class="opinion-badge badge-ny">Ny</span>' : ''}
-              ${deleteBtn}
+              <div class="opinion-badges">
+                ${badge}
+                ${county}
+                ${isNew ? '<span class="opinion-badge badge-ny">Ny</span>' : ''}
+                ${deleteBtn}
+              </div>
             </div>
             <div class="opinion-topic">${escHtml(o.topic)}</div>
             <blockquote class="opinion-quote">«${escHtml(o.quote)}»</blockquote>
@@ -795,15 +1002,26 @@ document.getElementById('signupBtn').addEventListener('click', async () => {
       filtered.forEach(o => attachReactionListeners(o.id));
     }
 
-    function escHtml(str) {
-      return String(str).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
-    }
-
     function renderStats() {
-      document.getElementById('statTotal').textContent   = allOpinions.length;
-      document.getElementById('statElever').textContent  = allOpinions.filter(o => o.role === 'elev').length;
-      document.getElementById('statLaerere').textContent = allOpinions.filter(o => o.role === 'laerer').length;
-      document.getElementById('statSiste').textContent   = allOpinions.length ? formatDate(allOpinions[0].created_at) : '–';
+      const roles = ROLE_OPTIONS.map(r => {
+        const count = allOpinions.filter(o => o.role === r.value).length;
+        return `
+          <div class="stat-row compact">
+            <span class="stat-group-label">Fra ${escHtml(r.label)}</span>
+            <span class="stat-group-value">${count}</span>
+          </div>`;
+      }).join('');
+
+      document.getElementById('statsList').innerHTML = `
+        <div class="stat-row compact">
+          <span class="stat-group-label">Totale meninger</span>
+          <span class="stat-group-value">${allOpinions.length}</span>
+        </div>
+        ${roles}
+        <div class="stat-row compact">
+          <span class="stat-group-label">Siste mening</span>
+          <span class="stat-group-value">${allOpinions.length ? escHtml(formatDate(allOpinions[0].created_at)) : '–'}</span>
+        </div>`;
     }
 
     function renderTopics() {
@@ -822,15 +1040,15 @@ document.getElementById('signupBtn').addEventListener('click', async () => {
         return;
       }
       allOpinions = allOpinions.filter(o => o.id !== id);
-      renderOpinions(activeFilter); renderStats(); renderTopics();
+      renderOpinions(activeFilter); renderStats(); renderTopics(); renderFilters();
     }
 
-    document.querySelectorAll('.filter-btn').forEach(btn => {
-      btn.addEventListener('click', () => {
-        document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
-        btn.classList.add('active');
-        renderOpinions(btn.dataset.filter);
-      });
+    document.getElementById('filterGroup').addEventListener('click', e => {
+      const btn = e.target.closest('.filter-btn');
+      if (!btn) return;
+      activeFilter = btn.dataset.filter;
+      renderOpinions(activeFilter);
+      renderFilters();
     });
 
     sb.channel('meninger-changes')
@@ -838,7 +1056,12 @@ document.getElementById('signupBtn').addEventListener('click', async () => {
       .on('postgres_changes', { event: 'DELETE',  schema: 'public', table: 'meninger' }, () => loadOpinions())
       .subscribe();
 
-    (async () => { await refreshAuth(); await loadOpinions(); })();
+    (async () => {
+      renderRoleAndCountySelects();
+      renderFilters();
+      await refreshAuth();
+      await loadOpinions();
+    })();
   </script>
 </body>
 </html>
