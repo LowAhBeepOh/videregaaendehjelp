@@ -11,505 +11,164 @@
   <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
   <style>
     :root {
-      --bg: #050505;
-      --text: #ffffff;
-      --text-muted: #888;
-      --card-red: #d40b00;
-      --card-lime: #D0F54E;
-      --card-blue: #5865F2;
-      --card-orange: #FF9F0A;
-      --card-green: #30D158;
-      --card-pale: #F2F2F7;
-      --surface: #1c1c1e;
-      --border: #2c2c2e;
-      --font-display: 'Inter Tight', sans-serif;
-      --font-body: 'Manrope', sans-serif;
+      --bg: #050505; --text: #ffffff; --text-muted: #888;
+      --card-red: #d40b00; --card-lime: #D0F54E; --card-blue: #5865F2;
+      --card-orange: #FF9F0A; --card-green: #30D158;
+      --surface: #1c1c1e; --border: #2c2c2e;
+      --font-display: 'Inter Tight', sans-serif; --font-body: 'Manrope', sans-serif;
     }
+    [data-theme="light"] { --bg: #ffffff; --text: #000000; --text-muted: #555; --surface: #f2f2f7; --border: #e5e5ea; }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: var(--font-body); background: var(--bg); color: var(--text); line-height: 1.5; min-height: 100vh; overflow-x: hidden; }
 
-    [data-theme="light"] {
-      --bg: #ffffff;
-      --text: #000000;
-      --text-muted: #555;
-      --surface: #f2f2f7;
-      --border: #e5e5ea;
-    }
-
-    *, *::before, *::after {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-
-    body {
-      font-family: var(--font-body);
-      background: var(--bg);
-      color: var(--text);
-      line-height: 1.5;
-      min-height: 100vh;
-      overflow-x: hidden;
-    }
-
-    /* ─── Header ─── */
-    header {
-      padding: 12px 0;
-      margin-bottom: 0;
-      border-bottom: 1px solid var(--border);
-    }
-
-    .header-content {
-      max-width: 1400px;
-      margin: 0 auto;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 0 16px;
-    }
-
-    @media (min-width: 480px) {
-      header { padding: 20px 0; }
-      .header-content { padding: 0 20px; }
-    }
-
-    .logo {
-      font-family: var(--font-display);
-      font-size: 20px;
-      font-weight: 800;
-      color: var(--text);
-      text-decoration: none;
-      letter-spacing: -0.03em;
-    }
-
+    header { padding: 12px 0; border-bottom: 1px solid var(--border); }
+    .header-content { max-width: 1400px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; padding: 0 16px; }
+    @media (min-width: 480px) { header { padding: 20px 0; } .header-content { padding: 0 20px; } }
+    .logo { font-family: var(--font-display); font-size: 20px; font-weight: 800; color: var(--text); text-decoration: none; letter-spacing: -0.03em; }
     @media (min-width: 480px) { .logo { font-size: 24px; } }
-
-    .nav-links {
-      display: flex;
-      gap: 12px;
-    }
-
-    .nav-links a {
-      color: var(--text-muted);
-      text-decoration: none;
-      font-weight: 600;
-      font-size: 13px;
-      transition: color 0.2s;
-    }
-
+    .nav-links { display: flex; gap: 12px; }
+    .nav-links a { color: var(--text-muted); text-decoration: none; font-weight: 600; font-size: 13px; transition: color 0.2s; }
     .nav-links a:hover { color: var(--text); }
+    @media (min-width: 480px) { .nav-links { gap: 24px; } .nav-links a { font-size: 15px; } }
 
-    @media (min-width: 480px) {
-      .nav-links { gap: 24px; }
-      .nav-links a { font-size: 15px; }
-    }
+    .page-hero { border-bottom: 1px solid var(--border); padding: 40px 16px 32px; }
+    @media (min-width: 480px) { .page-hero { padding: 60px 20px 40px; } }
+    .page-hero-inner { max-width: 1400px; margin: 0 auto; }
+    .page-title { font-family: 'Instrument Serif', serif; font-size: clamp(40px, 8vw, 96px); font-style: italic; font-weight: 400; line-height: 0.92; letter-spacing: -0.03em; color: var(--text); margin-bottom: 20px; }
+    .page-desc { font-size: 15px; color: var(--text-muted); max-width: 520px; line-height: 1.6; }
+    @media (min-width: 480px) { .page-desc { font-size: 17px; } }
 
-    /* ─── Page hero ─── */
-    .page-hero {
-      border-bottom: 1px solid var(--border);
-      padding: 40px 16px 32px;
-    }
+    .page-body { max-width: 1400px; margin: 0 auto; padding: 0 16px 80px; display: grid; grid-template-columns: 1fr; }
+    @media (min-width: 900px) { .page-body { grid-template-columns: 1fr 320px; padding: 0 20px 80px; } }
 
-    @media (min-width: 480px) {
-      .page-hero { padding: 60px 20px 40px; }
-    }
+    .feed { border-right: none; padding: 32px 0; }
+    @media (min-width: 900px) { .feed { border-right: 1px solid var(--border); padding: 40px 40px 40px 0; } }
+    .feed-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 28px; }
+    .feed-label { font-family: var(--font-display); font-size: 12px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-muted); }
+    .filter-group { display: flex; gap: 6px; }
+    .filter-btn { background: none; border: 1px solid var(--border); color: var(--text-muted); font-family: var(--font-body); font-size: 12px; font-weight: 600; padding: 5px 12px; border-radius: 999px; cursor: pointer; transition: all 0.15s; }
+    .filter-btn:hover, .filter-btn.active { background: var(--text); color: var(--bg); border-color: var(--text); }
 
-    .page-hero-inner {
-      max-width: 1400px;
-      margin: 0 auto;
-    }
+    .opinion-empty { text-align: center; color: var(--text-muted); padding: 48px 16px; border: 1px solid var(--border); border-radius: 12px; }
+    .opinion-empty .empty-icon { font-size: 36px; margin-bottom: 12px; }
+    .opinion-empty p { font-size: 15px; }
+    .feed-loading { text-align: center; color: var(--text-muted); padding: 48px 16px; font-size: 14px; }
+    .spinner { width: 24px; height: 24px; border: 2px solid var(--border); border-top-color: var(--text-muted); border-radius: 50%; animation: spin 0.6s linear infinite; margin: 0 auto 12px; }
+    @keyframes spin { to { transform: rotate(360deg); } }
 
-    .page-tag {
-      display: inline-block;
-      font-size: 11px;
-      font-weight: 700;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      background: var(--card-red);
-      color: #fff;
-      padding: 4px 10px;
-      border-radius: 4px;
-      margin-bottom: 16px;
-    }
+    .opinion-card { border-bottom: 1px solid var(--border); padding: 28px 0; }
+    .opinion-card:first-of-type { padding-top: 0; }
+    .opinion-meta { display: flex; align-items: center; gap: 10px; margin-bottom: 14px; }
+    .avatar { width: 36px; height: 36px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 14px; font-weight: 800; font-family: var(--font-display); flex-shrink: 0; }
+    .meta-text { flex: 1; }
+    .meta-name { font-size: 14px; font-weight: 700; color: var(--text); }
+    .meta-info { font-size: 12px; color: var(--text-muted); }
+    .opinion-badge { font-size: 11px; font-weight: 700; padding: 3px 8px; border-radius: 4px; white-space: nowrap; }
+    .badge-elev { background: rgba(208,245,78,0.15); color: #b8d93e; }
+    .badge-laerer { background: rgba(88,101,242,0.2); color: #8891f5; }
+    .badge-ny { background: var(--card-red); color: #fff; }
+    .delete-btn { background: none; border: 1px solid transparent; color: var(--text-muted); width: 28px; height: 28px; border-radius: 6px; cursor: pointer; display: flex; align-items: center; justify-content: center; margin-left: auto; flex-shrink: 0; transition: all 0.15s; }
+    .delete-btn:hover { background: rgba(255,69,58,0.12); border-color: rgba(255,69,58,0.3); color: #ff453a; }
+    .opinion-topic { font-size: 11px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 8px; }
+    .opinion-quote { font-family: 'Instrument Serif', serif; font-size: clamp(20px, 3vw, 26px); font-style: italic; line-height: 1.25; color: var(--text); margin-bottom: 14px; letter-spacing: -0.01em; }
+    .opinion-body { font-size: 14px; line-height: 1.7; color: var(--text-muted); }
+    @media (min-width: 480px) { .opinion-body { font-size: 15px; } }
 
-    .page-title {
-      font-family: 'Instrument Serif', serif;
-      font-size: clamp(40px, 8vw, 96px);
-      font-style: italic;
-      font-weight: 400;
-      line-height: 0.92;
-      letter-spacing: -0.03em;
-      color: var(--text);
-      margin-bottom: 20px;
+    /* ─── Reactions ─── */
+    .opinion-footer { display: flex; align-items: center; gap: 8px; margin-top: 14px; }
+    .reaction-btn {
+      display: inline-flex; align-items: center; gap: 5px;
+      background: var(--surface); border: 1px solid var(--border);
+      color: var(--text-muted); font-family: var(--font-body);
+      font-size: 13px; font-weight: 600; padding: 5px 12px;
+      border-radius: 999px; cursor: pointer; transition: all 0.15s;
+      user-select: none; line-height: 1;
     }
-
-    .page-desc {
-      font-size: 15px;
-      color: var(--text-muted);
-      max-width: 520px;
-      line-height: 1.6;
-    }
-
-    @media (min-width: 480px) {
-      .page-desc { font-size: 17px; }
-    }
-
-    /* ─── Main layout ─── */
-    .page-body {
-      max-width: 1400px;
-      margin: 0 auto;
-      padding: 0 16px 80px;
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 0;
-    }
-
-    @media (min-width: 900px) {
-      .page-body {
-        grid-template-columns: 1fr 320px;
-        gap: 0;
-        padding: 0 20px 80px;
-      }
-    }
-
-    /* ─── Opinions feed ─── */
-    .feed {
-      border-right: none;
-      padding: 32px 0;
-    }
-
-    @media (min-width: 900px) {
-      .feed {
-        border-right: 1px solid var(--border);
-        padding: 40px 40px 40px 0;
-      }
-    }
-
-    .feed-header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      margin-bottom: 28px;
-    }
-
-    .feed-label {
-      font-family: var(--font-display);
-      font-size: 12px;
-      font-weight: 700;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: var(--text-muted);
-    }
-
-    .filter-group {
-      display: flex;
-      gap: 6px;
-    }
-
-    .filter-btn {
-      background: none;
-      border: 1px solid var(--border);
-      color: var(--text-muted);
-      font-family: var(--font-body);
-      font-size: 12px;
-      font-weight: 600;
-      padding: 5px 12px;
-      border-radius: 999px;
-      cursor: pointer;
-      transition: all 0.15s;
-    }
-
-    .filter-btn:hover,
-    .filter-btn.active {
-      background: var(--text);
-      color: var(--bg);
-      border-color: var(--text);
-    }
-
-    .opinion-empty {
-      margin-top: 20px;
-      text-align: center;
-      color: var(--text-muted);
-      padding: 32px 16px;
-      border: 1px solid var(--border);
-      border-radius: 12px;
-    }
-
-    .opinion-empty p {
-      margin-top: 12px;
-      font-size: 16px;
-    }
-
-    .opinion-empty img.opinion-empty-icon {
-      display: block;
-      margin: 0 auto;
-      width: 48px;
-      height: 48px;
-      max-width: 64px;
-      max-height: 64px;
-      object-fit: contain;
-    }
-
-    [data-theme="light"] .opinion-empty img.opinion-empty-icon {
-      content: url('Assets/Icons/sad-black.svg');
-    }
-
-    [data-theme="dark"] .opinion-empty img.opinion-empty-icon {
-      content: url('Assets/Icons/sad-white.svg');
-    }
-
-    /* ─── Opinion card ─── */
-    .opinion-card {
-      border-bottom: 1px solid var(--border);
-      padding: 28px 0;
-      position: relative;
-    }
-
-    .opinion-card:first-of-type {
-      padding-top: 0;
-    }
-
-    .opinion-meta {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      margin-bottom: 14px;
-    }
-
-    .avatar {
-      width: 36px;
-      height: 36px;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 14px;
-      font-weight: 800;
-      font-family: var(--font-display);
-      flex-shrink: 0;
-    }
-
-    .meta-text {
-      flex: 1;
-    }
-
-    .meta-name {
-      font-size: 14px;
-      font-weight: 700;
-      color: var(--text);
-    }
-
-    .meta-info {
-      font-size: 12px;
-      color: var(--text-muted);
-    }
-
-    .opinion-badge {
-      font-size: 11px;
-      font-weight: 700;
-      padding: 3px 8px;
-      border-radius: 4px;
-      white-space: nowrap;
-    }
-
-    .badge-elev {
-      background: rgba(208, 245, 78, 0.15);
-      color: #b8d93e;
-    }
-
-    .badge-laerer {
-      background: rgba(88, 101, 242, 0.2);
-      color: #8891f5;
-    }
-
-    .badge-ny {
-      background: var(--card-red);
-      color: #fff;
-    }
-
-    .opinion-topic {
-      font-size: 11px;
-      font-weight: 700;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      color: var(--text-muted);
-      margin-bottom: 8px;
-    }
-
-    .opinion-quote {
-      font-family: 'Instrument Serif', serif;
-      font-size: clamp(20px, 3vw, 26px);
-      font-style: italic;
-      line-height: 1.25;
-      color: var(--text);
-      margin-bottom: 14px;
-      letter-spacing: -0.01em;
-    }
-
-    .opinion-body {
-      font-size: 14px;
-      line-height: 1.7;
-      color: var(--text-muted);
-    }
-
-    @media (min-width: 480px) {
-      .opinion-body { font-size: 15px; }
-    }
-
-    .opinion-date {
-      font-size: 11px;
-      color: var(--text-muted);
-      margin-top: 12px;
-      opacity: 0.6;
-    }
+    .reaction-btn:hover { border-color: var(--text-muted); color: var(--text); }
+    .reaction-btn.active-up   { background: rgba(48,209,88,0.12); border-color: rgba(48,209,88,0.4); color: #30D158; }
+    .reaction-btn.active-down { background: rgba(255,69,58,0.10); border-color: rgba(255,69,58,0.3); color: #ff453a; }
 
     /* ─── Sidebar ─── */
-    .sidebar {
-      padding: 32px 0;
+    .sidebar { padding: 32px 0; }
+    @media (min-width: 900px) { .sidebar { padding: 40px 0 40px 40px; } }
+    .sidebar-section { margin-bottom: 40px; }
+    .sidebar-label { font-family: var(--font-display); font-size: 11px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 16px; padding-bottom: 10px; border-bottom: 1px solid var(--border); }
+
+    .submit-card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 20px; }
+    .submit-card p { font-size: 13px; color: var(--text-muted); margin-bottom: 14px; line-height: 1.6; }
+
+    .open-modal-btn {
+      display: inline-flex; align-items: center; gap: 6px;
+      background: var(--card-red); color: #fff; border: none;
+      padding: 10px 16px; border-radius: 6px;
+      font-family: var(--font-display); font-weight: 700; font-size: 13px;
+      cursor: pointer; transition: all 0.15s; width: 100%; justify-content: center;
     }
+    .open-modal-btn:hover:not(:disabled) { opacity: 0.85; }
+    .open-modal-btn:disabled { background: var(--border); color: var(--text-muted); cursor: not-allowed; opacity: 1; }
 
-    @media (min-width: 900px) {
-      .sidebar {
-        padding: 40px 0 40px 40px;
-      }
-    }
+    /* Cooldown display under write button */
+    .cooldown-info { font-size: 12px; color: var(--text-muted); text-align: center; margin-top: 8px; min-height: 18px; }
+    .cooldown-info span { font-weight: 700; color: var(--card-orange); font-variant-numeric: tabular-nums; }
 
-    .sidebar-section {
-      margin-bottom: 40px;
-    }
+    .user-card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 16px; display: flex; align-items: center; gap: 10px; margin-bottom: 10px; }
+    .user-avatar { width: 36px; height: 36px; border-radius: 50%; background: var(--card-red); display: flex; align-items: center; justify-content: center; font-family: var(--font-display); font-weight: 800; font-size: 14px; color: #fff; flex-shrink: 0; }
+    .user-info { flex: 1; overflow: hidden; }
+    .user-name { font-size: 13px; font-weight: 700; color: var(--text); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .user-role { font-size: 11px; color: var(--text-muted); }
+    .sign-out-btn { background: none; border: 1px solid var(--border); color: var(--text-muted); font-size: 11px; font-weight: 600; padding: 4px 8px; border-radius: 4px; cursor: pointer; flex-shrink: 0; transition: all 0.15s; }
+    .sign-out-btn:hover { color: var(--text); border-color: var(--text); }
 
-    .sidebar-label {
-      font-family: var(--font-display);
-      font-size: 11px;
-      font-weight: 700;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: var(--text-muted);
-      margin-bottom: 16px;
-      padding-bottom: 10px;
-      border-bottom: 1px solid var(--border);
-    }
-
-    /* Discord CTA */
-    .discord-cta {
-      background: var(--card-blue);
-      border-radius: 8px;
-      padding: 24px;
-      color: #fff;
-    }
-
-    .discord-cta-title {
-      font-family: var(--font-display);
-      font-size: 18px;
-      font-weight: 800;
-      margin-bottom: 6px;
-      letter-spacing: -0.02em;
-    }
-
-    .discord-cta-desc {
-      font-size: 13px;
-      opacity: 0.85;
-      line-height: 1.5;
-      margin-bottom: 16px;
-    }
-
-    .discord-btn {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      background: #fff;
-      color: var(--card-blue);
-      padding: 10px 16px;
-      border-radius: 6px;
-      font-family: var(--font-display);
-      font-weight: 800;
-      font-size: 14px;
-      text-decoration: none;
-      width: fit-content;
-      transition: opacity 0.2s;
-    }
-
-    .discord-btn:hover { opacity: 0.9; }
-
-    .discord-btn svg {
-      width: 18px;
-      height: 18px;
-      fill: var(--card-blue);
-    }
-
-    /* Stats */
-    .stat-row {
-      display: flex;
-      justify-content: space-between;
-      padding: 10px 0;
-      border-bottom: 1px solid var(--border);
-      font-size: 14px;
-    }
-
+    .stat-row { display: flex; justify-content: space-between; padding: 10px 0; border-bottom: 1px solid var(--border); font-size: 14px; }
     .stat-row:last-child { border-bottom: none; }
     .stat-label { color: var(--text-muted); }
     .stat-value { font-weight: 700; }
 
-    /* Topics list */
-    .topic-pill {
-      display: inline-block;
-      padding: 5px 12px;
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 999px;
-      font-size: 12px;
-      font-weight: 600;
-      color: var(--text-muted);
-      margin: 0 4px 6px 0;
-      cursor: pointer;
-      transition: all 0.15s;
-    }
+    .topic-pill { display: inline-block; padding: 5px 12px; background: var(--surface); border: 1px solid var(--border); border-radius: 999px; font-size: 12px; font-weight: 600; color: var(--text-muted); margin: 0 4px 6px 0; cursor: pointer; transition: all 0.15s; }
+    .topic-pill:hover { color: var(--text); border-color: var(--text); }
 
-    .topic-pill:hover {
-      color: var(--text);
-      border-color: var(--text);
-    }
+    /* ─── Modal ─── */
+    .modal-backdrop { position: fixed; inset: 0; background: rgba(0,0,0,0.7); backdrop-filter: blur(4px); z-index: 100; display: flex; align-items: center; justify-content: center; padding: 16px; opacity: 0; pointer-events: none; transition: opacity 0.2s; }
+    .modal-backdrop.open { opacity: 1; pointer-events: all; }
+    .modal { background: var(--bg); border: 1px solid var(--border); border-radius: 14px; width: 100%; max-width: 520px; max-height: 90vh; overflow-y: auto; padding: 28px; position: relative; transform: translateY(10px); transition: transform 0.2s; }
+    .modal-backdrop.open .modal { transform: translateY(0); }
+    .modal-close { position: absolute; top: 16px; right: 16px; background: var(--surface); border: none; color: var(--text-muted); width: 28px; height: 28px; border-radius: 50%; cursor: pointer; font-size: 16px; display: flex; align-items: center; justify-content: center; transition: color 0.15s; }
+    .modal-close:hover { color: var(--text); }
+    .modal-title { font-family: var(--font-display); font-size: 20px; font-weight: 800; letter-spacing: -0.03em; margin-bottom: 4px; }
+    .modal-subtitle { font-size: 13px; color: var(--text-muted); margin-bottom: 24px; }
 
-    /* Submit CTA */
-    .submit-cta {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 8px;
-      padding: 20px;
-    }
+    .modal-tabs { display: flex; border: 1px solid var(--border); border-radius: 8px; padding: 3px; margin-bottom: 24px; background: var(--surface); }
+    .modal-tab { flex: 1; padding: 7px; border: none; background: none; color: var(--text-muted); font-family: var(--font-body); font-size: 13px; font-weight: 600; border-radius: 6px; cursor: pointer; transition: all 0.15s; }
+    .modal-tab.active { background: var(--bg); color: var(--text); box-shadow: 0 1px 3px rgba(0,0,0,0.3); }
+    .modal-panel { display: none; }
+    .modal-panel.active { display: block; }
 
-    .submit-cta p {
-      font-size: 13px;
-      color: var(--text-muted);
-      line-height: 1.6;
-      margin-bottom: 14px;
-    }
+    .form-group { margin-bottom: 16px; }
+    .form-label { display: block; font-size: 12px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 6px; }
+    .form-input, .form-select, .form-textarea { width: 100%; background: var(--surface); border: 1px solid var(--border); color: var(--text); font-family: var(--font-body); font-size: 14px; padding: 10px 12px; border-radius: 6px; outline: none; transition: border-color 0.15s; -webkit-appearance: none; }
+    .form-input:focus, .form-select:focus, .form-textarea:focus { border-color: var(--card-red); }
+    .form-textarea { resize: vertical; min-height: 80px; }
+    .form-select option { background: var(--surface); }
+    .char-count { font-size: 11px; color: var(--text-muted); text-align: right; margin-top: 4px; }
+    .char-count.over { color: #ff453a; }
+    .form-btn { width: 100%; padding: 12px; background: var(--card-red); color: #fff; border: none; border-radius: 6px; font-family: var(--font-display); font-size: 14px; font-weight: 700; cursor: pointer; transition: opacity 0.15s; margin-top: 4px; }
+    .form-btn:hover:not(:disabled) { opacity: 0.85; }
+    .form-btn:disabled { opacity: 0.4; cursor: not-allowed; }
+    .form-error { font-size: 12px; color: #ff453a; margin-top: 8px; display: none; }
+    .form-error.visible { display: block; }
+    .form-info { font-size: 12px; color: var(--text-muted); margin-top: 10px; line-height: 1.5; }
 
-    .submit-link {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      color: var(--text);
-      font-size: 13px;
-      font-weight: 700;
-      text-decoration: none;
-      border-bottom: 2px solid var(--card-red);
-      padding-bottom: 2px;
-      transition: opacity 0.15s;
-    }
+    .verify-notice { background: rgba(255,159,10,0.1); border: 1px solid rgba(255,159,10,0.3); border-radius: 8px; padding: 14px 16px; font-size: 13px; color: var(--card-orange); line-height: 1.6; margin-bottom: 16px; display: none; }
+    .verify-notice.visible { display: block; }
 
-    .submit-link:hover { opacity: 0.7; }
-
-    /* Hidden cards */
-    .opinion-card.hidden { display: none; }
-
-    /* Footer */
-    footer {
-      margin-top: 40px;
-      text-align: center;
-      color: var(--text-muted);
-      font-size: 12px;
-      padding-bottom: 40px;
-    }
+    .form-success { text-align: center; padding: 32px 16px; }
+    .form-success .success-icon { font-size: 40px; margin-bottom: 12px; }
+    .form-success p { font-size: 15px; color: var(--text-muted); }
+    .form-success strong { color: var(--text); }
   </style>
 </head>
 <body>
@@ -527,11 +186,11 @@
   <div class="page-hero">
     <div class="page-hero-inner">
       <h1 class="page-title">Meninger</h1>
+      <p class="page-desc">Hva mener egentlig elever og lærere om videregående? Del din mening også!</p>
     </div>
   </div>
 
   <div class="page-body">
-    <!-- Main feed -->
     <main class="feed">
       <div class="feed-header">
         <span class="feed-label">Alle meninger</span>
@@ -541,127 +200,581 @@
           <button class="filter-btn" data-filter="laerer">Lærere</button>
         </div>
       </div>
-
       <div id="opinionsFeed">
-        <!-- Populated by JS -->
+        <div class="feed-loading"><div class="spinner"></div>Laster meninger...</div>
       </div>
     </main>
 
-    <!-- Sidebar -->
     <aside class="sidebar">
-
-      <!-- Discord -->
       <div class="sidebar-section">
-        <div class="sidebar-label">Bli med i diskusjonen</div>
-        <div class="discord-cta" style="background: #333;">
-          <div class="discord-cta-title">Discord er ikke laget enda</div>
-          <div class="discord-cta-desc">Funksjon utilgjengelig foreløpig.</div>
-          <button class="discord-btn" disabled style="cursor: not-allowed; opacity:0.7;">
-            Ikke tilgjengelig
-          </button>
-        </div>
+        <div class="sidebar-label">Del din mening</div>
+        <div id="authArea"></div>
       </div>
-
-      <!-- Stats -->
       <div class="sidebar-section">
         <div class="sidebar-label">Statistikk</div>
-        <div class="stat-row">
-          <span class="stat-label">Totale meninger</span>
-          <span class="stat-value" id="statTotal">–</span>
-        </div>
-        <div class="stat-row">
-          <span class="stat-label">Fra elever</span>
-          <span class="stat-value" id="statElever">–</span>
-        </div>
-        <div class="stat-row">
-          <span class="stat-label">Fra lærere</span>
-          <span class="stat-value" id="statLaerere">–</span>
-        </div>
-        <div class="stat-row">
-          <span class="stat-label">Siste mening</span>
-          <span class="stat-value" id="statSiste">–</span>
-        </div>
+        <div class="stat-row"><span class="stat-label">Totale meninger</span><span class="stat-value" id="statTotal">–</span></div>
+        <div class="stat-row"><span class="stat-label">Fra elever</span><span class="stat-value" id="statElever">–</span></div>
+        <div class="stat-row"><span class="stat-label">Fra lærere</span><span class="stat-value" id="statLaerere">–</span></div>
+        <div class="stat-row"><span class="stat-label">Siste mening</span><span class="stat-value" id="statSiste">–</span></div>
       </div>
-
-      <!-- Topics -->
       <div class="sidebar-section">
         <div class="sidebar-label">Populære temaer</div>
         <div id="topicsList"></div>
       </div>
-
     </aside>
   </div>
 
-  <script>
-    // ─── Opinion data ───
-    // Ingen ekte meninger ennå. Legg til i backend/google sheet etc.
-    // Eksempel (kommentert):
-    // const opinions = [
-    //   {
-    //     id: 1,
-    //     role: "elev",
-    //     topic: "Karakterpress",
-    //     quote: "Vi snakker mye om psykisk helse, men karakterpresset bare øker.",
-    //     body: "Alle sier at vi skal ta vare på oss selv, men hvert eneste foreldremøte handler om karakterer og poenggrenser. Det blir litt hult til slutt.",
-    //     date: "20. mars 2026"
-    //   }
-    // ];
-    const opinions = [];
+  <!-- Modal -->
+  <div class="modal-backdrop" id="modalBackdrop">
+    <div class="modal" role="dialog" aria-modal="true">
+      <button class="modal-close" id="modalClose">✕</button>
 
-    // ─── Render feed ───
-    const avatarColors = {};
-    opinions.forEach(o => avatarColors[o.id] = o.avatarColor);
+      <div id="modalContent">
+        <h2 class="modal-title">Del en mening</h2>
+        <p class="modal-subtitle">Logg inn eller lag en konto, der er helt gratis.</p>
+        <div class="modal-tabs">
+          <button class="modal-tab active" data-tab="login">Logg inn</button>
+          <button class="modal-tab" data-tab="signup">Ny konto</button>
+        </div>
+
+        <div class="modal-panel active" id="panel-login">
+          <div class="verify-notice" id="verifyNotice">📧 Sjekk e-posten din og bekreft kontoen før du logger inn.</div>
+          <div class="form-group">
+            <label class="form-label" for="loginEmail">E-post</label>
+            <input class="form-input" type="email" id="loginEmail" placeholder="din@epost.no" autocomplete="email">
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="loginPassword">Passord</label>
+            <input class="form-input" type="password" id="loginPassword" placeholder="••••••••" autocomplete="current-password">
+          </div>
+          <div class="form-error" id="loginError"></div>
+          <button class="form-btn" id="loginBtn">Logg inn</button>
+        </div>
+
+        <div class="modal-panel" id="panel-signup">
+          <div class="form-group">
+            <label class="form-label" for="signupName">Visningsnavn</label>
+            <input class="form-input" type="text" id="signupName" placeholder="f.eks. Elev fra Vestland" maxlength="40">
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="signupRole">Jeg er en</label>
+            <select class="form-select" id="signupRole">
+              <option value="elev">Elev</option>
+              <option value="laerer">Lærer</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="signupEmail">E-post</label>
+            <input class="form-input" type="email" id="signupEmail" placeholder="din@epost.no" autocomplete="email">
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="signupPassword">Passord</label>
+            <input class="form-input" type="password" id="signupPassword" placeholder="Min. 6 tegn" autocomplete="new-password">
+          </div>
+          <div class="form-error" id="signupError"></div>
+          <button class="form-btn" id="signupBtn">Opprett konto</button>
+          <p class="form-info">Du får en bekreftelseslenke på e-post. Bekreft den før du logger inn.</p>
+        </div>
+      </div>
+
+      <div id="writePanel" style="display:none;">
+        <h2 class="modal-title">Ny mening</h2>
+        <p class="modal-subtitle" id="writeSubtitle"></p>
+        <div class="form-group">
+          <label class="form-label" for="opinionTopic">Tema</label>
+          <input class="form-input" type="text" id="opinionTopic" placeholder="f.eks. Karakterpress, Fravær, Lærere..." maxlength="40">
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="opinionQuote">Kortversjon <span style="font-weight:400;text-transform:none;letter-spacing:0">(vises stort)</span></label>
+          <input class="form-input" type="text" id="opinionQuote" placeholder="En setning som oppsummerer meningen din" maxlength="120">
+          <div class="char-count" id="quoteCount">0 / 120</div>
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="opinionBody">Utdyp gjerne <span style="font-weight:400;text-transform:none;letter-spacing:0">(valgfritt)</span></label>
+          <textarea class="form-textarea" id="opinionBody" placeholder="Mer kontekst, opplevelse eller argumentasjon..." maxlength="600"></textarea>
+          <div class="char-count" id="bodyCount">0 / 600</div>
+        </div>
+        <div class="form-error" id="writeError"></div>
+        <button class="form-btn" id="submitOpinionBtn">Publiser mening</button>
+      </div>
+
+      <div id="successPanel" style="display:none;">
+        <div class="form-success">
+          <div class="success-icon">🎉</div>
+          <p><strong>Meningen er publisert!</strong><br>Takk for at du deler.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // ══════════════════════════════════════════════════
+    //  CONFIG
+    // ══════════════════════════════════════════════════
+    const SUPABASE_URL  = 'https://wqmkwcrlvgfczbueseip.supabase.co';
+    const SUPABASE_ANON = 'sb_publishable_XCDS-VsKHGbOXaaiUWaHIg_sH3sCfLJ';
+    const COOLDOWN_MS   = 5 * 60 * 1000; // 5 minutter
+
+    const sb = supabase.createClient(SUPABASE_URL, SUPABASE_ANON);
+
+    // ══════════════════════════════════════════════════
+    //  STATE
+    // ══════════════════════════════════════════════════
+    let currentUser    = null;
+    let currentProfile = null;
+    let allOpinions    = [];
+    let myReactions    = {}; // { opinion_id: 'up' | 'down' }
+    let activeFilter   = 'alle';
+    let cooldownTimer  = null;
+
+    function isMod() {
+      return currentProfile?.mod_role === 'moderator' || currentProfile?.mod_role === 'admin';
+    }
+
+    // ══════════════════════════════════════════════════
+    //  THEME
+    // ══════════════════════════════════════════════════
+    if (!localStorage.getItem('theme')) localStorage.setItem('theme', 'dark');
+    document.documentElement.setAttribute('data-theme', localStorage.getItem('theme'));
+
+    // ══════════════════════════════════════════════════
+    //  COOLDOWN
+    // ══════════════════════════════════════════════════
+    function cooldownKey() { return currentUser ? `cd_${currentUser.id}` : 'cd_anon'; }
+    function getLastPosted() { return parseInt(localStorage.getItem(cooldownKey()) || '0', 10); }
+    function setLastPosted() { localStorage.setItem(cooldownKey(), Date.now().toString()); }
+    function getRemainingMs() { return Math.max(0, COOLDOWN_MS - (Date.now() - getLastPosted())); }
+
+    function formatCountdown(ms) {
+      const s = Math.ceil(ms / 1000);
+      const m = Math.floor(s / 60);
+      return m > 0 ? `${m}m ${String(s % 60).padStart(2, '0')}s` : `${s}s`;
+    }
+
+    function updateWriteBtn() {
+      const btn    = document.getElementById('openWriteBtn');
+      const infoEl = document.getElementById('cooldownInfo');
+      if (!btn) return;
+      const rem = getRemainingMs();
+      if (rem > 0) {
+        btn.disabled = true;
+        btn.innerHTML = `<span class="material-icons" style="font-size:16px;">timer</span> Skriv en mening`;
+        if (infoEl) infoEl.innerHTML = `Neste mening om <span>${formatCountdown(rem)}</span>`;
+      } else {
+        btn.disabled = false;
+        btn.innerHTML = `<span class="material-icons" style="font-size:16px;">edit</span> Skriv en mening`;
+        if (infoEl) infoEl.textContent = '';
+      }
+    }
+
+    function startCooldownUI() {
+      if (cooldownTimer) clearInterval(cooldownTimer);
+      updateWriteBtn();
+      cooldownTimer = setInterval(() => {
+        updateWriteBtn();
+        if (getRemainingMs() === 0) { clearInterval(cooldownTimer); cooldownTimer = null; }
+      }, 1000);
+    }
+
+    // ══════════════════════════════════════════════════
+    //  AUTH
+    // ══════════════════════════════════════════════════
+    async function loadProfile(userId) {
+      const { data } = await sb.from('profiles').select('*').eq('id', userId).single();
+      return data;
+    }
+
+    async function refreshAuth() {
+      const { data: { session } } = await sb.auth.getSession();
+      currentUser    = session?.user ?? null;
+      currentProfile = currentUser ? await loadProfile(currentUser.id) : null;
+      if (currentUser) await loadMyReactions();
+      renderAuthArea();
+    }
+
+    function renderAuthArea() {
+      const area = document.getElementById('authArea');
+      if (currentUser && currentProfile) {
+        const initials = (currentProfile.display_name || 'U').charAt(0).toUpperCase();
+        const modLabel = currentProfile.mod_role === 'admin'      ? ' · Admin'
+                       : currentProfile.mod_role === 'moderator'  ? ' · Moderator' : '';
+        const rem = getRemainingMs();
+        area.innerHTML = `
+          <div class="user-card">
+            <div class="user-avatar" style="${isMod() ? 'background:#FF9F0A' : ''}">${initials}</div>
+            <div class="user-info">
+              <div class="user-name">${escHtml(currentProfile.display_name)}</div>
+              <div class="user-role">${currentProfile.role === 'elev' ? 'Elev' : 'Lærer'}${modLabel}</div>
+            </div>
+            <button class="sign-out-btn" id="signOutBtn">Logg ut</button>
+          </div>
+          <button class="open-modal-btn" id="openWriteBtn" ${rem > 0 ? 'disabled' : ''}>
+            <span class="material-icons" style="font-size:16px;">${rem > 0 ? 'timer' : 'edit'}</span>
+            Skriv en mening
+          </button>
+          <div class="cooldown-info" id="cooldownInfo">
+            ${rem > 0 ? `Neste mening om <span>${formatCountdown(rem)}</span>` : ''}
+          </div>`;
+        document.getElementById('signOutBtn').addEventListener('click', signOut);
+        document.getElementById('openWriteBtn').addEventListener('click', openWritePanel);
+        if (rem > 0) startCooldownUI();
+      } else {
+        area.innerHTML = `
+          <div class="submit-card">
+            <p>Logg inn eller opprett en konto for å dele din mening om videregående.</p>
+            <button class="open-modal-btn" id="openModalBtn">
+              <span class="material-icons" style="font-size:16px;">edit</span>
+              Skriv en mening
+            </button>
+          </div>`;
+        document.getElementById('openModalBtn').addEventListener('click', openModal);
+      }
+    }
+
+    async function signOut() {
+      await sb.auth.signOut();
+      currentUser = null; currentProfile = null; myReactions = {};
+      if (cooldownTimer) { clearInterval(cooldownTimer); cooldownTimer = null; }
+      renderAuthArea();
+      renderOpinions(activeFilter);
+    }
+
+    // ══════════════════════════════════════════════════
+    //  REACTIONS
+    // ══════════════════════════════════════════════════
+    async function loadMyReactions() {
+      if (!currentUser) return;
+      const { data } = await sb.from('reactions').select('opinion_id, type').eq('user_id', currentUser.id);
+      myReactions = {};
+      (data || []).forEach(r => { myReactions[r.opinion_id] = r.type; });
+    }
+
+    async function toggleReaction(opinionId, type) {
+      if (!currentUser) { openModal(); return; }
+      const existing = myReactions[opinionId];
+
+      if (existing === type) {
+        await sb.from('reactions').delete().eq('user_id', currentUser.id).eq('opinion_id', opinionId);
+        delete myReactions[opinionId];
+      } else {
+        await sb.from('reactions').upsert(
+          { user_id: currentUser.id, opinion_id: opinionId, type },
+          { onConflict: 'user_id,opinion_id' }
+        );
+        myReactions[opinionId] = type;
+      }
+
+      // Re-fetch counts for this opinion
+      const { data } = await sb.from('reactions').select('type').eq('opinion_id', opinionId);
+      const ups   = (data || []).filter(r => r.type === 'up').length;
+      const downs = (data || []).filter(r => r.type === 'down').length;
+
+      const op = allOpinions.find(o => o.id === opinionId);
+      if (op) { op._ups = ups; op._downs = downs; }
+
+      // Replace just the footer of this card
+      const card = document.getElementById(`card-${opinionId}`);
+      if (card) {
+        const oldFooter = card.querySelector('.opinion-footer');
+        if (oldFooter) oldFooter.outerHTML = buildReactionHTML(opinionId, ups, downs);
+        attachReactionListeners(opinionId);
+      }
+    }
+
+    function buildReactionHTML(opinionId, ups, downs) {
+      const my = myReactions[opinionId];
+      return `<div class="opinion-footer">
+        <button class="reaction-btn ${my === 'up' ? 'active-up' : ''}" data-id="${opinionId}" data-type="up">👍 <span>${ups}</span></button>
+        <button class="reaction-btn ${my === 'down' ? 'active-down' : ''}" data-id="${opinionId}" data-type="down">👎 <span>${downs}</span></button>
+      </div>`;
+    }
+
+    function attachReactionListeners(opinionId) {
+      const card = document.getElementById(`card-${opinionId}`);
+      if (!card) return;
+      card.querySelectorAll('.reaction-btn').forEach(btn => {
+        btn.addEventListener('click', () => toggleReaction(Number(btn.dataset.id), btn.dataset.type));
+      });
+    }
+
+    // ══════════════════════════════════════════════════
+    //  MODAL
+    // ══════════════════════════════════════════════════
+    const backdrop = document.getElementById('modalBackdrop');
+
+    function openModal()  { resetModal(); backdrop.classList.add('open'); }
+    function closeModal() { backdrop.classList.remove('open'); }
+    function resetModal() {
+      document.getElementById('modalContent').style.display = '';
+      document.getElementById('writePanel').style.display   = 'none';
+      document.getElementById('successPanel').style.display = 'none';
+      document.getElementById('verifyNotice').classList.remove('visible');
+      setTab('login');
+    }
+    function openWritePanel() {
+      document.getElementById('modalContent').style.display = 'none';
+      document.getElementById('writePanel').style.display   = '';
+      document.getElementById('successPanel').style.display = 'none';
+      document.getElementById('writeSubtitle').textContent  = `Innlogget som ${currentProfile?.display_name ?? ''}`;
+      ['opinionTopic','opinionQuote','opinionBody'].forEach(id => document.getElementById(id).value = '');
+      document.getElementById('quoteCount').textContent = '0 / 120';
+      document.getElementById('bodyCount').textContent  = '0 / 600';
+      backdrop.classList.add('open');
+    }
+
+    document.getElementById('modalClose').addEventListener('click', closeModal);
+    backdrop.addEventListener('click', e => { if (e.target === backdrop) closeModal(); });
+    document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+
+    function setTab(tab) {
+      document.querySelectorAll('.modal-tab').forEach(b => b.classList.toggle('active', b.dataset.tab === tab));
+      document.querySelectorAll('.modal-panel').forEach(p => p.classList.toggle('active', p.id === `panel-${tab}`));
+    }
+    document.querySelectorAll('.modal-tab').forEach(btn => btn.addEventListener('click', () => setTab(btn.dataset.tab)));
+
+    // ── Login ──
+    document.getElementById('loginBtn').addEventListener('click', async () => {
+      const email = document.getElementById('loginEmail').value.trim();
+      const pass  = document.getElementById('loginPassword').value;
+      const errEl = document.getElementById('loginError');
+      errEl.classList.remove('visible');
+      document.getElementById('verifyNotice').classList.remove('visible');
+
+      const btn = document.getElementById('loginBtn');
+      btn.disabled = true; btn.textContent = 'Logger inn...';
+      const { error } = await sb.auth.signInWithPassword({ email, password: pass });
+      btn.disabled = false; btn.textContent = 'Logg inn';
+
+      if (error) {
+        if (error.message.toLowerCase().includes('confirm') || error.message.toLowerCase().includes('verif')) {
+          document.getElementById('verifyNotice').classList.add('visible');
+        } else {
+          errEl.textContent = 'Feil e-post eller passord.';
+          errEl.classList.add('visible');
+        }
+        return;
+      }
+      await refreshAuth();
+      closeModal();
+      openWritePanel();
+    });
+
+    // ── Sign up ──
+    document.getElementById('signupBtn').addEventListener('click', async () => {
+      const name  = document.getElementById('signupName').value.trim();
+      const role  = document.getElementById('signupRole').value;
+      const email = document.getElementById('signupEmail').value.trim();
+      const pass  = document.getElementById('signupPassword').value;
+      const errEl = document.getElementById('signupError');
+      errEl.classList.remove('visible');
+
+      if (!name || !email || pass.length < 6) {
+        errEl.textContent = 'Fyll ut alle feltene. Passord må være minst 6 tegn.';
+        errEl.classList.add('visible');
+        return;
+      }
+
+      const btn = document.getElementById('signupBtn');
+      btn.disabled = true; btn.textContent = 'Oppretter konto...';
+
+      const { data, error } = await sb.auth.signUp({ email, password: pass });
+      btn.disabled = false; btn.textContent = 'Opprett konto';
+
+      if (error) {
+        errEl.textContent = error.message;
+        errEl.classList.add('visible');
+        return;
+      }
+
+      if (data.user) {
+        await sb.from('profiles').upsert({
+          id: data.user.id, display_name: name, role, mod_role: 'user'
+        }, { onConflict: 'id' });
+      }
+
+      // Switch to login tab and show verify notice
+      setTab('login');
+      document.getElementById('verifyNotice').classList.add('visible');
+    });
+
+    // ── Char counters ──
+    document.getElementById('opinionQuote').addEventListener('input', function() {
+      const el = document.getElementById('quoteCount');
+      el.textContent = `${this.value.length} / 120`;
+      el.classList.toggle('over', this.value.length > 120);
+    });
+    document.getElementById('opinionBody').addEventListener('input', function() {
+      const el = document.getElementById('bodyCount');
+      el.textContent = `${this.value.length} / 600`;
+      el.classList.toggle('over', this.value.length > 600);
+    });
+
+    // ── Submit ──
+    document.getElementById('submitOpinionBtn').addEventListener('click', async () => {
+      const topic = document.getElementById('opinionTopic').value.trim();
+      const quote = document.getElementById('opinionQuote').value.trim();
+      const body  = document.getElementById('opinionBody').value.trim();
+      const errEl = document.getElementById('writeError');
+      errEl.classList.remove('visible');
+
+      const rem = getRemainingMs();
+      if (rem > 0) {
+        errEl.textContent = `Du må vente ${formatCountdown(rem)} før du kan poste igjen.`;
+        errEl.classList.add('visible');
+        return;
+      }
+      if (!topic || !quote) {
+        errEl.textContent = 'Tema og kortversjon er påkrevd.';
+        errEl.classList.add('visible');
+        return;
+      }
+
+      const btn = document.getElementById('submitOpinionBtn');
+      btn.disabled = true; btn.textContent = 'Publiserer...';
+
+      const { error } = await sb.from('meninger').insert({
+        user_id: currentUser.id, display_name: currentProfile.display_name,
+        role: currentProfile.role, topic, quote, body: body || null
+      });
+
+      btn.disabled = false; btn.textContent = 'Publiser mening';
+
+      if (error) {
+        errEl.textContent = 'Noe gikk galt. Prøv igjen.';
+        errEl.classList.add('visible');
+        return;
+      }
+
+      setLastPosted();
+      document.getElementById('writePanel').style.display   = 'none';
+      document.getElementById('successPanel').style.display = '';
+
+      setTimeout(() => {
+        closeModal();
+        loadOpinions();
+        renderAuthArea();
+        startCooldownUI();
+      }, 1500);
+    });
+
+    // ══════════════════════════════════════════════════
+    //  OPINIONS
+    // ══════════════════════════════════════════════════
+    const AVATAR_COLORS = ['#d40b00','#5865F2','#30D158','#FF9F0A','#D0F54E','#FF6B6B','#0A84FF'];
+    function colorForName(name) {
+      let h = 0;
+      for (let i = 0; i < name.length; i++) h = name.charCodeAt(i) + ((h << 5) - h);
+      return AVATAR_COLORS[Math.abs(h) % AVATAR_COLORS.length];
+    }
+
+    async function loadOpinions() {
+      const [opRes, reacRes] = await Promise.all([
+        sb.from('meninger').select('*').order('created_at', { ascending: false }),
+        sb.from('reactions').select('opinion_id, type')
+      ]);
+
+      if (opRes.error) {
+        document.getElementById('opinionsFeed').innerHTML =
+          `<div class="opinion-empty"><p>Kunne ikke laste meninger.</p></div>`;
+        return;
+      }
+
+      const counts = {};
+      (reacRes.data || []).forEach(r => {
+        if (!counts[r.opinion_id]) counts[r.opinion_id] = { up: 0, down: 0 };
+        counts[r.opinion_id][r.type]++;
+      });
+
+      allOpinions = (opRes.data || []).map(o => ({
+        ...o, _ups: counts[o.id]?.up ?? 0, _downs: counts[o.id]?.down ?? 0
+      }));
+
+      renderOpinions(activeFilter);
+      renderStats();
+      renderTopics();
+    }
+
+    function formatDate(iso) {
+      return new Date(iso).toLocaleDateString('nb-NO', { day: 'numeric', month: 'long', year: 'numeric' });
+    }
 
     function renderOpinions(filter = 'alle') {
-      const feed = document.getElementById('opinionsFeed');
-      const filtered = filter === 'alle' ? opinions : opinions.filter(o => o.role === filter);
+      activeFilter = filter;
+      const feed     = document.getElementById('opinionsFeed');
+      const filtered = filter === 'alle' ? allOpinions : allOpinions.filter(o => o.role === filter);
 
       if (filtered.length === 0) {
-        const sadIconSrc = document.documentElement.getAttribute('data-theme') === 'light'
-          ? 'Assets/Icons/sad-black.svg'
-          : 'Assets/Icons/sad-white.svg';
-
-        feed.innerHTML = `
-          <div class="opinion-empty">
-            <img id="opinionSadIcon" class="opinion-empty-icon" src="${sadIconSrc}" alt="Trist ikon" />
-            <p>Ingen meninger enda...</p>
-          </div>
-        `;
+        feed.innerHTML = `<div class="opinion-empty"><div class="empty-icon">😕</div><p>Ingen meninger enda...</p></div>`;
         return;
       }
 
       feed.innerHTML = filtered.map((o, i) => {
-        const isNewest = i === 0 && filter === 'alle';
+        const initials  = (o.display_name || '?').charAt(0).toUpperCase();
+        const color     = colorForName(o.display_name || '?');
+        const isNew     = i === 0 && filter === 'alle';
+        const badge     = o.role === 'elev'
+          ? '<span class="opinion-badge badge-elev">Elev</span>'
+          : '<span class="opinion-badge badge-laerer">Lærer</span>';
+        const deleteBtn = isMod()
+          ? `<button class="delete-btn" data-id="${o.id}" title="Slett"><span class="material-icons" style="font-size:16px;">delete</span></button>` : '';
 
         return `
-          <article class="opinion-card" data-role="${o.role}">
-            <div class="opinion-topic">${o.topic}</div>
-            <blockquote class="opinion-quote">«${o.quote}»</blockquote>
-            <p class="opinion-body">${o.body}</p>
-            <div class="opinion-date">${o.date}</div>
-            ${isNewest ? '<span class="opinion-badge badge-ny">Ny</span>' : ''}
-          </article>
-        `;
+          <article class="opinion-card" data-role="${o.role}" id="card-${o.id}">
+            <div class="opinion-meta">
+              <div class="avatar" style="background:${color};color:#fff">${initials}</div>
+              <div class="meta-text">
+                <div class="meta-name">${escHtml(o.display_name)}</div>
+                <div class="meta-info">${formatDate(o.created_at)}</div>
+              </div>
+              ${badge}
+              ${isNew ? '<span class="opinion-badge badge-ny">Ny</span>' : ''}
+              ${deleteBtn}
+            </div>
+            <div class="opinion-topic">${escHtml(o.topic)}</div>
+            <blockquote class="opinion-quote">«${escHtml(o.quote)}»</blockquote>
+            ${o.body ? `<p class="opinion-body">${escHtml(o.body)}</p>` : ''}
+            ${buildReactionHTML(o.id, o._ups, o._downs)}
+          </article>`;
       }).join('');
+
+      if (isMod()) {
+        feed.querySelectorAll('.delete-btn').forEach(btn =>
+          btn.addEventListener('click', () => deleteOpinion(Number(btn.dataset.id)))
+        );
+      }
+      filtered.forEach(o => attachReactionListeners(o.id));
     }
 
-    // ─── Stats ───
+    function escHtml(str) {
+      return String(str).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+    }
+
     function renderStats() {
-      document.getElementById('statTotal').textContent = opinions.length;
-      document.getElementById('statElever').textContent = opinions.filter(o => o.role === 'elev').length;
-      document.getElementById('statLaerere').textContent = opinions.filter(o => o.role === 'laerer').length;
-      document.getElementById('statSiste').textContent = opinions.length ? opinions[0].date : '–';
+      document.getElementById('statTotal').textContent   = allOpinions.length;
+      document.getElementById('statElever').textContent  = allOpinions.filter(o => o.role === 'elev').length;
+      document.getElementById('statLaerere').textContent = allOpinions.filter(o => o.role === 'laerer').length;
+      document.getElementById('statSiste').textContent   = allOpinions.length ? formatDate(allOpinions[0].created_at) : '–';
     }
 
-    // ─── Topics ───
     function renderTopics() {
-      const topics = [...new Set(opinions.slice(0, 10).map(o => o.topic))];
-      document.getElementById('topicsList').innerHTML = topics
-        .map(t => `<span class="topic-pill" data-topic="${t}">${t}</span>`)
-        .join('');
+      const topics = [...new Set(allOpinions.slice(0, 12).map(o => o.topic))];
+      document.getElementById('topicsList').innerHTML = topics.map(t => `<span class="topic-pill">${escHtml(t)}</span>`).join('');
     }
 
-    // ─── Filters ───
+    async function deleteOpinion(id) {
+      if (!confirm('Slett denne meningen?')) return;
+      const card = document.getElementById(`card-${id}`);
+      if (card) { card.style.opacity = '0.4'; card.style.pointerEvents = 'none'; }
+      const { error } = await sb.from('meninger').delete().eq('id', id);
+      if (error) {
+        alert('Kunne ikke slette.');
+        if (card) { card.style.opacity = ''; card.style.pointerEvents = ''; }
+        return;
+      }
+      allOpinions = allOpinions.filter(o => o.id !== id);
+      renderOpinions(activeFilter); renderStats(); renderTopics();
+    }
+
     document.querySelectorAll('.filter-btn').forEach(btn => {
       btn.addEventListener('click', () => {
         document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
@@ -670,14 +783,12 @@
       });
     });
 
-    // ─── Init ───
-    renderOpinions();
-    renderStats();
-    renderTopics();
+    sb.channel('meninger-changes')
+      .on('postgres_changes', { event: 'INSERT', schema: 'public', table: 'meninger' }, () => loadOpinions())
+      .on('postgres_changes', { event: 'DELETE',  schema: 'public', table: 'meninger' }, () => loadOpinions())
+      .subscribe();
 
-    // Theme
-    if (!localStorage.getItem('theme')) localStorage.setItem('theme', 'dark');
-    document.documentElement.setAttribute('data-theme', localStorage.getItem('theme'));
+    (async () => { await refreshAuth(); await loadOpinions(); })();
   </script>
 </body>
 </html>
