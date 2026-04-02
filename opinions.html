@@ -560,51 +560,92 @@
     });
 
     // ── Sign up ──
-    document.getElementById('signupBtn').addEventListener('click', async () => {
-      const name  = document.getElementById('signupName').value.trim();
-      const role  = document.getElementById('signupRole').value;
-      const email = document.getElementById('signupEmail').value.trim();
-      const pass  = document.getElementById('signupPassword').value;
-      const errEl = document.getElementById('signupError');
-      errEl.classList.remove('visible');
+document.getElementById('signupBtn').addEventListener('click', async () => {
+  const name  = document.getElementById('signupName').value.trim();
+  const role  = document.getElementById('signupRole').value;
+  const email = document.getElementById('signupEmail').value.trim();
+  const pass  = document.getElementById('signupPassword').value;
 
-      if (!name || !email || pass.length < 6) {
-        errEl.textContent = 'Fyll ut alle feltene. Passord må være minst 6 tegn.';
-        errEl.classList.add('visible');
-        return;
+  const errEl = document.getElementById('signupError');
+  errEl.classList.remove('visible');
+
+  if (!name || !email || pass.length < 6) {
+    errEl.textContent = 'Fyll ut alle feltene. Passord må være minst 6 tegn.';
+    errEl.classList.add('visible');
+    return;
+  }
+
+  const btn = document.getElementById('signupBtn');
+  btn.disabled = true;
+  btn.textContent = 'Oppretter konto...';
+
+  const { data, error } = await sb.auth.signUp({
+    email,
+    password: pass,
+    options: {
+      emailRedirectTo: 'https://lowahbeepoh.github.io/videregaaendehjelp/opinions.html',
+    },
+  });
+
+  console.log('signUp data:', data);
+  console.log('signUp error:', error);
+
+  btn.disabled = false;
+  btn.textContent = 'Opprett konto';
+
+  if (error) {
+    errEl.textContent = error.message;
+    errEl.classList.add('visible');
+    return;
+  }
+
+  // Always switch to login tab + show verify notice (since session may not exist yet)
+  setTab('login');
+  document.getElementById('verifyNotice').classList.add('visible');
+
+  // If we’re already signed in (rare, depends on confirmation settings), upsert now.
+  const upsertProfileFor = async (userId) => {
+    const { error: upsertError } = await sb.from('profiles').upsert(
+      {
+        id: userId,
+        display_name: name,
+        role,
+        mod_role: 'user',
+      },
+      { onConflict: 'id' }
+    );
+
+    if (upsertError) {
+      console.error('profiles upsert failed:', upsertError);
+      // brah
+    }
+  };
+
+  try {
+    // Check for an existing session
+    const { data: { session } } = await sb.auth.getSession();
+
+    if (session?.user?.id) {
+      await upsertProfileFor(session.user.id);
+      // refreshAuth() will load currentProfile + update UI
+      await refreshAuth();
+      return;
+    }
+
+    // Otherwise: wait until the user becomes authenticated, then upsert.
+    const subscription = sb.auth.onAuthStateChange(async (event, session) => {
+      if (event === 'SIGNED_IN' && session?.user?.id) {
+        subscription.data.unsubscribe(); // safe-ish: stop listening after SIGNED_IN
+        await upsertProfileFor(session.user.id);
+        await refreshAuth();
       }
-
-      const btn = document.getElementById('signupBtn');
-      btn.disabled = true; btn.textContent = 'Oppretter konto...';
-
-      const { data, error } = await sb.auth.signUp({
-        email,
-        password: pass,
-        options: {
-          emailRedirectTo: 'https://lowahbeepoh.github.io/videregaaendehjelp/opinions.html',
-        },
-      });
-      
-      console.log('signUp data:', data);
-      console.log('signUp error:', error);
-      btn.disabled = false; btn.textContent = 'Opprett konto';
-
-      if (error) {
-        errEl.textContent = error.message;
-        errEl.classList.add('visible');
-        return;
-      }
-
-      if (data.user) {
-        await sb.from('profiles').upsert({
-          id: data.user.id, display_name: name, role, mod_role: 'user'
-        }, { onConflict: 'id' });
-      }
-
-      // Switch to login tab and show verify notice
-      setTab('login');
-      document.getElementById('verifyNotice').classList.add('visible');
     });
+
+    // Note: after email confirmation, SIGNED_IN should fire, and this will run.
+  } catch (e) {
+    console.error('ensure session/upsert flow failed:', e);
+  }
+});
 
     // ── Char counters ──
     document.getElementById('opinionQuote').addEventListener('input', function() {
