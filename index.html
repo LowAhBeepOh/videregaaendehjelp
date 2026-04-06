@@ -486,6 +486,16 @@
       margin-bottom: 8px;
     }
 
+    .card-discord .opinion-latest-quote {
+      margin-top: 8px;
+      font-family: 'Instrument Serif', serif;
+      font-style: italic;
+      font-size: clamp(17px, 2.4vw, 22px);
+      font-weight: 400;
+      line-height: 1.25;
+      color: #fff;
+    }
+
     @media (min-width: 480px) {
       .fun-fact-label {
         font-size: 13px;
@@ -615,6 +625,7 @@
     </div>
   </main>
 
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script>
     // Data for all available content
     const contentData = {
@@ -651,19 +662,47 @@
       ]
     };
 
-    // Opinions: blant annet brukt av opinions-siden og index.
-    // For nå er dette tomt ift. ekte innhold. Eksempel (kommentert):
-    // const opinions = [
-    //   {
-    //     id: 1,
-    //     role: "elev",
-    //     topic: "Karakterpress",
-    //     quote: "Vi snakker mye om psykisk helse, men karakterpresset bare øker.",
-    //     body: "Alle sier at vi skal ta vare på oss selv, men hvert eneste foreldremøte handler om karakterer og poenggrenser.",
-    //     date: "20. mars 2026"
-    //   }
-    // ];
-    const opinions = [];
+    const SUPABASE_URL = 'https://wqmkwcrlvgfczbueseip.supabase.co';
+    const SUPABASE_ANON = 'sb_publishable_XCDS-VsKHGbOXaaiUWaHIg_sH3sCfLJ';
+    const sb = supabase.createClient(SUPABASE_URL, SUPABASE_ANON);
+
+    function escHtml(str) {
+      return String(str ?? '')
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;');
+    }
+
+    async function loadLatestOpinionHome() {
+      const el = document.getElementById('opinionBoxContent');
+      if (!el) return;
+      el.textContent = 'Laster…';
+      try {
+        const { data, error } = await sb.from('meninger')
+          .select('quote')
+          .order('created_at', { ascending: false })
+          .limit(1);
+        if (error) throw error;
+        const row = data && data[0];
+        const q = row?.quote != null ? String(row.quote).trim() : '';
+        if (!q) {
+          el.textContent = 'Ingen meninger enda.';
+          return;
+        }
+        el.innerHTML = `«${escHtml(q)}»`;
+      } catch (e) {
+        console.error('loadLatestOpinionHome:', e);
+        el.textContent = 'Kunne ikke laste siste mening.';
+      }
+    }
+
+    function subscribeOpinionHome() {
+      sb.channel('home-meninger-preview')
+        .on('postgres_changes', { event: 'INSERT', schema: 'public', table: 'meninger' }, () => loadLatestOpinionHome())
+        .on('postgres_changes', { event: 'DELETE', schema: 'public', table: 'meninger' }, () => loadLatestOpinionHome())
+        .subscribe();
+    }
 
     // Fun facts that rotate bi-weekly
     const funFacts = [
@@ -690,42 +729,6 @@
       const daysDiff = Math.floor((today - startDate) / (1000 * 60 * 60 * 24));
       const biWeeklyIndex = Math.floor(daysDiff / 14) % funFacts.length;
       return funFacts[biWeeklyIndex];
-    }
-
-    function getOpinionSummaryText() {
-      if (!opinions || opinions.length === 0) {
-        return '<div style="margin-top:16px;font-size:16px;color:#fff;">Ingen meninger enda.</div>';
-      }
-      const latest = opinions[0];
-      return `
-        <div style="font-size:14px;opacity:0.9;margin-bottom:8px;">${latest.topic}</div>
-        <div style="font-size:18px;font-weight:600;line-height:1.2;">${latest.quote}</div>
-        <div style="margin-top:10px;font-size:14px;opacity:0.8;">${latest.body}</div>
-        <div style="margin-top:10px;font-size:12px;opacity:0.7;">${latest.date}</div>
-      `;
-    }
-
-    let opinionRotationIndex = 0;
-    function rotateOpinions() {
-      if (!opinions || opinions.length === 0) return;
-      const opinionBox = document.getElementById('opinionBoxContent');
-      if (!opinionBox) return;
-
-      const visible = opinions[Math.min(opinionRotationIndex, opinions.length - 1)];
-      opinionBox.innerHTML = `
-        <div style="font-size:14px;opacity:0.9;margin-bottom:8px;">${visible.topic}</div>
-        <div style="font-size:18px;font-weight:600;line-height:1.2;">${visible.quote}</div>
-        <div style="margin-top:10px;font-size:14px;opacity:0.8;">${visible.body}</div>
-        <div style="margin-top:10px;font-size:12px;opacity:0.7;">${visible.date}</div>
-      `;
-
-      opinionRotationIndex = (opinionRotationIndex + 1) % Math.min(3, opinions.length);
-    }
-
-    function startOpinionCycler() {
-      if (!opinions || opinions.length === 0) return;
-      rotateOpinions();
-      setInterval(rotateOpinions, 6000);
     }
 
     // Shuffle array (Fisher-Yates)
@@ -766,9 +769,7 @@
         <a href="opinions.html" class="bento-card card-discord grid-item-featured" style="color:#fff; text-decoration: none;">
           <div>
             <div class="fun-fact-label">Meninger</div>
-            <div id="opinionBoxContent" style="margin-top: 8px; font-size: 16px; line-height: 1.3;">
-              ${getOpinionSummaryText()}
-            </div>
+            <div id="opinionBoxContent" class="opinion-latest-quote" aria-live="polite">Laster…</div>
           </div>
         </a>
       `;
@@ -821,7 +822,8 @@
     // Generate grid on page load
     document.addEventListener('DOMContentLoaded', () => {
       generateGrid();
-      startOpinionCycler();
+      loadLatestOpinionHome();
+      subscribeOpinionHome();
     });
 
     // Search Functionality

@@ -29,18 +29,12 @@
     .header-content { max-width: 1400px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; padding: 0 16px; }
     @media (min-width: 480px) { header { padding: 20px 0; } .header-content { padding: 0 20px; } }
     .logo { font-family: var(--font-display); font-size: 20px; font-weight: 800; color: var(--text); text-decoration: none; letter-spacing: -0.03em; }
+    .logo .logo-script { font-family: 'Instrument Serif', serif; font-style: italic; font-weight: 400; letter-spacing: -0.02em; }
     @media (min-width: 480px) { .logo { font-size: 24px; } }
     .nav-links { display: flex; gap: 12px; }
     .nav-links a { color: var(--text-muted); text-decoration: none; font-weight: 600; font-size: 13px; transition: color 0.2s; }
     .nav-links a:hover { color: var(--text); }
     @media (min-width: 480px) { .nav-links { gap: 24px; } .nav-links a { font-size: 15px; } }
-
-    .page-hero { border-bottom: 1px solid var(--border); padding: 40px 16px 32px; }
-    @media (min-width: 480px) { .page-hero { padding: 60px 20px 40px; } }
-    .page-hero-inner { max-width: 1400px; margin: 0 auto; }
-    .page-title { font-family: 'Instrument Serif', serif; font-size: clamp(40px, 8vw, 96px); font-style: italic; font-weight: 400; line-height: 0.92; letter-spacing: -0.03em; color: var(--text); margin-bottom: 20px; }
-    .page-desc { font-size: 15px; color: var(--text-muted); max-width: 520px; line-height: 1.6; }
-    @media (min-width: 480px) { .page-desc { font-size: 17px; } }
 
     .page-body { max-width: 1400px; margin: 0 auto; padding: 0 16px 80px; display: grid; grid-template-columns: 1fr; }
     @media (min-width: 900px) { .page-body { grid-template-columns: 1fr 320px; padding: 0 20px 80px; } }
@@ -64,8 +58,10 @@
     .opinion-card:first-of-type { padding-top: 0; }
     .opinion-meta { display: flex; align-items: center; gap: 10px; margin-bottom: 14px; }
     .avatar { width: 36px; height: 36px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 14px; font-weight: 800; font-family: var(--font-display); flex-shrink: 0; }
+    .avatar img, .user-avatar img { width: 100%; height: 100%; object-fit: cover; border-radius: 50%; display: block; }
     .meta-text { flex: 1; }
     .meta-name { font-size: 14px; font-weight: 700; color: var(--text); }
+    .meta-handle { font-size: 12px; color: var(--text-muted); margin-top: 1px; }
     .meta-info { font-size: 12px; color: var(--text-muted); }
     .opinion-badge { font-size: 11px; font-weight: 700; padding: 3px 8px; border-radius: 4px; white-space: nowrap; }
     .badge-elev { background: rgba(208,245,78,0.15); color: #b8d93e; }
@@ -73,6 +69,14 @@
     .badge-ny { background: var(--card-red); color: #fff; }
     .delete-btn { background: none; border: 1px solid transparent; color: var(--text-muted); width: 28px; height: 28px; border-radius: 6px; cursor: pointer; display: flex; align-items: center; justify-content: center; margin-left: auto; flex-shrink: 0; transition: all 0.15s; }
     .delete-btn:hover { background: rgba(255,69,58,0.12); border-color: rgba(255,69,58,0.3); color: #ff453a; }
+    .moderation-actions { display: flex; gap: 6px; margin-left: auto; flex-wrap: wrap; justify-content: flex-end; }
+    .mod-btn { background: none; border: 1px solid var(--border); color: var(--text-muted); width: 28px; height: 28px; border-radius: 6px; cursor: pointer; display: inline-flex; align-items: center; justify-content: center; transition: all 0.15s; }
+    .mod-btn:hover { border-color: var(--text); color: var(--text); }
+    .mod-btn.warn:hover { border-color: rgba(255,159,10,0.5); color: #FF9F0A; }
+    .mod-btn.timeout:hover { border-color: rgba(88,101,242,0.5); color: #8891f5; }
+    .mod-btn.ban:hover { border-color: rgba(255,69,58,0.4); color: #ff453a; }
+    .mod-btn.delete:hover { border-color: rgba(255,69,58,0.4); color: #ff453a; }
+    .mod-note { margin-top: 10px; font-size: 12px; color: #ff9f0a; }
     .opinion-topic { font-size: 11px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 8px; }
     .opinion-quote { font-family: 'Instrument Serif', serif; font-size: clamp(20px, 3vw, 26px); font-style: italic; line-height: 1.25; color: var(--text); margin-bottom: 14px; letter-spacing: -0.01em; }
     .opinion-body { font-size: 14px; line-height: 1.7; color: var(--text-muted); }
@@ -149,7 +153,7 @@
 
     .form-group { margin-bottom: 16px; }
     .form-label { display: block; font-size: 12px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 6px; }
-    .form-input, .form-select, .form-textarea { width: 100%; background: var(--surface); border: 1px solid var(--border); color: var(--text); font-family: var(--font-body); font-size: 14px; padding: 10px 12px; border-radius: 6px; outline: none; transition: border-color 0.15s; -webkit-appearance: none; }
+    .form-input, .form-select, .form-textarea { width: 100%; background: var(--surface); border: 1px solid var(--border); color: var(--text); font-family: var(--font-body); font-size: 14px; padding: 10px 12px; border-radius: 6px; outline: none; transition: border-color 0.15s; appearance: none; -webkit-appearance: none; }
     .form-input:focus, .form-select:focus, .form-textarea:focus { border-color: var(--card-red); }
     .form-textarea { resize: vertical; min-height: 80px; }
     .form-select option { background: var(--surface); }
@@ -186,19 +190,24 @@
       border-radius: 6px; padding: 10px 12px; color: var(--text-muted);
       font-size: 14px; word-break: break-word;
     }
+    .system-post-toggle { margin-bottom: 14px; }
+    .system-post-toggle label { display: inline-flex; align-items: center; gap: 8px; font-size: 13px; color: var(--text-muted); cursor: pointer; }
     .stat-row.compact { align-items: center; gap: 12px; }
     .stat-group-label { color: var(--text-muted); font-size: 13px; }
     .stat-group-value { font-weight: 700; margin-left: auto; font-size: 13px; }
     .opinion-meta { align-items: flex-start; }
     .opinion-badges { display: flex; gap: 6px; flex-wrap: wrap; justify-content: flex-end; }
     .opinion-badge.badge-role { text-transform: none; }
+    .opinion-badge.badge-staff-admin { background: rgba(255,159,10,0.18); color: #FF9F0A; }
+    .opinion-badge.badge-staff-mod { background: rgba(88,101,242,0.22); color: #8891f5; }
+    .meta-name-row { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
 
   </style>
 </head>
 <body>
   <header>
     <div class="header-content">
-      <a href="index.html" class="logo">Videregående Hjelp</a>
+      <a href="index.html" class="logo">Videregående Hjelp <span class="logo-script">Meninger</span></a>
       <nav class="nav-links">
         <a href="guides.html">Guider</a>
         <a href="tools.html">Verktøy</a>
@@ -206,13 +215,6 @@
       </nav>
     </div>
   </header>
-
-  <div class="page-hero">
-    <div class="page-hero-inner">
-      <h1 class="page-title">Meninger</h1>
-      <p class="page-desc">Hva mener egentlig elever og lærere om videregående? Del din mening også!</p>
-    </div>
-  </div>
 
   <div class="page-body">
     <main class="feed">
@@ -271,7 +273,16 @@
         <div class="modal-panel" id="panel-signup">
           <div class="form-group">
             <label class="form-label" for="signupName">Visningsnavn</label>
-            <input class="form-input" type="text" id="signupName" placeholder="f.eks. Sander" maxlength="40">
+            <input class="form-input" type="text" id="signupName" placeholder="f.eks. Eple" maxlength="40">
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="signupHandle">Handle</label>
+            <input class="form-input" type="text" id="signupHandle" placeholder="f.eks. @eplesausen" maxlength="30">
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="signupAvatarFile">Profilbilde (valgfritt)</label>
+            <input class="form-input" type="file" id="signupAvatarFile" accept="image/png,image/jpeg,image/webp,image/gif">
+            <p class="form-info">Maks 1MB etter komprimering. GIF er kun for moderator/admin.</p>
           </div>
           <div class="form-group">
             <label class="form-label" for="signupRole">Rolle</label>
@@ -298,6 +309,9 @@
       <div id="writePanel" style="display:none;">
         <h2 class="modal-title">Ny mening</h2>
         <p class="modal-subtitle" id="writeSubtitle"></p>
+        <div class="system-post-toggle" id="systemPostToggle" style="display:none;">
+          <label><input type="checkbox" id="postAsSystem"> Publiser som System (kun kunngjøringer)</label>
+        </div>
         <div class="form-group">
           <label class="form-label" for="opinionTopic">Tema</label>
           <input class="form-input" type="text" id="opinionTopic" placeholder="f.eks. Karakterpress, Fravær, Lærere..." maxlength="40">
@@ -323,6 +337,15 @@
         <div class="form-group">
           <label class="form-label" for="profileName">Visningsnavn</label>
           <input class="form-input" type="text" id="profileName" maxlength="40">
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="profileHandle">Handle</label>
+          <input class="form-input" type="text" id="profileHandle" maxlength="30" placeholder="f.eks. @dittsigmanavn">
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="profileAvatarFile">Profilbilde (valgfritt)</label>
+          <input class="form-input" type="file" id="profileAvatarFile" accept="image/png,image/jpeg,image/webp,image/gif">
+          <p class="form-info">Velg ny fil for å bytte bilde. Maks 1MB etter komprimering.</p>
         </div>
 
         <div class="form-group">
@@ -390,11 +413,18 @@
     let currentProfile = null;
     let allOpinions    = [];
     let myReactions    = {}; // { opinion_id: 'up' | 'down' }
+    let profileMap     = {};
     let activeFilter   = 'alle';
     let cooldownTimer  = null;
+    let moderationState = {};
+    const MODERATION_STATE_KEY = 'meninger_moderation_state_v1';
+    const MAX_AVATAR_BYTES = 1024 * 1024; // 1MB
 
     function isMod() {
       return currentProfile?.mod_role === 'moderator' || currentProfile?.mod_role === 'admin';
+    }
+    function isAdmin() {
+      return currentProfile?.mod_role === 'admin';
     }
 
     function normalizeRole(role) {
@@ -420,6 +450,151 @@
         .replace(/</g,'&lt;')
         .replace(/>/g,'&gt;')
         .replace(/"/g,'&quot;');
+    }
+
+    function normalizeHandle(value, fallbackName = '') {
+      const source = String(value || '').trim() || String(fallbackName || '').trim();
+      const cleaned = source
+        .toLowerCase()
+        .replace(/^@+/, '')
+        .replace(/[^a-z0-9._-]+/g, '')
+        .slice(0, 25);
+      return `@${cleaned || 'bruker'}`;
+    }
+
+    function getAvatarMarkup({ name = '', avatarUrl = '', color = '#d40b00', cssClass = 'avatar', isSystem = false }) {
+      if (isSystem) return `<div class="${cssClass}" style="background:#111;color:#fff;border:1px solid var(--border)">⚙️</div>`;
+      const safeUrl = String(avatarUrl || '').trim();
+      if (/^(https?:\/\/.+|data:image\/(?:png|jpe?g|webp|gif);base64,)/i.test(safeUrl)) {
+        return `<div class="${cssClass}" style="background:${color}"><img src="${escHtml(safeUrl)}" alt="${escHtml(name || 'Profilbilde')}" loading="lazy"></div>`;
+      }
+      const initials = (name || '?').charAt(0).toUpperCase();
+      return `<div class="${cssClass}" style="background:${color};color:#fff">${escHtml(initials)}</div>`;
+    }
+
+    function blobToDataUrl(blob) {
+      return new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.onload = () => resolve(String(reader.result || ''));
+        reader.onerror = reject;
+        reader.readAsDataURL(blob);
+      });
+    }
+
+    function loadImageFromDataUrl(dataUrl) {
+      return new Promise((resolve, reject) => {
+        const img = new Image();
+        img.onload = () => resolve(img);
+        img.onerror = reject;
+        img.src = dataUrl;
+      });
+    }
+
+    async function processAvatarFile(file, allowGif = false) {
+      if (!file) return null;
+      const mime = String(file.type || '').toLowerCase();
+      const isGif = mime === 'image/gif';
+
+      if (isGif && !allowGif) {
+        throw new Error('GIF er kun tillatt for moderator/admin.');
+      }
+      if (!/^image\/(png|jpe?g|webp|gif)$/i.test(mime)) {
+        throw new Error('Kun PNG, JPG, WEBP eller GIF er støttet.');
+      }
+
+      if (isGif) {
+        if (file.size > MAX_AVATAR_BYTES) {
+          throw new Error('GIF må være maks 1MB.');
+        }
+        return blobToDataUrl(file);
+      }
+
+      const originalDataUrl = await blobToDataUrl(file);
+      let img = await loadImageFromDataUrl(originalDataUrl);
+
+      let width = img.naturalWidth;
+      let height = img.naturalHeight;
+      const maxSide = 512;
+      if (Math.max(width, height) > maxSide) {
+        const scale = maxSide / Math.max(width, height);
+        width = Math.max(1, Math.round(width * scale));
+        height = Math.max(1, Math.round(height * scale));
+      }
+
+      const canvas = document.createElement('canvas');
+      const ctx = canvas.getContext('2d');
+      canvas.width = width;
+      canvas.height = height;
+      ctx.drawImage(img, 0, 0, width, height);
+
+      const tryEncode = async (type, quality) => {
+        const blob = await new Promise(resolve => canvas.toBlob(resolve, type, quality));
+        if (!blob) return null;
+        return { size: blob.size, dataUrl: await blobToDataUrl(blob) };
+      };
+
+      let best = null;
+      const tries = [
+        ['image/webp', 0.88],
+        ['image/webp', 0.76],
+        ['image/jpeg', 0.84],
+        ['image/jpeg', 0.72],
+        ['image/jpeg', 0.62],
+      ];
+
+      for (const [type, quality] of tries) {
+        const out = await tryEncode(type, quality);
+        if (!out) continue;
+        if (!best || out.size < best.size) best = out;
+        if (out.size <= MAX_AVATAR_BYTES) return out.dataUrl;
+      }
+
+      if (best && best.size <= MAX_AVATAR_BYTES) return best.dataUrl;
+      throw new Error('Bildet ble fortsatt over 1MB. Prøv et mindre bilde.');
+    }
+
+    function getSanctionForUser(userId) {
+      return moderationState[String(userId)] || { warnings: 0, timeoutUntil: 0, banned: false };
+    }
+
+    function saveModerationState() {
+      localStorage.setItem(MODERATION_STATE_KEY, JSON.stringify(moderationState));
+    }
+
+    function loadModerationState() {
+      try {
+        moderationState = JSON.parse(localStorage.getItem(MODERATION_STATE_KEY) || '{}') || {};
+      } catch (e) {
+        moderationState = {};
+      }
+    }
+
+    function getCurrentSanctionMessage() {
+      if (!currentUser) return '';
+      const sanction = getSanctionForUser(currentUser.id);
+      if (sanction.banned) return 'Kontoen din er bannet av modereringsteamet.';
+      if (Number(sanction.timeoutUntil || 0) > Date.now()) {
+        return `Du er i timeout i ${formatCountdown(Number(sanction.timeoutUntil) - Date.now())}.`;
+      }
+      return '';
+    }
+
+    function renderOpinionText(text, allowClickableLinks = false) {
+      const source = String(text || '');
+      if (!allowClickableLinks) return escHtml(source);
+
+      const re = /(https?:\/\/[^\s<>"']+)/gi;
+      let out = '';
+      let lastIndex = 0;
+      let match;
+      while ((match = re.exec(source)) !== null) {
+        const url = match[0];
+        out += escHtml(source.slice(lastIndex, match.index));
+        out += `<a href="${escHtml(url)}" target="_blank" rel="noopener noreferrer" style="color:inherit;text-decoration:underline;">${escHtml(url)}</a>`;
+        lastIndex = re.lastIndex;
+      }
+      out += escHtml(source.slice(lastIndex));
+      return out;
     }
 
     function populateSelect(selectId, options, selectedValue = '') {
@@ -464,7 +639,10 @@
     function cooldownKey() { return currentUser ? `cd_${currentUser.id}` : 'cd_anon'; }
     function getLastPosted() { return parseInt(localStorage.getItem(cooldownKey()) || '0', 10); }
     function setLastPosted() { localStorage.setItem(cooldownKey(), Date.now().toString()); }
-    function getRemainingMs() { return Math.max(0, COOLDOWN_MS - (Date.now() - getLastPosted())); }
+    function getRemainingMs() {
+      if (isAdmin()) return 0;
+      return Math.max(0, COOLDOWN_MS - (Date.now() - getLastPosted()));
+    }
 
     function formatCountdown(ms) {
       const s = Math.ceil(ms / 1000);
@@ -510,6 +688,8 @@
       return {
         ...profile,
         role: normalizeRole(profile.role),
+        handle: normalizeHandle(profile.handle, profile.display_name),
+        avatar_url: String(profile.avatar_url || '').trim(),
         county: profile.county || '',
       };
     }
@@ -526,16 +706,22 @@
     function renderAuthArea() {
       const area = document.getElementById('authArea');
       if (currentUser && currentProfile) {
-        const initials = (currentProfile.display_name || 'U').charAt(0).toUpperCase();
         const modLabel = currentProfile.mod_role === 'admin'      ? ' · Admin'
                        : currentProfile.mod_role === 'moderator'  ? ' · Moderator' : '';
         const rem = getRemainingMs();
         const county = currentProfile.county ? ` · ${escHtml(currentProfile.county)}` : '';
+        const sanctionMessage = getCurrentSanctionMessage();
+        const avatar = getAvatarMarkup({
+          name: currentProfile.display_name || 'Ukjent',
+          avatarUrl: currentProfile.avatar_url,
+          color: isMod() ? '#FF9F0A' : colorForName(currentProfile.display_name || 'U'),
+          cssClass: 'user-avatar'
+        });
         area.innerHTML = `
           <div class="user-card">
-            <div class="user-avatar" style="${isMod() ? 'background:#FF9F0A' : ''}">${escHtml(initials)}</div>
+            ${avatar}
             <div class="user-info">
-              <div class="user-name">${escHtml(currentProfile.display_name || 'Ukjent')}</div>
+              <div class="user-name">${escHtml(currentProfile.display_name || 'Ukjent')} <span style="color:var(--text-muted);font-weight:600;">${escHtml(currentProfile.handle || '@bruker')}</span></div>
               <div class="user-role">${escHtml(displayRole(currentProfile.role))}${county}${modLabel}</div>
               <div class="user-email">${escHtml(currentUser.email || '')}</div>
             </div>
@@ -551,6 +737,9 @@
           <div class="cooldown-info" id="cooldownInfo">
             ${rem > 0 ? `Neste mening om <span>${formatCountdown(rem)}</span>` : ''}
           </div>`;
+        if (sanctionMessage) {
+          area.insertAdjacentHTML('beforeend', `<p class="mod-note">${escHtml(sanctionMessage)}</p>`);
+        }
         document.getElementById('signOutBtn').addEventListener('click', signOut);
         document.getElementById('editProfileBtn').addEventListener('click', openEditProfilePanel);
         document.getElementById('openWriteBtn').addEventListener('click', openWritePanel);
@@ -663,6 +852,8 @@
       document.getElementById('successPanel').style.display = 'none';
       document.getElementById('writeSubtitle').textContent  = `Innlogget som ${currentProfile?.display_name ?? ''}`;
       ['opinionTopic','opinionQuote','opinionBody'].forEach(id => document.getElementById(id).value = '');
+      document.getElementById('postAsSystem').checked = false;
+      document.getElementById('systemPostToggle').style.display = isAdmin() ? '' : 'none';
       document.getElementById('quoteCount').textContent = '0 / 120';
       document.getElementById('bodyCount').textContent  = '0 / 600';
       backdrop.classList.add('open');
@@ -672,6 +863,8 @@
       hideAllPanels();
       document.getElementById('editProfilePanel').style.display = '';
       document.getElementById('profileName').value = currentProfile?.display_name || '';
+      document.getElementById('profileHandle').value = currentProfile?.handle || '';
+      document.getElementById('profileAvatarFile').value = '';
       document.getElementById('profileRole').value = normalizeRole(currentProfile?.role || 'ungdom');
       document.getElementById('profileCounty').value = currentProfile?.county || '';
       document.getElementById('profileEmailView').textContent = currentUser?.email || '–';
@@ -720,6 +913,8 @@
 
     document.getElementById('signupBtn').addEventListener('click', async () => {
       const name  = document.getElementById('signupName').value.trim();
+      const handleInput = document.getElementById('signupHandle').value.trim();
+      const avatarFile = document.getElementById('signupAvatarFile').files?.[0] || null;
       const role  = normalizeRole(document.getElementById('signupRole').value);
       const county = document.getElementById('signupCounty').value || null;
       const email = document.getElementById('signupEmail').value.trim();
@@ -737,6 +932,18 @@
       const btn = document.getElementById('signupBtn');
       btn.disabled = true;
       btn.textContent = 'Oppretter konto...';
+      let avatarDataUrl = null;
+      if (avatarFile) {
+        try {
+          avatarDataUrl = await processAvatarFile(avatarFile, false);
+        } catch (e) {
+          btn.disabled = false;
+          btn.textContent = 'Opprett konto';
+          errEl.textContent = e.message || 'Kunne ikke behandle profilbildet.';
+          errEl.classList.add('visible');
+          return;
+        }
+      }
 
       const { error } = await sb.auth.signUp({
         email,
@@ -763,6 +970,8 @@
           {
             id: userId,
             display_name: name,
+            handle: normalizeHandle(handleInput, name),
+            avatar_url: avatarDataUrl || null,
             role,
             county,
             mod_role: 'user',
@@ -798,6 +1007,8 @@
 
     document.getElementById('saveProfileBtn').addEventListener('click', async () => {
       const name = document.getElementById('profileName').value.trim();
+      const handleInput = document.getElementById('profileHandle').value.trim();
+      const avatarFile = document.getElementById('profileAvatarFile').files?.[0] || null;
       const role = normalizeRole(document.getElementById('profileRole').value);
       const county = document.getElementById('profileCounty').value || null;
       const errEl = document.getElementById('profileError');
@@ -812,11 +1023,25 @@
       const btn = document.getElementById('saveProfileBtn');
       btn.disabled = true;
       btn.textContent = 'Lagrer...';
+      let avatarDataUrl = currentProfile?.avatar_url || null;
+      if (avatarFile) {
+        try {
+          avatarDataUrl = await processAvatarFile(avatarFile, isMod());
+        } catch (e) {
+          btn.disabled = false;
+          btn.textContent = 'Lagre endringer';
+          errEl.textContent = e.message || 'Kunne ikke behandle profilbildet.';
+          errEl.classList.add('visible');
+          return;
+        }
+      }
 
       const { error } = await sb.from('profiles').upsert(
         {
           id: currentUser.id,
           display_name: name,
+          handle: normalizeHandle(handleInput, name),
+          avatar_url: avatarDataUrl,
           role,
           county,
           mod_role: currentProfile?.mod_role || 'user',
@@ -833,7 +1058,7 @@
         return;
       }
 
-      currentProfile = { ...currentProfile, display_name: name, role, county };
+      currentProfile = { ...currentProfile, display_name: name, handle: normalizeHandle(handleInput, name), avatar_url: avatarDataUrl, role, county };
       await refreshAuth();
       closeModal();
       renderOpinions(activeFilter);
@@ -864,6 +1089,17 @@
       errEl.classList.remove('visible');
 
       const rem = getRemainingMs();
+      const sanction = getSanctionForUser(currentUser?.id);
+      if (sanction.banned) {
+        errEl.textContent = 'Du er bannet og kan ikke publisere.';
+        errEl.classList.add('visible');
+        return;
+      }
+      if (Number(sanction.timeoutUntil || 0) > Date.now()) {
+        errEl.textContent = `Du er i timeout. Prøv igjen om ${formatCountdown(Number(sanction.timeoutUntil) - Date.now())}.`;
+        errEl.classList.add('visible');
+        return;
+      }
       if (rem > 0) {
         errEl.textContent = `Du må vente ${formatCountdown(rem)} før du kan poste igjen.`;
         errEl.classList.add('visible');
@@ -878,9 +1114,16 @@
       const btn = document.getElementById('submitOpinionBtn');
       btn.disabled = true; btn.textContent = 'Publiserer...';
 
+      const postAsSystem = isAdmin() && document.getElementById('postAsSystem').checked;
+      if (postAsSystem && !/kunngj/i.test(topic)) {
+        errEl.textContent = 'System-innlegg må brukes til kunngjøringer. Legg inn "kunngjøring" i tema.';
+        errEl.classList.add('visible');
+        btn.disabled = false; btn.textContent = 'Publiser mening';
+        return;
+      }
       const { error } = await sb.from('meninger').insert({
         user_id: currentUser.id,
-        display_name: currentProfile.display_name,
+        display_name: postAsSystem ? 'System' : currentProfile.display_name,
         role: currentProfile.role,
         county: currentProfile.county || null,
         topic,
@@ -936,9 +1179,19 @@
         counts[r.opinion_id][r.type]++;
       });
 
+      const userIds = [...new Set((opRes.data || []).map(o => o.user_id).filter(Boolean))];
+      profileMap = {};
+      if (userIds.length) {
+        const { data: profiles } = await sb.from('profiles').select('*').in('id', userIds);
+        (profiles || []).forEach(p => { profileMap[p.id] = normalizeProfile(p); });
+      }
+
       allOpinions = (opRes.data || []).map(o => ({
         ...o,
         role: normalizeRole(o.role),
+        authorProfile: profileMap[o.user_id] || null,
+        handle: normalizeHandle(o.handle, o.display_name),
+        isSystemPost: String(o.display_name || '').trim().toLowerCase() === 'system',
         _ups: counts[o.id]?.up ?? 0,
         _downs: counts[o.id]?.down ?? 0
       }));
@@ -953,10 +1206,59 @@
       return new Date(iso).toLocaleDateString('nb-NO', { day: 'numeric', month: 'long', year: 'numeric' });
     }
 
+    /** Viser relativ tid (minutter/timer/dager) eller full dato når innlegget er eldre enn ~7 dager. */
+    function formatRelativeOrDate(iso) {
+      const t = new Date(iso).getTime();
+      if (Number.isNaN(t)) return '–';
+      const diffMs = Date.now() - t;
+      if (diffMs < 0) return formatDate(iso);
+      const sec = Math.floor(diffMs / 1000);
+      const min = Math.floor(sec / 60);
+      const hr = Math.floor(min / 60);
+      const day = Math.floor(hr / 24);
+
+      if (sec < 45) return 'Nå nettopp';
+      if (min < 60) return min === 1 ? '1 minutt siden' : `${min} minutter siden`;
+      if (hr < 24) return hr === 1 ? '1 time siden' : `${hr} timer siden`;
+      if (day < 7) return day === 1 ? '1 dag siden' : `${day} dager siden`;
+      return formatDate(iso);
+    }
+
+    function staffBadgeForOpinion(o) {
+      if (o.isSystemPost) return '';
+      const mr = o.authorProfile?.mod_role;
+      if (mr === 'admin') return '<span class="opinion-badge badge-staff-admin">Admin</span>';
+      if (mr === 'moderator') return '<span class="opinion-badge badge-staff-mod">Mod</span>';
+      return '';
+    }
+
+    function getOpinionRole(opinion) {
+      return normalizeRole(opinion?.authorProfile?.role || opinion?.role);
+    }
+
+    function getOpinionCounty(opinion) {
+      return String(opinion?.authorProfile?.county || opinion?.county || '').trim();
+    }
+
+    function getOpinionDisplayName(opinion) {
+      if (opinion?.isSystemPost) return 'System';
+      return String(opinion?.authorProfile?.display_name || opinion?.display_name || 'Ukjent');
+    }
+
+    function canDeletePost(opinion) {
+      if (!opinion) return false;
+      const isOwner = currentUser?.id && String(currentUser.id) === String(opinion.user_id);
+      if (isOwner) return true;
+      if (!isMod()) return false;
+      if (isAdmin()) return true;
+      const targetRole = opinion.authorProfile?.mod_role || 'user';
+      return !opinion.isSystemPost && targetRole === 'user';
+    }
+
     function renderOpinions(filter = 'alle') {
       activeFilter = filter;
       const feed     = document.getElementById('opinionsFeed');
-      const filtered = filter === 'alle' ? allOpinions : allOpinions.filter(o => o.role === filter);
+      const filtered = filter === 'alle' ? allOpinions : allOpinions.filter(o => getOpinionRole(o) === filter);
 
       if (filtered.length === 0) {
         feed.innerHTML = `<div class="opinion-empty"><div class="empty-icon">😕</div><p>Ingen meninger enda...</p></div>`;
@@ -964,47 +1266,116 @@
       }
 
       feed.innerHTML = filtered.map((o, i) => {
-        const initials  = (o.display_name || '?').charAt(0).toUpperCase();
-        const color     = colorForName(o.display_name || '?');
+        const displayName = getOpinionDisplayName(o);
+        const handle = o.isSystemPost ? '@system' : normalizeHandle(o.authorProfile?.handle || o.handle, displayName);
+        const color     = colorForName(displayName || '?');
+        const roleValue = getOpinionRole(o);
+        const countyValue = getOpinionCounty(o);
         const isNew     = i === 0 && filter === 'alle';
-        const badge     = `<span class="opinion-badge badge-role">${escHtml(displayRole(o.role))}</span>`;
-        const county    = o.county ? `<span class="opinion-badge">${escHtml(o.county)}</span>` : '';
-        const deleteBtn = isMod()
-          ? `<button class="delete-btn" data-id="${o.id}" title="Slett"><span class="material-icons" style="font-size:16px;">delete</span></button>` : '';
+        const badge     = `<span class="opinion-badge badge-role">${escHtml(displayRole(roleValue))}</span>`;
+        const county    = countyValue ? `<span class="opinion-badge">${escHtml(countyValue)}</span>` : '';
+        const canDelete = canDeletePost(o);
+        const canSanction = canModeratePost(o);
+        const allowClickableLinks = o.isSystemPost || ['admin', 'moderator'].includes(o.authorProfile?.mod_role || 'user');
+        const avatar = getAvatarMarkup({
+          name: displayName,
+          avatarUrl: o.isSystemPost ? '' : (o.authorProfile?.avatar_url || ''),
+          color,
+          isSystem: o.isSystemPost
+        });
+        const moderationButtons = (canSanction || canDelete) ? `
+          <div class="moderation-actions">
+            ${canSanction ? `<button class="mod-btn warn" data-action="warn" data-id="${o.id}" title="Advarsel"><span class="material-icons" style="font-size:16px;">warning</span></button>` : ''}
+            ${canSanction ? `<button class="mod-btn timeout" data-action="timeout" data-id="${o.id}" title="Timeout"><span class="material-icons" style="font-size:16px;">hourglass_bottom</span></button>` : ''}
+            ${canSanction ? `<button class="mod-btn ban" data-action="ban" data-id="${o.id}" title="Ban"><span class="material-icons" style="font-size:16px;">block</span></button>` : ''}
+            ${canDelete ? `<button class="mod-btn delete" data-action="delete" data-id="${o.id}" title="Slett"><span class="material-icons" style="font-size:16px;">delete</span></button>` : ''}
+          </div>
+        ` : '';
 
         return `
           <article class="opinion-card" data-role="${escHtml(o.role)}" id="card-${o.id}">
             <div class="opinion-meta">
-              <div class="avatar" style="background:${color};color:#fff">${escHtml(initials)}</div>
+              ${avatar}
               <div class="meta-text">
-                <div class="meta-name">${escHtml(o.display_name)}</div>
-                <div class="meta-info">${escHtml(formatDate(o.created_at))}${o.county ? ` · ${escHtml(o.county)}` : ''}</div>
+                <div class="meta-name-row">
+                  <span class="meta-name">${escHtml(displayName)}</span>
+                  ${staffBadgeForOpinion(o)}
+                </div>
+                <div class="meta-handle">${escHtml(handle)}</div>
+                <div class="meta-info">${escHtml(formatRelativeOrDate(o.created_at))}${countyValue ? ` · ${escHtml(countyValue)}` : ''}</div>
               </div>
               <div class="opinion-badges">
                 ${badge}
                 ${county}
                 ${isNew ? '<span class="opinion-badge badge-ny">Ny</span>' : ''}
-                ${deleteBtn}
+                ${moderationButtons}
               </div>
             </div>
             <div class="opinion-topic">${escHtml(o.topic)}</div>
-            <blockquote class="opinion-quote">«${escHtml(o.quote)}»</blockquote>
-            ${o.body ? `<p class="opinion-body">${escHtml(o.body)}</p>` : ''}
+            <blockquote class="opinion-quote">«${renderOpinionText(o.quote, allowClickableLinks)}»</blockquote>
+            ${o.body ? `<p class="opinion-body">${renderOpinionText(o.body, allowClickableLinks)}</p>` : ''}
             ${buildReactionHTML(o.id, o._ups, o._downs)}
           </article>`;
       }).join('');
 
-      if (isMod()) {
-        feed.querySelectorAll('.delete-btn').forEach(btn =>
-          btn.addEventListener('click', () => deleteOpinion(Number(btn.dataset.id)))
-        );
-      }
+      if (feed.querySelector('.mod-btn')) attachModerationListeners(feed);
       filtered.forEach(o => attachReactionListeners(o.id));
+    }
+
+    function canModeratePost(opinion) {
+      if (!isMod()) return false;
+      if (opinion.isSystemPost || !opinion.user_id) return false;
+      const targetRole = opinion.authorProfile?.mod_role || 'user';
+      const isSelf = currentUser?.id && String(currentUser.id) === String(opinion.user_id);
+      if (isSelf) return false;
+      if (isAdmin()) return targetRole !== 'admin';
+      return targetRole === 'user';
+    }
+
+    function attachModerationListeners(feed) {
+      feed.querySelectorAll('.mod-btn').forEach(btn => {
+        btn.addEventListener('click', async () => {
+          const opinionId = Number(btn.dataset.id);
+          const action = btn.dataset.action;
+          const target = allOpinions.find(o => o.id === opinionId);
+          if (!target) return;
+          if (action === 'delete') {
+            if (!canDeletePost(target)) return;
+            await deleteOpinion(opinionId);
+            return;
+          }
+          if (!canModeratePost(target)) return;
+          await applyModerationAction(target, action);
+        });
+      });
+    }
+
+    async function applyModerationAction(opinion, action) {
+      if (!canModeratePost(opinion)) return;
+      const key = String(opinion.user_id);
+      const prev = getSanctionForUser(opinion.user_id);
+      const next = { ...prev };
+      if (action === 'warn') {
+        next.warnings = Number(next.warnings || 0) + 1;
+      } else if (action === 'timeout') {
+        const minutes = Number(prompt('Timeout i minutter?', '60'));
+        if (!Number.isFinite(minutes) || minutes <= 0) return;
+        next.timeoutUntil = Date.now() + (minutes * 60 * 1000);
+      } else if (action === 'ban') {
+        if (!confirm('Banne denne brukeren?')) return;
+        next.banned = true;
+      } else {
+        return;
+      }
+      moderationState[key] = next;
+      saveModerationState();
+      if (currentUser?.id === opinion.user_id) renderAuthArea();
+      alert(action === 'warn' ? 'Advarsel gitt.' : action === 'timeout' ? 'Timeout aktivert.' : 'Brukeren er bannet.');
     }
 
     function renderStats() {
       const roles = ROLE_OPTIONS.map(r => {
-        const count = allOpinions.filter(o => o.role === r.value).length;
+        const count = allOpinions.filter(o => getOpinionRole(o) === r.value).length;
         return `
           <div class="stat-row compact">
             <span class="stat-group-label">Fra ${escHtml(r.label)}</span>
@@ -1020,7 +1391,7 @@
         ${roles}
         <div class="stat-row compact">
           <span class="stat-group-label">Siste mening</span>
-          <span class="stat-group-value">${allOpinions.length ? escHtml(formatDate(allOpinions[0].created_at)) : '–'}</span>
+          <span class="stat-group-value">${allOpinions.length ? escHtml(formatRelativeOrDate(allOpinions[0].created_at)) : '–'}</span>
         </div>`;
     }
 
@@ -1030,6 +1401,8 @@
     }
 
     async function deleteOpinion(id) {
+      const target = allOpinions.find(o => o.id === id);
+      if (!target || !canDeletePost(target)) return;
       if (!confirm('Slett denne meningen?')) return;
       const card = document.getElementById(`card-${id}`);
       if (card) { card.style.opacity = '0.4'; card.style.pointerEvents = 'none'; }
@@ -1057,6 +1430,7 @@
       .subscribe();
 
     (async () => {
+      loadModerationState();
       renderRoleAndCountySelects();
       renderFilters();
       await refreshAuth();
