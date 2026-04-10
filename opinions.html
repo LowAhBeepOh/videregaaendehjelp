@@ -260,6 +260,7 @@
 
     /* ─── Hidden posts (mod view) ─── */
     .opinion-card.hidden-post { opacity: 0.45; border-left: 3px solid var(--card-orange); }
+    .reply-card.hidden-post { opacity: 0.45; border-left: 3px solid var(--card-orange); padding-left: 10px; }
     .hidden-label { font-size: 11px; font-weight: 700; color: var(--card-orange); margin-bottom: 6px; display: flex; align-items: center; gap: 4px; }
 
     /* ─── Attachments ─── */
@@ -559,6 +560,8 @@
     let currentPage    = 1;
     let profileChannel = null;
     let notifChannel   = null;
+    let repliesMap    = {}; // { [opinionId]: reply[] } – cache
+    let replyCountMap = {}; // { [opinionId]: number }
     const MAX_AVATAR_BYTES = 1024 * 1024; // 1MB
 
     function isMod() {
@@ -1426,9 +1429,10 @@
     }
 
     async function loadOpinions() {
-      const [opRes, reacRes] = await Promise.all([
-        sb.from('meninger').select('*').order('created_at', { ascending: false }),
-        sb.from('reactions').select('opinion_id, type')
+      const [opRes, reacRes, replyRes] = await Promise.all([
+        sb.from('meninger').select('*').is('parent_id', null).order('created_at', { ascending: false }),
+        sb.from('reactions').select('opinion_id, type'),
+        sb.from('replies').select('opinion_id'),
       ]);
 
       if (opRes.error) {
@@ -1442,6 +1446,12 @@
         if (!counts[r.opinion_id]) counts[r.opinion_id] = { up: 0, down: 0 };
         counts[r.opinion_id][r.type]++;
       });
+
+      replyCountMap = {};
+      (replyRes.data || []).forEach(r => {
+        replyCountMap[r.opinion_id] = (replyCountMap[r.opinion_id] || 0) + 1;
+      });
+      repliesMap = {};
 
       const userIds = [...new Set((opRes.data || []).map(o => o.user_id).filter(Boolean))];
       profileMap = {};
@@ -1458,7 +1468,7 @@
         isSystemPost: String(o.display_name || '').trim().toLowerCase() === 'system',
         _ups: counts[o.id]?.up ?? 0,
         _downs: counts[o.id]?.down ?? 0,
-        parent_id: o.parent_id || null,
+        parent_id: null,
         pinned: !!o.pinned,
         hidden: !!o.hidden,
         image_url: o.image_url || null,
@@ -1561,11 +1571,8 @@
       const start = (currentPage - 1) * PAGE_SIZE;
       const pageItems = displayList.slice(start, start + PAGE_SIZE);
 
-      // Tell svar per mening
-      const replyCounts = {};
-      allOpinions.forEach(o => {
-        if (o.parent_id) replyCounts[o.parent_id] = (replyCounts[o.parent_id] || 0) + 1;
-      });
+      // Tell svar per mening (fra replies-tabellen)
+      const replyCounts = replyCountMap;
 
       feed.innerHTML = pageItems.map((o, i) => {
         const displayName = getOpinionDisplayName(o);
@@ -1666,6 +1673,122 @@
       if (isSelf) return false;
       if (isAdmin()) return targetRole !== 'admin';
       return targetRole === 'user';
+    }
+
+    // ══════════════════════════════════════════════════
+    //  SVAR – MODERERING
+    // ══════════════════════════════════════════════════
+    function canDeleteReply(reply) {
+      if (!reply) return false;
+      const isOwner = currentUser?.id && String(currentUser.id) === String(reply.user_id);
+      if (isOwner) return true;
+      if (!isMod()) return false;
+      if (isAdmin()) return true;
+      return (reply.authorProfile?.mod_role || 'user') === 'user';
+    }
+
+    function canModerateReply(reply) {
+      if (!isMod()) return false;
+      if (!reply.user_id) return false;
+      const targetRole = reply.authorProfile?.mod_role || 'user';
+      const isSelf = currentUser?.id && String(currentUser.id) === String(reply.user_id);
+      if (isSelf) return false;
+      if (isAdmin()) return targetRole !== 'admin';
+      return targetRole === 'user';
+    }
+
+    function buildReplyCard(reply) {
+      const name = reply.authorProfile?.display_name || reply.display_name || 'Ukjent';
+      const rHandle = normalizeHandle(reply.authorProfile?.handle || '', name);
+      const color = colorForName(name);
+      const avatar = getAvatarMarkup({ name, avatarUrl: reply.authorProfile?.avatar_url || '', color });
+      const mr = reply.authorProfile?.mod_role;
+      const staffBadge = mr === 'admin'
+        ? '<span class="opinion-badge badge-staff-admin">Admin</span>'
+        : mr === 'moderator' ? '<span class="opinion-badge badge-staff-mod">Mod</span>' : '';
+
+      const canDelete  = canDeleteReply(reply);
+      const canSanction = canModerateReply(reply);
+      const showModBtns = canDelete || canSanction || isMod();
+      const modButtons = showModBtns ? `
+        <div class="moderation-actions" style="flex-shrink:0;">
+          ${isMod() ? `<button class="mod-btn" data-reply-action="${reply.hidden ? 'reply-unhide' : 'reply-hide'}" data-reply-id="${reply.id}" title="${reply.hidden ? 'Vis' : 'Skjul'}"><span class="material-icons" style="font-size:16px;">${reply.hidden ? 'visibility' : 'visibility_off'}</span></button>` : ''}
+          ${canSanction ? `<button class="mod-btn warn" data-reply-action="warn" data-reply-id="${reply.id}" data-reply-user="${reply.user_id}" title="Advarsel"><span class="material-icons" style="font-size:16px;">warning</span></button>` : ''}
+          ${canSanction ? `<button class="mod-btn timeout" data-reply-action="timeout" data-reply-id="${reply.id}" data-reply-user="${reply.user_id}" title="Timeout"><span class="material-icons" style="font-size:16px;">hourglass_bottom</span></button>` : ''}
+          ${canSanction ? `<button class="mod-btn ban" data-reply-action="ban" data-reply-id="${reply.id}" data-reply-user="${reply.user_id}" title="Ban"><span class="material-icons" style="font-size:16px;">block</span></button>` : ''}
+          ${canDelete ? `<button class="mod-btn delete" data-reply-action="reply-delete" data-reply-id="${reply.id}" title="Slett"><span class="material-icons" style="font-size:16px;">delete</span></button>` : ''}
+        </div>` : '';
+
+      const hiddenLabel = reply.hidden ? '<div class="hidden-label"><span class="material-icons" style="font-size:14px;">visibility_off</span> Skjult</div>' : '';
+      const cardCls = 'reply-card' + (reply.hidden ? ' hidden-post' : '');
+      return `<div class="${cardCls}" id="reply-card-${reply.id}">
+        ${hiddenLabel}
+        <div style="display:flex;align-items:flex-start;gap:6px;">
+          <div class="opinion-meta" style="margin-bottom:6px;flex:1;min-width:0;">
+            ${avatar}
+            <div class="meta-text">
+              <div class="meta-name-row">
+                <span class="meta-name">${escHtml(name)}</span>
+                ${staffBadge}
+              </div>
+              <div class="meta-handle">${escHtml(rHandle)}</div>
+              <div class="meta-info">${escHtml(formatRelativeOrDate(reply.created_at))}</div>
+            </div>
+          </div>
+          ${modButtons}
+        </div>
+        <p class="opinion-body" style="font-size:13px;">${renderOpinionText(reply.body, true)}</p>
+      </div>`;
+    }
+
+    function attachReplyCardListeners(container) {
+      container.querySelectorAll('[data-reply-action]').forEach(btn => {
+        btn.addEventListener('click', async () => {
+          const action  = btn.dataset.replyAction;
+          const replyId = Number(btn.dataset.replyId);
+
+          // Finn svaret i repliesMap
+          let targetReply = null;
+          let targetOpId  = null;
+          for (const opId in repliesMap) {
+            const found = repliesMap[Number(opId)]?.find(r => r.id === replyId);
+            if (found) { targetReply = found; targetOpId = Number(opId); break; }
+          }
+
+          if (action === 'reply-delete') {
+            if (!targetReply || !canDeleteReply(targetReply)) return;
+            if (!confirm('Slett dette svaret?')) return;
+            const { error } = await sb.from('replies').delete().eq('id', replyId);
+            if (error) { alert('Kunne ikke slette svar.'); return; }
+            if (targetOpId !== null && repliesMap[targetOpId]) {
+              repliesMap[targetOpId] = repliesMap[targetOpId].filter(r => r.id !== replyId);
+              replyCountMap[targetOpId] = Math.max(0, (replyCountMap[targetOpId] || 1) - 1);
+            }
+            document.getElementById(`reply-card-${replyId}`)?.remove();
+            return;
+          }
+
+          if (action === 'reply-hide' || action === 'reply-unhide') {
+            const newHidden = (action === 'reply-hide');
+            const { error } = await sb.from('replies').update({ hidden: newHidden }).eq('id', replyId);
+            if (error) { alert('Kunne ikke endre synlighet.'); return; }
+            if (targetReply) targetReply.hidden = newHidden;
+            const card = document.getElementById(`reply-card-${replyId}`);
+            if (card) {
+              const updated = buildReplyCard({ ...targetReply, hidden: newHidden });
+              card.outerHTML = updated;
+              const parentCont = document.getElementById(`replies-${targetOpId}`);
+              if (parentCont) attachReplyCardListeners(parentCont);
+            }
+            return;
+          }
+
+          // warn / timeout / ban
+          if (targetReply && (action === 'warn' || action === 'timeout' || action === 'ban')) {
+            await applyModerationAction(targetReply, action);
+          }
+        });
+      });
     }
 
     function attachModerationListeners(feed) {
@@ -1905,54 +2028,61 @@
       }
     }
 
-    function toggleReplies(opinionId) {
+    async function toggleReplies(opinionId) {
       const container = document.getElementById(`replies-${opinionId}`);
-      const toggle = document.querySelector(`.reply-toggle[data-parent="${opinionId}"]`);
+      const toggle    = document.querySelector(`.reply-toggle[data-parent="${opinionId}"]`);
       if (!container) return;
       const isVisible = container.style.display !== 'none';
-      container.style.display = isVisible ? 'none' : '';
 
-      if (!isVisible) {
-        const replies = allOpinions
-          .filter(o => o.parent_id === opinionId)
-          .sort((a, b) => new Date(a.created_at) - new Date(b.created_at));
-        container.innerHTML = replies.map(r => {
-          const name = getOpinionDisplayName(r);
-          const rHandle = normalizeHandle(r.authorProfile?.handle || r.handle, name);
-          const color = colorForName(name);
-          const avatar = getAvatarMarkup({ name, avatarUrl: r.authorProfile?.avatar_url || '', color });
-          const attachHTML = renderAttachmentHTML(r);
-          return `<div class="reply-card">
-            <div class="opinion-meta">
-              ${avatar}
-              <div class="meta-text">
-                <div class="meta-name-row">
-                  <span class="meta-name">${escHtml(name)}</span>
-                  ${staffBadgeForOpinion(r)}
-                </div>
-                <div class="meta-handle">${escHtml(rHandle)}</div>
-                <div class="meta-info">${escHtml(formatRelativeOrDate(r.created_at))}</div>
-              </div>
-            </div>
-            <p class="opinion-body">${renderOpinionText(r.body || r.quote, true)}</p>
-            ${attachHTML}
-          </div>`;
-        }).join('');
-        attachAttachmentListeners(container);
+      if (isVisible) {
+        container.style.display = 'none';
         const form = document.getElementById(`reply-form-${opinionId}`);
-        if (form) form.style.display = '';
+        if (form) form.style.display = 'none';
+        const cnt = replyCountMap[opinionId] || 0;
+        if (toggle) toggle.innerHTML = `<span class="material-icons" style="font-size:18px;vertical-align:middle">forum</span>${cnt > 0 ? `<span>${cnt}</span>` : ''}`;
+        return;
       }
 
-      if (toggle) {
-        const replyCount = allOpinions.filter(o => o.parent_id === opinionId).length;
-        toggle.innerHTML = `<span class="material-icons" style="font-size:14px;">forum</span> ${isVisible ? 'Vis' : 'Skjul'} ${replyCount} svar`;
+      // Åpne – hent fra DB hvis ikke cachet
+      if (!repliesMap[opinionId]) {
+        container.innerHTML = '<div style="padding:12px 0;color:var(--text-muted);font-size:13px;">Laster svar…</div>';
+        container.style.display = '';
+        const { data: repliesData, error } = await sb.from('replies')
+          .select('*')
+          .eq('opinion_id', opinionId)
+          .order('created_at', { ascending: true });
+        if (error) {
+          container.innerHTML = '<div style="padding:12px 0;color:#ff453a;font-size:13px;">Kunne ikke laste svar.</div>';
+          return;
+        }
+        const replyUserIds = [...new Set((repliesData || []).map(r => r.user_id).filter(Boolean))];
+        if (replyUserIds.length) {
+          const { data: pData } = await sb.from('profiles').select('*').in('id', replyUserIds);
+          (pData || []).forEach(p => { profileMap[p.id] = normalizeProfile(p); });
+        }
+        repliesMap[opinionId] = (repliesData || []).map(r => ({
+          ...r,
+          authorProfile: profileMap[r.user_id] || null,
+        }));
       }
+
+      container.style.display = '';
+      const replies = repliesMap[opinionId] || [];
+      const visible = isMod() ? replies : replies.filter(r => !r.hidden);
+      container.innerHTML = visible.map(r => buildReplyCard(r)).join('');
+      attachReplyCardListeners(container);
+
+      const form = document.getElementById(`reply-form-${opinionId}`);
+      if (form) form.style.display = '';
+
+      const cnt = replyCountMap[opinionId] || 0;
+      if (toggle) toggle.innerHTML = `<span class="material-icons" style="font-size:18px;vertical-align:middle">forum</span><span>Skjul ${cnt}</span>`;
     }
 
     async function submitReply(parentId) {
       if (!currentUser || !currentProfile) return;
       const input = document.getElementById(`reply-input-${parentId}`);
-      const btn = document.querySelector(`.reply-submit[data-parent="${parentId}"]`);
+      const btn   = document.querySelector(`.reply-submit[data-parent="${parentId}"]`);
       if (!input || !btn) return;
       const text = input.value.trim();
       if (!text) return;
@@ -1962,7 +2092,6 @@
         return;
       }
 
-      // Re-hent profil for à få oppdatert sanksjonsstatus
       currentProfile = normalizeProfile(await loadProfile(currentUser.id));
       const sanction = getSanctionForProfile(currentProfile);
       if (sanction.banned || sanction.timeoutUntil > Date.now()) {
@@ -1971,21 +2100,42 @@
       }
 
       btn.disabled = true;
-      const parent = allOpinions.find(o => o.id === parentId);
-      const { error } = await sb.from('meninger').insert({
-        user_id: currentUser.id,
+      const { data: newReply, error } = await sb.from('replies').insert({
+        opinion_id:   parentId,
+        user_id:      currentUser.id,
         display_name: currentProfile.display_name,
-        role: currentProfile.role,
-        county: currentProfile.county || null,
-        topic: parent?.topic || 'Svar',
-        quote: text,
-        body: null,
-        parent_id: parentId,
-      });
+        role:         currentProfile.role,
+        county:       currentProfile.county || null,
+        body:         text,
+      }).select().single();
       btn.disabled = false;
       if (error) { alert('Kunne ikke sende svar.'); return; }
       input.value = '';
-      await loadOpinions();
+
+      // Oppdater lokal tilstand
+      const replyWithProfile = { ...newReply, authorProfile: currentProfile };
+      if (!repliesMap[parentId]) repliesMap[parentId] = [];
+      repliesMap[parentId].push(replyWithProfile);
+      replyCountMap[parentId] = (replyCountMap[parentId] || 0) + 1;
+
+      // Re-render åpen svar-container
+      const container = document.getElementById(`replies-${parentId}`);
+      if (container && container.style.display !== 'none') {
+        const allR   = repliesMap[parentId] || [];
+        const visR   = isMod() ? allR : allR.filter(r => !r.hidden);
+        container.innerHTML = visR.map(r => buildReplyCard(r)).join('');
+        attachReplyCardListeners(container);
+      }
+
+      // Oppdater svar-knapp og forum-toggle
+      const cnt = replyCountMap[parentId];
+      const replyBtn = document.querySelector(`.reply-btn[data-reply-to="${parentId}"]`);
+      if (replyBtn) replyBtn.innerHTML = `<span class="material-icons" style="font-size:18px;vertical-align:middle">chat_bubble_outline</span><span>${cnt}</span>`;
+      const toggle = document.querySelector(`.reply-toggle[data-parent="${parentId}"]`);
+      if (toggle) {
+        toggle.style.display = '';
+        toggle.innerHTML = `<span class="material-icons" style="font-size:18px;vertical-align:middle">forum</span><span>Skjul ${cnt}</span>`;
+      }
     }
 
     function attachReplyListeners(container) {
@@ -2115,8 +2265,9 @@
     }
 
     sb.channel('main-changes')
-      .on('postgres_changes', { event: '*', schema: 'public', table: 'meninger' }, debouncedReload)
+      .on('postgres_changes', { event: '*', schema: 'public', table: 'meninger' },  debouncedReload)
       .on('postgres_changes', { event: '*', schema: 'public', table: 'reactions' }, debouncedReload)
+      .on('postgres_changes', { event: '*', schema: 'public', table: 'replies' },   debouncedReload)
       .subscribe((status) => {
         if (status === 'CHANNEL_ERROR') {
           console.warn('Realtime-tilkobling feilet, faller tilbake til polling.');
