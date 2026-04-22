@@ -964,6 +964,8 @@
     const searchResults = document.getElementById('searchResults');
     let searchData = [];
     let vocabSize = 0;
+    let vocab = {};  // token -> index mapping
+    let idf = {};    // token -> idf weight
 
     // Fetch search data
     fetch('search-data.json')
@@ -971,6 +973,11 @@
       .then(data => {
         searchData = data.items || data;
         vocabSize = data.vocab_size || 0;
+        idf = data.idf || {};
+        // Build reverse vocab from IDF keys
+        Object.keys(idf).forEach((token, idx) => {
+          vocab[token] = idx;
+        });
       })
       .catch(error => console.error('Error loading search data:', error));
 
@@ -1008,7 +1015,7 @@
       return dotProduct / (mag1 * mag2);
     }
 
-    // Create vector for query tokens
+    // Create TF-IDF weighted vector for query tokens
     function createQueryVector(tokens) {
       const vector = {};
       const tokenCount = {};
@@ -1017,9 +1024,13 @@
       });
       const total = tokens.length;
       for (const token in tokenCount) {
-        // Use token hash as index (simple approach)
-        const hash = Math.abs(token.split('').reduce((h, c) => h * 31 + c.charCodeAt(0), 0)) % vocabSize;
-        vector[hash] = tokenCount[token] / total;
+        // Use proper vocabulary index if available
+        const idx = vocab[token];
+        if (idx !== undefined) {
+          const tf = tokenCount[token] / total;
+          const idfWeight = idf[token] || 1.0;
+          vector[idx] = tf * idfWeight;
+        }
       }
       return vector;
     }
@@ -1085,7 +1096,7 @@
         searchResults.style.display = 'block';
         searchResults.innerHTML = `
           <div class="search-no-results">
-            <span class="search-no-results-label">Ingen resultater for «${e.target.value}»</span>
+            <span class="search-no-results-label">Ingen resultater. Søk fra en annen kilde?</span>
             <div class="search-external-links">
               <a href="https://www.ung.no/sok?query=${encodeURIComponent(e.target.value)}" target="_blank" class="search-external-btn search-external-ung">
                 <span class="material-icons" style="font-size:15px">open_in_new</span>

@@ -1,0 +1,1646 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Guide Editor - Videregående Hjelp</title>
+  <link rel="shortcut icon" href="vgshjelp-logo.png" type="image/x-icon">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200;300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+  <style>
+    :root {
+      --primary: #d32f2f;
+      --primary-light: #ef5350;
+      --primary-dark: #b71c1c;
+      --bg: #f8f9fa;
+      --surface: #ffffff;
+      --surface-light: #f5f5f5;
+      --text: #212121;
+      --text-muted: #757575;
+      --border: #e0e0e0;
+      --shadow: 0 2px 8px rgba(0,0,0,0.08);
+      --shadow-lg: 0 4px 16px rgba(0,0,0,0.12);
+      --success: #4caf50;
+      --warning: #ff9800;
+    }
+
+    [data-theme="dark"] {
+      --primary: #ff5252;
+      --primary-light: #ff7070;
+      --primary-dark: #d32f2f;
+      --bg: #121212;
+      --surface: #1e1e1e;
+      --surface-light: #2a2a2a;
+      --text: #ffffff;
+      --text-muted: #b0b0b0;
+      --border: #333333;
+      --shadow: 0 2px 8px rgba(0,0,0,0.30);
+      --shadow-lg: 0 4px 16px rgba(0,0,0,0.40);
+    }
+
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Manrope', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      transition: background 0.3s, color 0.3s;
+      min-height: 100vh;
+    }
+
+    main {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+    /* Security Warning Overlay */
+    .security-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: #000000;
+      z-index: 10000;
+      overflow: hidden;
+      transition: opacity 0.5s, visibility 0.5s;
+      display: flex;
+      flex-direction: column;
+      padding: 60px 80px;
+    }
+
+    .security-overlay.hidden {
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+    }
+
+    .security-warning-icon {
+      font-family: 'Material Icons';
+      font-size: 120px;
+      font-weight: 400;
+      color: #E31327;
+      user-select: none;
+      margin-bottom: 30px;
+      line-height: 1;
+    }
+
+    .security-title {
+      font-family: 'Inter', sans-serif;
+      font-size: 48px;
+      font-weight: 700;
+      color: #E31327;
+      margin-bottom: 20px;
+      line-height: 1.2;
+    }
+
+    .security-text {
+      font-family: 'Inter', sans-serif;
+      font-size: 24px;
+      font-weight: 400;
+      color: white;
+      line-height: 1.4;
+      max-width: 900px;
+      margin-bottom: 60px;
+    }
+
+    .security-buttons {
+      display: flex;
+      gap: 20px;
+      flex-wrap: wrap;
+      margin-top: auto;
+      padding-bottom: 40px;
+    }
+
+    .security-btn-primary {
+      height: 60px;
+      background: #E31327;
+      border-radius: 30px;
+      border: none;
+      cursor: pointer;
+      transition: background 0.2s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0 32px;
+    }
+
+    .security-btn-primary:hover {
+      background: #c01025;
+    }
+
+    .security-btn-primary span {
+      font-family: 'Inter', sans-serif;
+      font-size: 18px;
+      font-weight: 500;
+      color: white;
+      white-space: nowrap;
+    }
+
+    .security-btn-secondary {
+      height: 60px;
+      background: white;
+      border-radius: 30px;
+      border: none;
+      cursor: pointer;
+      transition: background 0.2s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0 32px;
+      text-decoration: none;
+    }
+
+    .security-btn-secondary:hover {
+      background: #f0f0f0;
+    }
+
+    .security-btn-secondary span {
+      font-family: 'Inter', sans-serif;
+      font-size: 18px;
+      font-weight: 500;
+      color: black;
+      white-space: nowrap;
+    }
+
+    @media (max-width: 768px) {
+      .security-overlay {
+        padding: 40px 24px;
+      }
+
+      .security-warning-icon {
+        font-size: 80px;
+        margin-bottom: 20px;
+      }
+
+      .security-title {
+        font-size: 32px;
+        margin-bottom: 16px;
+      }
+
+      .security-text {
+        font-size: 18px;
+        margin-bottom: 40px;
+      }
+
+      .security-btn-primary,
+      .security-btn-secondary {
+        height: 50px;
+        padding: 0 24px;
+      }
+
+      .security-btn-primary span,
+      .security-btn-secondary span {
+        font-size: 16px;
+      }
+    }
+
+    /* Editor Styles */
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px 0;
+      margin-bottom: 30px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .logo {
+      font-family: 'Inter Tight', sans-serif;
+      font-size: 24px;
+      font-weight: 700;
+      color: var(--primary);
+      text-decoration: none;
+    }
+
+    .header-controls {
+      display: flex;
+      gap: 20px;
+      align-items: center;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 30px;
+      align-items: center;
+      list-style: none;
+    }
+
+    .nav-links a {
+      text-decoration: none;
+      color: var(--text);
+      font-weight: 500;
+      font-size: 14px;
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover {
+      color: var(--primary);
+    }
+
+    .settings-btn {
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-size: 24px;
+      color: var(--text);
+      transition: color 0.2s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .settings-btn:hover {
+      color: var(--primary);
+    }
+
+    .material-icons {
+      font-size: 24px;
+    }
+
+    .page-header {
+      margin-bottom: 30px;
+    }
+
+    .page-header h1 {
+      font-family: 'Inter Tight', sans-serif;
+      font-size: 36px;
+      font-weight: 700;
+      margin-bottom: 8px;
+      letter-spacing: -0.02em;
+    }
+
+    .page-header p {
+      font-size: 14px;
+      color: var(--text-muted);
+    }
+
+    /* Editor Layout */
+    .editor-container {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+      margin-bottom: 30px;
+    }
+
+    @media (max-width: 900px) {
+      .editor-container {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .editor-panel {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .panel-header {
+      background: var(--surface-light);
+      padding: 12px 16px;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .panel-title {
+      font-family: 'Inter Tight', sans-serif;
+      font-size: 14px;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .panel-actions {
+      display: flex;
+      gap: 8px;
+    }
+
+    .panel-btn {
+      padding: 6px 12px;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      background: var(--surface);
+      color: var(--text);
+      font-family: 'Manrope', sans-serif;
+      font-size: 12px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.2s;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .panel-btn:hover {
+      border-color: var(--primary);
+      color: var(--primary);
+    }
+
+    .panel-btn .material-icons {
+      font-size: 16px;
+    }
+
+    textarea {
+      flex: 1;
+      min-height: 500px;
+      padding: 16px;
+      border: none;
+      background: var(--surface);
+      color: var(--text);
+      font-family: 'Manrope', sans-serif;
+      font-size: 14px;
+      line-height: 1.6;
+      resize: vertical;
+      outline: none;
+    }
+
+    .preview-panel {
+      background: var(--surface);
+      padding: 20px;
+      overflow-y: auto;
+      max-height: 600px;
+    }
+
+    /* Guide Content Preview Styles */
+    .preview-content {
+      font-family: 'Manrope', sans-serif;
+      line-height: 1.8;
+    }
+
+    .preview-content h2 {
+      font-family: 'Inter Tight', sans-serif;
+      font-size: 28px;
+      font-weight: 700;
+      margin: 40px 0 20px 0;
+      letter-spacing: -0.02em;
+      color: var(--text);
+    }
+
+    .preview-content h2:first-child {
+      margin-top: 0;
+    }
+
+    .preview-content h3 {
+      font-family: 'Inter Tight', sans-serif;
+      font-size: 20px;
+      font-weight: 700;
+      margin: 30px 0 15px 0;
+      color: var(--primary);
+    }
+
+    .preview-content p {
+      margin-bottom: 16px;
+      color: var(--text-muted);
+    }
+
+    .preview-content ul, .preview-content ol {
+      margin-left: 20px;
+      margin-bottom: 16px;
+      color: var(--text-muted);
+    }
+
+    .preview-content li {
+      margin-bottom: 8px;
+    }
+
+    .preview-content strong {
+      color: var(--text);
+      font-weight: 700;
+    }
+
+    .preview-content a {
+      color: var(--primary);
+      text-decoration: none;
+    }
+
+    .preview-content a:hover {
+      text-decoration: underline;
+    }
+
+    .preview-content .highlight-box {
+      background: var(--surface-light);
+      border-left: 4px solid var(--primary);
+      padding: 20px;
+      border-radius: 8px;
+      margin: 24px 0;
+      color: var(--text-muted);
+    }
+
+    .preview-content .highlight-box strong {
+      color: var(--text);
+    }
+
+    /* Metadata Form */
+    .metadata-section {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 20px;
+      margin-bottom: 20px;
+    }
+
+    .metadata-section h3 {
+      font-family: 'Inter Tight', sans-serif;
+      font-size: 16px;
+      font-weight: 700;
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin-bottom: 16px;
+    }
+
+    @media (max-width: 600px) {
+      .form-row {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .form-group label {
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      padding: 10px 12px;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      background: var(--surface-light);
+      color: var(--text);
+      font-family: 'Manrope', sans-serif;
+      font-size: 14px;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus {
+      border-color: var(--primary);
+    }
+
+    /* Toolbar */
+    .toolbar {
+      display: flex;
+      gap: 8px;
+      padding: 12px 16px;
+      background: var(--surface-light);
+      border-bottom: 1px solid var(--border);
+      flex-wrap: wrap;
+    }
+
+    .toolbar-btn {
+      padding: 8px 12px;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      background: var(--surface);
+      color: var(--text);
+      font-family: 'Manrope', sans-serif;
+      font-size: 12px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.2s;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .toolbar-btn:hover {
+      border-color: var(--primary);
+      color: var(--primary);
+    }
+
+    .toolbar-btn .material-icons {
+      font-size: 16px;
+    }
+
+    .toolbar-separator {
+      width: 1px;
+      background: var(--border);
+      margin: 0 4px;
+    }
+
+    /* Action Buttons */
+    .actions-section {
+      display: flex;
+      gap: 12px;
+      margin-bottom: 40px;
+      flex-wrap: wrap;
+    }
+
+    .action-btn {
+      padding: 14px 24px;
+      border-radius: 8px;
+      font-family: 'Manrope', sans-serif;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+      border: none;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      text-decoration: none;
+    }
+
+    .action-btn-primary {
+      background: var(--primary);
+      color: white;
+    }
+
+    .action-btn-primary:hover {
+      background: var(--primary-dark);
+      transform: translateY(-2px);
+    }
+
+    .action-btn-secondary {
+      background: var(--surface);
+      color: var(--text);
+      border: 1px solid var(--border);
+    }
+
+    .action-btn-secondary:hover {
+      border-color: var(--primary);
+      color: var(--primary);
+    }
+
+    /* Settings Modal */
+    .settings-modal {
+      display: none;
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 20px;
+      box-shadow: var(--shadow-lg);
+      z-index: 1000;
+      width: 280px;
+    }
+
+    .settings-modal.show {
+      display: block;
+      animation: slideUp 0.3s ease;
+    }
+
+    @keyframes slideUp {
+      from {
+        transform: translateY(20px);
+        opacity: 0;
+      }
+      to {
+        transform: translateY(0);
+        opacity: 1;
+      }
+    }
+
+    .settings-modal h3 {
+      font-family: 'Inter Tight', sans-serif;
+      font-size: 16px;
+      font-weight: 700;
+      margin-bottom: 16px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .close-settings {
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-size: 20px;
+      color: var(--text);
+      padding: 0;
+    }
+
+    .theme-options {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .theme-option {
+      padding: 12px 16px;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      background: transparent;
+      cursor: pointer;
+      font-family: 'Manrope', sans-serif;
+      font-size: 14px;
+      color: var(--text);
+      transition: all 0.2s;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .theme-option:hover {
+      border-color: var(--primary);
+      background: var(--surface-light);
+    }
+
+    .theme-option.active {
+      background: var(--primary);
+      color: white;
+      border-color: var(--primary);
+    }
+
+    .radio {
+      width: 18px;
+      height: 18px;
+      border: 2px solid currentColor;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .theme-option.active .radio::after {
+      content: '';
+      width: 8px;
+      height: 8px;
+      background: currentColor;
+      border-radius: 50%;
+    }
+
+    .modal-overlay {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0,0,0,0.3);
+      z-index: 999;
+    }
+
+    .modal-overlay.show {
+      display: block;
+    }
+
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 40px 0;
+      text-align: center;
+      color: var(--text-muted);
+      font-size: 14px;
+    }
+
+    /* Help text */
+    .help-text {
+      font-size: 12px;
+      color: var(--text-muted);
+      margin-top: 8px;
+    }
+
+    .help-text code {
+      background: var(--surface-light);
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-family: monospace;
+    }
+  </style>
+</head>
+<body>
+  <!-- Security Warning Overlay -->
+  <div class="security-overlay" id="securityOverlay">
+    <div class="security-warning-icon">warning</div>
+    <div class="security-title">Utvikler-side</div>
+    <div class="security-text">Denne siden er laget for folk som skal skrive guides til VGS-hjelp siden, og er ikke en side som brukere trenger å være på.</div>
+    <div class="security-buttons">
+      <button class="security-btn-primary" onclick="dismissSecurity()">
+        <span>Fortsett til siden (Utvikler)</span>
+      </button>
+      <a href="index.html" class="security-btn-secondary">
+        <span>Hjemside</span>
+      </a>
+    </div>
+  </div>
+
+  <main>
+    <header>
+      <a href="index.html" class="logo">Videregående Hjelp</a>
+      <div class="header-controls">
+        <nav>
+          <ul class="nav-links">
+            <li><a href="guides.html">Guider</a></li>
+            <li><a href="tools.html">Verktøy</a></li>
+            <li><a href="interactives.html">Interaktivt</a></li>
+          </ul>
+        </nav>
+        <button class="settings-btn" id="settingsBtn" aria-label="Settings">
+          <span class="material-icons">settings</span>
+        </button>
+      </div>
+    </header>
+
+    <section class="page-header">
+      <h1>Guide Editor</h1>
+      <p>Skriv og rediger guider for Videregående Hjelp. Bruk Markdown eller HTML.</p>
+    </section>
+
+    <!-- Metadata Section -->
+    <section class="metadata-section">
+      <h3><span class="material-icons">info</span> Guide-informasjon</h3>
+      <div class="form-row">
+        <div class="form-group">
+          <label for="guideTitle">Tittel</label>
+          <input type="text" id="guideTitle" placeholder="F.eks. Hvordan velge program" value="">
+        </div>
+        <div class="form-group">
+          <label for="guideFilename">Filnavn (uten .html)</label>
+          <input type="text" id="guideFilename" placeholder="F.eks. program-choice" value="">
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label for="guideDescription">Beskrivelse</label>
+          <input type="text" id="guideDescription" placeholder="Kort beskrivelse som vises i guide-listen" value="">
+        </div>
+        <div class="form-group">
+          <label for="guideCategory">Kategori</label>
+          <select id="guideCategory">
+            <option value="før-vgs">Før VGS (Lime grønn)</option>
+            <option value="i-vgs">I VGS (Blå)</option>
+            <option value="etter-vgs">Etter VGS (Oransje)</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label for="guideReadTime">Lesetid</label>
+          <input type="text" id="guideReadTime" placeholder="F.eks. 8 minutter lesning" value="">
+        </div>
+        <div class="form-group">
+          <label for="guideIcon">Ikon (Material Icons)</label>
+          <input type="text" id="guideIcon" placeholder="F.eks. school, menu_book, etc." value="school">
+        </div>
+      </div>
+    </section>
+
+    <!-- Editor -->
+    <div class="editor-container">
+      <div class="editor-panel">
+        <div class="panel-header">
+          <span class="panel-title"><span class="material-icons">edit</span> Redigering</span>
+          <div class="panel-actions">
+            <button class="panel-btn" onclick="importMarkdown()">
+              <span class="material-icons">upload_file</span>
+              Importer Markdown
+            </button>
+            <input type="file" id="mdFileInput" accept=".md,.markdown,.txt" style="display: none;">
+            <button class="panel-btn" onclick="clearEditor()">
+              <span class="material-icons">clear</span>
+              Tøm
+            </button>
+          </div>
+        </div>
+        <div class="toolbar">
+          <button class="toolbar-btn" onclick="insertTag('h2')" title="Overskrift 2">
+            <span class="material-icons">title</span> H2
+          </button>
+          <button class="toolbar-btn" onclick="insertTag('h3')" title="Overskrift 3">
+            <span class="material-icons">title</span> H3
+          </button>
+          <button class="toolbar-btn" onclick="insertTag('p')" title="Avsnitt">
+            <span class="material-icons">short_text</span> P
+          </button>
+          <div class="toolbar-separator"></div>
+          <button class="toolbar-btn" onclick="insertTag('ul')" title="Punktliste">
+            <span class="material-icons">format_list_bulleted</span>
+          </button>
+          <button class="toolbar-btn" onclick="insertTag('ol')" title="Nummerert liste">
+            <span class="material-icons">format_list_numbered</span>
+          </button>
+          <button class="toolbar-btn" onclick="insertTag('strong')" title="Fet">
+            <span class="material-icons">format_bold</span>
+          </button>
+          <button class="toolbar-btn" onclick="insertTag('a')" title="Lenke">
+            <span class="material-icons">link</span>
+          </button>
+          <div class="toolbar-separator"></div>
+          <button class="toolbar-btn" onclick="insertHighlightBox()" title="Fremhevet boks">
+            <span class="material-icons">lightbulb</span> Tips-boks
+          </button>
+        </div>
+        <textarea id="editor" placeholder="Skriv din guide her...
+
+# Hovedoverskrift
+## Underoverskrift
+
+Normal tekst her. **Fet tekst** og [lenke](url).
+
+- Punkt 1
+- Punkt 2
+
+> 💡 Tips: Dette er et tips!"></textarea>
+        <div class="help-text">
+          Bruk <code>#</code> for overskrifter, <code>**tekst**</code> for fet, <code>-</code> for liste, <code>[tekst](url)</code> for lenker
+        </div>
+      </div>
+
+      <div class="editor-panel">
+        <div class="panel-header">
+          <span class="panel-title"><span class="material-icons">visibility</span> Forhåndsvisning</span>
+          <div class="panel-actions">
+            <button class="panel-btn" onclick="refreshPreview()">
+              <span class="material-icons">refresh</span>
+              Oppdater
+            </button>
+          </div>
+        </div>
+        <div class="preview-panel">
+          <div class="preview-content" id="preview">
+            <p style="color: var(--text-muted); font-style: italic;">Forhåndsvisning vises her...</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Actions -->
+    <section class="actions-section">
+      <button class="action-btn action-btn-primary" onclick="exportHTML()">
+        <span class="material-icons">download</span>
+        Eksporter som HTML
+      </button>
+      <button class="action-btn action-btn-secondary" onclick="copyHTML()">
+        <span class="material-icons">content_copy</span>
+        Kopier HTML
+      </button>
+      <button class="action-btn action-btn-secondary" onclick="previewFull()">
+        <span class="material-icons">open_in_new</span>
+        Forhåndsvis i ny fane
+      </button>
+    </section>
+  </main>
+
+  <footer>
+    <p>&copy; 2026 Videregående Hjelp. Et åpent prosjekt for alle.</p>
+  </footer>
+
+  <!-- Settings Modal -->
+  <div class="modal-overlay" id="modalOverlay"></div>
+  <div class="settings-modal" id="settingsModal">
+    <h3>Innstillinger<button class="close-settings" id="closeSettings">×</button></h3>
+    <div class="theme-options" id="themeOptions">
+      <button class="theme-option" data-theme="system" onclick="setTheme('system')">
+        <span class="radio"></span>
+        System tema
+      </button>
+      <button class="theme-option" data-theme="light" onclick="setTheme('light')">
+        <span class="radio"></span>
+        Lyst tema
+      </button>
+      <button class="theme-option" data-theme="dark" onclick="setTheme('dark')">
+        <span class="radio"></span>
+        Mørkt tema
+      </button>
+    </div>
+  </div>
+
+  <script>
+    // Security Warning - shows every time
+    function dismissSecurity() {
+      document.getElementById('securityOverlay').classList.add('hidden');
+    }
+
+    // Theme Management
+    function initTheme() {
+      const saved = localStorage.getItem('theme') || 'system';
+      setTheme(saved);
+    }
+
+    function setTheme(theme) {
+      localStorage.setItem('theme', theme);
+      
+      let finalTheme = theme;
+      if (theme === 'system') {
+        finalTheme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+      }
+
+      document.documentElement.setAttribute('data-theme', finalTheme);
+      updateThemeButtons(theme);
+    }
+
+    function updateThemeButtons(theme) {
+      document.querySelectorAll('.theme-option').forEach(btn => {
+        btn.classList.remove('active');
+      });
+      document.querySelector(`[data-theme="${theme}"]`).classList.add('active');
+    }
+
+    // Settings Modal
+    const settingsBtn = document.getElementById('settingsBtn');
+    const settingsModal = document.getElementById('settingsModal');
+    const closeSettings = document.getElementById('closeSettings');
+    const modalOverlay = document.getElementById('modalOverlay');
+
+    settingsBtn.addEventListener('click', () => {
+      settingsModal.classList.toggle('show');
+      modalOverlay.classList.toggle('show');
+    });
+
+    closeSettings.addEventListener('click', () => {
+      settingsModal.classList.remove('show');
+      modalOverlay.classList.remove('show');
+    });
+
+    modalOverlay.addEventListener('click', () => {
+      settingsModal.classList.remove('show');
+      modalOverlay.classList.remove('show');
+    });
+
+    window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', () => {
+      if ((localStorage.getItem('theme') || 'system') === 'system') {
+        initTheme();
+      }
+    });
+
+    // Initialize theme
+    initTheme();
+
+    // Markdown to HTML Converter
+    function markdownToHTML(markdown) {
+      let html = markdown;
+
+      // Escape HTML entities
+      html = html.replace(/&/g, '&amp;');
+      html = html.replace(/</g, '&lt;');
+      html = html.replace(/>/g, '&gt;');
+
+      // Headers
+      html = html.replace(/^### (.*$)/gim, '<h3>$1</h3>');
+      html = html.replace(/^## (.*$)/gim, '<h2>$1</h2>');
+      html = html.replace(/^# (.*$)/gim, '<h2>$1</h2>');
+
+      // Bold
+      html = html.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+
+      // Links [text](url)
+      html = html.replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" style="color: var(--primary);">$1</a>');
+
+      // Unordered lists
+      html = html.replace(/^\- (.*$)/gim, '<li>$1</li>');
+      html = html.replace(/(<li>.*<\/li>\n?)+/g, '<ul>\n$&</ul>');
+
+      // Ordered lists
+      html = html.replace(/^\d+\.\s+(.*$)/gim, '<li>$1</li>');
+      
+      // Highlight box (> 💡 Tips: ...)
+      html = html.replace(/^&gt;\s*💡\s*(.*$)/gim, '<div class="highlight-box"><strong>💡 Tips:</strong> $1</div>');
+      html = html.replace(/^&gt;\s*🎓\s*(.*$)/gim, '<div class="highlight-box"><strong>🎓 $1</strong></div>');
+      html = html.replace(/^&gt;\s*(.*$)/gim, '<div class="highlight-box">$1</div>');
+
+      // Paragraphs (lines not starting with tags)
+      const lines = html.split('\n');
+      let result = [];
+      let inParagraph = false;
+
+      for (let i = 0; i < lines.length; i++) {
+        let line = lines[i].trim();
+        
+        if (line === '' || 
+            line.startsWith('<h') || 
+            line.startsWith('<ul') || 
+            line.startsWith('</ul') || 
+            line.startsWith('<li') || 
+            line.startsWith('<div') ||
+            line.startsWith('<strong')) {
+          if (inParagraph) {
+            result.push('</p>');
+            inParagraph = false;
+          }
+          result.push(line);
+        } else if (line) {
+          if (!inParagraph) {
+            result.push('<p>');
+            inParagraph = true;
+          }
+          result.push(line + ' ');
+        }
+      }
+      
+      if (inParagraph) {
+        result.push('</p>');
+      }
+
+      html = result.join('\n');
+      
+      // Clean up extra newlines
+      html = html.replace(/\n{3,}/g, '\n\n');
+
+      return html;
+    }
+
+    // Editor Functions
+    const editor = document.getElementById('editor');
+    const preview = document.getElementById('preview');
+
+    editor.addEventListener('input', updatePreview);
+
+    function updatePreview() {
+      const markdown = editor.value;
+      const html = markdownToHTML(markdown);
+      preview.innerHTML = html || '<p style="color: var(--text-muted); font-style: italic;">Forhåndsvisning vises her...</p>';
+    }
+
+    function refreshPreview() {
+      updatePreview();
+    }
+
+    function insertTag(tag) {
+      const start = editor.selectionStart;
+      const end = editor.selectionEnd;
+      const text = editor.value;
+      const selected = text.substring(start, end);
+
+      let insert = '';
+      switch(tag) {
+        case 'h2':
+          insert = `## ${selected || 'Overskrift'}\n\n`;
+          break;
+        case 'h3':
+          insert = `### ${selected || 'Underoverskrift'}\n\n`;
+          break;
+        case 'p':
+          insert = `${selected || 'Skriv tekst her...'}\n\n`;
+          break;
+        case 'ul':
+          insert = `- ${selected || 'Punkt 1'}\n- Punkt 2\n- Punkt 3\n\n`;
+          break;
+        case 'ol':
+          insert = `1. ${selected || 'Punkt 1'}\n2. Punkt 2\n3. Punkt 3\n\n`;
+          break;
+        case 'strong':
+          insert = `**${selected || 'fet tekst'}**`;
+          break;
+        case 'a':
+          insert = `[${selected || 'lenketekst'}](https://example.com)`;
+          break;
+      }
+
+      editor.value = text.substring(0, start) + insert + text.substring(end);
+      editor.focus();
+      editor.setSelectionRange(start + insert.length, start + insert.length);
+      updatePreview();
+    }
+
+    function insertHighlightBox() {
+      const start = editor.selectionStart;
+      const end = editor.selectionEnd;
+      const text = editor.value;
+      const selected = text.substring(start, end);
+
+      const insert = `> 💡 ${selected || 'Tips: Skriv ditt tips her'}\n\n`;
+      editor.value = text.substring(0, start) + insert + text.substring(end);
+      editor.focus();
+      updatePreview();
+    }
+
+    function clearEditor() {
+      if (confirm('Er du sikker på at du vil tømme editoren?')) {
+        editor.value = '';
+        updatePreview();
+      }
+    }
+
+    // Import Markdown
+    function importMarkdown() {
+      document.getElementById('mdFileInput').click();
+    }
+
+    document.getElementById('mdFileInput').addEventListener('change', function(e) {
+      const file = e.target.files[0];
+      if (!file) return;
+
+      const reader = new FileReader();
+      reader.onload = function(e) {
+        editor.value = e.target.result;
+        updatePreview();
+      };
+      reader.readAsText(file);
+      this.value = '';
+    });
+
+    // Generate Guide HTML Template
+    function generateGuideHTML(content) {
+      const title = document.getElementById('guideTitle').value || 'Uten tittel';
+      const description = document.getElementById('guideDescription').value || '';
+
+      return `<!DOCTYPE html>
+<html lang="no">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>${title} - Videregående Hjelp</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200;300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+  <style>
+    :root {
+      --primary: #d32f2f;
+      --primary-light: #ef5350;
+      --primary-dark: #b71c1c;
+      --bg: #f8f9fa;
+      --surface: #ffffff;
+      --surface-light: #f5f5f5;
+      --text: #212121;
+      --text-muted: #757575;
+      --border: #e0e0e0;
+      --shadow: 0 2px 8px rgba(0,0,0,0.08);
+      --shadow-lg: 0 4px 16px rgba(0,0,0,0.12);
+    }
+
+    [data-theme="dark"] {
+      --primary: #ff5252;
+      --primary-light: #ff7070;
+      --primary-dark: #d32f2f;
+      --bg: #121212;
+      --surface: #1e1e1e;
+      --surface-light: #2a2a2a;
+      --text: #ffffff;
+      --text-muted: #b0b0b0;
+      --border: #333333;
+      --shadow: 0 2px 8px rgba(0,0,0,0.30);
+      --shadow-lg: 0 4px 16px rgba(0,0,0,0.40);
+    }
+
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Manrope', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      transition: background 0.3s, color 0.3s;
+      min-height: 100vh;
+    }
+
+    main {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px 0;
+      margin-bottom: 40px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .logo {
+      font-family: 'Inter Tight', sans-serif;
+      font-size: 24px;
+      font-weight: 700;
+      color: var(--primary);
+      text-decoration: none;
+    }
+
+    .header-controls {
+      display: flex;
+      gap: 20px;
+      align-items: center;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 30px;
+      align-items: center;
+      list-style: none;
+    }
+
+    .nav-links a {
+      text-decoration: none;
+      color: var(--text);
+      font-weight: 500;
+      font-size: 14px;
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover {
+      color: var(--primary);
+    }
+
+    .settings-btn {
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-size: 24px;
+      color: var(--text);
+      transition: color 0.2s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .settings-btn:hover {
+      color: var(--primary);
+    }
+
+    .page-header {
+      margin-bottom: 50px;
+    }
+
+    .page-header h1 {
+      font-family: 'Inter Tight', sans-serif;
+      font-size: 42px;
+      font-weight: 700;
+      margin-bottom: 12px;
+      letter-spacing: -0.02em;
+    }
+
+    .page-header p {
+      font-size: 16px;
+      color: var(--text-muted);
+      margin-bottom: 20px;
+    }
+
+    .content {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 40px;
+      margin-bottom: 60px;
+      line-height: 1.8;
+    }
+
+    .content h2 {
+      font-family: 'Inter Tight', sans-serif;
+      font-size: 28px;
+      font-weight: 700;
+      margin: 40px 0 20px 0;
+      letter-spacing: -0.02em;
+    }
+
+    .content h2:first-child {
+      margin-top: 0;
+    }
+
+    .content h3 {
+      font-family: 'Inter Tight', sans-serif;
+      font-size: 20px;
+      font-weight: 700;
+      margin: 30px 0 15px 0;
+      color: var(--primary);
+    }
+
+    .content p {
+      margin-bottom: 16px;
+      color: var(--text-muted);
+    }
+
+    .content ul, .content ol {
+      margin-left: 20px;
+      margin-bottom: 16px;
+      color: var(--text-muted);
+    }
+
+    .content li {
+      margin-bottom: 8px;
+    }
+
+    .content strong {
+      color: var(--text);
+      font-weight: 700;
+    }
+
+    .highlight-box {
+      background: var(--surface-light);
+      border-left: 4px solid var(--primary);
+      padding: 20px;
+      border-radius: 8px;
+      margin: 24px 0;
+      color: var(--text-muted);
+    }
+
+    .highlight-box strong {
+      color: var(--text);
+    }
+
+    .back-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--primary);
+      text-decoration: none;
+      font-weight: 600;
+      margin-bottom: 20px;
+      transition: gap 0.2s;
+    }
+
+    .back-link:hover {
+      gap: 12px;
+    }
+
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 40px 0;
+      text-align: center;
+      color: var(--text-muted);
+      font-size: 14px;
+    }
+
+    .settings-modal {
+      display: none;
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 20px;
+      box-shadow: var(--shadow-lg);
+      z-index: 1000;
+      width: 280px;
+    }
+
+    .settings-modal.show {
+      display: block;
+      animation: slideUp 0.3s ease;
+    }
+
+    @keyframes slideUp {
+      from { transform: translateY(20px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+
+    .settings-modal h3 {
+      font-family: 'Inter Tight', sans-serif;
+      font-size: 16px;
+      font-weight: 700;
+      margin-bottom: 16px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .close-settings {
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-size: 20px;
+      color: var(--text);
+      padding: 0;
+    }
+
+    .theme-options {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .theme-option {
+      padding: 12px 16px;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      background: transparent;
+      cursor: pointer;
+      font-family: 'Manrope', sans-serif;
+      font-size: 14px;
+      color: var(--text);
+      transition: all 0.2s;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .theme-option:hover {
+      border-color: var(--primary);
+      background: var(--surface-light);
+    }
+
+    .theme-option.active {
+      background: var(--primary);
+      color: white;
+      border-color: var(--primary);
+    }
+
+    .radio {
+      width: 18px;
+      height: 18px;
+      border: 2px solid currentColor;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .theme-option.active .radio::after {
+      content: '';
+      width: 8px;
+      height: 8px;
+      background: currentColor;
+      border-radius: 50%;
+    }
+
+    .modal-overlay {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0,0,0,0.3);
+      z-index: 999;
+    }
+
+    .modal-overlay.show {
+      display: block;
+    }
+
+    @media (max-width: 768px) {
+      .page-header h1 { font-size: 28px; }
+      .content { padding: 24px; }
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <header>
+      <a href="../index.html" class="logo">Videregående Hjelp</a>
+      <div class="header-controls">
+        <nav>
+          <ul class="nav-links">
+            <li><a href="../guides.html">Guider</a></li>
+            <li><a href="../tools.html">Verktøy</a></li>
+            <li><a href="../interactives.html">Interaktivt</a></li>
+          </ul>
+        </nav>
+        <button class="settings-btn" id="settingsBtn" aria-label="Settings">
+          <span class="material-icons">settings</span>
+        </button>
+      </div>
+    </header>
+
+    <a href="../guides.html" class="back-link"><span class="material-icons" style="font-size: 20px;">arrow_back</span> Tilbake til alle guider</a>
+
+    <section class="page-header">
+      <h1>${title}</h1>
+      <p>${description}</p>
+    </section>
+
+    <section class="content">
+${content.split('\n').map(line => '      ' + line).join('\n')}
+    </section>
+  </main>
+
+  <footer>
+    <p>&copy; 2026 Videregående Hjelp. Et åpent prosjekt for alle.</p>
+  </footer>
+
+  <div class="modal-overlay" id="modalOverlay"></div>
+  <div class="settings-modal" id="settingsModal">
+    <h3>Innstillinger<button class="close-settings" id="closeSettings">×</button></h3>
+    <div class="theme-options" id="themeOptions">
+      <button class="theme-option" data-theme="system" onclick="setTheme('system')">
+        <span class="radio"></span>
+        System tema
+      </button>
+      <button class="theme-option" data-theme="light" onclick="setTheme('light')">
+        <span class="radio"></span>
+        Lyst tema
+      </button>
+      <button class="theme-option" data-theme="dark" onclick="setTheme('dark')">
+        <span class="radio"></span>
+        Mørkt tema
+      </button>
+    </div>
+  </div>
+
+  <script>
+    function initTheme() {
+      const saved = localStorage.getItem('theme') || 'system';
+      setTheme(saved);
+    }
+
+    function setTheme(theme) {
+      localStorage.setItem('theme', theme);
+      let finalTheme = theme;
+      if (theme === 'system') {
+        finalTheme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+      }
+      document.documentElement.setAttribute('data-theme', finalTheme);
+      updateThemeButtons(theme);
+    }
+
+    function updateThemeButtons(theme) {
+      document.querySelectorAll('.theme-option').forEach(btn => {
+        btn.classList.remove('active');
+      });
+      document.querySelector(\`[data-theme="\${theme}"]\`).classList.add('active');
+    }
+
+    const settingsBtn = document.getElementById('settingsBtn');
+    const settingsModal = document.getElementById('settingsModal');
+    const closeSettings = document.getElementById('closeSettings');
+    const modalOverlay = document.getElementById('modalOverlay');
+
+    settingsBtn.addEventListener('click', () => {
+      settingsModal.classList.toggle('show');
+      modalOverlay.classList.toggle('show');
+    });
+
+    closeSettings.addEventListener('click', () => {
+      settingsModal.classList.remove('show');
+      modalOverlay.classList.remove('show');
+    });
+
+    modalOverlay.addEventListener('click', () => {
+      settingsModal.classList.remove('show');
+      modalOverlay.classList.remove('show');
+    });
+
+    window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', () => {
+      if ((localStorage.getItem('theme') || 'system') === 'system') {
+        initTheme();
+      }
+    });
+
+    initTheme();
+  <\/script>
+<\/body>
+<\/html>`;
+    }
+
+    // Export HTML
+    function exportHTML() {
+      const content = markdownToHTML(editor.value);
+      const fullHTML = generateGuideHTML(content);
+      
+      const filename = document.getElementById('guideFilename').value || 'guide';
+      const blob = new Blob([fullHTML], { type: 'text/html' });
+      const url = URL.createObjectURL(blob);
+      
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `${filename}.html`;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+    }
+
+    // Copy HTML
+    function copyHTML() {
+      const content = markdownToHTML(editor.value);
+      const fullHTML = generateGuideHTML(content);
+      
+      navigator.clipboard.writeText(fullHTML).then(() => {
+        alert('HTML kopiert til utklippstavlen!');
+      }).catch(() => {
+        alert('Kunne ikke kopiere. Prøv å eksportere istedet.');
+      });
+    }
+
+    // Preview in new window
+    function previewFull() {
+      const content = markdownToHTML(editor.value);
+      const fullHTML = generateGuideHTML(content);
+      
+      const w = window.open('', '_blank');
+      w.document.write(fullHTML);
+      w.document.close();
+    }
+  </script>
+</body>
+</html>
