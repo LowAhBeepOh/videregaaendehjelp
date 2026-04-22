@@ -17,30 +17,45 @@ class TextExtractor(HTMLParser):
     def __init__(self):
         super().__init__()
         self.text_parts = []
+        self.heading_parts = []  # h1, h2, h3
         self.skip = False
         self.title = ""
         self.in_title = False
+        self.in_heading = False
+        self.heading_level = 0
 
     def handle_starttag(self, tag, attrs):
         if tag == 'title':
             self.in_title = True
-        elif tag in ('script', 'style', 'meta', 'link'):
+        elif tag in ('h1', 'h2', 'h3'):
+            self.in_heading = True
+            self.heading_level = int(tag[1])
+        elif tag in ('script', 'style', 'meta', 'link', 'nav', 'footer'):
             self.skip = True
 
     def handle_endtag(self, tag):
         if tag == 'title':
             self.in_title = False
-        elif tag in ('script', 'style'):
+        elif tag in ('h1', 'h2', 'h3'):
+            self.in_heading = False
+            self.heading_level = 0
+        elif tag in ('script', 'style', 'nav', 'footer'):
             self.skip = False
 
     def handle_data(self, data):
         if self.in_title:
             self.title = data.strip()
+        elif self.in_heading and not self.skip:
+            # Weight headings by level: h1=5x, h2=3x, h3=2x
+            weight = {1: 5, 2: 3, 3: 2}.get(self.heading_level, 1)
+            self.heading_parts.extend([data.strip()] * weight)
         elif not self.skip:
             self.text_parts.append(data)
 
     def get_text(self):
-        return ' '.join(self.text_parts)
+        # Combine body text with weighted headings
+        all_text = self.heading_parts + self.text_parts
+        return ' '.join(all_text)
 
     def get_title(self):
         # Clean up title - remove various dash types and " Videregående Hjelp" suffix
@@ -56,13 +71,13 @@ class TextExtractor(HTMLParser):
 # Norwegian stop words (Bokmål & Nynorsk)
 NORWEGIAN_STOP_WORDS = {
     # Bokmål
-    'og', 'i', 'jeg', 'det', 'at', 'en', 'til', 'er', 'som', 'på', 'de', 'med', 'han', 'av', 'for', 'ikke', 'der', 'var', 'meg', 'seg', 'for', 'så', 'over', 'fra', 'hun', 'om', 'hay', 'har', 'ham', 'hans', 'har', 'hvor', 'da', 'skulle', 'eller', 'hva', 'dette', 'denne', 'disse', 'det', 'hvis', 'sin', 'sitt', 'hans', 'hennes', 'deres', 'vårt', 'ditt', 'mitt', 'din', 'do', 'vi', 'alle', 'også', 'kan', 'kunne', 'har', 'hadde', 'aner', 'anna', 'anno', 'åt', 'være', 'vær', 'værd', 'værd', 'vær', 'ville', 'vil', 'viss', 'viss', 'ville', 'vil', 'ja', 'nei', 'nein', 'nej', 'jo', 'jo', 'jo',
+    'og', 'i', 'jeg', 'det', 'at', 'en', 'til', 'er', 'som', 'på', 'de', 'med', 'han', 'av', 'for', 'ikke', 'der', 'var', 'meg', 'seg', 'så', 'over', 'fra', 'hun', 'om', 'har', 'ham', 'hans', 'hvor', 'da', 'skulle', 'eller', 'hva', 'dette', 'denne', 'disse', 'hvis', 'sin', 'sitt', 'hennes', 'deres', 'vårt', 'ditt', 'mitt', 'din', 'do', 'vi', 'alle', 'også', 'kan', 'kunne', 'hadde', 'aner', 'anna', 'anno', 'åt', 'være', 'vær', 'værd', 'ville', 'vil', 'viss', 'ja', 'nei', 'nein', 'nej', 'jo', 'du', 'deg',
     # Nynorsk
-    'og', 'i', 'eg', 'det', 'at', 'ein', 'til', 'er', 'som', 'på', 'dei', 'med', 'han', 'av', 'for', 'ikkje', 'der', 'var', 'meg', 'seg', 'så', 'over', 'frå', 'ho', 'om', 'har', 'honom', 'hans', 'kvar', 'då', 'skulle', 'eller', 'kva', 'denne', 'desse', 'dét', 'viss', 'sin', 'sitt', 'hans', 'hennar', 'deira', 'vårt', 'ditt', 'mitt', 'din', 'gjer', 'me', 'alle', 'også', 'kan', 'kunne', 'har', 'hadde', 'ville', 'vil', 'viss', 'ja', 'nei', 'jo', 'du', 'deg', 'dei', 'dykk', 'då', 'då', 'då',
+    'eg', 'ein', 'dei', 'ikkje', 'frå', 'ho', 'honom', 'kvar', 'då', 'kva', 'desse', 'dét', 'hennar', 'deira', 'gjer', 'me', 'dykk',
     # Common Scandinavian
-    'der', 'her', 'det', 'denne', 'men', 'alltid', 'selvfølgelig', 'mange', 'kunne', 'gjøre', 'gjør', 'gjort',
+    'her', 'men', 'alltid', 'selvfølgelig', 'mange', 'gjøre', 'gjør', 'gjort',
     # Settings/navigation
-    'settings', 'hjem', 'hallo', 'start', 'forside', 'guide', 'guider', 'verktøy', 'tool', 'tools', 'interaktivt', 'interactive', 'søk', 'search',
+    'settings', 'hjem', 'hallo', 'start', 'forside', 'guide', 'guider', 'verktøy', 'tool', 'tools', 'interaktivt', 'interactive', 'søk', 'search', 'navbar', 'footer', 'header', 'menu', 'nav',
 }
 
 def extract_text_from_html(filepath):
@@ -97,17 +112,36 @@ def build_vocabulary(all_tokens):
         vocab[word] = i
     return vocab
 
-def create_tf_vector(tokens, vocab):
-    """Create term frequency vector."""
+def calculate_idf(all_items, vocab):
+    """Calculate IDF (Inverse Document Frequency) for each term."""
+    N = len(all_items)
+    doc_freq = Counter()
+    
+    for item in all_items:
+        unique_tokens = set(item['tokens'])
+        for token in unique_tokens:
+            if token in vocab:
+                doc_freq[token] += 1
+    
+    # IDF = log(N / df) + 1 (smoothing)
+    idf = {}
+    for token, df in doc_freq.items():
+        idf[token] = math.log(N / df) + 1
+    return idf
+
+def create_tfidf_vector(tokens, vocab, idf):
+    """Create TF-IDF weighted vector."""
     vector = [0.0] * len(vocab)
     token_count = Counter(tokens)
     total = len(tokens)
-
+    
     for token, count in token_count.items():
         if token in vocab:
             # TF = count / total
-            vector[vocab[token]] = count / total if total > 0 else 0
-
+            tf = count / total if total > 0 else 0
+            # TF-IDF weighting
+            vector[vocab[token]] = tf * idf.get(token, 1.0)
+    
     return vector
 
 def cosine_similarity(vec1, vec2):
@@ -201,19 +235,24 @@ def main():
     print("\n🔤 Building vocabulary...")
     vocab = build_vocabulary(all_tokens)
     print(f"   Vocabulary size: {len(vocab)} unique terms")
-
-    # Create vectors for each item
-    print("📐 Creating embeddings...")
+    
+    # Calculate IDF weights
+    print("📊 Calculating IDF weights...")
+    idf = calculate_idf(all_items, vocab)
+    
+    # Create TF-IDF vectors for each item
+    print("📐 Creating TF-IDF embeddings...")
     for item in all_items:
-        vector = create_tf_vector(item['tokens'], vocab)
+        vector = create_tfidf_vector(item['tokens'], vocab, idf)
         # Store only non-zero entries to save space (sparse vector)
-        sparse_vector = {str(i): v for i, v in enumerate(vector) if v > 0}
+        sparse_vector = {str(i): round(v, 6) for i, v in enumerate(vector) if v > 0}
         item['vector'] = sparse_vector
         del item['tokens']  # Remove tokens from output
 
     # Generate final output
     output = {
         'vocab_size': len(vocab),
+        'idf': {k: round(v, 6) for k, v in idf.items()},  # Include IDF for query processing
         'items': []
     }
 
