@@ -226,6 +226,10 @@
       border-bottom: none;
     }
 
+    .search-result-meta {
+      display: none; /* Hide keywords from search results */
+    }
+
     .search-result-item:hover, .search-result-item.active {
       background: rgba(255, 255, 255, 0.05);
     }
@@ -742,7 +746,9 @@
         { title: "Russefeiringen", url: "Guides/russ-celebration.html" },
         { title: "Deltidsjobb", url: "Guides/part-time-job.html" },
         { title: "Mental helse", url: "Guides/mental-health.html" },
-        { title: "Regelbrudd", url: "Guides/rule-violations.html" }
+        { title: "Regelbrudd", url: "Guides/rule-violations.html" },
+        { title: "Eksamen i Ungdomsskolen", url: "Guides/exams-in-teen.html" },
+        { title: "Førstegangsvitnemål", url: "Guides/first-time-diploma.html" }
       ],
       tools: [
         { title: "Inntakskalkulator", url: "Tools/inntakskalkulator.html", icon: "arrow_forward" },
@@ -953,42 +959,125 @@
       }).join('');
     }
 
-    // Search Functionality
+    // Search Functionality with Semantic Matching
     const searchInput = document.getElementById('searchInput');
     const searchResults = document.getElementById('searchResults');
     let searchData = [];
+    let vocabSize = 0;
 
     // Fetch search data
     fetch('search-data.json')
       .then(response => response.json())
       .then(data => {
-        searchData = data;
+        searchData = data.items || data;
+        vocabSize = data.vocab_size || 0;
       })
       .catch(error => console.error('Error loading search data:', error));
+
+    // Simple tokenizer matching the Python one
+    function tokenize(text) {
+      const tokens = text.toLowerCase().match(/\b[a-zæøå0-9]+\b/gi) || [];
+      return tokens.filter(t => t.length > 2);
+    }
+
+    // Calculate cosine similarity between two vectors (sparse format)
+    function cosineSimilarity(sparseVec1, sparseVec2) {
+      let dotProduct = 0;
+      let mag1 = 0;
+      let mag2 = 0;
+
+      // Compute dot product and magnitude for vec1
+      for (const idx in sparseVec1) {
+        const val = sparseVec1[idx];
+        mag1 += val * val;
+        if (idx in sparseVec2) {
+          dotProduct += val * sparseVec2[idx];
+        }
+      }
+
+      // Compute magnitude for vec2
+      for (const idx in sparseVec2) {
+        const val = sparseVec2[idx];
+        mag2 += val * val;
+      }
+
+      mag1 = Math.sqrt(mag1);
+      mag2 = Math.sqrt(mag2);
+
+      if (mag1 === 0 || mag2 === 0) return 0;
+      return dotProduct / (mag1 * mag2);
+    }
+
+    // Create vector for query tokens
+    function createQueryVector(tokens) {
+      const vector = {};
+      const tokenCount = {};
+      tokens.forEach(token => {
+        tokenCount[token] = (tokenCount[token] || 0) + 1;
+      });
+      const total = tokens.length;
+      for (const token in tokenCount) {
+        // Use token hash as index (simple approach)
+        const hash = Math.abs(token.split('').reduce((h, c) => h * 31 + c.charCodeAt(0), 0)) % vocabSize;
+        vector[hash] = tokenCount[token] / total;
+      }
+      return vector;
+    }
+
+    // Search with semantic matching
+    function performSearch(query) {
+      const queryTokens = tokenize(query);
+      const queryVector = createQueryVector(queryTokens);
+      const queryLower = query.toLowerCase();
+
+      // Score each item
+      const scored = searchData.map(item => {
+        let score = 0;
+
+        // Keyword match: exact title match (highest)
+        if (item.title.toLowerCase() === queryLower) score += 100;
+        // Keyword match: title contains query
+        else if (item.title.toLowerCase().includes(queryLower)) score += 50;
+        // Keyword match: query word in keywords
+        else if (item.keywords && item.keywords.some(k => k.includes(queryLower))) score += 30;
+
+        // Semantic match: cosine similarity on vectors
+        if (item.vector && vocabSize > 0) {
+          const similarity = cosineSimilarity(queryVector, item.vector);
+          score += similarity * 40; // Scale semantic score
+        }
+
+        return { item, score };
+      });
+
+      // Sort by score and filter out zero-score items
+      return scored
+        .filter(s => s.score > 0)
+        .sort((a, b) => b.score - a.score)
+        .slice(0, 8)
+        .map(s => s.item);
+    }
 
     searchInput.addEventListener('input', (e) => {
       const query = e.target.value.toLowerCase();
       searchResults.innerHTML = '';
-      
+
       if (query.length < 2) {
         searchResults.style.display = 'none';
         return;
       }
 
-      const filtered = searchData.filter(item => {
-        return item.title.toLowerCase().includes(query) || 
-               item.keywords.some(k => k.toLowerCase().includes(query));
-      });
+      const filtered = performSearch(query);
 
       if (filtered.length > 0) {
         searchResults.style.display = 'block';
-        filtered.slice(0, 8).forEach(item => {
+        filtered.forEach(item => {
           const div = document.createElement('a');
           div.href = item.url;
           div.className = 'search-result-item';
           div.innerHTML = `
             <span class="search-result-title">${item.title}</span>
-            <span class="search-result-meta">${item.keywords.slice(0, 3).join(', ')}</span>
+            <span class="search-result-meta">${item.keywords?.slice(0, 3).join(', ') || ''}</span>
           `;
           searchResults.appendChild(div);
         });
