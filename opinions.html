@@ -106,6 +106,36 @@
     .mod-btn.ban:hover { border-color: rgba(255,69,58,0.4); color: #ff453a; }
     .mod-btn.delete:hover { border-color: rgba(255,69,58,0.4); color: #ff453a; }
     .mod-note { margin-top: 10px; font-size: 12px; color: #ff9f0a; }
+
+    /* ─── Moderation Dropdown ─── */
+    .mod-dropdown { position: relative; display: inline-flex; }
+    .mod-dropdown-btn { background: none; border: 1px solid var(--border); color: var(--text-muted); width: 32px; height: 28px; border-radius: 6px; cursor: pointer; display: inline-flex; align-items: center; justify-content: center; transition: all 0.15s; }
+    .mod-dropdown-btn:hover { border-color: var(--text); color: var(--text); }
+    .mod-dropdown-menu { position: absolute; top: 100%; right: 0; margin-top: 6px; background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 6px; display: none; flex-direction: column; gap: 2px; min-width: 160px; z-index: 20; box-shadow: 0 4px 20px rgba(0,0,0,0.4); }
+    .mod-dropdown-menu.open { display: flex; }
+    .mod-dropdown-item { background: none; border: none; color: var(--text-muted); font-family: var(--font-body); font-size: 13px; font-weight: 600; padding: 8px 12px; border-radius: 6px; cursor: pointer; display: flex; align-items: center; gap: 8px; transition: all 0.12s; text-align: left; }
+    .mod-dropdown-item:hover { background: rgba(255,255,255,0.06); color: var(--text); }
+    [data-theme="light"] .mod-dropdown-item:hover { background: rgba(0,0,0,0.06); }
+    .mod-dropdown-item.warn:hover { color: #FF9F0A; background: rgba(255,159,10,0.1); }
+    .mod-dropdown-item.timeout:hover { color: #8891f5; background: rgba(88,101,242,0.1); }
+    .mod-dropdown-item.ban:hover, .mod-dropdown-item.delete:hover { color: #ff453a; background: rgba(255,69,58,0.1); }
+    .mod-dropdown-item.pin:hover { color: #30D158; background: rgba(48,209,88,0.1); }
+    .mod-dropdown-item.hide:hover { color: var(--text); }
+    .mod-dropdown-item.copy:hover { color: var(--card-blue); background: rgba(88,101,242,0.1); }
+
+    /* ─── Copy Link Button (for all users) ─── */
+    .copy-link-btn { background: none; border: 1px solid transparent; color: var(--text-muted); width: 28px; height: 28px; border-radius: 6px; cursor: pointer; display: inline-flex; align-items: center; justify-content: center; transition: all 0.15s; margin-left: 4px; }
+    .copy-link-btn:hover { border-color: var(--border); color: var(--text); }
+
+    /* ─── Anonym Mode Styles ─── */
+    .anonym-avatar { width: 44px; height: 44px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 16px; font-weight: 800; font-family: var(--font-display); flex-shrink: 0; background: var(--surface); border: 2px dashed var(--border); color: var(--text-muted); }
+    .anonym-name { font-size: 15px; font-weight: 700; color: var(--text-muted); font-style: italic; }
+    .anonym-checkbox { display: inline-flex; align-items: center; gap: 8px; font-size: 13px; color: var(--text-muted); cursor: pointer; margin-top: 8px; }
+    .anonym-checkbox input[type="checkbox"] { width: 16px; height: 16px; cursor: pointer; accent-color: var(--card-red); }
+
+    /* ─── Highlighted Card (when linked) ─── */
+    .opinion-card.highlighted { background: rgba(88,101,242,0.08); border-left: 3px solid var(--card-blue); animation: highlightPulse 2s ease-out; }
+    @keyframes highlightPulse { 0% { background: rgba(88,101,242,0.15); } 100% { background: rgba(88,101,242,0.08); } }
     .opinion-topic { font-size: 11px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: var(--card-blue); margin-bottom: 4px; opacity: 0.85; }
     .opinion-quote { font-family: 'Instrument Serif', serif; font-size: clamp(18px, 2.4vw, 22px); font-style: italic; line-height: 1.3; color: var(--text); margin-bottom: 8px; letter-spacing: -0.01em; }
     .opinion-body { font-size: 14px; line-height: 1.65; color: var(--text-muted); margin-bottom: 6px; }
@@ -462,6 +492,12 @@
           <label class="form-label" for="opinionAttachment">Vedlegg – bilde/GIF (valgfritt)</label>
           <input class="form-input" type="file" id="opinionAttachment" accept="image/png,image/jpeg,image/webp,image/gif">
           <p class="form-info">Maks 2MB. Vedlegg må godkjennes av en mod/admin før det vises. Admin-vedlegg godkjennes automatisk.</p>
+        </div>
+        <div class="form-group">
+          <label class="anonym-checkbox">
+            <input type="checkbox" id="postAnonymously">
+            <span>Post anonymt (navn og bilde skjules, bare rollen vises)</span>
+          </label>
         </div>
         <div class="form-error" id="writeError"></div>
         <button class="form-btn" id="submitOpinionBtn">Publiser mening</button>
@@ -1104,6 +1140,7 @@
       ['opinionTopic','opinionQuote','opinionBody'].forEach(id => document.getElementById(id).value = '');
       document.getElementById('opinionAttachment').value = '';
       document.getElementById('postAsSystem').checked = false;
+      document.getElementById('postAnonymously').checked = false;
       document.getElementById('systemPostToggle').style.display = isAdmin() ? '' : 'none';
       document.getElementById('quoteCount').textContent = '0 / 120';
       document.getElementById('bodyCount').textContent  = '0 / 600';
@@ -1400,6 +1437,8 @@
       }
 
       const postAsSystem = isAdmin() && document.getElementById('postAsSystem').checked;
+      const postAnonymously = document.getElementById('postAnonymously').checked;
+
       if (postAsSystem && !/kunngj/i.test(topic)) {
         errEl.textContent = 'System-innlegg må brukes til kunngjøringer. Legg inn "kunngjøring" i tema.';
         errEl.classList.add('visible');
@@ -1419,6 +1458,7 @@
         image_url: imageDataUrl || null,
         image_approved: imageDataUrl ? (isAdmin() ? true : null) : null,
         image_approved_by: imageDataUrl && isAdmin() ? currentUser.id : null,
+        is_anonymous: postAsSystem ? false : postAnonymously,
       };
 
       const { error } = await sb.from('meninger').insert(insertData);
@@ -1491,6 +1531,7 @@
         authorProfile: profileMap[o.user_id] || null,
         handle: normalizeHandle(o.handle, o.display_name),
         isSystemPost: String(o.display_name || '').trim().toLowerCase() === 'system',
+        isAnonymous: !!o.is_anonymous,
         _ups: counts[o.id]?.up ?? 0,
         _downs: counts[o.id]?.down ?? 0,
         parent_id: null,
@@ -1501,10 +1542,34 @@
         image_approved_by: o.image_approved_by || null,
       }));
 
+      // Check for URL parameter to highlight specific opinion
+      const urlParams = new URLSearchParams(window.location.search);
+      const highlightId = urlParams.get('meningID');
+
       currentPage = 1;
-      renderOpinions(activeFilter);
+
+      // If specific ID requested, find which page it's on
+      if (highlightId) {
+        const targetId = Number(highlightId);
+        const targetIndex = allOpinions.findIndex(o => o.id === targetId);
+        if (targetIndex !== -1) {
+          currentPage = Math.ceil((targetIndex + 1) / PAGE_SIZE);
+        }
+      }
+
+      renderOpinions(activeFilter, highlightId ? Number(highlightId) : null);
       renderTopics();
       renderFilters();
+
+      // Scroll to highlighted opinion after render
+      if (highlightId) {
+        setTimeout(() => {
+          const highlightedCard = document.querySelector('.opinion-card.highlighted');
+          if (highlightedCard) {
+            highlightedCard.scrollIntoView({ behavior: 'smooth', block: 'center' });
+          }
+        }, 300);
+      }
     }
 
     function formatDate(iso) {
@@ -1560,7 +1625,7 @@
       return !opinion.isSystemPost && targetRole === 'user';
     }
 
-    function renderOpinions(filter = 'alle') {
+    function renderOpinions(filter = 'alle', highlightId = null) {
       activeFilter = filter;
       const feed = document.getElementById('opinionsFeed');
 
@@ -1599,8 +1664,9 @@
       const replyCounts = replyCountMap;
 
       feed.innerHTML = pageItems.map((o, i) => {
-        const displayName = getOpinionDisplayName(o);
-        const handle = o.isSystemPost ? '@system' : normalizeHandle(o.authorProfile?.handle || o.handle, displayName);
+        const isAnonymous = o.isAnonymous && !o.isSystemPost;
+        const displayName = isAnonymous ? 'Anonym' : getOpinionDisplayName(o);
+        const handle = o.isSystemPost ? '@system' : (isAnonymous ? '' : normalizeHandle(o.authorProfile?.handle || o.handle, displayName));
         const color     = colorForName(displayName || '?');
         const roleValue = getOpinionRole(o);
         const countyValue = getOpinionCounty(o);
@@ -1612,22 +1678,37 @@
         const canPin = isMod() && !o.isSystemPost;
         const canHide = isMod() && !o.isSystemPost;
         const allowClickableLinks = o.isSystemPost || ['admin', 'moderator'].includes(o.authorProfile?.mod_role || 'user');
-        const avatar = getAvatarMarkup({
-          name: displayName,
-          avatarUrl: o.isSystemPost ? '' : (o.authorProfile?.avatar_url || ''),
-          color,
-          isSystem: o.isSystemPost
-        });
 
-        const moderationButtons = (canSanction || canDelete || canPin || canHide) ? `
-          <div class="moderation-actions">
-            ${canPin ? `<button class="mod-btn" data-action="${o.pinned ? 'unpin' : 'pin'}" data-id="${o.id}" title="${o.pinned ? 'Fjern fremheving' : 'Fremhev'}"><span class="material-icons" style="font-size:16px;">push_pin</span></button>` : ''}
-            ${canHide ? `<button class="mod-btn" data-action="${o.hidden ? 'unhide' : 'hide'}" data-id="${o.id}" title="${o.hidden ? 'Vis igjen' : 'Skjul'}"><span class="material-icons" style="font-size:16px;">${o.hidden ? 'visibility' : 'visibility_off'}</span></button>` : ''}
-            ${canSanction ? `<button class="mod-btn warn" data-action="warn" data-id="${o.id}" title="Advarsel"><span class="material-icons" style="font-size:16px;">warning</span></button>` : ''}
-            ${canSanction ? `<button class="mod-btn timeout" data-action="timeout" data-id="${o.id}" title="Timeout"><span class="material-icons" style="font-size:16px;">hourglass_bottom</span></button>` : ''}
-            ${canSanction ? `<button class="mod-btn ban" data-action="ban" data-id="${o.id}" title="Ban"><span class="material-icons" style="font-size:16px;">block</span></button>` : ''}
-            ${canDelete ? `<button class="mod-btn delete" data-action="delete" data-id="${o.id}" title="Slett"><span class="material-icons" style="font-size:16px;">delete</span></button>` : ''}
+        // Avatar: anonym viser et spesielt ikon
+        const avatar = isAnonymous
+          ? `<div class="anonym-avatar" title="Anonym posting">?</div>`
+          : getAvatarMarkup({
+              name: displayName,
+              avatarUrl: o.isSystemPost ? '' : (o.authorProfile?.avatar_url || ''),
+              color,
+              isSystem: o.isSystemPost
+            });
+
+        // Modererings-dropdown (i stedet for separate knapper)
+        const showModMenu = canSanction || canDelete || canPin || canHide;
+        const moderationDropdown = showModMenu ? `
+          <div class="mod-dropdown">
+            <button class="mod-dropdown-btn" data-dropdown-id="${o.id}" title="Handlinger"><span class="material-icons" style="font-size:18px;">more_vert</span></button>
+            <div class="mod-dropdown-menu" id="mod-menu-${o.id}">
+              <button class="mod-dropdown-item copy" data-action="copylink" data-id="${o.id}"><span class="material-icons" style="font-size:16px;">link</span> Kopier lenke</button>
+              ${canPin ? `<button class="mod-dropdown-item pin" data-action="${o.pinned ? 'unpin' : 'pin'}" data-id="${o.id}"><span class="material-icons" style="font-size:16px;">push_pin</span> ${o.pinned ? 'Fjern fremheving' : 'Fremhev'}</button>` : ''}
+              ${canHide ? `<button class="mod-dropdown-item hide" data-action="${o.hidden ? 'unhide' : 'hide'}" data-id="${o.id}"><span class="material-icons" style="font-size:16px;">${o.hidden ? 'visibility' : 'visibility_off'}</span> ${o.hidden ? 'Vis igjen' : 'Skjul'}</button>` : ''}
+              ${canSanction ? `<button class="mod-dropdown-item warn" data-action="warn" data-id="${o.id}"><span class="material-icons" style="font-size:16px;">warning</span> Advarsel</button>` : ''}
+              ${canSanction ? `<button class="mod-dropdown-item timeout" data-action="timeout" data-id="${o.id}"><span class="material-icons" style="font-size:16px;">hourglass_bottom</span> Timeout</button>` : ''}
+              ${canSanction ? `<button class="mod-dropdown-item ban" data-action="ban" data-id="${o.id}"><span class="material-icons" style="font-size:16px;">block</span> Ban</button>` : ''}
+              ${canDelete ? `<button class="mod-dropdown-item delete" data-action="delete" data-id="${o.id}"><span class="material-icons" style="font-size:16px;">delete</span> Slett</button>` : ''}
+            </div>
           </div>
+        ` : '';
+
+        // Kopier-lenke-knapp for alle (hvis ikke mod-meny vises)
+        const copyLinkBtn = !showModMenu ? `
+          <button class="copy-link-btn" data-copy-id="${o.id}" title="Kopier lenke til denne meningen"><span class="material-icons" style="font-size:16px;">link</span></button>
         ` : '';
 
         const pinnedIndicator = o.pinned ? '<div class="pin-indicator"><span class="material-icons" style="font-size:14px;">push_pin</span> Fremhevet</div>' : '';
@@ -1638,6 +1719,12 @@
         const cardClasses = ['opinion-card'];
         if (o.pinned) cardClasses.push('pinned');
         if (o.hidden) cardClasses.push('hidden-post');
+        if (highlightId === o.id) cardClasses.push('highlighted');
+
+        // Navn-styling: anonym er grå/italics
+        const nameDisplay = isAnonymous
+          ? `<span class="anonym-name">Anonym</span>`
+          : `<span class="meta-name">${escHtml(displayName)}</span>`;
 
         return `
           <article class="${cardClasses.join(' ')}" data-role="${escHtml(o.role)}" id="card-${o.id}">
@@ -1651,16 +1738,17 @@
               <div class="card-content-col">
                 <div class="card-header">
                   <div class="card-header-main">
-                    <span class="meta-name">${escHtml(displayName)}</span>
-                    ${staffBadgeForOpinion(o)}
-                    <span class="meta-handle">${escHtml(handle)}</span>
-                    <span class="meta-dot">·</span>
+                    ${nameDisplay}
+                    ${isAnonymous ? '' : staffBadgeForOpinion(o)}
+                    ${handle ? `<span class="meta-handle">${escHtml(handle)}</span>` : ''}
+                    ${!isAnonymous ? `<span class="meta-dot">·</span>` : ''}
                     <span class="meta-time">${escHtml(formatRelativeOrDate(o.created_at))}</span>
-                    ${countyValue ? `<span class="meta-dot">·</span><span class="meta-time">${escHtml(countyValue)}</span>` : ''}
+                    ${countyValue && !isAnonymous ? `<span class="meta-dot">·</span><span class="meta-time">${escHtml(countyValue)}</span>` : ''}
                   </div>
                   <div class="card-header-aside">
                     <div class="opinion-badges">${badge}${isNew ? '<span class="opinion-badge badge-ny">Ny</span>' : ''}</div>
-                    ${moderationButtons}
+                    ${moderationDropdown}
+                    ${copyLinkBtn}
                   </div>
                 </div>
                 <div class="opinion-topic">${escHtml(o.topic)}</div>
@@ -1668,9 +1756,11 @@
                 ${o.body ? `<p class="opinion-body">${renderOpinionText(o.body, allowClickableLinks)}</p>` : ''}
                 ${attachmentHTML}
                 <div class="opinion-footer">
-                  <button class="reply-btn reaction-btn reply-action" data-reply-to="${o.id}"><span class="material-icons" style="font-size:18px;vertical-align:middle">chat_bubble_outline</span>${replyCount > 0 ? `<span>${replyCount}</span>` : ''}</button>
+                  <button class="reaction-btn reply-toggle" data-parent="${o.id}">
+                    <span class="material-icons" style="font-size:18px;vertical-align:middle">chat_bubble_outline</span>
+                    ${replyCount > 0 ? `<span>${replyCount}</span>` : ''}
+                  </button>
                   ${buildReactionHTML(o.id, o._ups, o._downs)}
-                  ${replyCount > 0 ? `<button class="reaction-btn reply-toggle" data-parent="${o.id}"><span class="material-icons" style="font-size:18px;vertical-align:middle">forum</span></button>` : ''}
                 </div>
                 <div class="replies-container" id="replies-${o.id}" style="display:none;"></div>
                 ${currentUser ? `<div class="reply-form" id="reply-form-${o.id}" style="display:none;">
@@ -1683,7 +1773,9 @@
       }).join('');
 
       renderPagination(totalPages);
-      if (feed.querySelector('.mod-btn')) attachModerationListeners(feed);
+      attachModerationListeners(feed);
+      attachCopyLinkListeners(feed);
+      attachDropdownListeners(feed);
       pageItems.forEach(o => attachReactionListeners(o.id));
       attachReplyListeners(feed);
       attachAttachmentListeners(feed);
@@ -1816,12 +1908,22 @@
     }
 
     function attachModerationListeners(feed) {
-      feed.querySelectorAll('.mod-btn').forEach(btn => {
-        btn.addEventListener('click', async () => {
+      feed.querySelectorAll('.mod-dropdown-item[data-action]').forEach(btn => {
+        btn.addEventListener('click', async (e) => {
+          e.stopPropagation();
           const opinionId = Number(btn.dataset.id);
           const action = btn.dataset.action;
           const target = allOpinions.find(o => o.id === opinionId);
           if (!target) return;
+
+          // Close dropdown
+          const menu = document.getElementById(`mod-menu-${opinionId}`);
+          if (menu) menu.classList.remove('open');
+
+          if (action === 'copylink') {
+            copyOpinionLink(opinionId);
+            return;
+          }
           if (action === 'delete') {
             if (!canDeletePost(target)) return;
             await deleteOpinion(opinionId);
@@ -1838,6 +1940,49 @@
           if (!canModeratePost(target)) return;
           await applyModerationAction(target, action);
         });
+      });
+    }
+
+    function attachCopyLinkListeners(feed) {
+      feed.querySelectorAll('.copy-link-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const opinionId = Number(btn.dataset.copyId);
+          copyOpinionLink(opinionId);
+        });
+      });
+    }
+
+    function copyOpinionLink(opinionId) {
+      const url = new URL(window.location.href);
+      url.search = `?meningID=${opinionId}`;
+      navigator.clipboard.writeText(url.toString()).then(() => {
+        showNotificationToast('Lenke kopiert til utklippstavlen!', 'warning');
+      }).catch(() => {
+        showNotificationToast('Kunne ikke kopiere lenke', 'danger');
+      });
+    }
+
+    function attachDropdownListeners(feed) {
+      // Toggle dropdown on burger button click
+      feed.querySelectorAll('.mod-dropdown-btn').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+          e.stopPropagation();
+          const opinionId = btn.dataset.dropdownId;
+          const menu = document.getElementById(`mod-menu-${opinionId}`);
+          if (!menu) return;
+
+          // Close all other dropdowns
+          feed.querySelectorAll('.mod-dropdown-menu.open').forEach(m => {
+            if (m.id !== `mod-menu-${opinionId}`) m.classList.remove('open');
+          });
+
+          menu.classList.toggle('open');
+        });
+      });
+
+      // Close dropdowns when clicking outside
+      document.addEventListener('click', () => {
+        feed.querySelectorAll('.mod-dropdown-menu.open').forEach(m => m.classList.remove('open'));
       });
     }
 
@@ -2040,7 +2185,10 @@
         const form = document.getElementById(`reply-form-${opinionId}`);
         if (form) form.style.display = 'none';
         const cnt = replyCountMap[opinionId] || 0;
-        if (toggle) toggle.innerHTML = `<span class="material-icons" style="font-size:18px;vertical-align:middle">forum</span>${cnt > 0 ? `<span>${cnt}</span>` : ''}`;
+        if (toggle) {
+          toggle.classList.remove('active-replies');
+          toggle.innerHTML = `<span class="material-icons" style="font-size:18px;vertical-align:middle">chat_bubble_outline</span>${cnt > 0 ? `<span>${cnt}</span>` : ''}`;
+        }
         return;
       }
 
@@ -2077,7 +2225,10 @@
       if (form) form.style.display = '';
 
       const cnt = replyCountMap[opinionId] || 0;
-      if (toggle) toggle.innerHTML = `<span class="material-icons" style="font-size:18px;vertical-align:middle">forum</span><span>Skjul ${cnt}</span>`;
+      if (toggle) {
+        toggle.classList.add('active-replies');
+        toggle.innerHTML = `<span class="material-icons" style="font-size:18px;vertical-align:middle">chat_bubble</span>${cnt > 0 ? `<span>${cnt}</span>` : ''}`;
+      }
     }
 
     async function submitReply(parentId) {
@@ -2128,14 +2279,12 @@
         attachReplyCardListeners(container);
       }
 
-      // Oppdater svar-knapp og forum-toggle
+      // Oppdater kommentar-knapp (tidligere reply-btn og reply-toggle)
       const cnt = replyCountMap[parentId];
-      const replyBtn = document.querySelector(`.reply-btn[data-reply-to="${parentId}"]`);
-      if (replyBtn) replyBtn.innerHTML = `<span class="material-icons" style="font-size:18px;vertical-align:middle">chat_bubble_outline</span><span>${cnt}</span>`;
       const toggle = document.querySelector(`.reply-toggle[data-parent="${parentId}"]`);
       if (toggle) {
-        toggle.style.display = '';
-        toggle.innerHTML = `<span class="material-icons" style="font-size:18px;vertical-align:middle">forum</span><span>Skjul ${cnt}</span>`;
+        const icon = container && container.style.display !== 'none' ? 'chat_bubble' : 'chat_bubble_outline';
+        toggle.innerHTML = `<span class="material-icons" style="font-size:18px;vertical-align:middle">${icon}</span>${cnt > 0 ? `<span>${cnt}</span>` : ''}`;
       }
     }
 
