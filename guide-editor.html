@@ -1154,10 +1154,17 @@ Normal tekst her. **Fet tekst** og [lenke](url).
       this.value = '';
     });
 
+    // Escape HTML special characters to prevent XSS
+    function escapeHTML(str) {
+      const div = document.createElement('div');
+      div.textContent = str;
+      return div.innerHTML;
+    }
+
     // Generate Guide HTML Template
     function generateGuideHTML(content) {
-      const title = document.getElementById('guideTitle').value || 'Uten tittel';
-      const description = document.getElementById('guideDescription').value || '';
+      const title = escapeHTML(document.getElementById('guideTitle').value || 'Uten tittel');
+      const description = escapeHTML(document.getElementById('guideDescription').value || '');
 
       return `<!DOCTYPE html>
 <html lang="no">
