@@ -816,6 +816,18 @@
       "Du har lovfestet rett til å få en begrunnelse for alle karakterer du får på prøver og innleveringer.",
       "Det finnes landsdekkende linjer for spesielle interesser, som for eksempel fjellklatring eller toppidrett i distriktene.",
       "Lærlinger tjener i snitt en full årslønn for en fagarbeider fordelt over de to årene de er i lære.",
+      "Mange russebussgrupper begynner å planlegge og betale inn penger allerede i 1. klasse – to hele år før selve russetiden starter.",
+      "En fullrig russebuss kan fort koste over én million kroner når man regner inn buss, innredning, lyd- og lysanlegg, graffiti, forsikring og sjåfør.",
+      "Fra nyttår 2026 ble det forbudt å ha sidevendte seter i russebusser under kjøring – noen grupper hadde allerede brukt årevis på å bygge nettopp det.",
+      "Forskning viser at mange elever bruker fraværsgrensen som et 'klippekort' – de sparer opp de tillatte 10 prosentene og tar dem ut som fridager i mai.",
+      "Etter at fraværsgrensen ble innført, begynte noen elever å møte opp på skolen selv om de var syke – fordi de ikke hadde råd til å miste fraværstimer.",
+      "Nesten halvparten av norske videregående elever får lavere karakter til skriftlig eksamen enn de har i standpunkt.",
+      "Det er ingen øvre aldersgrense for å ta fagbrev som praksiskandidat – en 60-åring med lang nok arbeidserfaring kan møte til fagprøven uten én dag i videregående.",
+      "Nesten tre av ti elever (28 %) fullfører ikke videregående på normert tid. På yrkesfag er utfordringen størst; her er det nesten fem av ti (47 %) som ikke fullfører innen normert tid (SSB, 2024).",
+      "I 2023 fullførte 86,5 prosent av jentene videregående skole, mot 78,1 prosent av guttene.",
+      "Elever som stryker på eksamen har 57 prosent lavere sjanse for å fullføre videregående selv fem år senere (FHI, 2023).",
+      "Tall fra 2019 viser at 88 prosent fullfører videregående hvis foreldrene har høyere utdanning – mot 46 prosent hvis foreldrene bare har grunnskole.",
+      "Å slutte på videregående er sjelden en plutselig beslutning – forskning siden tidlig 2000-tall viser at prosessen gjerne starter allerede i barneskolen.",
       "Oslo Katedralskole er Norges eldste skole og ble grunnlagt så tidlig som i 1153.",
       "Du kan få borteboerstipend dersom skolen er over 40 km fra foreldrehjemmet eller reisetiden er over 3 timer daily.",
       "Muntlig-praktisk eksamen tillater bruk av varierte hjelpemidler som musikk, video eller fysiske modeller i presentasjonen.",
@@ -837,13 +849,21 @@
       "Lærerrommet på en gjennomsnittlig skole forbruker nok kaffe i løpet av et år til å fylle et lite svømmebasseng."
     ];
 
-    // Get bi-daily fun fact (changes every 2 days)
     function getTodaysFunFact() {
       const today = new Date();
       const startDate = new Date('2026-04-12');
-      const daysDiff = Math.floor((today - startDate) / (1000 * 60 * 60 * 24));
-      const biDayIndex = Math.floor(daysDiff / 2) % funFacts.length;
-      return funFacts[biDayIndex];
+      
+      // Finn antall timer siden startdato
+      const hoursDiff = Math.floor((today - startDate) / (1000 * 60 * 60));
+      
+      // Finn ut hvor mange 12-timers perioder som har gått
+      // Bruker Math.max(0, ...) for å unngå negative tall før startdato meow meow meow lalala
+      const rotationIndex = Math.floor(Math.max(0, hoursDiff) / 12);
+      
+      // Bruk modulo for å loope gjennom listen
+      const factIndex = rotationIndex % funFacts.length;
+      
+      return funFacts[factIndex];
     }
 
     // Shuffle array (Fisher-Yates)
@@ -873,7 +893,7 @@
       html += `
         <div class="bento-card card-fun-fact grid-item-featured">
           <div>
-            <div class="fun-fact-label">💡 Fun Fact (Update hvert andre dag)</div>
+            <div class="fun-fact-label">💡 Fun Fact</div>
             <div class="card-title">${getTodaysFunFact()}</div>
           </div>
         </div>
