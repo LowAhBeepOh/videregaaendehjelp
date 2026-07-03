@@ -508,9 +508,58 @@
       transform: translate(4px, -4px);
     }
 
+    /* Mobile: half-height lime guide card, title + arrow on the same row,
+       long titles truncate with '...'. Arrow opacity bumped (no hover on
+       touch) and absolute positioning overridden so it sits inline right. */
+    @media (max-width: 767px) {
+      .bento-card.card-guides {
+        flex-direction: row;
+        align-items: center;
+        min-height: 90px;
+        padding: 12px 20px;
+      }
+      .bento-card.card-guides .card-title {
+        flex: 1;
+        min-width: 0;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+      .bento-card.card-guides .guide-arrow {
+        position: static;
+        flex: 0 0 auto;
+        margin-left: 14px;
+        opacity: 0.5;
+      }
+    }
+
     /* Tools & Interactives */
     .card-tools { background: var(--card-orange); }
     .card-tools .card-title { font-family: var(--font-display); font-weight: 800; font-style: normal; font-size: 26px; letter-spacing: -0.04em; }
+
+    /* Mobile: half-height orange tool card, title + icon on the same row,
+       long titles truncate with '...'. Applies only to .card-tools; the red
+       .card-interactive card is intentionally untouched. */
+    @media (max-width: 767px) {
+      .bento-card.card-tools {
+        flex-direction: row;
+        align-items: center;
+        min-height: 90px;
+        padding: 12px 20px;
+      }
+      .bento-card.card-tools .card-title {
+        flex: 1;
+        min-width: 0;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+      .bento-card.card-tools .card-icon {
+        flex: 0 0 auto;
+        margin-top: 0;
+        margin-left: 14px;
+      }
+    }
     
     .card-interactive { background: var(--card-red); color: #fff; }
     .card-interactive .card-title { color: #fff; font-family: var(--font-display); font-weight: 800; font-style: normal; font-size: 26px; letter-spacing: -0.04em; }
@@ -684,7 +733,7 @@
       ],
       tools: [
         { title: "Inntakskalkulator", url: "Tools/inntakskalkulator.html", icon: "arrow_forward" },
-        { title: "Usikkert på hva å velge?", url: "Tools/program-finder.html", icon: "arrow_forward" },
+        { title: "Best program for meg", url: "Tools/program-finder.html", icon: "arrow_forward" },
         { title: "Karaktertracker", url: "Tools/grade-tracker.html", icon: "arrow_forward" },
         { title: "Poenggrense", url: "Tools/point-limit.html", icon: "arrow_forward" }
       ],
@@ -760,8 +809,7 @@
       "Skoleåret i videregående opplæring består av 190 dager.",
       "På enkelte skoler i Trøndelag og Møre og Romsdal er 'pølse i brød' i kantina en så hellig tradisjon at det blir landesorg om they går tomme.",
       "Mange elever tror (feilaktig) på den uoffisielle '15-minutters regelen': Hvis læreren er mer enn et kvarter forsinket, kan man dra hjem.",
-      "På utdanningsprogrammet Naturbruk er det ofte traktorstørrelsen på parkeringsplassen som gir høyest status, ikke bilmerket.",
-      "Lærerrommet på en gjennomsnittlig skole forbruker nok kaffe i løpet av et år til å fylle et lite svømmebasseng. source: trust me bro"
+      "På utdanningsprogrammet Naturbruk er det ofte traktorstørrelsen på parkeringsplassen som gir høyest status, ikke bilmerket."
     ];
 
     function getTodaysFunFact() {
@@ -866,11 +914,26 @@
 
     let featuredNewsItems = [];
     let currentFeaturedIndex = 0;
+    // News older than this are hidden from the home page card so the bento
+    // grid only surfaces fresh content. If nothing qualifies, the whole card
+    // is removed from the layout (not just left empty).
+    const NEWS_FRESHNESS_DAYS = 30;
     function renderFeaturedNews(rawNews) {
       const container = document.getElementById('newsFeaturedContainer');
       if (!container) return;
-      const sorted = (Array.isArray(rawNews) ? rawNews : (rawNews.news || [])).sort((a, b) => new Date(b.date) - new Date(a.date));
-      if (!sorted.length) return;
+      const cutoff = Date.now() - NEWS_FRESHNESS_DAYS * 24 * 60 * 60 * 1000;
+      const sorted = (Array.isArray(rawNews) ? rawNews : (rawNews.news || []))
+        .filter(n => {
+          const d = new Date(n.date);
+          return !isNaN(d.getTime()) && d.getTime() >= cutoff;
+        })
+        .sort((a, b) => new Date(b.date) - new Date(a.date));
+      if (!sorted.length) {
+        container.style.display = 'none';
+        featuredNewsItems = [];
+        return;
+      }
+      container.style.display = '';
       featuredNewsItems = sorted.slice(0, 3);
       const render = () => {
         const item = featuredNewsItems[currentFeaturedIndex];
@@ -984,6 +1047,60 @@
       }).join('');
     }
 
+    const DEFAULT_GREETINGS = [
+      'Hei', 'Heia', 'Yo', 'Skjer\u2019a', 'Velkommen',
+      'Velkommen tilbake', 'Godt \u00e5 se deg', 'Hallais',
+      'Hallaien', 'Halla', 'Yo gang', 'G\u2019day mate',
+      'Heisann', 'Hallo', 'Salut', 'Hva skjer\u2019a',
+      'Halla p\u00e5 deg', 'Hei igjen', 'St\u00e5 p\u00e5',
+      'Hyggelig \u00e5 se deg', 'Velkommen inn', 'Hei og h\u00e5',
+      'Hei du', 'Tjommen', 'Tjohei',
+      'Hei p\u00e5 deg', 'God dag', 'Hyggelig',
+      'Lenge siden sist', 'Koselig', 'Bra \u00e5 ha deg her',
+      'Hei venn', 'H\u00e6', 'H\u00e6i',
+      'Topp \u00e5 se deg', 'Glad \u00e5 se deg',
+      'Sprett opp', 'Aloha',
+    ];
+
+    const TIME_GREETINGS = {
+      tidlig: [
+        'St\u00e5 opp!', 'Tidlig ute', 'Er du v\u00e5ken?',
+        'P\u00e5 vei ut?', 'Du er lys v\u00e5ken', 'Er du klar?',
+        'Frokost?',
+      ],
+      morgen: [
+        'God morgen', 'God morgen!', 'Morn', 'Morn til deg',
+        'Ha en fin morgen', 'Koselig morgen', 'Lykke til med dagen',
+        'St\u00e5 p\u00e5 med skolen',
+      ],
+      ettermiddag: [
+        'God ettermiddag', 'Ha en fin ettermiddag',
+        'Velkommen tilbake', 'Koselig ettermiddag',
+        'St\u00e5 p\u00e5 videre', 'Frisk pust',
+      ],
+      kveld: [
+        'God kveld', 'God kveld!', 'Ha en fin kveld',
+        'Koselig kveld', 'Kvelden er din', 'Hyggelig kveld',
+        'Slapp av',
+      ],
+      midnatt: [
+        'zzz', 'Skal du ikke sove?', 'Legg deg',
+        'G\u00e5 og legg deg', 'Sov godt', 'God natt',
+        'Skulle du ikke sove for lengst?', 'Det er natt',
+        'N\u00e5 er det natt', 'Du burde sove',
+      ],
+    };
+
+    function getTimeBucket() {
+      const hour = new Date().getHours();
+      if (hour < 5) return 'midnatt';
+      if (hour < 6) return 'tidlig';
+      if (hour < 10) return 'morgen';
+      if (hour >= 15 && hour < 19) return 'ettermiddag';
+      if (hour >= 19) return 'kveld';
+      return null;
+    }
+
     function paintGreeting() {
       if (!window.VHprofile) return;
       const heading = document.getElementById('userHeading');
@@ -992,20 +1109,23 @@
       const DEFAULT_NAME = 'Bruker';
       const name = VHprofile.get().name;
       // No profile yet: fixed welcoming greeting + clear CTA to set one up.
-      // Has profile: random greeting + name.
+      // Has profile: random greeting + name. Pool is time-of-day aware.
       if (!name || name === DEFAULT_NAME) {
         heading.textContent = 'Velkommen, Elev';
         cta.hidden = false;
       } else {
-        const greetings = [
-          'Hei', 'Heia', 'Yo', 'Skjer\u2019a', 'Velkommen',
-          'Godt \u00e5 se deg', 'Hallais', 'Hallaien', 'Halla',
-          'Yo gang', 'Hi m8', 'G\u2019day mate', 'Heisann',
-          'Hallo', 'Salut', 'H\u00e9', 'Hva skjer\u2019a',
-          'Halla p\u00e5 deg', 'Hei igjen', 'St\u00e5 p\u00e5',
-        ];
-        const greeting = greetings[Math.floor(Math.random() * greetings.length)];
-        heading.textContent = `${greeting}, ${name}`;
+        const bucket = getTimeBucket();
+        // Morgen + ettermiddag blend with the default pool for variety; the
+        // other buckets stay strictly time-themed (tidlig / kveld / midnatt).
+        const pool = bucket === 'morgen' || bucket === 'ettermiddag'
+          ? [...TIME_GREETINGS[bucket], ...DEFAULT_GREETINGS]
+          : (bucket ? TIME_GREETINGS[bucket] : DEFAULT_GREETINGS);
+        const greeting = pool[Math.floor(Math.random() * pool.length)];
+        // Move trailing . ! ? to after the name so 'Greeting?, Name' becomes 'Greeting, Name?'.
+        const trailing = greeting.match(/[.!?]+$/);
+        const mark = trailing ? trailing[0] : '';
+        const stem = trailing ? greeting.slice(0, -mark.length).trimEnd() : greeting;
+        heading.textContent = `${stem}, ${name}${mark}`;
         cta.hidden = true;
       }
       heading.hidden = false;
