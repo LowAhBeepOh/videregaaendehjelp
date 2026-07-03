@@ -567,18 +567,6 @@
     .card-fun-fact { background: var(--card-green); }
     .card-fun-fact .card-title { font-family: var(--font-body); font-weight: 700; font-style: normal; font-size: 22px; letter-spacing: -0.02em; line-height: 1.3; }
     .fun-fact-label-icon { font-size: 16px; }
-    .fun-fact-source {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      margin-top: 18px;
-      color: rgba(0, 0, 0, 0.72);
-      font-size: 12px;
-      font-weight: 700;
-      text-decoration: none;
-      transition: opacity 0.2s ease;
-    }
-    .fun-fact-source:hover { opacity: 0.8; text-decoration: underline; }
 
     .fun-fact-label, .opinions-label {
       font-size: 12px;
@@ -789,245 +777,128 @@
       // --- Rettigheter og regler ---
       {
         text: "Du kan klage på en skriftlig eksamenskarakter innen 10 dager – en ny, anonym sensor vurderer da besvarelsen din på nytt. Karakteren kan gå opp, ned eller bli stående.",
-        sourceLabel: "Ung.no",
-        sourceTitle: "Slik klager du på karakteren",
-        sourceUrl: "https://www.ung.no/skolen/Eksamen/2140_Slik_klager_du_p%C3%A5_karakteren.html"
       },
       {
         text: "Standpunktkarakteren er ikke et matematisk snitt av prøver og innleveringer – læreren skal vurdere den helhetlige kompetansen din ved slutten av opplæringen.",
-        sourceLabel: "Udir",
-        sourceTitle: "Standpunktkarakter",
-        sourceUrl: "https://www.udir.no/laring-og-trivsel/vurdering/sluttvurdering/standpunktkarakter/"
       },
       {
         text: "Du kan be læreren om en muntlig eller skriftlig begrunnelse for standpunktkarakteren din – læreren er pliktig til å gi deg det.",
-        sourceLabel: "Udir",
-        sourceTitle: "Rett til begrunnelse for karakter",
-        sourceUrl: "https://www.udir.no/regelverkstolkninger/opplaring/Innledning/Opplaringsloven/kapittel-5/regelverk-om-klage-pa-karakter/"
       },
       {
         text: "Du har rett til å bytte utdanningsprogram i videregående. Har du ikke brukt retten innen du fyller 19, kan du likevel ta ett omvalg etterpå.",
-        sourceLabel: "Udir",
-        sourceTitle: "Rett til omvalg",
-        sourceUrl: "https://www.udir.no/regelverk-og-tilsyn/skole-og-opplaring/retten-til-videregaende-opplaring/rett-til-omvalg/"
       },
       {
         text: "Fra 2024 gir opplæringsloven deg rett til å fullføre videregående, ikke bare et visst antall år. Fullføringsretten gjelder til og med skoleåret du fyller 24 år.",
-        sourceLabel: "Udir",
-        sourceTitle: "Fullføringsretten",
-        sourceUrl: "https://www.udir.no/regelverk-og-tilsyn/skole-og-opplaring/retten-til-videregaende-opplaring/"
       },
       {
         text: "Gratisprinsippet betyr at skolen ikke kan kreve at du betaler for obligatoriske turer, ekskursjoner eller undervisningsmateriell.",
-        sourceLabel: "Udir",
-        sourceTitle: "Veileder om gratisprinsippet",
-        sourceUrl: "https://www.udir.no/regelverk-og-tilsyn/skole-og-opplaring/veileder-om-gratisprinsippet-i-grunnskolen-og-videregaende-opplaring/innledning/"
       },
       {
         text: "Du kan ha inntil 10 prosent udokumentert fravær i et fag før du risikerer å miste karakteren.",
-        sourceLabel: "Udir",
-        sourceTitle: "8 Fravær",
-        sourceUrl: "https://www.udir.no/eksamen-og-prover/vitnemal-og-kompetansebevis/foring-vitnemal-kompetansebevis-vgs-25/8-fravar/"
       },
       {
         text: "Hvis læreren mangler vurderingsgrunnlag fordi du har for mye fravær eller ikke har levert oppgaver, kan du få 'Ikke vurdert' (IV) i faget istedenfor en karakter.",
-        sourceLabel: "Udir",
-        sourceTitle: "Sluttvurdering",
-        sourceUrl: "https://www.udir.no/laring-og-trivsel/vurdering/sluttvurdering/"
       },
       {
         text: "Det finnes ingen generell regel om at elever kan gå hjem hvis læreren er 15 minutter forsinket.",
-        sourceLabel: "Ung.no",
-        sourceTitle: "Kan elevene gå hjem hvis læreren ikke har kommet etter 15 minutter?",
-        sourceUrl: "https://www.ung.no/oss/2A7ZUBdkUNSpYTKYolPAKA"
       },
       // --- Eksamen ---
       {
         text: "Du kan melde deg opp som privatist og ta eksamen i videregående fag uten å gå på skole – du studerer på egenhånd og avlegger eksamen på lik linje med vanlige elever.",
-        sourceLabel: "Udir",
-        sourceTitle: "Privatist",
-        sourceUrl: "https://www.udir.no/eksamen-og-prover/eksamen/privatist/"
       },
       {
         text: "Er du syk på eksamensdagen og leverer legeerklæring til skolen innen fristen, har du rett til å ta utsatt eksamen – uten ekstra kostnad.",
-        sourceLabel: "Udir",
-        sourceTitle: "Ny, utsatt og særskilt eksamen",
-        sourceUrl: "https://www.udir.no/eksamen-og-prover/eksamen/ny-utsatt-og-sarskilt-eksamen/"
       },
       {
         text: "Stryker du på eksamen (karakter 1), har du rett til å gå opp til ny eksamen gratis ved første mulige anledning.",
-        sourceLabel: "Udir",
-        sourceTitle: "Ny, utsatt og særskilt eksamen",
-        sourceUrl: "https://www.udir.no/eksamen-og-prover/eksamen/ny-utsatt-og-sarskilt-eksamen/"
       },
       {
         text: "Elever med dysleksi eller andre dokumenterte vansker kan søke skolen om tilrettelagte eksamensforhold – for eksempel lengre tid, opplesing av oppgaveteksten eller bruk av PC med stavekontroll.",
-        sourceLabel: "Udir",
-        sourceTitle: "Særskilt tilrettelegging av eksamen",
-        sourceUrl: "https://www.udir.no/eksamen-og-prover/eksamen/sarskilt-tilrettelegging-av-eksamen/"
       },
       {
         text: "På muntlig-praktisk eksamen kan du bruke varierte hjelpemidler som musikk, video eller fysiske modeller som del av presentasjonen din.",
-        sourceLabel: "Udir",
-        sourceTitle: "Muntlig eksamen",
-        sourceUrl: "https://www.udir.no/eksamen-og-prover/eksamen/muntlig-eksamen/"
       },
       // --- Stipend og økonomi ---
       {
         text: "Du kan få borteboerstipend hvis det er minst 40 kilometer mellom hjem og skole, eller hvis du bruker tre timer eller mer tur-retur på reisen.",
-        sourceLabel: "Lånekassen",
-        sourceTitle: "Borteboerstipend",
-        sourceUrl: "https://lanekassen.no/nb-NO/stipend-og-lan/norge/videregaende-skole/videregaende-skole/borteboerstipend/"
       },
       {
         text: "Du kan få maksimalt 4 tilleggspoeng totalt for en kombinasjon av realfag og fremmedspråk når du søker høyere utdanning.",
-        sourceLabel: "Samordna opptak",
-        sourceTitle: "Tilleggspoeng",
-        sourceUrl: "https://www.samordnaopptak.no/info/opptak/poengberegning/tilleggspoeng/"
       },
       // --- Utdanningsprogram og muligheter ---
       {
         text: "Yrkesfagelever kan ta et ekstra år – Vg3 påbygg til generell studiekompetanse – for å åpne dørene til universiteter og høyskoler.",
-        sourceLabel: "Vilbli",
-        sourceTitle: "Påbygging til generell studiekompetanse",
-        sourceUrl: "https://www.vilbli.no/nb/no/a/pabygging-til-generell-studiekompetanse-6"
       },
       {
         text: "Gjennom kryssløp kan du bytte fra ett yrkesfaglig utdanningsprogram på Vg1 til et annet på Vg2 – for eksempel fra Elektro og datateknologi til Informasjonsteknologi og medieproduksjon.",
-        sourceLabel: "Vilbli",
-        sourceTitle: "Kryssløp",
-        sourceUrl: "https://www.vilbli.no/nb/no/a/kryssloep-6"
       },
       {
         text: "Det er ingen øvre aldersgrense for å ta fagbrev som praksiskandidat – en 60-åring med lang nok arbeidserfaring kan møte til fagprøven uten én dag i videregående.",
-        sourceLabel: "Vilbli",
-        sourceTitle: "Praksiskandidater",
-        sourceUrl: "https://www.vilbli.no/nb/no/a/praksiskandidater-6"
       },
       {
         text: "På utdanningsprogrammet Naturbruk kan du ha jakt, fiske eller hundekjøring som en del av de praktiske fagene.",
-        sourceLabel: "Vilbli",
-        sourceTitle: "Naturbruk",
-        sourceUrl: "https://www.vilbli.no/nb/no/a/naturbruk-6"
       },
       {
         text: "Det finnes 10 yrkesfaglige utdanningsprogrammer i videregående opplæring som fører frem til yrkeskompetanse.",
-        sourceLabel: "Vilbli",
-        sourceTitle: "Utdanningsprogram",
-        sourceUrl: "https://www.vilbli.no/nb/no/a/utdanningsprogram-6"
       },
       {
         text: "Mange skoler tilbyr e-sport eller spilldesign som valgfag eller som del av utdanningsprogrammet Medier og kommunikasjon.",
-        sourceLabel: "Vilbli",
-        sourceTitle: "Medier og kommunikasjon",
-        sourceUrl: "https://www.vilbli.no/nb/no/a/medier-og-kommunikasjon-6"
       },
       {
         text: "Du kan ta Vg2 i utlandet gjennom godkjente utvekslingsorganisasjoner og få skoleåret godkjent som en del av din norske videregående opplæring.",
-        sourceLabel: "Udir",
-        sourceTitle: "Utdanning i utlandet",
-        sourceUrl: "https://www.udir.no/utdanning/utdanning-i-utlandet/"
       },
       {
         text: "I faget Entreprenørskap og bedriftsutvikling kan du starte din egen ungdomsbedrift (UB) med støtte fra Ungt Entreprenørskap.",
-        sourceLabel: "Ungt Entreprenørskap",
-        sourceTitle: "Ungdomsbedrift",
-        sourceUrl: "https://www.ue.no/programmer/ungdomsbedrift/"
       },
       {
         text: "Det finnes landsdekkende linjer for spesielle interesser – for eksempel toppidrett, fjellklatring og musikk, dans og drama – der du kan kombinere skole med satsingen din.",
-        sourceLabel: "Vilbli",
-        sourceTitle: "Idrettsfag",
-        sourceUrl: "https://www.vilbli.no/nb/no/a/idrettsfag-6"
       },
       {
         text: "Du kan ta morsmålseksamen i over 40 ulike språk for å erstatte kravet om fremmedspråk på vitnemålet.",
-        sourceLabel: "Udir",
-        sourceTitle: "Morsmålseksamen",
-        sourceUrl: "https://www.udir.no/eksamen-og-prover/eksamen/morsmalseksamen/"
       },
       // --- Lærlingelønn ---
       {
         text: "Lærlinger tjener i snitt en full årslønn for en fagarbeider fordelt over de to årene de er i lære – lønnen øker gradvis fra første til siste år.",
-        sourceLabel: "Udir",
-        sourceTitle: "Lærling og lærekandidat",
-        sourceUrl: "https://www.udir.no/utdanning/yrkesfag/larling-og-larekandidater/"
       },
       // --- Statistikk ---
       {
         text: "Nesten tre av ti elever (28 %) fullfører ikke videregående på normert tid. På yrkesfag er utfordringen størst – nesten halvparten fullfører ikke innen normert tid.",
-        sourceLabel: "SSB",
-        sourceTitle: "Videregående opplæring",
-        sourceUrl: "https://www.ssb.no/utdanning/videregaende-utdanning/statistikk/videregaende-opplaering/"
       },
       {
         text: "I 2023 fullførte 86,5 prosent av jentene videregående skole, mot 78,1 prosent av guttene.",
-        sourceLabel: "SSB",
-        sourceTitle: "Videregående opplæring",
-        sourceUrl: "https://www.ssb.no/utdanning/videregaende-utdanning/statistikk/videregaende-opplaering/"
       },
       {
         text: "Tall viser at 88 prosent fullfører videregående når foreldrene har høyere utdanning – mot 46 prosent når foreldrene bare har grunnskole.",
-        sourceLabel: "SSB",
-        sourceTitle: "Gjennomføring i videregående og familiebakgrunn",
-        sourceUrl: "https://www.ssb.no/utdanning/videregaende-utdanning/statistikk/videregaende-opplaering/"
       },
       {
         text: "Forskning viser at å slutte på videregående sjelden er en plutselig beslutning – signalene viser seg gjerne allerede i barneskolen.",
-        sourceLabel: "NIFU",
-        sourceTitle: "Frafall i videregående opplæring",
-        sourceUrl: "https://nifu.no/publikasjoner/?topics=frafall"
       },
       // --- Russebuss ---
       {
         text: "Mange russebussgrupper begynner å planlegge og betale inn penger allerede i 1. klasse på videregående – to hele år før selve russetiden starter.",
-        sourceLabel: null,
-        sourceTitle: null,
-        sourceUrl: null
       },
       {
         text: "En fullrig russebuss kan fort koste over én million kroner når man regner inn buss, innredning, lyd- og lysanlegg, graffiti, forsikring og sjåfør.",
-        sourceLabel: null,
-        sourceTitle: null,
-        sourceUrl: null
       },
       {
         text: "Fra 2026 er det forbudt å ha sidevendte seter i russebusser under kjøring – noen grupper hadde allerede brukt årevis på å bygge nettopp det.",
-        sourceLabel: "Statens vegvesen",
-        sourceTitle: "Russebuss",
-        sourceUrl: "https://www.vegvesen.no/kjoretoy/eie-og-vedlikeholde/russebuss/"
       },
       // --- Atferd og skolekultur ---
       {
         text: "Forskning viser at mange elever bruker fraværsgrensen som et «klippekort» – de sparer opp de tillatte 10 prosentene og tar dem ut som fridager mot slutten av skoleåret.",
-        sourceLabel: "NOVA",
-        sourceTitle: "Fraværsgrensen",
-        sourceUrl: "https://oda.oslomet.no/oda-xmlui/handle/10642/6590"
       },
       {
         text: "Etter at fraværsgrensen ble innført, økte antallet elever som møtte på skolen selv om de var syke – fordi de ikke hadde råd til å miste fraværstimer.",
-        sourceLabel: "NOVA",
-        sourceTitle: "Fraværsgrensen",
-        sourceUrl: "https://oda.oslomet.no/oda-xmlui/handle/10642/6590"
       },
       {
         text: "Nesten halvparten av norske videregående elever får lavere karakter til skriftlig eksamen enn de har i standpunkt.",
-        sourceLabel: "Udir",
-        sourceTitle: "Eksamen og standpunkt",
-        sourceUrl: "https://www.udir.no/eksamen-og-prover/eksamen/"
       },
       // --- Historisk kuriosa ---
       {
         text: "Oslo katedralskole er Norges eldste skole og ble grunnlagt allerede i 1153.",
-        sourceLabel: "SNL",
-        sourceTitle: "Oslo katedralskole",
-        sourceUrl: "https://snl.no/Oslo_katedralskole"
       },
       {
         text: "På utdanningsprogrammet Naturbruk er det ikke uvanlig at parkeringsplassen domineres av traktorer og andre landbrukskjøretøy.",
-        sourceLabel: null,
-        sourceTitle: null,
-        sourceUrl: null
       }
     ];
 
@@ -1062,7 +933,6 @@
           <div>
             <div class="fun-fact-label"><i class="material-icons fun-fact-label-icon">lightbulb</i> Visste du at?</div>
             <div class="card-title">${escHtml(funFact.text)}</div>
-            ${funFact.sourceUrl ? `<a class="fun-fact-source" href="${funFact.sourceUrl}" target="_blank" rel="noopener noreferrer" title="${escHtml(funFact.sourceTitle)}">Kilde: ${escHtml(funFact.sourceLabel)}</a>` : ''}
           </div>
         </div>
       `;
