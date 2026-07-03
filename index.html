@@ -566,6 +566,7 @@
 
     .card-fun-fact { background: var(--card-green); }
     .card-fun-fact .card-title { font-family: var(--font-body); font-weight: 700; font-style: normal; font-size: 22px; letter-spacing: -0.02em; line-height: 1.3; }
+    .fun-fact-label-icon { font-size: 16px; }
 
     .fun-fact-label, .opinions-label {
       font-size: 12px;
@@ -773,48 +774,137 @@
     }
 
     const funFacts = [
-      "I Norge har du nå 'fullføringsrett' – det betyr at du har rett til videregående opplæring helt til du har fullført, uavhengig av alder.",
-      "Mange skoler tilbyr faget 'E-sport' eller 'Gamedesign' som enten valgfag eller som del av medier og kommunikasjon.",
-      "Du kan ta 'morsmålseksamen' i over 40 ulike språk for å erstatte kravet om fremmedspråk.",
-      "Du kan få slettet inntil 10 dager dokumentert fravær fra vitnemålet per år hvis det skyldes helse eller politisk arbeid.",
-      "Du betaler en årlig egenandel for elev-PC som tilsvarer utstyrsstipendet, og etter tre år blir maskinen din eiendom.",
-      "På utdanningsprogrammet 'Naturbruk' kan du ha jakt, fiske eller hundekjøring som en del av de praktiske fagene.",
-      "Flest elever sliter faktisk med eksamen/tentamen. Kilde: experience.",
-      "Det finnes landsdekkende linjer for spesielle interesser, som for eksempel fjellklatring eller toppidrett.",
-      "Lærlinger tjener i snitt en full årslønn for en fagarbeider fordelt over de to årene de er i lære.",
-      "Mange russebussgrupper begynner å planlegge og betale inn penger allerede i 1. klasse – to hele år før selve russetiden starter.",
-      "En fullrig russebuss kan fort koste over én million kroner når man regner inn buss, innredning, lyd- og lysanlegg, graffiti, forsikring og sjåfør.",
-      "Fra nyttår 2026 ble det forbudt å ha sidevendte seter i russebusser under kjøring – noen grupper hadde allerede brukt årevis på å bygge nettopp det.",
-      "Forskning viser at mange elever bruker fraværsgrensen som et 'klippekort' – de sparer opp de tillatte 10 prosentene og tar dem ut som fridager i mai.",
-      "Etter at fraværsgrensen ble innført, begynte noen elever å møte opp på skolen selv om they var syke – fordi they ikke hadde råd til å miste fraværstimer.",
-      "Nesten halvparten av norske videregående elever får lavere karakter til skriftlig eksamen enn they har i standpunkt.",
-      "Det er ingen øvre aldersgrense for å ta fagbrev som praksiskandidat – en 60-åring med lang nok arbeidserfaring kan møte til fagprøven uten én dag i videregående.",
-      "Nesten tre av ti elever (28 %) fullfører ikke videregående på normert tid. På yrkesfag er utfordringen størst; her er det nesten fem av ti (47 %) som ikke fullfører innen normert tid (SSB, 2024).",
-      "I 2023 fullførte 86,5 prosent av jentene videregående skole, mot 78,1 prosent av guttene.",
-      "Elever som stryker på eksamen har 57 prosent lavere sjanse for å fullføre videregående selv fem år senere (FHI, 2023).",
-      "Tall fra 2019 viser at 88 prosent fullfører videregående hvis foreldrene har høyere utdanning – mot 46 prosent hvis foreldrene bare har grunnskole.",
-      "Å slutte på videregående er sjelden en plutselig beslutning – forskning siden tidlig 2000-tall viser at prosessen gjerne starter allerede i barneskolen.",
-      "Oslo Katedralskole er Norges eldste skole og ble grunnlagt så tidlig som i 1153.",
-      "Du kan få borteboerstipend dersom skolen er over 40 km fra foreldrehjemmet eller reisetiden er over 3 timer daily.",
-      "Muntlig-praktisk eksamen tillater bruk av varierte hjelpemidler som musikk, video eller fysiske modeller i presentasjonen.",
-      "Det finnes 10 yrkesfaglige utdanningsprogrammer som fører frem til yrkeskompetanse.",
-      "I faget 'Entreprenørskap' kan du starte din egen Ungdomsbedrift (UB) med støtte fra Ungt Entreprenørskap.",
-      "Hvis læreren mangler vurderingsgrunnlag på grunn av fravær eller manglende prøver, kan du få 'Ikke vurdert' (IV) i faget.",
-      "Du kan få maksimalt 4 tilleggspoeng totalt for en kombinasjon av realfag og fremmedspråk når du søker høyere utdanning.",
-      "Du kan ta VG2 i utlandet gjennom godkjente utvekslingsorganisasjoner og få året godkjent som en del av din norske utdanning.",
-      "Gratisprinsippet betyr at skolen ikke kan kreve at du betaler for obligatoriske turer eller undervisningsmateriell.",
-      "Gjennom 'kryssløp' kan du bytte fra ett utdanningsprogram på VG1 til et annet på VG2 (f.eks. fra Elektro til Informasjonsteknologi).",
-      "Hvis du stryker på eksamen (karakter 1), har du rett til å ta en ny eksamen gratis ved første mulige anledning.",
-      "Elever med dokumenterte behov (som dysleksi) har rett til utvidet tid og bruk av hjelpemidler som Lingdys på eksamen.",
-      "Skoleåret i videregående opplæring består av 190 dager.",
-      "På enkelte skoler i Trøndelag og Møre og Romsdal er 'pølse i brød' i kantina en så hellig tradisjon at det blir landesorg om they går tomme.",
-      "Mange elever tror (feilaktig) på den uoffisielle '15-minutters regelen': Hvis læreren er mer enn et kvarter forsinket, kan man dra hjem.",
-      "På utdanningsprogrammet Naturbruk er det ofte traktorstørrelsen på parkeringsplassen som gir høyest status, ikke bilmerket."
+      // --- Rettigheter og regler ---
+      {
+        text: "Du kan klage på en skriftlig eksamenskarakter innen 10 dager. En ny sensor vurderer da besvarelsen din på nytt. Karakteren kan gå opp, ned eller bli stående.",
+      },
+      {
+        text: "Standpunktkarakteren er ikke et matematisk snitt av prøver og innleveringer. Læreren skal vurdere den helhetlige kompetansen din ved slutten av opplæringen.",
+      },
+      {
+        text: "Du kan be læreren om en muntlig eller skriftlig begrunnelse for standpunktkarakteren din. Læreren er pliktig til å gi deg det.",
+      },
+      {
+        text: "Du har rett til å bytte utdanningsprogram i videregående. Har du ikke brukt retten innen du fyller 19, kan du likevel ta ett omvalg etterpå.",
+      },
+      {
+        text: "Fra 2024 gir opplæringsloven deg rett til å fullføre videregående, ikke bare et visst antall år. Fullføringsretten gjelder til og med skoleåret du fyller 24 år.",
+      },
+      {
+        text: "Gratisprinsippet betyr at skolen ikke kan kreve at du betaler for obligatoriske turer, ekskursjoner eller undervisningsmateriell.",
+      },
+      {
+        text: "Du kan ha inntil 10 prosent udokumentert fravær i et fag før du risikerer å miste karakteren.",
+      },
+      {
+        text: "Hvis læreren mangler vurderingsgrunnlag fordi du har for mye fravær eller ikke har levert oppgaver, kan du få 'Ikke vurdert' (IV) i faget istedenfor en karakter.",
+      },
+      {
+        text: "Det finnes ingen generell regel om at elever kan gå hjem hvis læreren er 15 minutter forsinket.",
+      },
+      // --- Eksamen ---
+      {
+        text: "Du kan melde deg opp som privatist og ta eksamen i videregående fag uten å gå på skole. Du studerer på egenhånd og avlegger eksamen på lik linje med vanlige elever.",
+      },
+      {
+        text: "Er du syk på eksamensdagen og leverer legeerklæring til skolen innen fristen, har du rett til å ta utsatt eksamen, uten ekstra kostnad.",
+      },
+      {
+        text: "Stryker du på eksamen (karakter 1), har du rett til å gå opp til ny eksamen gratis ved første mulige anledning. (Gjelder VGS)",
+      },
+      {
+        text: "Elever med dysleksi eller andre dokumenterte vansker kan søke skolen om tilrettelagte eksamensforhold. For eksempel lengre tid, opplesing av oppgaveteksten eller bruk av PC med stavekontroll.",
+      },
+      {
+        text: "På muntlig-praktisk eksamen kan du bruke varierte hjelpemidler som musikk, video eller fysiske modeller som del av presentasjonen din.",
+      },
+      // --- Stipend og økonomi ---
+      {
+        text: "Du kan få borteboerstipend hvis det er minst 40 kilometer mellom hjem og skole, eller hvis du bruker tre timer eller mer tur-retur på reisen.",
+      },
+      {
+        text: "Du kan få maksimalt 4 tilleggspoeng totalt for en kombinasjon av realfag og fremmedspråk når du søker høyere utdanning.",
+      },
+      // --- Utdanningsprogram og muligheter ---
+      {
+        text: "Yrkesfagelever kan ta et ekstra år; \"Vg3 påbygg til generell studiekompetanse\", for å åpne dørene til universiteter og høyskoler.",
+      },
+      {
+        text: "Gjennom kryssløp kan du bytte fra ett yrkesfaglig utdanningsprogram på Vg1 til et annet på Vg2. For eksempel fra Elektro og datateknologi til Informasjonsteknologi og medieproduksjon.",
+      },
+      {
+        text: "Det er ingen øvre aldersgrense for å ta fagbrev som praksiskandidat. En 60-åring med lang nok arbeidserfaring kan møte til fagprøven uten én dag i videregående.",
+      },
+      {
+        text: "På utdanningsprogrammet Naturbruk kan du ha jakt, fiske eller hundekjøring som en del av de praktiske fagene.",
+      },
+      {
+        text: "Det finnes 10 yrkesfaglige utdanningsprogrammer i videregående opplæring som fører frem til yrkeskompetanse.",
+      },
+      {
+        text: "Mange skoler tilbyr e-sport eller spilldesign som valgfag eller som del av utdanningsprogrammet Medier og kommunikasjon.",
+      },
+      {
+        text: "Du kan ta Vg2 i utlandet gjennom godkjente utvekslingsorganisasjoner og få skoleåret godkjent som en del av din norske videregående opplæring.",
+      },
+      {
+        text: "I faget Entreprenørskap og bedriftsutvikling kan du starte din egen ungdomsbedrift (UB) med støtte fra Ungt Entreprenørskap.",
+      },
+      {
+        text: "Det finnes landsdekkende linjer for spesielle interesser, for eksempel toppidrett, fjellklatring og musikk, dans og drama, der du kan kombinere skole med satsingen din.",
+      },
+      {
+        text: "Du kan ta morsmålseksamen i over 40 ulike språk for å erstatte kravet om fremmedspråk på vitnemålet.",
+      },
+      // --- Lærlingelønn ---
+      {
+        text: "Lærlinger tjener i snitt en full årslønn for en fagarbeider fordelt over de to årene de er i lære. Lønnen øker gradvis fra første til siste år.",
+      },
+      // --- Statistikk ---
+      {
+        text: "Nesten tre av ti elever (28 %) fullfører ikke videregående på normert tid. På yrkesfag er utfordringen størst, nesten halvparten fullfører ikke innen normert tid.",
+      },
+      {
+        text: "I 2023 fullførte 86,5 prosent av jentene videregående skole, mot 78,1 prosent av guttene.",
+      },
+      {
+        text: "Tall viser at 88 prosent fullfører videregående når foreldrene har høyere utdanning, mot 46 prosent når foreldrene bare har grunnskole.",
+      },
+      {
+        text: "Forskning viser at å slutte på videregående sjelden er en plutselig beslutning, signalene viser seg gjerne allerede i barneskolen.",
+      },
+      // --- Russebuss ---
+      {
+        text: "Mange russebussgrupper begynner å planlegge og betale inn penger allerede i 1. klasse på videregående, altså to hele år før selve russetiden starter.",
+      },
+      {
+        text: "En fullrig russebuss kan fort koste over én million kroner når man regner inn buss, innredning, lyd- og lysanlegg, graffiti, forsikring og sjåfør.",
+      },
+      {
+        text: "Fra 2026 er det forbudt å ha sidevendte seter i russebusser under kjøring. Noen grupper hadde allerede brukt årevis på å bygge nettopp det.",
+      },
+      // --- Atferd og skolekultur ---
+      {
+        text: "Forskning viser at mange elever bruker fraværsgrensen som et «klippekort». De sparer opp de tillatte 10 prosentene og tar dem ut som fridager mot slutten av skoleåret.",
+      },
+      {
+        text: "Etter at fraværsgrensen ble innført, økte antallet elever som møtte på skolen selv om de var syke, fordi de ikke hadde råd til å miste fraværstimer.",
+      },
+      {
+        text: "Nesten halvparten av norske videregående elever får lavere karakter til skriftlig eksamen enn de har i standpunkt.",
+      },
+      // --- Historisk kuriosa ---
+      {
+        text: "Oslo katedralskole er Norges eldste skole og ble grunnlagt allerede i 1153.",
+      },
+      {
+        text: "På utdanningsprogrammet Naturbruk er det ikke uvanlig at parkeringsplassen domineres av traktorer og andre landbrukskjøretøy.",
+      }
     ];
 
     function getTodaysFunFact() {
       const today = new Date();
-      const startDate = new Date('2026-04-12');
+      const startDate = new Date('2026-07-03');
       const hoursDiff = Math.floor((today - startDate) / (1000 * 60 * 60));
       const rotationIndex = Math.floor(Math.max(0, hoursDiff) / 12);
       return funFacts[rotationIndex % funFacts.length];
@@ -835,13 +925,14 @@
       const shuffledTools = shuffleArray(contentData.tools).slice(0, 4);
 
       let html = '';
+      const funFact = getTodaysFunFact();
 
       // Fun fact featured
       html += `
         <div class="bento-card card-fun-fact grid-item-featured">
           <div>
-            <div class="fun-fact-label"><i class="material-icons" style="font-size:16px;">lightbulb</i> Visste du at?</div>
-            <div class="card-title">${getTodaysFunFact()}</div>
+            <div class="fun-fact-label"><i class="material-icons fun-fact-label-icon">lightbulb</i> Visste du at?</div>
+            <div class="card-title">${escHtml(funFact.text)}</div>
           </div>
         </div>
       `;
