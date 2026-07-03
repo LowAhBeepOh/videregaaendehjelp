@@ -211,10 +211,6 @@
     }
 
     /* Responsive Nav */
-    @media (max-width: 650px) {
-      .nav-link.nav-news { display: none; }
-    }
-
     .burger-btn {
       background: none;
       border: none;
@@ -654,10 +650,6 @@
               <i class="material-icons">quiz</i>
               <span>Verktøy</span>
             </a>
-            <a href="news.html" class="nav-link nav-news">
-              <i class="material-icons">newspaper</i>
-              <span>Nyheter</span>
-            </a>
             <button class="burger-btn" id="burgerBtn" aria-label="Meny">
               <i class="material-icons">menu</i>
             </button>
@@ -666,7 +658,7 @@
                 <i class="material-icons">folder</i>
                 Ressurser
               </a>
-              <a href="news.html" class="dropdown-item nav-news-mobile" style="display:none;">
+              <a href="news.html" class="dropdown-item nav-news-mobile">
                 <i class="material-icons">newspaper</i>
                 Nyheter
               </a>
@@ -1065,13 +1057,6 @@
       navDropdown.classList.toggle('active');
     });
     document.addEventListener('click', () => navDropdown.classList.remove('active'));
-
-    function handleResize() {
-      const isSmall = window.innerWidth < 650;
-      document.querySelector('.nav-news-mobile').style.display = isSmall ? 'flex' : 'none';
-    }
-    window.addEventListener('resize', handleResize);
-    handleResize();
 
     // Search logic
     let searchData = [], vocab = {}, idf = {}, vocabSize = 0;

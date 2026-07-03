@@ -420,20 +420,48 @@
     .notification-dismiss:hover { color: var(--text); }
 
   </style>
+  <link rel="stylesheet" href="Assets/css/shared-header.css">
+  <script defer src="Assets/js/shared-header.js"></script>
 </head>
 <body>
   <header>
     <div class="header-content">
-      <a href="index.html" class="logo">Videregående Hjelp <span class="logo-script">Meninger</span></a>
+      <a href="index.html" class="logo">
+        <span class="logo-text">Videregående Hjelp Meninger</span>
+        <img class="logo-image" src="vgshjelp-logo.png" alt="Videregående Hjelp">
+      </a>
       <div class="header-right">
-        <nav class="nav-links">
-          <a href="guides.html">Guider</a>
-          <a href="tools.html">Verktøy</a>
-        </nav>
+        <div class="nav-container">
+          <a href="index.html" class="nav-link">
+            <i class="material-icons">home</i>
+            <span>Hjem</span>
+          </a>
+          <a href="guides.html" class="nav-link">
+            <i class="material-icons">menu_book</i>
+            <span>Guider</span>
+          </a>
+          <a href="tools.html" class="nav-link">
+            <i class="material-icons">quiz</i>
+            <span>Verktøy</span>
+          </a>
+          <button class="burger-btn" id="burgerBtn" aria-label="Meny">
+            <i class="material-icons">menu</i>
+          </button>
+          <div class="nav-dropdown" id="navDropdown">
+            <a href="resources.html" class="dropdown-item">
+              <i class="material-icons">folder</i>
+              Ressurser
+            </a>
+            <a href="news.html" class="dropdown-item nav-news-mobile">
+              <i class="material-icons">newspaper</i>
+              Nyheter
+            </a>
+          </div>
+        </div>
         <a href="profile.html" class="profile-pill" aria-label="Min profil"></a>
       </div>
     </div>
-  </header>
+</header>
 
   <div class="page-body">
     <main class="feed">
