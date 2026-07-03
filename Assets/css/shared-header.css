@@ -140,10 +140,6 @@ header {
   color: var(--text-muted);
 }
 
-.nav-link.nav-news {
-  display: flex;
-}
-
 .nav-link.nav-news-mobile {
   display: none;
 }
@@ -199,10 +195,6 @@ header {
 
   .logo-image {
     display: inline-block;
-  }
-
-  .nav-link.nav-news {
-    display: none;
   }
 
   .nav-link.nav-news-mobile {
