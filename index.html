@@ -99,6 +99,57 @@
       background: var(--bg);
       z-index: 1000;
     }
+
+    /* Boot Animation */
+    .boot-overlay {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--bg);
+      z-index: 10;
+      opacity: 1;
+      transition: opacity 0.5s ease;
+      pointer-events: none;
+    }
+
+    .boot-overlay.boot-done {
+      opacity: 0;
+    }
+
+    .boot-logo {
+      font-family: var(--font-display);
+      font-size: 24px;
+      font-weight: 800;
+      color: var(--text);
+      letter-spacing: -0.04em;
+    }
+
+    /* Header content starts hidden, fades in after boot */
+    #headerContent {
+      opacity: 0;
+      transition: opacity 0.5s ease;
+      pointer-events: none;
+    }
+
+    #headerContent.visible {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    /* Logo image for mobile */
+    .logo-image {
+      display: none;
+      height: 28px;
+      width: auto;
+      vertical-align: middle;
+    }
+
+    @media (max-width: 650px) {
+      .logo-text { display: none; }
+      .logo-image { display: inline-block; }
+    }
     
     .header-content {
       max-width: 1400px;
@@ -535,8 +586,14 @@
 <body>
   <main>
     <header>
-      <div class="header-content">
-        <a         href="index.html" class="logo">Videregående Hjelp</a>
+      <div class="boot-overlay" id="bootOverlay">
+        <span class="boot-logo">Videregående Hjelp</span>
+      </div>
+      <div class="header-content" id="headerContent">
+        <a href="index.html" class="logo">
+          <span class="logo-text">Videregående Hjelp</span>
+          <img class="logo-image" src="vgshjelp-logo.png" alt="Videregående Hjelp">
+        </a>
         <div class="header-right">
           <div class="nav-container">
             <a href="guides.html" class="nav-link">
@@ -953,6 +1010,18 @@
       }
       heading.hidden = false;
     }
+
+    // Boot animation: show centered logo, then transition to full header
+    (function() {
+      var overlay = document.getElementById('bootOverlay');
+      var headerContent = document.getElementById('headerContent');
+      if (overlay && headerContent) {
+        setTimeout(function() {
+          overlay.classList.add('boot-done');
+          headerContent.classList.add('visible');
+        }, 1200);
+      }
+    })();
 
     document.addEventListener('DOMContentLoaded', () => {
       generateGrid(); loadLatestOpinionHome(); subscribeOpinionHome(); renderBookmarks();
