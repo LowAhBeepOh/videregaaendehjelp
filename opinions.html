@@ -732,9 +732,8 @@
   <!-- Toast container -->
   <div id="toastContainer"></div>
 
-    <script>
-    const SUPABASE_URL  = 'https://wqmkwcrlvgfczbueseip.supabase.co';
-    const SUPABASE_ANON  = 'sb_publishable_XCDS-VsKHGbOXaaiUWaHIg_sH3sCfLJ';
+  <script src="Assets/js/account.js"></script>
+  <script>
     const COOLDOWN_MS   = 5 * 60 * 1000; // 5 minutter
     const PAGE_SIZE     = 30;
     const MAX_ATTACHMENT_BYTES = 2 * 1024 * 1024; // 2MB
@@ -758,27 +757,31 @@
       return BLOCKED_PATTERNS.some(p => p.test(t));
     }
 
-    const ROLE_OPTIONS = [
-      { value: 'ungdom',   label: 'Ungdom' },
-      { value: 'vg1',      label: 'VG1' },
-      { value: 'vg2',      label: 'VG2' },
-      { value: 'vg3',      label: 'VG3' },
-      { value: 'hoyskole', label: 'Høyskole' },
-      { value: 'alumni',   label: 'Alumni' },
-      { value: 'laerer',   label: 'Lærer' },
-    ];
+    const ROLE_OPTIONS = (window.VHaccount && VHaccount.ROLE_OPTIONS)
+      ? VHaccount.ROLE_OPTIONS.slice()
+      : [
+          { value: '8-10', label: '8-10. klasse' },
+          { value: 'VG1-VG2', label: 'VG1-VG2' },
+          { value: 'Alumni', label: 'Alumni' },
+          { value: 'Lærer', label: 'Lærer' },
+        ];
 
-    const COUNTY_OPTIONS = [
-      '',
-      'Østfold', 'Akershus', 'Oslo', 'Innlandet', 'Buskerud', 'Vestfold', 'Telemark',
-      'Agder', 'Rogaland', 'Vestland', 'Møre og Romsdal', 'Trøndelag', 'Nordland',
-      'Troms', 'Finnmark'
-    ];
+    const COUNTY_OPTIONS = (window.VHaccount && VHaccount.COUNTY_OPTIONS)
+      ? VHaccount.COUNTY_OPTIONS.slice()
+      : [
+          '',
+          'Østfold', 'Akershus', 'Oslo', 'Innlandet', 'Buskerud', 'Vestfold', 'Telemark',
+          'Agder', 'Rogaland', 'Vestland', 'Møre og Romsdal', 'Trøndelag', 'Nordland',
+          'Troms', 'Finnmark'
+        ];
 
     const ROLE_LABELS = Object.fromEntries(ROLE_OPTIONS.map(r => [r.value, r.label]));
     const COUNTY_LABELS = Object.fromEntries(COUNTY_OPTIONS.filter(Boolean).map(c => [c, c]));
 
-    const sb = supabase.createClient(SUPABASE_URL, SUPABASE_ANON);
+    const sb = (window.VHaccount && VHaccount.client) ? VHaccount.client : null;
+    if (!sb) {
+      throw new Error('Konto-klienten kunne ikke lastes (VHaccount mangler).');
+    }
 
     // ══════════════════════════════════════════════════
     //  STATE
@@ -805,15 +808,14 @@
     }
 
     function normalizeRole(role) {
+      if (window.VHaccount && VHaccount.normalizeRole) return VHaccount.normalizeRole(role);
       const value = String(role || '').toLowerCase();
-      if (value === 'elev') return 'ungdom';
-      if (value === 'laerer') return 'laerer';
       if (ROLE_LABELS[value]) return value;
-      return 'ungdom';
+      return '8-10';
     }
 
     function displayRole(role) {
-      return ROLE_LABELS[normalizeRole(role)] || 'Ungdom';
+      return ROLE_LABELS[normalizeRole(role)] || '8-10. klasse';
     }
 
     function displayCounty(county) {
@@ -830,6 +832,9 @@
     }
 
     function normalizeHandle(value, fallbackName = '') {
+      if (window.VHaccount && VHaccount.normalizeHandle) {
+        return VHaccount.normalizeHandle(value, fallbackName);
+      }
       const source = String(value || '').trim() || String(fallbackName || '').trim();
       const cleaned = source
         .toLowerCase()
@@ -868,66 +873,10 @@
     }
 
     async function processAvatarFile(file, allowGif = false) {
-      if (!file) return null;
-      const mime = String(file.type || '').toLowerCase();
-      const isGif = mime === 'image/gif';
-
-      if (isGif && !allowGif) {
-        throw new Error('GIF er kun tillatt for moderator/admin.');
+      if (window.VHaccount && VHaccount.processAvatarFile) {
+        return VHaccount.processAvatarFile(file, allowGif);
       }
-      if (!/^image\/(png|jpe?g|webp|gif)$/i.test(mime)) {
-        throw new Error('Kun PNG, JPG, WEBP eller GIF er støttet.');
-      }
-
-      if (isGif) {
-        if (file.size > MAX_AVATAR_BYTES) {
-          throw new Error('GIF må være maks 1MB.');
-        }
-        return blobToDataUrl(file);
-      }
-
-      const originalDataUrl = await blobToDataUrl(file);
-      let img = await loadImageFromDataUrl(originalDataUrl);
-
-      let width = img.naturalWidth;
-      let height = img.naturalHeight;
-      const maxSide = 512;
-      if (Math.max(width, height) > maxSide) {
-        const scale = maxSide / Math.max(width, height);
-        width = Math.max(1, Math.round(width * scale));
-        height = Math.max(1, Math.round(height * scale));
-      }
-
-      const canvas = document.createElement('canvas');
-      const ctx = canvas.getContext('2d');
-      canvas.width = width;
-      canvas.height = height;
-      ctx.drawImage(img, 0, 0, width, height);
-
-      const tryEncode = async (type, quality) => {
-        const blob = await new Promise(resolve => canvas.toBlob(resolve, type, quality));
-        if (!blob) return null;
-        return { size: blob.size, dataUrl: await blobToDataUrl(blob) };
-      };
-
-      let best = null;
-      const tries = [
-        ['image/webp', 0.88],
-        ['image/webp', 0.76],
-        ['image/jpeg', 0.84],
-        ['image/jpeg', 0.72],
-        ['image/jpeg', 0.62],
-      ];
-
-      for (const [type, quality] of tries) {
-        const out = await tryEncode(type, quality);
-        if (!out) continue;
-        if (!best || out.size < best.size) best = out;
-        if (out.size <= MAX_AVATAR_BYTES) return out.dataUrl;
-      }
-
-      if (best && best.size <= MAX_AVATAR_BYTES) return best.dataUrl;
-      throw new Error('Bildet ble fortsatt over 1MB. Prøv et mindre bilde.');
+      throw new Error('Konto-modulen mangler, kan ikke behandle profilbilde.');
     }
 
     async function processAttachmentFile(file) {
@@ -1026,7 +975,7 @@
 
     function renderRoleAndCountySelects() {
       populateSelect('signupRole', ROLE_OPTIONS);
-      populateSelect('profileRole', ROLE_OPTIONS, normalizeRole(currentProfile?.role || 'ungdom'));
+      populateSelect('profileRole', ROLE_OPTIONS, normalizeRole(currentProfile?.role || '8-10'));
 
       populateSelect('signupCounty', COUNTY_OPTIONS.map(v => v ? { value: v, label: v } : { value: '', label: 'Ikke valgt' }));
       populateSelect('profileCounty', COUNTY_OPTIONS.map(v => v ? { value: v, label: v } : { value: '', label: 'Ikke valgt' }), currentProfile?.county || '');
@@ -1153,7 +1102,7 @@
           display_name: pending.display_name,
           handle: pending.handle || normalizeHandle('', pending.display_name),
           avatar_url: pending.avatar_url || existing?.avatar_url || null,
-          role: pending.role || existing?.role || 'ungdom',
+          role: pending.role || existing?.role || '8-10',
           county: pending.county || existing?.county || null,
           mod_role: existing?.mod_role || 'user',
         }, { onConflict: 'id' });
@@ -1330,7 +1279,7 @@
       document.getElementById('profileName').value = currentProfile?.display_name || '';
       document.getElementById('profileHandle').value = currentProfile?.handle || '';
       document.getElementById('profileAvatarFile').value = '';
-      document.getElementById('profileRole').value = normalizeRole(currentProfile?.role || 'ungdom');
+      document.getElementById('profileRole').value = normalizeRole(currentProfile?.role || '8-10');
       document.getElementById('profileCounty').value = currentProfile?.county || '';
       document.getElementById('profileEmailView').textContent = currentUser?.email || '–';
       document.getElementById('profileError').classList.remove('visible');
@@ -3085,5 +3034,12 @@
     })();
   </script>
   <script src="Assets/js/profile.js"></script>
+  <script>
+    (function () {
+      if (window.VHaccount && window.VHprofile) {
+        window.VHaccount.refreshAuth();
+      }
+    })();
+  </script>
 </body>
 </html>
