@@ -762,6 +762,14 @@
     gap: 14px;
   }
 
+  #accountLinked {
+    display: none;
+  }
+
+  #accountLinked.active {
+    display: flex;
+  }
+
   .account-tabs {
     display: flex;
     gap: 8px;
@@ -1152,7 +1160,7 @@
         <p class="account-subtitle">Du kan bruke profilen lokalt, eller koble den til en Meninger-konto for synk mellom enheter.</p>
 
         <div id="accountUnlinked">
-          <div class="account-tabs" role="tablist" aria-label="Konto handlinger">
+          <div class="account-tabs">
             <button type="button" class="account-tab active" data-account-tab="login">Logg inn / synkroniser</button>
             <button type="button" class="account-tab" data-account-tab="signup">Opprett ny konto</button>
           </div>
@@ -1195,7 +1203,7 @@
           </div>
         </div>
 
-        <div id="accountLinked" style="display:none;">
+        <div id="accountLinked">
           <div class="field">
             <label class="field-label" for="accountUsername">Brukernavn (offentlig)</label>
             <input class="field-input" type="text" id="accountUsername" maxlength="40">
@@ -1311,7 +1319,6 @@
       const avatarCropCancel = document.getElementById('avatarCropCancel');
 
       let avatarBlobUrl = null;
-      let avatarCropObjectUrl = null;
       let avatarCropNatural = { width: 1, height: 1 };
       let avatarCropStageRect = { width: 0, height: 0 };
       let avatarCropImageRect = { width: 0, height: 0, left: 0, top: 0 };
@@ -1371,7 +1378,7 @@
         const profile = VHaccount.getCurrentProfile();
         const linked = !!(user && profile);
         accountUnlinked.style.display = linked ? 'none' : '';
-        accountLinked.style.display = linked ? '' : 'none';
+        accountLinked.classList.toggle('active', linked);
         syncThemeRow.style.display = linked ? 'flex' : 'none';
         const local = VHprofile.get();
         syncThemeDevices.checked = !!local.syncThemeDevices;
@@ -1493,14 +1500,12 @@
       paintTintUI();
 
       function closeAvatarCropper() {
-        if (avatarCropObjectUrl) {
-          URL.revokeObjectURL(avatarCropObjectUrl);
-          avatarCropObjectUrl = null;
-        }
+        avatarCropImage.src = '';
         avatarCropZoom.value = 100;
         avatarCropZoomScale = 1;
         avatarCropImage.style.transform = 'none';
         avatarCropBackdrop.classList.remove('open');
+        avatarCropBackdrop.setAttribute('aria-hidden', 'true');
       }
 
       function clamp(value, min, max) {
@@ -1638,36 +1643,40 @@
 
       function openAvatarCropper(file) {
         closeAvatarCropper();
-        avatarCropObjectUrl = URL.createObjectURL(file);
-        avatarCropImage.src = avatarCropObjectUrl;
         avatarCropApply.disabled = true;
         avatarCropBackdrop.classList.add('open');
-        avatarCropImage.onload = function () {
-          const width = avatarCropImage.naturalWidth || file.width || 1;
-          const height = avatarCropImage.naturalHeight || file.height || 1;
-          avatarCropNatural = { width, height };
+        avatarCropBackdrop.setAttribute('aria-hidden', 'false');
+        const reader = new FileReader();
+        reader.onload = function (e) {
+          avatarCropImage.src = e.target.result;
+          avatarCropImage.onload = function () {
+            const width = avatarCropImage.naturalWidth || 1;
+            const height = avatarCropImage.naturalHeight || 1;
+            avatarCropNatural = { width, height };
 
-          const maxWidth = Math.min(760, window.innerWidth - 36);
-          const maxHeight = Math.min(560, window.innerHeight - 280);
-          const ratio = width / height;
-          let stageWidth = maxWidth;
-          let stageHeight = stageWidth / ratio;
-          if (stageHeight > maxHeight) {
-            stageHeight = maxHeight;
-            stageWidth = stageHeight * ratio;
-          }
-          avatarCropStageRect = {
-            width: Math.max(300, Math.floor(stageWidth)),
-            height: Math.max(280, Math.floor(stageHeight)),
+            const maxWidth = Math.min(760, window.innerWidth - 36);
+            const maxHeight = Math.min(560, window.innerHeight - 280);
+            const ratio = width / height;
+            let stageWidth = maxWidth;
+            let stageHeight = stageWidth / ratio;
+            if (stageHeight > maxHeight) {
+              stageHeight = maxHeight;
+              stageWidth = stageHeight * ratio;
+            }
+            avatarCropStageRect = {
+              width: Math.max(300, Math.floor(stageWidth)),
+              height: Math.max(280, Math.floor(stageHeight)),
+            };
+            avatarCropStage.style.width = avatarCropStageRect.width + 'px';
+            avatarCropStage.style.height = avatarCropStageRect.height + 'px';
+
+            fitAvatarImage();
+            fitAvatarBoxToImage();
+            updateAvatarCropOverlay();
+            avatarCropApply.disabled = false;
           };
-          avatarCropStage.style.width = avatarCropStageRect.width + 'px';
-          avatarCropStage.style.height = avatarCropStageRect.height + 'px';
-
-          fitAvatarImage();
-          fitAvatarBoxToImage();
-          updateAvatarCropOverlay();
-          avatarCropApply.disabled = false;
         };
+        reader.readAsDataURL(file);
       }
 
       function applyAvatarCropZoom() {
@@ -1764,6 +1773,16 @@
       avatarInput.addEventListener('change', async () => {
         const file = avatarInput.files && avatarInput.files[0];
         if (!file) return;
+        if (!file.type.startsWith('image/')) {
+          showStatus('Velg en bildefil (f.eks. JPG, PNG).', 'var(--card-red)');
+          avatarInput.value = '';
+          return;
+        }
+        if (file.size > 10 * 1024 * 1024) {
+          showStatus('Bildet er for stort (maks 10 MB).', 'var(--card-red)');
+          avatarInput.value = '';
+          return;
+        }
         try {
           openAvatarCropper(file);
         } catch (err) {
@@ -1825,6 +1844,13 @@
 
       avatarCropBackdrop.addEventListener('click', (e) => {
         if (e.target === avatarCropBackdrop) {
+          closeAvatarCropper();
+          avatarInput.value = '';
+        }
+      });
+
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && avatarCropBackdrop.classList.contains('open')) {
           closeAvatarCropper();
           avatarInput.value = '';
         }

@@ -235,7 +235,7 @@
     }
 
     const remoteBookmarks = normalizeBookmarks(profile.bookmarks);
-    if (remoteBookmarks.length > 0) {
+    if (profile.bookmarks != null) {
       setLocalBookmarks(remoteBookmarks, true);
     }
   }
@@ -335,7 +335,7 @@
       return { user: null, profile: null };
     }
 
-  await applyPendingProfile(currentUser.id);
+    await applyPendingProfile(currentUser.id);
     currentProfile = await loadProfile(currentUser.id);
     if (currentProfile) {
       await syncProfileToLocal(currentProfile);
