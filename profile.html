@@ -1339,12 +1339,18 @@
       function populateCountySelect(selected) {
         if (!window.VHaccount || !countyInput) return;
         const options = VHaccount.COUNTY_OPTIONS || [];
-        countyInput.innerHTML = options.map((county) => {
+        const selectedValue = String(selected || '');
+        const fragment = document.createDocumentFragment();
+        options.forEach((county) => {
           const value = county || '';
           const label = county || 'Ikke valgt';
-          const active = String(selected || '') === value ? ' selected' : '';
-          return '<option value="' + VHaccount.escHtml(value) + '"' + active + '>' + VHaccount.escHtml(label) + '</option>';
-        }).join('');
+          const option = document.createElement('option');
+          option.value = value;
+          option.textContent = label;
+          option.selected = selectedValue === value;
+          fragment.appendChild(option);
+        });
+        countyInput.replaceChildren(fragment);
       }
 
       function getCurrentGrade() {
