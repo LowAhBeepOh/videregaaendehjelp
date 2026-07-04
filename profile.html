@@ -163,8 +163,11 @@
 
     /* Profil-side layout */
     .profile-page {
-      max-width: 720px;
+      max-width: 860px;
       margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
     }
 
     .profile-heading {
@@ -184,17 +187,25 @@
       font-family: var(--font-body);
       color: var(--text-muted);
       font-size: 15px;
-      margin-bottom: 32px;
+      margin-bottom: 8px;
+      line-height: 1.65;
     }
 
     .profile-card {
       background: var(--surface);
       border: 1px solid var(--border);
       border-radius: 20px;
-      padding: 32px;
+      padding: 36px;
       display: flex;
       flex-direction: column;
-      gap: 28px;
+      gap: 30px;
+    }
+
+    @media (max-width: 640px) {
+      .profile-card,
+      .account-card {
+        padding: 22px;
+      }
     }
 
     .field {
@@ -719,6 +730,289 @@
     cursor: pointer;
   }
 
+  .account-card {
+    margin-top: 4px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 30px;
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+  }
+
+  .account-title {
+    font-family: var(--font-display);
+    font-size: 22px;
+    font-weight: 800;
+    line-height: 1.15;
+    letter-spacing: -0.02em;
+  }
+
+  .account-subtitle {
+    color: var(--text-muted);
+    font-size: 14px;
+    line-height: 1.6;
+  }
+
+  #accountLinked,
+  #accountUnlinked {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+
+  #accountLinked {
+    display: none;
+  }
+
+  #accountLinked.active {
+    display: flex;
+  }
+
+  .account-tabs {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+
+  .account-tab {
+    background: transparent;
+    border: 1px solid var(--border);
+    color: var(--text-muted);
+    padding: 10px 14px;
+    border-radius: 12px;
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 13px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+
+  .account-tab.active,
+  .account-tab:hover {
+    color: var(--text);
+    border-color: var(--card-blue);
+  }
+
+  .account-panel {
+    display: none;
+    flex-direction: column;
+    gap: 14px;
+    margin-top: 6px;
+    padding-top: 14px;
+    border-top: 1px dashed var(--border);
+  }
+
+  .account-panel.active {
+    display: flex;
+  }
+
+  .account-actions {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+
+  .account-btn {
+    background: var(--card-blue);
+    color: #fff;
+    border: none;
+    padding: 12px 18px;
+    border-radius: 999px;
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 14px;
+    cursor: pointer;
+    transition: filter 0.2s ease;
+  }
+
+  .account-btn:hover { filter: brightness(1.08); }
+
+  .account-btn.ghost {
+    background: transparent;
+    color: var(--text);
+    border: 1px solid var(--border);
+  }
+
+  .profile-card[data-grade="lime"] + .account-card #accountSaveBtn {
+    background: var(--card-lime);
+    color: #000;
+  }
+  .profile-card[data-grade="blue"] + .account-card #accountSaveBtn {
+    background: var(--card-blue);
+    color: #fff;
+  }
+  .profile-card[data-grade="orange"] + .account-card #accountSaveBtn {
+    background: var(--card-orange);
+    color: #000;
+  }
+  .profile-card[data-grade="red"] + .account-card #accountSaveBtn {
+    background: var(--card-red);
+    color: #fff;
+  }
+  .profile-card[data-grade="default"] + .account-card #accountSaveBtn {
+    background: var(--card-blue);
+    color: #fff;
+  }
+
+  .sync-theme-row {
+    margin-top: 10px;
+    display: none;
+    align-items: center;
+    gap: 10px;
+    font-size: 13px;
+    color: var(--text-muted);
+    font-weight: 700;
+  }
+
+  .sync-theme-row input {
+    width: 16px;
+    height: 16px;
+    accent-color: var(--card-blue);
+  }
+
+  .avatar-crop-backdrop {
+    position: fixed;
+    inset: 0;
+    z-index: 2000;
+    background: rgba(0, 0, 0, 0.66);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 18px;
+  }
+
+  .avatar-crop-backdrop.open {
+    display: flex;
+  }
+
+  .avatar-crop-modal {
+    width: min(760px, 100%);
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 18px;
+    padding: 18px;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+
+  .avatar-crop-title {
+    font-family: var(--font-display);
+    font-size: 22px;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+  }
+
+  .avatar-crop-hint {
+    color: var(--text-muted);
+    font-size: 13px;
+  }
+
+  .avatar-crop-stage {
+    width: 100%;
+    max-width: 100%;
+    overflow: hidden;
+    border-radius: 0;
+    border: 1px solid var(--border);
+    background: #111;
+    position: relative;
+    align-self: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 280px;
+  }
+
+  .avatar-crop-stage img,
+  .avatar-crop-stage canvas {
+    display: block;
+    position: absolute;
+    max-width: none;
+    max-height: none;
+    will-change: transform;
+  }
+
+  .avatar-crop-stage canvas {
+    image-rendering: auto;
+  }
+
+  .avatar-crop-overlay {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+  }
+
+  .avatar-crop-mask {
+    position: absolute;
+    background: rgba(0, 0, 0, 0.25);
+    transition: all 0.08s linear;
+  }
+
+  .avatar-crop-box {
+    position: absolute;
+    border: 2px solid #fff;
+    box-shadow:
+      0 0 0 9999px rgba(0, 0, 0, 0.25),
+      inset 0 0 0 1px rgba(255, 255, 255, 0.22);
+    cursor: grab;
+    touch-action: none;
+    pointer-events: auto;
+    background: transparent;
+  }
+
+  .avatar-crop-box:active {
+    cursor: grabbing;
+  }
+
+  .avatar-crop-box::after {
+    content: '';
+    position: absolute;
+    inset: 12px;
+    border: 1px dashed rgba(255, 255, 255, 0.34);
+  }
+
+  .avatar-crop-controls {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .avatar-crop-zoom {
+    width: 100%;
+    accent-color: var(--card-blue);
+  }
+
+  .avatar-crop-actions {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+
+  .account-note {
+    color: var(--text-muted);
+    font-size: 13px;
+  }
+
+  .account-error,
+  .account-success {
+    min-height: 18px;
+    font-size: 13px;
+    font-weight: 600;
+  }
+
+  .account-error { color: var(--card-red); }
+  .account-success { color: var(--card-green); }
+
+  .readonly-value {
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 12px 14px;
+    font-size: 14px;
+    color: var(--text-muted);
+  }
+
 
   footer {
       margin-top: 80px;
@@ -798,6 +1092,11 @@
         </div>
 
         <div class="field">
+          <label class="field-label" for="countyInput">Fylke</label>
+          <select class="field-input" id="countyInput"></select>
+        </div>
+
+        <div class="field">
           <span class="field-label">Profilbilde</span>
           <div class="avatar-row">
             <div class="avatar-preview" id="avatarPreview"></div>
@@ -824,6 +1123,10 @@
               <span class="material-icons seg-icon">dark_mode</span>Mørk
             </button>
           </div>
+          <label class="sync-theme-row" id="syncThemeRow">
+            <input type="checkbox" id="syncThemeDevices">
+            <span>Synkroniser tema med enhetene mine</span>
+          </label>
         </div>
 
         <details class="tint-settings" id="tintSettings">
@@ -852,8 +1155,84 @@
         </div>
       </form>
 
+      <section class="account-card" id="accountCard" aria-live="polite">
+        <h2 class="account-title">Konto og synkronisering</h2>
+        <p class="account-subtitle">Du kan bruke profilen lokalt, eller koble den til en Meninger-konto for synk mellom enheter.</p>
+
+        <div id="accountUnlinked">
+          <div class="account-tabs">
+            <button type="button" class="account-tab active" data-account-tab="login">Logg inn / synkroniser</button>
+            <button type="button" class="account-tab" data-account-tab="signup">Opprett ny konto</button>
+          </div>
+
+          <div class="account-panel active" id="accountPanelLogin">
+            <div class="field">
+              <label class="field-label" for="accountLoginEmail">E-post</label>
+              <input class="field-input" type="email" id="accountLoginEmail" autocomplete="email" placeholder="din@epost.no">
+            </div>
+            <div class="field">
+              <label class="field-label" for="accountLoginPassword">Passord</label>
+              <input class="field-input" type="password" id="accountLoginPassword" autocomplete="current-password" placeholder="••••••••">
+            </div>
+            <div class="account-actions">
+              <button type="button" class="account-btn" id="accountLoginBtn">Logg inn og synkroniser</button>
+            </div>
+          </div>
+
+          <div class="account-panel" id="accountPanelSignup">
+            <div class="field">
+              <label class="field-label" for="accountSignupUsername">Brukernavn (offentlig)</label>
+              <input class="field-input" type="text" id="accountSignupUsername" maxlength="40" placeholder="F.eks. Eple">
+            </div>
+            <div class="field">
+              <label class="field-label" for="accountSignupHandle">Handle (unik)</label>
+              <input class="field-input" type="text" id="accountSignupHandle" maxlength="30" placeholder="f.eks. @eplesausen">
+            </div>
+            <div class="field">
+              <label class="field-label" for="accountSignupEmail">E-post</label>
+              <input class="field-input" type="email" id="accountSignupEmail" autocomplete="email" placeholder="din@epost.no">
+            </div>
+            <div class="field">
+              <label class="field-label" for="accountSignupPassword">Passord</label>
+              <input class="field-input" type="password" id="accountSignupPassword" autocomplete="new-password" placeholder="Minst 6 tegn">
+            </div>
+            <p class="account-note">Trinn, fylke og profilbilde fra profilen over brukes automatisk på kontoen.</p>
+            <div class="account-actions">
+              <button type="button" class="account-btn" id="accountSignupBtn">Opprett konto</button>
+            </div>
+          </div>
+        </div>
+
+        <div id="accountLinked">
+          <div class="field">
+            <label class="field-label" for="accountUsername">Brukernavn (offentlig)</label>
+            <input class="field-input" type="text" id="accountUsername" maxlength="40">
+          </div>
+          <div class="field">
+            <label class="field-label" for="accountHandle">Handle (unik)</label>
+            <input class="field-input" type="text" id="accountHandle" maxlength="30">
+          </div>
+          <div class="field">
+            <span class="field-label">E-post</span>
+            <div class="readonly-value" id="accountEmail">-</div>
+          </div>
+          <div class="field">
+            <label class="field-label" for="accountNewPassword">Nytt passord</label>
+            <input class="field-input" type="password" id="accountNewPassword" autocomplete="new-password" placeholder="Minst 6 tegn">
+          </div>
+          <div class="account-actions">
+            <button type="button" class="account-btn" id="accountSaveBtn">Lagre kontoendringer</button>
+            <button type="button" class="account-btn ghost" id="accountPasswordBtn">Bytt passord</button>
+            <button type="button" class="account-btn ghost" id="accountLogoutBtn">Logg ut</button>
+          </div>
+        </div>
+
+        <div class="account-error" id="accountError"></div>
+        <div class="account-success" id="accountSuccess"></div>
+      </section>
+
       <p class="privacy-note">
-        Alt lagres kun i nettleseren din og deles ikke med noen andre. Senere så vil kontoer og synkronisering mellom enheter bli lagt til som en valgfri funksjon.
+        Navn er alltid privat og lagres kun lokalt. Brukernavn, handle, trinn, fylke, profilbilde, e-post og passord brukes på kontoen når du velger å synkronisere.
       </p>
     </div>
 
@@ -862,12 +1241,39 @@
     </footer>
   </main>
 
+  <div class="avatar-crop-backdrop" id="avatarCropBackdrop" aria-hidden="true">
+    <div class="avatar-crop-modal" role="dialog" aria-modal="true" aria-labelledby="avatarCropTitle">
+      <h2 class="avatar-crop-title" id="avatarCropTitle">Juster profilbildet</h2>
+      <p class="avatar-crop-hint">Flytt og zoom utsnittsboksen. Alt inni boksen blir brukt som nytt profilbilde.</p>
+      <div class="avatar-crop-stage">
+        <img id="avatarCropImage" alt="Forhåndsvisning av profilbilde for beskjæring">
+        <div class="avatar-crop-overlay">
+          <div class="avatar-crop-box" id="avatarCropBox" aria-label="Utsnittsboks"></div>
+          <div class="avatar-crop-mask" id="avatarCropMaskTop"></div>
+          <div class="avatar-crop-mask" id="avatarCropMaskBottom"></div>
+          <div class="avatar-crop-mask" id="avatarCropMaskLeft"></div>
+          <div class="avatar-crop-mask" id="avatarCropMaskRight"></div>
+        </div>
+      </div>
+      <div class="avatar-crop-controls">
+        <input type="range" class="avatar-crop-zoom" id="avatarCropZoom" min="100" max="500" step="1" value="100">
+        <div class="avatar-crop-actions">
+          <button type="button" class="account-btn" id="avatarCropApply">Bruk bilde</button>
+          <button type="button" class="account-btn ghost" id="avatarCropCancel">Avbryt</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script src="Assets/js/profile.js"></script>
+  <script src="Assets/js/account.js"></script>
   <script>
     (function () {
       const form = document.getElementById('profileForm');
       const nameInput = document.getElementById('nameInput');
       const gradeRadios = document.querySelectorAll('input[name="grade"]');
+      const countyInput = document.getElementById('countyInput');
       const avatarInput = document.getElementById('avatarInput');
       const avatarClearBtn = document.getElementById('avatarClear');
       const avatarPreview = document.getElementById('avatarPreview');
@@ -876,8 +1282,112 @@
       const themeBtns = document.querySelectorAll('.theme-segment-btn');
       const tintPresetBtns = document.querySelectorAll('.tint-preset-btn');
       const tintScopeCheckbox = document.getElementById('tintScopeAll');
+      const syncThemeRow = document.getElementById('syncThemeRow');
+      const syncThemeDevices = document.getElementById('syncThemeDevices');
+      const accountCard = document.getElementById('accountCard');
+      const accountUnlinked = document.getElementById('accountUnlinked');
+      const accountLinked = document.getElementById('accountLinked');
+      const accountTabs = document.querySelectorAll('.account-tab');
+      const accountPanels = document.querySelectorAll('.account-panel');
+      const accountError = document.getElementById('accountError');
+      const accountSuccess = document.getElementById('accountSuccess');
+      const accountLoginEmail = document.getElementById('accountLoginEmail');
+      const accountLoginPassword = document.getElementById('accountLoginPassword');
+      const accountLoginBtn = document.getElementById('accountLoginBtn');
+      const accountSignupUsername = document.getElementById('accountSignupUsername');
+      const accountSignupHandle = document.getElementById('accountSignupHandle');
+      const accountSignupEmail = document.getElementById('accountSignupEmail');
+      const accountSignupPassword = document.getElementById('accountSignupPassword');
+      const accountSignupBtn = document.getElementById('accountSignupBtn');
+      const accountUsername = document.getElementById('accountUsername');
+      const accountHandle = document.getElementById('accountHandle');
+      const accountEmail = document.getElementById('accountEmail');
+      const accountNewPassword = document.getElementById('accountNewPassword');
+      const accountSaveBtn = document.getElementById('accountSaveBtn');
+      const accountPasswordBtn = document.getElementById('accountPasswordBtn');
+      const accountLogoutBtn = document.getElementById('accountLogoutBtn');
+      const avatarCropBackdrop = document.getElementById('avatarCropBackdrop');
+      const avatarCropStage = document.querySelector('.avatar-crop-stage');
+      const avatarCropImage = document.getElementById('avatarCropImage');
+      const avatarCropBox = document.getElementById('avatarCropBox');
+      const avatarCropMaskTop = document.getElementById('avatarCropMaskTop');
+      const avatarCropMaskBottom = document.getElementById('avatarCropMaskBottom');
+      const avatarCropMaskLeft = document.getElementById('avatarCropMaskLeft');
+      const avatarCropMaskRight = document.getElementById('avatarCropMaskRight');
+      const avatarCropZoom = document.getElementById('avatarCropZoom');
+      const avatarCropApply = document.getElementById('avatarCropApply');
+      const avatarCropCancel = document.getElementById('avatarCropCancel');
 
       let avatarBlobUrl = null;
+      let avatarCropNatural = { width: 1, height: 1 };
+      let avatarCropStageRect = { width: 0, height: 0 };
+      let avatarCropImageRect = { width: 0, height: 0, left: 0, top: 0 };
+      let avatarCropBoxRect = { width: 0, height: 0, left: 0, top: 0 };
+      let avatarCropZoomScale = 1;
+      let avatarCropDragState = null;
+
+      function setAccountMessage(type, text) {
+        accountError.textContent = '';
+        accountSuccess.textContent = '';
+        if (!text) return;
+        if (type === 'error') accountError.textContent = text;
+        if (type === 'success') accountSuccess.textContent = text;
+      }
+
+      function setAccountTab(tab) {
+        accountTabs.forEach((btn) => btn.classList.toggle('active', btn.dataset.accountTab === tab));
+        accountPanels.forEach((panel) => {
+          const isLogin = panel.id === 'accountPanelLogin' && tab === 'login';
+          const isSignup = panel.id === 'accountPanelSignup' && tab === 'signup';
+          panel.classList.toggle('active', isLogin || isSignup);
+        });
+      }
+
+      function populateCountySelect(selected) {
+        if (!window.VHaccount || !countyInput) return;
+        const options = VHaccount.COUNTY_OPTIONS || [];
+        const selectedValue = String(selected || '');
+        const fragment = document.createDocumentFragment();
+        options.forEach((county) => {
+          const value = county || '';
+          const label = county || 'Ikke valgt';
+          const option = document.createElement('option');
+          option.value = value;
+          option.textContent = label;
+          option.selected = selectedValue === value;
+          fragment.appendChild(option);
+        });
+        countyInput.replaceChildren(fragment);
+      }
+
+      function getCurrentGrade() {
+        const checked = [].slice.call(gradeRadios).find((radio) => radio.checked);
+        return checked ? checked.value : null;
+      }
+
+      async function currentAvatarDataUrl() {
+        if (!window.VHprofile || !window.VHaccount) return null;
+        const blob = await VHprofile.getAvatarBlob().catch(() => null);
+        if (!blob) return null;
+        return VHaccount.blobToDataUrl(blob).catch(() => null);
+      }
+
+      function renderAccountUI() {
+        if (!window.VHaccount) return;
+        const user = VHaccount.getCurrentUser();
+        const profile = VHaccount.getCurrentProfile();
+        const linked = !!(user && profile);
+        accountUnlinked.style.display = linked ? 'none' : '';
+        accountLinked.classList.toggle('active', linked);
+        syncThemeRow.style.display = linked ? 'flex' : 'none';
+        const local = VHprofile.get();
+        syncThemeDevices.checked = !!local.syncThemeDevices;
+        if (!linked) return;
+
+        accountUsername.value = profile.display_name || '';
+        accountHandle.value = profile.handle || '';
+        accountEmail.textContent = user.email || '-';
+      }
 
       // Theme picker — owns localStorage['theme'] in concert with
       // VHprofile.applyTheme(), which broadcasts 'vhjelp:theme-changed'.
@@ -912,12 +1422,16 @@
         // and save button retint in lock-step with the theme picker.
         const form = document.getElementById('profileForm');
         if (form) form.dataset.grade = gradeColor;
+        if (accountCard) accountCard.dataset.grade = gradeColor;
       }
       themeBtns.forEach((btn) => {
-        btn.addEventListener('click', () => {
+        btn.addEventListener('click', async () => {
           localStorage.setItem(THEME_KEY, btn.dataset.theme);
           paintThemePicker();
           if (window.VHprofile && VHprofile.applyTheme) VHprofile.applyTheme();
+          if (window.VHaccount && VHaccount.getCurrentUser() && VHprofile.get().syncThemeDevices) {
+            await VHaccount.syncSettingsToAccount().catch(() => {});
+          }
         });
       });
       // Live preview when the grade radio changes, and on full profile save.
@@ -958,18 +1472,24 @@
       // VHprofile.setTint() is synchronous and fires vhjelp:tint-changed, which
       // is wired to paintTintUI() below — no inline re-paint needed here.
       tintPresetBtns.forEach((btn) => {
-        btn.addEventListener('click', () => {
+        btn.addEventListener('click', async () => {
           const current = VHprofile.get();
           VHprofile.setTint(btn.dataset.tint, current.tintScope || 'bg');
+          if (window.VHaccount && VHaccount.getCurrentUser()) {
+            await VHaccount.syncSettingsToAccount().catch(() => {});
+          }
         });
       });
       if (tintScopeCheckbox) {
-        tintScopeCheckbox.addEventListener('change', () => {
+        tintScopeCheckbox.addEventListener('change', async () => {
           const current = VHprofile.get();
           VHprofile.setTint(
             current.tintIntensity || 'subtle',
             tintScopeCheckbox.checked ? 'all' : 'bg'
           );
+          if (window.VHaccount && VHaccount.getCurrentUser()) {
+            await VHaccount.syncSettingsToAccount().catch(() => {});
+          }
         });
       }
       // Live both on profile grade changes and on tint-only edits (the latter
@@ -978,6 +1498,191 @@
       window.addEventListener('vhjelp:profile-updated', paintTintUI);
       window.addEventListener('vhjelp:tint-changed', paintTintUI);
       paintTintUI();
+
+      function closeAvatarCropper() {
+        avatarCropImage.src = '';
+        avatarCropZoom.value = 100;
+        avatarCropZoomScale = 1;
+        avatarCropImage.style.transform = 'none';
+        avatarCropBackdrop.classList.remove('open');
+        avatarCropBackdrop.setAttribute('aria-hidden', 'true');
+      }
+
+      function clamp(value, min, max) {
+        return Math.max(min, Math.min(max, value));
+      }
+
+      function updateAvatarCropOverlay() {
+        const stageWidth = avatarCropStageRect.width;
+        const stageHeight = avatarCropStageRect.height;
+        const box = avatarCropBoxRect;
+        if (!stageWidth || !stageHeight) return;
+
+        avatarCropBox.style.left = box.left + 'px';
+        avatarCropBox.style.top = box.top + 'px';
+        avatarCropBox.style.width = box.width + 'px';
+        avatarCropBox.style.height = box.height + 'px';
+
+        avatarCropMaskTop.style.left = '0px';
+        avatarCropMaskTop.style.top = '0px';
+        avatarCropMaskTop.style.width = '100%';
+        avatarCropMaskTop.style.height = box.top + 'px';
+
+        avatarCropMaskBottom.style.left = '0px';
+        avatarCropMaskBottom.style.top = (box.top + box.height) + 'px';
+        avatarCropMaskBottom.style.width = '100%';
+        avatarCropMaskBottom.style.height = (stageHeight - box.top - box.height) + 'px';
+
+        avatarCropMaskLeft.style.left = '0px';
+        avatarCropMaskLeft.style.top = box.top + 'px';
+        avatarCropMaskLeft.style.width = box.left + 'px';
+        avatarCropMaskLeft.style.height = box.height + 'px';
+
+        avatarCropMaskRight.style.left = (box.left + box.width) + 'px';
+        avatarCropMaskRight.style.top = box.top + 'px';
+        avatarCropMaskRight.style.width = (stageWidth - box.left - box.width) + 'px';
+        avatarCropMaskRight.style.height = box.height + 'px';
+      }
+
+      function fitAvatarImage() {
+        const stageWidth = avatarCropStageRect.width;
+        const stageHeight = avatarCropStageRect.height;
+        const ratio = avatarCropNatural.width / avatarCropNatural.height;
+        let width = stageWidth;
+        let height = width / ratio;
+        if (height > stageHeight) {
+          height = stageHeight;
+          width = height * ratio;
+        }
+        const left = (stageWidth - width) / 2;
+        const top = (stageHeight - height) / 2;
+        avatarCropImageRect = { width, height, left, top };
+        avatarCropImage.style.width = width + 'px';
+        avatarCropImage.style.height = height + 'px';
+        avatarCropImage.style.left = left + 'px';
+        avatarCropImage.style.top = top + 'px';
+        avatarCropImage.style.transform = 'none';
+      }
+
+      function fitAvatarBoxToImage() {
+        const width = avatarCropImageRect.width;
+        const height = avatarCropImageRect.height;
+        avatarCropBoxRect = {
+          width,
+          height,
+          left: avatarCropImageRect.left,
+          top: avatarCropImageRect.top,
+        };
+        avatarCropZoomScale = 1;
+        avatarCropZoom.value = 100;
+        updateAvatarCropOverlay();
+      }
+
+      function constrainBox() {
+        const maxLeft = avatarCropStageRect.width - avatarCropBoxRect.width;
+        const maxTop = avatarCropStageRect.height - avatarCropBoxRect.height;
+        avatarCropBoxRect.left = clamp(avatarCropBoxRect.left, 0, Math.max(0, maxLeft));
+        avatarCropBoxRect.top = clamp(avatarCropBoxRect.top, 0, Math.max(0, maxTop));
+      }
+
+      function sizeBoxFromZoom() {
+        const zoomPercent = clamp(Number(avatarCropZoom.value || 100), 100, 500);
+        avatarCropZoomScale = zoomPercent / 100;
+        const centerX = avatarCropBoxRect.left + avatarCropBoxRect.width / 2;
+        const centerY = avatarCropBoxRect.top + avatarCropBoxRect.height / 2;
+        const shrink = 100 / zoomPercent;
+        let newWidth = avatarCropImageRect.width * shrink;
+        let newHeight = avatarCropImageRect.height * shrink;
+        newWidth = clamp(newWidth, 1, avatarCropStageRect.width);
+        newHeight = clamp(newHeight, 1, avatarCropStageRect.height);
+        avatarCropBoxRect.width = newWidth;
+        avatarCropBoxRect.height = newHeight;
+        avatarCropBoxRect.left = centerX - newWidth / 2;
+        avatarCropBoxRect.top = centerY - newHeight / 2;
+        constrainBox();
+        updateAvatarCropOverlay();
+      }
+
+      function cropStagePointFromClient(clientX, clientY) {
+        const rect = avatarCropStage.getBoundingClientRect();
+        return {
+          x: clamp(clientX - rect.left, 0, rect.width),
+          y: clamp(clientY - rect.top, 0, rect.height),
+        };
+      }
+
+      avatarCropBox.addEventListener('pointerdown', (event) => {
+        event.preventDefault();
+        avatarCropBox.setPointerCapture(event.pointerId);
+        const point = cropStagePointFromClient(event.clientX, event.clientY);
+        avatarCropDragState = {
+          pointerId: event.pointerId,
+          offsetX: point.x - avatarCropBoxRect.left,
+          offsetY: point.y - avatarCropBoxRect.top,
+        };
+      });
+
+      avatarCropBox.addEventListener('pointermove', (event) => {
+        if (!avatarCropDragState || avatarCropDragState.pointerId !== event.pointerId) return;
+        const point = cropStagePointFromClient(event.clientX, event.clientY);
+        avatarCropBoxRect.left = point.x - avatarCropDragState.offsetX;
+        avatarCropBoxRect.top = point.y - avatarCropDragState.offsetY;
+        constrainBox();
+        updateAvatarCropOverlay();
+      });
+
+      avatarCropBox.addEventListener('pointerup', (event) => {
+        if (avatarCropDragState && avatarCropDragState.pointerId === event.pointerId) {
+          avatarCropDragState = null;
+        }
+      });
+
+      avatarCropBox.addEventListener('pointercancel', () => {
+        avatarCropDragState = null;
+      });
+
+      function openAvatarCropper(file) {
+        closeAvatarCropper();
+        avatarCropApply.disabled = true;
+        avatarCropBackdrop.classList.add('open');
+        avatarCropBackdrop.setAttribute('aria-hidden', 'false');
+        const reader = new FileReader();
+        reader.onload = function (e) {
+          avatarCropImage.src = e.target.result;
+          avatarCropImage.onload = function () {
+            const width = avatarCropImage.naturalWidth || 1;
+            const height = avatarCropImage.naturalHeight || 1;
+            avatarCropNatural = { width, height };
+
+            const maxWidth = Math.min(760, window.innerWidth - 36);
+            const maxHeight = Math.min(560, window.innerHeight - 280);
+            const ratio = width / height;
+            let stageWidth = maxWidth;
+            let stageHeight = stageWidth / ratio;
+            if (stageHeight > maxHeight) {
+              stageHeight = maxHeight;
+              stageWidth = stageHeight * ratio;
+            }
+            avatarCropStageRect = {
+              width: Math.max(300, Math.floor(stageWidth)),
+              height: Math.max(280, Math.floor(stageHeight)),
+            };
+            avatarCropStage.style.width = avatarCropStageRect.width + 'px';
+            avatarCropStage.style.height = avatarCropStageRect.height + 'px';
+
+            fitAvatarImage();
+            fitAvatarBoxToImage();
+            updateAvatarCropOverlay();
+            avatarCropApply.disabled = false;
+          };
+        };
+        reader.readAsDataURL(file);
+      }
+
+      function applyAvatarCropZoom() {
+        if (!avatarCropImage) return;
+        sizeBoxFromZoom();
+      }
 
       function paintInitial(name) {
         avatarPreview.innerHTML = '';
@@ -1056,6 +1761,8 @@
       const initial = VHprofile.get();
       nameInput.value = initial.name;
       gradeRadios.forEach((r) => { if (r.value === initial.grade) r.checked = true; });
+      populateCountySelect(initial.county || '');
+      syncThemeDevices.checked = !!initial.syncThemeDevices;
       refreshAvatar();
 
       // Live preview when name changes (only affects initials fallback)
@@ -1066,15 +1773,87 @@
       avatarInput.addEventListener('change', async () => {
         const file = avatarInput.files && avatarInput.files[0];
         if (!file) return;
+        if (!file.type.startsWith('image/')) {
+          showStatus('Velg en bildefil (f.eks. JPG, PNG).', 'var(--card-red)');
+          avatarInput.value = '';
+          return;
+        }
+        if (file.size > 10 * 1024 * 1024) {
+          showStatus('Bildet er for stort (maks 10 MB).', 'var(--card-red)');
+          avatarInput.value = '';
+          return;
+        }
         try {
-          const resized = await resizeImage(file, 256);
-          await VHprofile.setAvatarBlob(resized);
+          openAvatarCropper(file);
+        } catch (err) {
+          showStatus('Kunne ikke åpne bildeverktøyet.', 'var(--card-red)');
+          avatarInput.value = '';
+        }
+      });
+
+      avatarCropZoom.addEventListener('input', function () {
+        applyAvatarCropZoom();
+      });
+
+      avatarCropApply.addEventListener('click', async () => {
+        avatarCropApply.disabled = true;
+        avatarCropApply.textContent = 'Lagrer...';
+        try {
+          const canvas = document.createElement('canvas');
+          canvas.width = 512;
+          canvas.height = 512;
+          const ctx = canvas.getContext('2d');
+
+          const scaleX = avatarCropNatural.width / avatarCropImageRect.width;
+          const scaleY = avatarCropNatural.height / avatarCropImageRect.height;
+          const cropX = (avatarCropBoxRect.left - avatarCropImageRect.left) * scaleX;
+          const cropY = (avatarCropBoxRect.top - avatarCropImageRect.top) * scaleY;
+          const cropSize = avatarCropBoxRect.width * scaleX;
+          ctx.imageSmoothingEnabled = true;
+          ctx.imageSmoothingQuality = 'high';
+          ctx.drawImage(
+            avatarCropImage,
+            cropX,
+            cropY,
+            cropSize,
+            cropSize,
+            0,
+            0,
+            512,
+            512
+          );
+
+          const cropped = await new Promise((resolve) => canvas.toBlob(resolve, 'image/png'));
+          if (!cropped) throw new Error('Kunne ikke lagre bilde.');
+          await VHprofile.setAvatarBlob(cropped);
           await refreshAvatar();
+          closeAvatarCropper();
           showStatus('Profilbilde lagret.', 'var(--card-green)');
         } catch (err) {
           showStatus('Kunne ikke lagre bildet.', 'var(--card-red)');
         }
+        avatarCropApply.disabled = false;
+        avatarCropApply.textContent = 'Bruk bilde';
         avatarInput.value = '';
+      });
+
+      avatarCropCancel.addEventListener('click', () => {
+        closeAvatarCropper();
+        avatarInput.value = '';
+      });
+
+      avatarCropBackdrop.addEventListener('click', (e) => {
+        if (e.target === avatarCropBackdrop) {
+          closeAvatarCropper();
+          avatarInput.value = '';
+        }
+      });
+
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && avatarCropBackdrop.classList.contains('open')) {
+          closeAvatarCropper();
+          avatarInput.value = '';
+        }
       });
 
       avatarClearBtn.addEventListener('click', async () => {
@@ -1083,18 +1862,37 @@
         showStatus('Profilbilde fjernet.', 'var(--card-orange)');
       });
 
-      form.addEventListener('submit', (e) => {
+      form.addEventListener('submit', async (e) => {
         e.preventDefault();
         const name = nameInput.value.trim() || 'Bruker';
-        const checked = [...gradeRadios].find((r) => r.checked);
-        const newGrade = checked ? checked.value : null;
-        const update = { name, grade: newGrade };
+        const newGrade = getCurrentGrade();
+        const county = countyInput.value || null;
+        const update = { name, grade: newGrade, county: county, syncThemeDevices: !!syncThemeDevices.checked };
         // displayGrade is only meaningful for Alumni / Lærer; clear it on any
         // other selection so stale overrides don't leak across trinn switches.
         if (newGrade !== 'Alumni' && newGrade !== 'Lærer') {
           update.displayGrade = null;
         }
         VHprofile.set(update);
+
+        if (window.VHaccount && VHaccount.getCurrentUser() && VHaccount.getCurrentProfile()) {
+          try {
+            const remote = VHaccount.getCurrentProfile();
+            const avatarUrl = await currentAvatarDataUrl();
+            await VHaccount.updateProfile({
+              display_name: accountUsername.value.trim() || remote.display_name,
+              handle: accountHandle.value.trim() || remote.handle,
+              role: newGrade || '8-10',
+              county: county,
+              avatar_url: avatarUrl,
+            });
+            await VHaccount.syncSettingsToAccount().catch(() => {});
+            setAccountMessage('success', 'Kontoen ble oppdatert.');
+          } catch (err) {
+            setAccountMessage('error', (err && err.message) || 'Kunne ikke synkronisere kontoen.');
+          }
+        }
+
         if (!avatarBlobUrl) paintInitial(name);
         showStatus('Lagret.', 'var(--card-green)');
       });
@@ -1102,33 +1900,169 @@
       clearAllBtn.addEventListener('click', () => {
         VHprofile.clear();
         nameInput.value = 'Bruker';
+        countyInput.value = '';
+        syncThemeDevices.checked = false;
         gradeRadios.forEach((r) => { r.checked = false; });
         refreshAvatar();
         showStatus('Tilbakestilt.', 'var(--card-orange)');
       });
 
-      function resizeImage(file, maxDim) {
-        return new Promise((resolve, reject) => {
-          const url = URL.createObjectURL(file);
-          const img = new Image();
-          img.onload = () => {
-            URL.revokeObjectURL(url);
-            const scale = Math.min(1, maxDim / Math.max(img.width, img.height));
-            const w = Math.max(1, Math.round(img.width * scale));
-            const h = Math.max(1, Math.round(img.height * scale));
-            const canvas = document.createElement('canvas');
-            canvas.width = w;
-            canvas.height = h;
-            canvas.getContext('2d').drawImage(img, 0, 0, w, h);
-            canvas.toBlob((b) => resolve(b), 'image/png');
-          };
-          img.onerror = () => {
-            URL.revokeObjectURL(url);
-            reject(new Error('Kunne ikke lese bildet.'));
-          };
-          img.src = url;
+      syncThemeDevices.addEventListener('change', async () => {
+        const next = !!syncThemeDevices.checked;
+        VHprofile.set({ syncThemeDevices: next });
+        if (window.VHaccount && VHaccount.getCurrentUser()) {
+          await VHaccount.syncSettingsToAccount().catch(() => {});
+          setAccountMessage('success', 'Temasynk-innstilling lagret.');
+        }
+      });
+
+      accountTabs.forEach((btn) => {
+        btn.addEventListener('click', () => {
+          setAccountMessage();
+          setAccountTab(btn.dataset.accountTab);
         });
-      }
+      });
+
+      accountLoginBtn.addEventListener('click', async () => {
+        const email = accountLoginEmail.value.trim();
+        const password = accountLoginPassword.value;
+        if (!email || !password) {
+          setAccountMessage('error', 'Skriv inn e-post og passord.');
+          return;
+        }
+        accountLoginBtn.disabled = true;
+        accountLoginBtn.textContent = 'Logger inn...';
+        try {
+          await VHaccount.signIn(email, password);
+          await VHaccount.syncAllLocalToAccount().catch(() => {});
+          await refreshAvatar();
+          renderAccountUI();
+          setAccountMessage('success', 'Innlogget og synkronisert.');
+        } catch (err) {
+          setAccountMessage('error', (err && err.message) || 'Innlogging feilet.');
+        }
+        accountLoginBtn.disabled = false;
+        accountLoginBtn.textContent = 'Logg inn og synkroniser';
+      });
+
+      accountSignupBtn.addEventListener('click', async () => {
+        const username = accountSignupUsername.value.trim();
+        const handle = accountSignupHandle.value.trim();
+        const email = accountSignupEmail.value.trim();
+        const password = accountSignupPassword.value;
+        const grade = getCurrentGrade() || VHprofile.get().grade || '8-10';
+        const county = countyInput.value || null;
+        if (!username || !email || password.length < 6) {
+          setAccountMessage('error', 'Fyll ut brukernavn, e-post og passord (minst 6 tegn).');
+          return;
+        }
+
+        accountSignupBtn.disabled = true;
+        accountSignupBtn.textContent = 'Oppretter...';
+        try {
+          const avatarUrl = await currentAvatarDataUrl();
+          localStorage.setItem('meninger_pending_profile', JSON.stringify({
+            display_name: username,
+            handle: VHaccount.normalizeHandle(handle, username),
+            avatar_url: avatarUrl,
+            role: grade,
+            county: county,
+          }));
+
+          await VHaccount.signUp({
+            display_name: username,
+            handle: handle,
+            role: grade,
+            county: county,
+            avatar_url: avatarUrl,
+            email: email,
+            password: password,
+            emailRedirectTo: window.location.href,
+          });
+
+          setAccountTab('login');
+          setAccountMessage('success', 'Konto opprettet. Bekreft e-posten din før første innlogging.');
+        } catch (err) {
+          setAccountMessage('error', (err && err.message) || 'Kunne ikke opprette konto.');
+        }
+        accountSignupBtn.disabled = false;
+        accountSignupBtn.textContent = 'Opprett konto';
+      });
+
+      accountSaveBtn.addEventListener('click', async () => {
+        const user = VHaccount.getCurrentUser();
+        const profile = VHaccount.getCurrentProfile();
+        if (!user || !profile) return;
+
+        accountSaveBtn.disabled = true;
+        accountSaveBtn.textContent = 'Lagrer...';
+        try {
+          const avatarUrl = await currentAvatarDataUrl();
+          await VHaccount.updateProfile({
+            display_name: accountUsername.value.trim() || profile.display_name,
+            handle: accountHandle.value.trim() || profile.handle,
+            role: getCurrentGrade() || profile.role,
+            county: countyInput.value || null,
+            avatar_url: avatarUrl,
+          });
+          await VHaccount.syncSettingsToAccount().catch(() => {});
+          setAccountMessage('success', 'Kontoendringer lagret.');
+          renderAccountUI();
+        } catch (err) {
+          setAccountMessage('error', (err && err.message) || 'Kunne ikke lagre kontoendringer.');
+        }
+        accountSaveBtn.disabled = false;
+        accountSaveBtn.textContent = 'Lagre kontoendringer';
+      });
+
+      accountPasswordBtn.addEventListener('click', async () => {
+        const newPassword = accountNewPassword.value;
+        if (!newPassword || newPassword.length < 6) {
+          setAccountMessage('error', 'Nytt passord må være minst 6 tegn.');
+          return;
+        }
+        accountPasswordBtn.disabled = true;
+        accountPasswordBtn.textContent = 'Bytter...';
+        try {
+          await VHaccount.updatePassword(newPassword);
+          accountNewPassword.value = '';
+          setAccountMessage('success', 'Passord oppdatert.');
+        } catch (err) {
+          setAccountMessage('error', (err && err.message) || 'Kunne ikke oppdatere passord.');
+        }
+        accountPasswordBtn.disabled = false;
+        accountPasswordBtn.textContent = 'Bytt passord';
+      });
+
+      accountLogoutBtn.addEventListener('click', async () => {
+        try {
+          await VHaccount.signOut();
+          renderAccountUI();
+          setAccountMessage('success', 'Logget ut. Lokal profil er fortsatt lagret.');
+        } catch (err) {
+          setAccountMessage('error', (err && err.message) || 'Kunne ikke logge ut.');
+        }
+      });
+
+      document.addEventListener('vhjelp:account-changed', async () => {
+        const profile = VHprofile.get();
+        if (countyInput && profile.county !== undefined && profile.county !== null) {
+          countyInput.value = profile.county;
+        }
+        syncThemeDevices.checked = !!profile.syncThemeDevices;
+        await refreshAvatar();
+        renderAccountUI();
+      });
+
+      (async function initAccount() {
+        setAccountTab('login');
+        if (!window.VHaccount) {
+          setAccountMessage('error', 'Konto-systemet kunne ikke lastes.');
+          return;
+        }
+        await VHaccount.refreshAuth();
+        renderAccountUI();
+      })();
     })();
   </script>
 

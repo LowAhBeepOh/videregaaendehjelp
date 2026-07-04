@@ -752,6 +752,8 @@
     <p>&copy; 2026 Videregående Hjelp. Et åpent prosjekt for alle.</p>
   </footer>
 
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="Assets/js/account.js"></script>
   <script>
     // Theme Management
     function initTheme() {
@@ -780,9 +782,21 @@
 
     // Bookmark System
     function getBookmarks() {
+      if (window.VHaccount && VHaccount.getLocalBookmarks) {
+        return VHaccount.getLocalBookmarks();
+      }
       try { return JSON.parse(localStorage.getItem('bookmarks') || '[]'); } catch { return []; }
     }
-    function saveBookmarks(arr) { localStorage.setItem('bookmarks', JSON.stringify(arr)); }
+    async function saveBookmarks(arr) {
+      if (window.VHaccount && VHaccount.setLocalBookmarks) {
+        VHaccount.setLocalBookmarks(arr, true);
+      } else {
+        localStorage.setItem('bookmarks', JSON.stringify(arr));
+      }
+      if (window.VHaccount && VHaccount.getCurrentUser && VHaccount.getCurrentUser()) {
+        await VHaccount.syncBookmarksToAccount(arr).catch(() => {});
+      }
+    }
 
     function initBookmarks() {
       const bookmarks = getBookmarks();
@@ -792,7 +806,7 @@
         btn.className = 'bookmark-btn' + (bookmarks.includes(url) ? ' bookmarked' : '');
         btn.innerHTML = `<span class="material-icons">${bookmarks.includes(url) ? 'bookmark' : 'bookmark_border'}</span>`;
         btn.title = bookmarks.includes(url) ? 'Fjern bokmerke' : 'Legg til bokmerke';
-        btn.addEventListener('click', (e) => {
+        btn.addEventListener('click', async (e) => {
           e.preventDefault();
           e.stopPropagation();
           const bm = getBookmarks();
@@ -808,7 +822,7 @@
             btn.innerHTML = '<span class="material-icons">bookmark</span>';
             btn.title = 'Fjern bokmerke';
           }
-          saveBookmarks(bm);
+          await saveBookmarks(bm);
         });
         card.appendChild(btn);
       });
@@ -844,9 +858,28 @@
       });
     });
 
+    function rerenderBookmarkIcons() {
+      const bookmarks = getBookmarks();
+      document.querySelectorAll('.guide-card').forEach((card) => {
+        const url = card.getAttribute('href');
+        const btn = card.querySelector('.bookmark-btn');
+        if (!btn) return;
+        const active = bookmarks.includes(url);
+        btn.className = 'bookmark-btn' + (active ? ' bookmarked' : '');
+        btn.innerHTML = `<span class="material-icons">${active ? 'bookmark' : 'bookmark_border'}</span>`;
+        btn.title = active ? 'Fjern bokmerke' : 'Legg til bokmerke';
+      });
+    }
+
     // Initialize
     initTheme();
     initBookmarks();
+    if (window.VHaccount) {
+      VHaccount.refreshAuth().then(() => {
+        rerenderBookmarkIcons();
+      }).catch(() => {});
+      document.addEventListener('vhjelp:bookmarks-updated', rerenderBookmarkIcons);
+    }
   </script>
   <script src="Assets/js/profile.js"></script>
 </body>

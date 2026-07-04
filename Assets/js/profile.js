@@ -88,6 +88,10 @@
     return {
       name: 'Bruker',
       grade: null,
+      county: null,
+      username: null,
+      handle: null,
+      linked: false,
       displayGrade: null,
       fag: null,
       // Tint is purely cosmetic but follows the user so they don't have to
@@ -95,6 +99,7 @@
       // fresh build feels gentle-tinted by their grade.
       tintIntensity: 'subtle',
       tintScope: 'bg',
+      syncThemeDevices: false,
     };
   }
 
@@ -109,6 +114,11 @@
       // trinn so the rest of the app keeps working. We map explicitly (not via
       // DEFAULT_GRADE) so the legacy path is independent of the fresh-user state.
       if (merged.grade === LEGACY_GRADE) merged.grade = 'VG1-VG2';
+      // Legacy Meninger roles are normalized into the unified 4-value trinn model.
+      if (merged.grade === 'ungdom' || merged.grade === 'elev') merged.grade = '8-10';
+      if (merged.grade === 'vg1' || merged.grade === 'vg2' || merged.grade === 'vg3') merged.grade = 'VG1-VG2';
+      if (merged.grade === 'hoyskole') merged.grade = 'Alumni';
+      if (merged.grade === 'laerer') merged.grade = 'Lærer';
       return merged;
     } catch {
       return defaultProfile();
