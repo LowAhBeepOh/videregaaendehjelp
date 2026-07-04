@@ -980,7 +980,7 @@
       paintTintUI();
 
       function paintInitial(name) {
-        avatarPreview.innerHTML = '';
+        avatarPreview.replaceChildren();
         avatarPreview.style.background = VHprofile.initialsColor(name);
         const span = document.createElement('span');
         span.textContent = VHprofile.initialsOf(name);
@@ -988,7 +988,7 @@
       }
 
       function paintAvatar(imgSrc) {
-        avatarPreview.innerHTML = '';
+        avatarPreview.replaceChildren();
         avatarPreview.style.background = 'transparent';
         const img = document.createElement('img');
         img.src = imgSrc;
