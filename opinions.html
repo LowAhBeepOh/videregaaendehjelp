@@ -210,6 +210,7 @@
     .feed-header { position: sticky; top: 0; z-index: 10; background: var(--bg); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); display: flex; flex-direction: column; border-bottom: 1px solid var(--border); }
     .feed-header-top { display: flex; align-items: center; padding: 14px 16px 10px; }
     .feed-label { font-family: var(--font-display); font-size: 18px; font-weight: 800; letter-spacing: -0.03em; color: var(--text); }
+    .filter-scroll { position: relative; width: 100%; overflow: hidden; }
     .filter-group { display: flex; overflow-x: auto; scrollbar-width: none; overscroll-behavior-x: contain; touch-action: pan-x; }
     .filter-group::-webkit-scrollbar { display: none; }
     .filter-btn { background: none; border: none; border-bottom: 2px solid transparent; color: var(--text-muted); font-family: var(--font-display); font-size: 14px; font-weight: 700; padding: 14px 20px; margin-bottom: -1px; cursor: pointer; transition: color 0.2s, background 0.2s; white-space: nowrap; flex-shrink: 0; }
@@ -228,7 +229,7 @@
     .opinion-card:hover { background: rgba(255,255,255,0.02); }
     [data-theme="light"] .opinion-card:hover { background: rgba(0,0,0,0.02); }
     /* ─── Twitter 2-col card grid ─── */
-    .card-grid { display: grid; grid-template-columns: 44px 1fr; gap: 0 12px; }
+    .card-grid { display: grid; grid-template-columns: 44px minmax(0, 1fr); gap: 0 12px; min-width: 0; }
     .card-avatar-col { display: flex; flex-direction: column; align-items: center; padding-top: 2px; }
     .card-thread-line { width: 2px; background: var(--border); margin-top: 8px; flex: 1; min-height: 20px; border-radius: 1px; }
     .card-content-col { min-width: 0; padding-bottom: 2px; }
@@ -361,7 +362,7 @@
     @media (min-width: 480px) { .opinion-body { font-size: 15px; } }
 
     /* ─── Reactions / Card Actions ─── */
-    .opinion-footer { display: flex; align-items: center; gap: 2px; margin-top: 8px; margin-left: -8px; }
+    .opinion-footer { display: flex; align-items: center; gap: 6px 2px; margin-top: 8px; margin-left: -8px; flex-wrap: wrap; }
     .reaction-btn {
       display: inline-flex; align-items: center; gap: 5px;
       background: none; border: none;
@@ -786,7 +787,7 @@
         <div class="feed-header-top">
           <span class="feed-label">Meninger</span>
         </div>
-        <div class="filter-group" id="filterGroup"></div>
+        <div class="filter-scroll"><div class="filter-group" id="filterGroup"></div></div>
       </div>
       <div id="opinionsFeed">
         <div class="feed-loading"><div class="spinner"></div>Laster meninger...</div>
