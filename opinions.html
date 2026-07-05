@@ -93,6 +93,12 @@
       pointer-events: auto;
     }
 
+    /* No-JS fallback: ensure header is visible and interactive if JavaScript doesn't run */
+    noscript + style, .no-js #headerContent {
+      opacity: 1 !important;
+      pointer-events: auto !important;
+    }
+
     /* Logo image for mobile */
     .logo-image {
       display: none;
@@ -736,6 +742,17 @@
       });
     })();
   </script>
+  <noscript>
+    <style>
+      #headerContent {
+        opacity: 1 !important;
+        pointer-events: auto !important;
+      }
+      #bootOverlay {
+        display: none !important;
+      }
+    </style>
+  </noscript>
 </head>
 <body>
   <header>
@@ -3365,21 +3382,29 @@
     //  PHONE BOTTOM NAV (real phone user-agents only, not just narrow screens)
     // ══════════════════════════════════════════════════
     function isPhoneUserAgent() {
-      if (navigator.userAgentData && typeof navigator.userAgentData.mobile === 'boolean') {
-        return navigator.userAgentData.mobile;
-      }
+      // Primary detection: use viewport width and pointer/hover capabilities
+      // Phones typically have narrow screens AND touch-only interaction
+      if (typeof window === 'undefined' || typeof window.matchMedia !== 'function') return false;
+
+      // Check for small viewport (phone-sized) AND touch-only interaction
+      const isNarrowScreen = window.matchMedia('(max-width: 650px)').matches;
+      const isTouchOnly = window.matchMedia('(hover: none) and (pointer: coarse)').matches;
+
+      // Additional check: exclude tablets and iPads explicitly
       const ua = navigator.userAgent || navigator.vendor || '';
-      if (/iPad/i.test(ua)) return false;
-      if (/iPhone|iPod|Android.*Mobile|Windows Phone|BlackBerry|BB10|Mobile.*Firefox/i.test(ua)) {
+      const isTablet = /iPad/i.test(ua) ||
+                      (/Android/i.test(ua) && !/Mobile/i.test(ua)) ||
+                      (navigator.maxTouchPoints > 1 && /Mac/.test(navigator.platform || '') && !window.matchMedia('(any-pointer: fine)').matches);
+
+      // Only classify as phone if narrow screen + touch-only + not a tablet
+      if (isNarrowScreen && isTouchOnly && !isTablet) return true;
+
+      // Fallback: explicit phone UA patterns (only for edge cases)
+      if (/iPhone|iPod|Android.*Mobile|Windows Phone|BlackBerry|BB10|Mobile.*Firefox/i.test(ua) && !isTablet) {
         return true;
       }
-      if (typeof window === 'undefined' || typeof window.matchMedia !== 'function') return false;
-      if (!window.matchMedia('(hover: none) and (pointer: coarse)').matches) return false;
-      const ipadosMac =
-        navigator.maxTouchPoints > 1 &&
-        /Mac/.test(navigator.platform || '') &&
-        !window.matchMedia('(any-pointer: fine)').matches;
-      return !ipadosMac;
+
+      return false;
     }
 
     if (isPhoneUserAgent()) document.documentElement.classList.add('is-phone-device');
