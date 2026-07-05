@@ -498,7 +498,8 @@
       align-items: center;
       justify-content: space-between;
       gap: 8px;
-      box-shadow: 0 -10px 28px rgba(0, 0, 0, 0.45);
+      max-width: 100vw;
+      overflow: hidden;
     }
 
     html.is-phone-device .phone-bottom-nav { display: flex; }
@@ -525,6 +526,23 @@
       transition: color 0.2s, background 0.2s;
       flex: 1;
       max-width: 100px;
+      min-width: 0;
+    }
+
+    @media (max-width: 380px) {
+      .phone-nav-link { padding: 6px 6px; }
+      .phone-nav-link > span:not(.material-icons) {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        padding: 0;
+        margin: -1px;
+        overflow: hidden;
+        clip: rect(0, 0, 0, 0);
+        clip-path: inset(50%);
+        white-space: nowrap;
+        border: 0;
+      }
     }
 
     .phone-nav-link .material-icons { font-size: 24px; }
@@ -3304,18 +3322,21 @@
     //  PHONE BOTTOM NAV (real phone user-agents only, not just narrow screens)
     // ══════════════════════════════════════════════════
     function isPhoneUserAgent() {
-      // Prefer the modern User-Agent Client Hints API where available
-      // (Chromium-based browsers and Firefox). It exposes a structured
-      // `mobile` boolean and avoids fragile UA-string parsing.
       if (navigator.userAgentData && typeof navigator.userAgentData.mobile === 'boolean') {
         return navigator.userAgentData.mobile;
       }
-      // Safari / iOS / older browsers: fall back to UA-string parsing.
-      // iPadOS 13+ reports as Mac but is touch-capable; we only want phones,
-      // so exclude iPad explicitly and require a phone-specific token otherwise.
       const ua = navigator.userAgent || navigator.vendor || '';
       if (/iPad/i.test(ua)) return false;
-      return /iPhone|iPod|Android.*Mobile|Windows Phone|BlackBerry|BB10|Mobile.*Firefox/i.test(ua);
+      if (/iPhone|iPod|Android.*Mobile|Windows Phone|BlackBerry|BB10|Mobile.*Firefox/i.test(ua)) {
+        return true;
+      }
+      if (typeof window === 'undefined' || typeof window.matchMedia !== 'function') return false;
+      if (!window.matchMedia('(hover: none) and (pointer: coarse)').matches) return false;
+      const ipadosMac =
+        navigator.maxTouchPoints > 1 &&
+        /Mac/.test(navigator.platform || '') &&
+        !window.matchMedia('(any-pointer: fine)').matches;
+      return !ipadosMac;
     }
 
     if (isPhoneUserAgent()) document.documentElement.classList.add('is-phone-device');
@@ -3326,18 +3347,12 @@
     const phoneNavComposeWrap  = document.getElementById('phoneNavComposeWrap');
     const phoneNavComposeRing  = document.getElementById('phoneNavComposeRing');
     let phoneRingTimer = null;
-
-    // Returns { active: bool, remainingMs, totalMs } for whichever restriction
-    // (cooldown or timeout) is currently in effect, cooldown checked first.
     function getComposeRestriction() {
       const cooldownRem = getRemainingMs();
       if (cooldownRem > 0) return { active: true, remainingMs: cooldownRem, totalMs: COOLDOWN_MS };
       if (currentUser && currentProfile) {
         const sanction = getSanctionForProfile(currentProfile);
         if (!sanction.banned && sanction.timeoutUntil > Date.now()) {
-          // We don't know the original timeout duration, so approximate the
-          // ring's total span as the remaining time itself the first time we
-          // see it, captured once per timeout window.
           const remainingMs = sanction.timeoutUntil - Date.now();
           if (!getComposeRestriction._timeoutTotal || getComposeRestriction._timeoutUntil !== sanction.timeoutUntil) {
             getComposeRestriction._timeoutTotal = remainingMs;
@@ -3361,9 +3376,6 @@
       phoneNavComposeWrap.classList.add('on-cooldown');
       const elapsedFraction = 1 - (restriction.remainingMs / restriction.totalMs);
       const deg = Math.max(0, Math.min(360, elapsedFraction * 360));
-      // Filled (elapsed) portion in the accent color, remaining portion dim —
-      // the fill sweeps to full as the countdown finishes, i.e. the dim
-      // "remaining" wedge shrinks away. No numbers, just the ring.
       phoneNavComposeRing.style.background =
         `conic-gradient(var(--card-orange) ${deg}deg, var(--border) ${deg}deg 360deg)`;
       if (!phoneRingTimer) {
