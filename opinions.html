@@ -40,8 +40,11 @@
     }
     [data-theme="light"] { --bg: #ffffff; --text: #000000; --text-muted: #555; --surface: #f2f2f7; --border: #e5e5ea; }
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    /* The viewport itself must never scroll horizontally; only specific
+       scroll containers (.filter-group, modals) may scroll on the X axis. */
+    html { overflow-x: hidden; overscroll-behavior-x: contain; }
     body:has(.modal-backdrop.open) { overflow: hidden; }
-    body { font-family: var(--font-body); background: var(--bg); color: var(--text); line-height: 1.5; min-height: 100vh; overflow-x: hidden; }
+    body { font-family: var(--font-body); background: var(--bg); color: var(--text); line-height: 1.5; min-height: 100vh; overflow-x: hidden; overscroll-behavior-x: contain; }
 
     /* Header */
     header {
