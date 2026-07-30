@@ -1,6 +1,15 @@
 {
   "news": [
     {
+      "name": "Videregående Hjelp+ (Pluss) er lansert",
+      "desc": "Videregående Hjelp+ er en gratis Pluss-versjon for elever i Møre og Romsdal. Les hvordan du aktiverer Pluss, og hva du får tilgang til.",
+      "thumb": "../Assets/Thumbnails/news_thumb_plus.png",
+      "date": "2026-07-30",
+      "link": "News/videregaaende-hjelp-plus.html",
+      "plus": false,
+      "county": "Møre og Romsdal"
+    },
+    {
       "name": "Analyse: Stoppride.no",
       "desc": "Videregående Hjelp har gjennomgått innholdet på stoppride.no og kressurs.no. Vi har funnet flere tilfeller av misvisende kildebruk, selektiv informasjon om Stortingets praksis og narrativer som utfordrer nasjonale lover og faglige råd.",
       "thumb": "https://images.unsplash.com/photo-1637631531662-cea0fb4b1d97?q=80&w=1470&auto=format&fit=crop",
