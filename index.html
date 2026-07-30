@@ -26,6 +26,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+  <link rel="stylesheet" href="Assets/css/plus.css">
   <link rel="stylesheet" href="Assets/css/profile.css">
   <meta name="google-site-verification" content="Y7XlvpaXywMWF1nyDWMvVBPMhRLdXPOGewGGlMqAwtc" />
   <style>
@@ -686,6 +687,56 @@
       <div id="bookmarksList" class="bookmarks-list"></div>
     </div>
 
+    <!-- Quick Info – kun synlig for Pluss-brukere -->
+    <div id="plusQuickInfo" class="plus-quick-info" style="display:none;">
+      <h2 class="plus-quick-info-title">
+        <span class="plus-quick-info-icon">+</span>
+        Hurtiginfo for Møre og Romsdal
+      </h2>
+      <div class="plus-quick-grid" role="group" aria-label="Viktige datoer">
+        <div class="plus-quick-card" id="plusQckSkolestart" aria-label="Nedtelling til skolestart">
+          <div class="plus-quick-card-label">Skolestart</div>
+          <div class="plus-quick-card-value" id="plusCountdown">—</div>
+          <div class="plus-quick-card-sub">17. august 2026</div>
+        </div>
+        <div class="plus-quick-card" id="plusQckEksamen" aria-label="Skriftlig eksamen periode">
+          <div class="plus-quick-card-label">Skriftlig eksamen</div>
+          <div class="plus-quick-card-value">4. mai – 21. mai</div>
+          <div class="plus-quick-card-sub">Eksamenstrekk 28. april</div>
+        </div>
+        <div class="plus-quick-card" id="plusQckFrist" aria-label="Søknadsfrist for VGS">
+          <div class="plus-quick-card-label">Søknadsfrist VGS</div>
+          <div class="plus-quick-card-value">1. mars</div>
+          <div class="plus-quick-card-sub">Via vigo.no</div>
+        </div>
+        <div class="plus-quick-card" id="plusQckSensur" aria-label="Sensurfrist">
+          <div class="plus-quick-card-label">Sensurfrist</div>
+          <div class="plus-quick-card-value">19. juni 2026</div>
+          <div class="plus-quick-card-sub">Fellessensur 17.–19. juni</div>
+        </div>
+      </div>
+      <div class="plus-quick-links">
+        <a href="https://skolestart.mrfylke.no/" target="_blank" class="plus-quick-link" rel="noopener">
+          <span class="material-icons">school</span> MR skolestart
+        </a>
+        <a href="https://vigo.no/" target="_blank" class="plus-quick-link" rel="noopener">
+          <span class="material-icons">assignment</span> VIGO
+        </a>
+        <a href="https://vilbli.no/" target="_blank" class="plus-quick-link" rel="noopener">
+          <span class="material-icons">info</span> Vilbli.no
+        </a>
+        <a href="https://udir.no/" target="_blank" class="plus-quick-link" rel="noopener">
+          <span class="material-icons">menu_book</span> Udir
+        </a>
+        <a href="https://mrfylke.no/tenester/skole-og-opplaring/opplaring-i-skole/skoleruta/" target="_blank" class="plus-quick-link" rel="noopener">
+          <span class="material-icons">calendar_month</span> Skoleruta MR
+        </a>
+        <a href="https://mrfylke.no/tenester/skole-og-opplaring/opplaring-i-skole/overgang-og-innsoking-til-vidaregaande/sok-vidaregaande-opplaring/" target="_blank" class="plus-quick-link" rel="noopener">
+          <span class="material-icons">contact_mail</span> Inntak MR
+        </a>
+      </div>
+    </div>
+
     <div class="bento-grid" id="bentoGrid">
       <!-- Populated by JS -->
     </div>
@@ -1063,8 +1114,11 @@
       const container = document.getElementById('newsFeaturedContainer');
       if (!container) return;
       const cutoff = Date.now() - NEWS_FRESHNESS_DAYS * 24 * 60 * 60 * 1000;
+      // Filter out Plus-news for non-Plus users
+      const isPlus = window.VHplus && VHplus.isActive();
       const sorted = (Array.isArray(rawNews) ? rawNews : (rawNews.news || []))
         .filter(n => {
+          if (n.plus && !isPlus) return false;
           const d = new Date(n.date);
           return !isNaN(d.getTime()) && d.getTime() >= cutoff;
         })
@@ -1277,10 +1331,34 @@
       }
     })();
 
+    function renderPlusQuickInfo() {
+      var el = document.getElementById('plusQuickInfo');
+      if (!el) return;
+      var isPlus = window.VHplus && VHplus.isActive();
+      el.style.display = isPlus ? '' : 'none';
+      if (!isPlus) return;
+      // Update countdown to school start (17 Aug 2026)
+      var countdownEl = document.getElementById('plusCountdown');
+      if (countdownEl) {
+        var schoolStart = new Date('2026-08-17T08:00:00');
+        var now = new Date();
+        var diff = schoolStart.getTime() - now.getTime();
+        if (diff > 0) {
+          var days = Math.floor(diff / (1000 * 60 * 60 * 24));
+          var hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+          countdownEl.textContent = days + ' dager ' + hours + 't';
+        } else {
+          countdownEl.textContent = 'Skoleåret er i gang!';
+        }
+      }
+    }
+
     document.addEventListener('DOMContentLoaded', () => {
       generateGrid(); loadLatestOpinionHome(); subscribeOpinionHome(); renderBookmarks();
       fetch('News/news-data.json').then(r => r.json()).then(d => renderFeaturedNews(d)).catch(e => console.error(e));
+      renderPlusQuickInfo();
     });
+    document.addEventListener('vhjelp:plus-changed', renderPlusQuickInfo);
     // Resolve stored 'system'|'light'|'dark' before first paint.
     // Pairs with VHprofile.applyTheme() which re-runs at end of body.
     (function () {
@@ -1290,6 +1368,7 @@
       document.documentElement.setAttribute('data-theme', resolved);
     })();
   </script>
+  <script src="Assets/js/plus.js"></script>
   <script src="Assets/js/profile.js"></script>
   <script>
     // Paint greeting on first load + re-paint after any profile change so the

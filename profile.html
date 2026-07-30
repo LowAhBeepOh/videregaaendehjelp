@@ -1023,6 +1023,7 @@
       border-top: 1px solid var(--border);
     }
   </style>
+  <link rel="stylesheet" href="Assets/css/plus.css">
   <link rel="stylesheet" href="Assets/css/shared-header.css">
   <script defer src="Assets/js/shared-header.js"></script>
 </head>
@@ -1147,6 +1148,18 @@
           </div>
         </details>
 
+        <!-- Videregående Hjelp+ (Pluss) -->
+        <div class="plus-card" id="plusCard">
+          <div class="plus-header">
+            <span class="plus-header-icon">+</span>
+            <h2>Videregående Hjelp+ (Pluss)</h2>
+          </div>
+          <p class="plus-description">Få tilgang til eksklusivt innhold, MR-spesifikke nyheter og flere tilpasningsmuligheter. Krever profil, konto og fylke satt til Møre og Romsdal.</p>
+          <div class="plus-status" id="plusStatus"></div>
+          <button type="button" class="plus-toggle-btn" id="plusToggleBtn"></button>
+          <p class="plus-locked-reason" id="plusLockedReason" hidden></p>
+        </div>
+
         <div class="status-message" id="status" role="status" aria-live="polite"></div>
 
         <div class="button-row">
@@ -1265,9 +1278,32 @@
     </div>
   </div>
 
+  <!-- Deaktiveringsmodal for Videregående Hjelp+ -->
+  <div class="plus-modal-backdrop" id="plusDeactivateModal" hidden aria-hidden="true">
+    <div class="plus-modal-dialog" role="dialog" aria-modal="true" aria-labelledby="plusModalTitle">
+      <h2 class="plus-modal-title" id="plusModalTitle">Deaktiver Videregående Hjelp+?</h2>
+      <p class="plus-modal-desc">Du er i ferd med å deaktivere Pluss. Hva vil du gjøre med Pluss-dataene dine? (valg, innstillinger og annen data som er spesifikk for Pluss-versjonen)</p>
+      <div class="plus-modal-actions">
+        <button type="button" class="plus-modal-btn primary" id="plusKeepBtn">
+          <span class="material-icons">undo</span>
+          Nei, behold Pluss!
+        </button>
+        <button type="button" class="plus-modal-btn plus-modal-btn-safe" id="plusDeactKeepDataBtn">
+          <span class="material-icons">archive</span>
+          Ja, men behold Pluss-data
+        </button>
+        <button type="button" class="plus-modal-btn danger" id="plusDeactDeleteDataBtn">
+          <span class="material-icons">delete_forever</span>
+          Ja, og slett Pluss-data
+        </button>
+      </div>
+    </div>
+  </div>
+
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script src="Assets/js/profile.js"></script>
   <script src="Assets/js/account.js"></script>
+  <script src="Assets/js/plus.js"></script>
   <script>
     (function () {
       const form = document.getElementById('profileForm');
@@ -2054,6 +2090,110 @@
         renderAccountUI();
       });
 
+      // --- Videregående Hjelp+ (Pluss) ---
+      var plusCard = document.getElementById('plusCard');
+      var plusStatus = document.getElementById('plusStatus');
+      var plusToggleBtn = document.getElementById('plusToggleBtn');
+      var plusLockedReason = document.getElementById('plusLockedReason');
+
+      function updatePlusUI() {
+        if (!window.VHplus) return;
+        var active = VHplus.isActive();
+        var canActivate = VHplus.canActivate();
+
+        plusCard.classList.toggle('active', active);
+
+        if (active) {
+          plusStatus.className = 'plus-status active-status';
+          plusStatus.textContent = 'Videregående Hjelp+ er aktivert. Du har tilgang til eksklusivt innhold for Møre og Romsdal.';
+          plusToggleBtn.className = 'plus-toggle-btn deactivate';
+          plusToggleBtn.textContent = 'Bytt tilbake til Videregående Hjelp (uten Pluss)';
+          plusLockedReason.hidden = true;
+        } else if (canActivate) {
+          plusStatus.className = 'plus-status ready';
+          plusStatus.textContent = 'Du oppfyller kravene for å aktivere Pluss!';
+          plusToggleBtn.className = 'plus-toggle-btn activate';
+          plusToggleBtn.textContent = 'Bytt til Videregående Hjelp+ (Pluss)';
+          plusToggleBtn.disabled = false;
+          plusLockedReason.hidden = true;
+        } else {
+          plusStatus.className = 'plus-status locked';
+          plusStatus.textContent = 'Du må oppfylle kravene for å aktivere Pluss.';
+          plusToggleBtn.className = 'plus-toggle-btn activate';
+          plusToggleBtn.textContent = 'Bytt til Videregående Hjelp+ (Pluss)';
+          plusToggleBtn.disabled = true;
+          // Show why locked
+          var reasons = [];
+          var profile = window.VHprofile ? VHprofile.get() : null;
+          if (!profile || !profile.name || profile.name === 'Bruker') reasons.push('Opprett en profil (navn)');
+          if (profile && profile.county !== VHplus.REQUIRED_COUNTY) reasons.push('Sett fylke til ' + VHplus.REQUIRED_COUNTY);
+          var user = window.VHaccount ? VHaccount.getCurrentUser() : null;
+          var linkedProfile = window.VHaccount ? VHaccount.getCurrentProfile() : null;
+          if (!user || !linkedProfile) reasons.push('Logg inn / opprett konto');
+          plusLockedReason.textContent = 'Mangler: ' + reasons.join(', ') + '.';
+          plusLockedReason.hidden = false;
+        }
+      }
+
+      plusToggleBtn.addEventListener('click', function () {
+        if (!window.VHplus) return;
+        if (VHplus.isActive()) {
+          // Deactivation flow
+          VHplus.showDeactivationModal({
+            onCancel: function () {
+              updatePlusUI();
+            },
+            onDeactivate: function (deleteData) {
+              if (deleteData) {
+                VHplus.clearPlusData();
+              }
+              VHplus.deactivate();
+              updatePlusUI();
+            },
+          });
+        } else {
+          // Activation flow
+          var ok = VHplus.activate();
+          if (ok) {
+            updatePlusUI();
+          }
+        }
+      });
+
+      // County change monitoring — if county changes while Plus is active,
+      // warn the user that they'll lose Plus access.
+      countyInput.addEventListener('change', function () {
+        if (!window.VHplus || !VHplus.isActive()) return;
+        if (countyInput.value !== VHplus.REQUIRED_COUNTY) {
+          VHplus.showDeactivationModal({
+            onCancel: function () {
+              // Revert county selection
+              var profile = VHprofile.get();
+              countyInput.value = profile.county || '';
+              updatePlusUI();
+            },
+            onDeactivate: function (deleteData) {
+              if (deleteData) {
+                VHplus.clearPlusData();
+              }
+              VHplus.deactivate();
+              // Update the profile with the new county
+              var currentGrade = getCurrentGrade();
+              VHprofile.set({
+                county: countyInput.value || null,
+                grade: currentGrade,
+              });
+              updatePlusUI();
+            },
+          });
+        }
+      });
+
+      // Re-check on profile updates
+      document.addEventListener('vhjelp:profile-updated', updatePlusUI);
+      document.addEventListener('vhjelp:account-changed', updatePlusUI);
+      document.addEventListener('vhjelp:plus-changed', updatePlusUI);
+
       (async function initAccount() {
         setAccountTab('login');
         if (!window.VHaccount) {
@@ -2062,6 +2202,7 @@
         }
         await VHaccount.refreshAuth();
         renderAccountUI();
+        updatePlusUI();
       })();
     })();
   </script>
