@@ -1,3 +1,4 @@
+ouuu shii glemte at jeg ikke skulle commite denne, ja ja early access ig...?
 - I Frankrike er ketchup forbudt i skolekantiner, med mindre det serveres en liten porsjon til pommes frites. Myndighetene mener det fornærmer den franske matkulturen.
 
 - Framhaldsskolen, en praktisk skole for arbeidslivet etter folkeskolen, ble avskaffet i 1969 da den niårige grunnskolen ble innført i Norge.
