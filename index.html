@@ -687,58 +687,90 @@
       <div id="bookmarksList" class="bookmarks-list"></div>
     </div>
 
-    <!-- Quick Info – kun synlig for Pluss-brukere -->
-    <div id="plusQuickInfo" class="plus-quick-info" style="display:none;">
-      <h2 class="plus-quick-info-title">
-        <span class="plus-quick-info-icon">+</span>
-        Hurtiginfo for Møre og Romsdal
-      </h2>
-      <div class="plus-quick-grid" role="group" aria-label="Viktige datoer">
-        <div class="plus-quick-card" id="plusQckSkolestart" aria-label="Nedtelling til skolestart">
-          <div class="plus-quick-card-label">Skolestart</div>
-          <div class="plus-quick-card-value" id="plusCountdown">—</div>
-          <div class="plus-quick-card-sub">17. august 2026</div>
-        </div>
-        <div class="plus-quick-card" id="plusQckEksamen" aria-label="Skriftlig eksamen periode">
-          <div class="plus-quick-card-label">Skriftlig eksamen</div>
-          <div class="plus-quick-card-value">4. mai – 21. mai</div>
-          <div class="plus-quick-card-sub">Eksamenstrekk 28. april</div>
-        </div>
-        <div class="plus-quick-card" id="plusQckFrist" aria-label="Søknadsfrist for VGS">
-          <div class="plus-quick-card-label">Søknadsfrist VGS</div>
-          <div class="plus-quick-card-value">1. mars</div>
-          <div class="plus-quick-card-sub">Via vigo.no</div>
-        </div>
-        <div class="plus-quick-card" id="plusQckSensur" aria-label="Sensurfrist">
-          <div class="plus-quick-card-label">Sensurfrist</div>
-          <div class="plus-quick-card-value">19. juni 2026</div>
-          <div class="plus-quick-card-sub">Fellessensur 17.–19. juni</div>
-        </div>
-      </div>
-      <div class="plus-quick-links">
-        <a href="https://skolestart.mrfylke.no/" target="_blank" class="plus-quick-link" rel="noopener">
-          <span class="material-icons">school</span> MR skolestart
-        </a>
-        <a href="https://vigo.no/" target="_blank" class="plus-quick-link" rel="noopener">
-          <span class="material-icons">assignment</span> VIGO
-        </a>
-        <a href="https://vilbli.no/" target="_blank" class="plus-quick-link" rel="noopener">
-          <span class="material-icons">info</span> Vilbli.no
-        </a>
-        <a href="https://udir.no/" target="_blank" class="plus-quick-link" rel="noopener">
-          <span class="material-icons">menu_book</span> Udir
-        </a>
-        <a href="https://mrfylke.no/tenester/skole-og-opplaring/opplaring-i-skole/skoleruta/" target="_blank" class="plus-quick-link" rel="noopener">
-          <span class="material-icons">calendar_month</span> Skoleruta MR
-        </a>
-        <a href="https://mrfylke.no/tenester/skole-og-opplaring/opplaring-i-skole/overgang-og-innsoking-til-vidaregaande/sok-vidaregaande-opplaring/" target="_blank" class="plus-quick-link" rel="noopener">
-          <span class="material-icons">contact_mail</span> Inntak MR
-        </a>
-      </div>
-    </div>
-
     <div class="bento-grid" id="bentoGrid">
       <!-- Populated by JS -->
+    </div>
+
+    <!-- Pluss skolestart-modal -->
+    <div class="plus-modal-backdrop" id="plusSkolestartModal" hidden aria-hidden="true">
+      <div class="plus-skolestart-dialog" role="dialog" aria-modal="true" aria-labelledby="plusSkolestartTitle">
+        <div class="plus-skolestart-header">
+          <div>
+            <span class="plus-skolestart-icon">+</span>
+            <h2 class="plus-skolestart-title" id="plusSkolestartTitle">Skolestart 2026 – Har du husket alt?</h2>
+          </div>
+          <button type="button" class="plus-skolestart-close" id="plusSkolestartClose" aria-label="Lukk">
+            <span class="material-icons">close</span>
+          </button>
+        </div>
+        <p class="plus-skolestart-sub">Første skoledag i Møre og Romsdal er <strong>mandag 17. august 2026</strong>. Her er en huskeliste over hva du bør ha gjort før skolestart.</p>
+
+        <div class="plus-skolestart-checklist">
+          <div class="plus-sjekkpunkt">
+            <div class="plus-sjekkpunkt-icon"><span class="material-icons">assignment</span></div>
+            <div class="plus-sjekkpunkt-content">
+              <div class="plus-sjekkpunkt-title">Sjekk skoleplassen din på VIGO</div>
+              <div class="plus-sjekkpunkt-desc">Logg inn på <a href="https://vigo.no" target="_blank" rel="noopener">vigo.no</a> for å se inntakstilbudet ditt og svare innen fristen. Du kan også stå på venteliste for andre skoler eller program.</div>
+            </div>
+          </div>
+          <div class="plus-sjekkpunkt">
+            <div class="plus-sjekkpunkt-icon"><span class="material-icons">calendar_month</span></div>
+            <div class="plus-sjekkpunkt-content">
+              <div class="plus-sjekkpunkt-title">Sjekk skoleruta for MR</div>
+              <div class="plus-sjekkpunkt-desc">Se hele skoleruta for 2026–2027 på <a href="https://mrfylke.no/tenester/skole-og-opplaring/opplaring-i-skole/skoleruta/" target="_blank" rel="noopener">mrfylke.no</a>. Viktige datoer: høstferie uke 41, juleferie 18. des–4. jan, vinterferie uke 8, påske 22.–29. mar, siste skoledag 18. juni 2027.</div>
+            </div>
+          </div>
+          <div class="plus-sjekkpunkt">
+            <div class="plus-sjekkpunkt-icon"><span class="material-icons">directions_bus</span></div>
+            <div class="plus-sjekkpunkt-content">
+              <div class="plus-sjekkpunkt-title">Søk skoleskyss (hvis du har over 6 km)</div>
+              <div class="plus-sjekkpunkt-desc">Bor du mer enn 6 km fra skolen? Da har du rett på gratis skoleskyss. Du må søke <strong>hvert år</strong> via <a href="https://skoleskyss.mrfylke.no" target="_blank" rel="noopener">skoleskyss.mrfylke.no</a>. FRAM administrerer skyssen i MR – du får skoleskysskort og reisebevis derfra.</div>
+            </div>
+          </div>
+          <div class="plus-sjekkpunkt">
+            <div class="plus-sjekkpunkt-icon"><span class="material-icons">computer</span></div>
+            <div class="plus-sjekkpunkt-content">
+              <div class="plus-sjekkpunkt-title">Bestill skole-PC</div>
+              <div class="plus-sjekkpunkt-desc">Alle elever i MR trenger en bærbar PC til skolebruk. Bestill via <a href="https://skolestart.mrfylke.no" target="_blank" rel="noopener">skolestart.mrfylke.no</a>. Er du under 18 må foresatte logge inn og bekrefte valget.</div>
+            </div>
+          </div>
+          <div class="plus-sjekkpunkt">
+            <div class="plus-sjekkpunkt-icon"><span class="material-icons">account_balance</span></div>
+            <div class="plus-sjekkpunkt-content">
+              <div class="plus-sjekkpunkt-title">Søk utstyrsstipend fra Lånekassen</div>
+              <div class="plus-sjekkpunkt-desc">Du kan få mellom 1 427 kr og 7 353 kr i utstyrsstipend, avhengig av utdanningsprogrammet ditt. Søk via <a href="https://lanekassen.no" target="_blank" rel="noopener">lanekassen.no</a> innen 15. november for høstsemesteret. Du må ha fått skoleplass før du søker.</div>
+            </div>
+          </div>
+          <div class="plus-sjekkpunkt">
+            <div class="plus-sjekkpunkt-icon"><span class="material-icons">search</span></div>
+            <div class="plus-sjekkpunkt-content">
+              <div class="plus-sjekkpunkt-title">Sjekk utdanningsprogrammet på Vilbli.no</div>
+              <div class="plus-sjekkpunkt-desc"><a href="https://vilbli.no" target="_blank" rel="noopener">Vilbli.no</a> er fylkenes informasjonstjeneste for søkere til videregående. Her finner du oversikt over alle utdanningsprogrammer, skoler i MR og yrkesmuligheter.</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="plus-skolestart-links">
+          <a href="https://skolestart.mrfylke.no/" target="_blank" class="plus-quick-link" rel="noopener">
+            <span class="material-icons">school</span> MR skolestart
+          </a>
+          <a href="https://vigo.no/" target="_blank" class="plus-quick-link" rel="noopener">
+            <span class="material-icons">assignment</span> VIGO
+          </a>
+          <a href="https://vilbli.no/" target="_blank" class="plus-quick-link" rel="noopener">
+            <span class="material-icons">info</span> Vilbli.no
+          </a>
+          <a href="https://udir.no/" target="_blank" class="plus-quick-link" rel="noopener">
+            <span class="material-icons">menu_book</span> Udir
+          </a>
+          <a href="https://mrfylke.no" target="_blank" class="plus-quick-link" rel="noopener">
+            <span class="material-icons">apartment</span> MR fylke
+          </a>
+          <a href="https://lanekassen.no" target="_blank" class="plus-quick-link" rel="noopener">
+            <span class="material-icons">account_balance</span> Lånekassen
+          </a>
+        </div>
+      </div>
     </div>
 
     <footer>
@@ -1051,6 +1083,23 @@
       // News container
       html += `<div class="grid-item-news-featured" id="newsFeaturedContainer"></div>`;
 
+      // Plus skolestart-bento (vises kun for Pluss-brukere, styres av JS)
+      html += `<div class="bento-grid-item-plus" id="plusSkolestartBento" style="display:none;">
+        <div class="bento-card card-plus-progress" id="plusSkolestartTrigger" tabindex="0" role="button" aria-label="Åpne skolestart-huskeliste">
+          <div class="plus-progress-fill" id="plusProgressFill"></div>
+          <div class="plus-progress-content">
+            <div class="plus-progress-left">
+              <div class="plus-progress-label">Er du klar for skolestart?</div>
+              <div class="plus-progress-hint">Trykk her for mer info</div>
+            </div>
+            <div class="plus-progress-right">
+              <div class="plus-progress-days" id="plusProgressDays">—</div>
+              <div class="plus-progress-unit">dager igjen</div>
+            </div>
+          </div>
+        </div>
+      </div>`;
+
       // Guides
       shuffledGuides.forEach(item => {
         html += `<a href="${item.url}" class="bento-card card-guides"><div class="card-title">${item.title}</div><i class="material-icons guide-arrow">arrow_outward</i></a>`;
@@ -1331,34 +1380,66 @@
       }
     })();
 
-    function renderPlusQuickInfo() {
-      var el = document.getElementById('plusQuickInfo');
+    function getSkolestartCountdown() {
+      var schoolStart = new Date('2026-08-17T08:00:00');
+      var now = new Date();
+      var diff = schoolStart.getTime() - now.getTime();
+      if (diff > 0) {
+        var days = Math.floor(diff / (1000 * 60 * 60 * 24));
+        return { days: days, text: days + ' dager igjen til skolestart' };
+      }
+      return { days: 0, text: 'Skoleåret er i gang!' };
+    }
+
+    function renderPlusBento() {
+      var el = document.getElementById('plusSkolestartBento');
       if (!el) return;
       var isPlus = window.VHplus && VHplus.isActive();
       el.style.display = isPlus ? '' : 'none';
       if (!isPlus) return;
-      // Update countdown to school start (17 Aug 2026)
-      var countdownEl = document.getElementById('plusCountdown');
-      if (countdownEl) {
-        var schoolStart = new Date('2026-08-17T08:00:00');
-        var now = new Date();
-        var diff = schoolStart.getTime() - now.getTime();
-        if (diff > 0) {
-          var days = Math.floor(diff / (1000 * 60 * 60 * 24));
-          var hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-          countdownEl.textContent = days + ' dager ' + hours + 't';
-        } else {
-          countdownEl.textContent = 'Skoleåret er i gang!';
-        }
+      var countdown = getSkolestartCountdown();
+      var daysEl = document.getElementById('plusProgressDays');
+      var fillEl = document.getElementById('plusProgressFill');
+      if (daysEl) daysEl.textContent = countdown.days;
+      // Progress fill: more days left = more fill (urgency indicator)
+      var totalDays = 60; // reference period
+      var remaining = Math.max(0, countdown.days);
+      var pct = Math.min(100, (remaining / totalDays) * 100);
+      if (fillEl) fillEl.style.width = pct + '%';
+    }
+
+    function openSkolestartModal() {
+      var modal = document.getElementById('plusSkolestartModal');
+      if (!modal) return;
+      modal.hidden = false;
+      modal.setAttribute('aria-hidden', 'false');
+      var closeBtn = document.getElementById('plusSkolestartClose');
+      function close() {
+        modal.hidden = true;
+        modal.setAttribute('aria-hidden', 'true');
+        closeBtn.removeEventListener('click', close);
+        document.removeEventListener('keydown', onKey);
+        modal.removeEventListener('click', onBackdrop);
       }
+      function onKey(e) { if (e.key === 'Escape') close(); }
+      function onBackdrop(e) { if (e.target === modal) close(); }
+      closeBtn.addEventListener('click', close);
+      document.addEventListener('keydown', onKey);
+      modal.addEventListener('click', onBackdrop);
     }
 
     document.addEventListener('DOMContentLoaded', () => {
       generateGrid(); loadLatestOpinionHome(); subscribeOpinionHome(); renderBookmarks();
       fetch('News/news-data.json').then(r => r.json()).then(d => renderFeaturedNews(d)).catch(e => console.error(e));
-      renderPlusQuickInfo();
+      renderPlusBento();
+      // Wire up the skolestart bento card
+      var trigger = document.getElementById('plusSkolestartTrigger');
+      if (trigger) {
+        trigger.addEventListener('click', openSkolestartModal);
+        trigger.addEventListener('keydown', function (e) { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openSkolestartModal(); } });
+      }
     });
-    document.addEventListener('vhjelp:plus-changed', renderPlusQuickInfo);
+    document.addEventListener('vhjelp:plus-changed', renderPlusBento);
     // Resolve stored 'system'|'light'|'dark' before first paint.
     // Pairs with VHprofile.applyTheme() which re-runs at end of body.
     (function () {

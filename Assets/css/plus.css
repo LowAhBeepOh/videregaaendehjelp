@@ -1,9 +1,9 @@
-/* Plus Badge on Logo */
+/* Quick Info Section for Plus users */
 .plus-badge {
   font-weight: 900;
   color: #FFD60A;
-  font-size: 1em;
-  margin-left: 2px;
+  font-size: 1.2em;
+  margin-left: 3px;
   display: inline;
   text-shadow: 0 0 8px rgba(255, 214, 10, 0.4);
   letter-spacing: 0;
@@ -240,96 +240,7 @@
   border-color: var(--text-muted);
 }
 
-/* Quick Info Section for Plus users */
-.plus-quick-info {
-  margin-bottom: 40px;
-  padding: 28px;
-  background: var(--surface);
-  border: 1px solid rgba(255, 214, 10, 0.2);
-  border-radius: 20px;
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-}
-
-@media (max-width: 640px) {
-  .plus-quick-info { padding: 20px; }
-}
-
-.plus-quick-info-title {
-  font-family: var(--font-display);
-  font-size: 20px;
-  font-weight: 800;
-  letter-spacing: -0.02em;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-
-.plus-quick-info-icon {
-  font-size: 20px;
-  font-weight: 900;
-  color: #FFD60A;
-  font-family: var(--font-display);
-  line-height: 1;
-}
-
-.plus-quick-grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 12px;
-}
-
-@media (min-width: 768px) {
-  .plus-quick-grid {
-    grid-template-columns: repeat(4, 1fr);
-  }
-}
-
-.plus-quick-card {
-  padding: 16px;
-  background: rgba(255, 255, 255, 0.03);
-  border: 1px solid var(--border);
-  border-radius: 14px;
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-  transition: background 0.2s ease, border-color 0.2s ease;
-}
-
-[data-theme="light"] .plus-quick-card {
-  background: rgba(0, 0, 0, 0.02);
-}
-
-.plus-quick-card:hover {
-  background: rgba(255, 214, 10, 0.04);
-  border-color: rgba(255, 214, 10, 0.15);
-}
-
-.plus-quick-card-label {
-  font-family: var(--font-body);
-  font-size: 11px;
-  font-weight: 800;
-  text-transform: uppercase;
-  letter-spacing: 0.06em;
-  color: var(--text-muted);
-}
-
-.plus-quick-card-value {
-  font-family: var(--font-display);
-  font-size: 22px;
-  font-weight: 800;
-  line-height: 1.1;
-  letter-spacing: -0.03em;
-}
-
-.plus-quick-card-sub {
-  font-family: var(--font-body);
-  font-size: 13px;
-  color: var(--text-muted);
-  line-height: 1.4;
-}
-
+/* Quick links (used inside modal) */
 .plus-quick-links {
   display: flex;
   flex-wrap: wrap;
@@ -365,4 +276,349 @@
 .plus-quick-link .material-icons {
   font-size: 16px;
   color: #FFD60A;
+}
+
+/* School Start Progress Bar Bento Card */
+.bento-grid-item-plus {
+  grid-column: 1 / -1;
+}
+
+@media (min-width: 1024px) {
+  .bento-grid-item-plus {
+    grid-column: span 2;
+  }
+}
+
+.card-plus-progress {
+  background: var(--bg);
+  border: 1px solid var(--border);
+  color: var(--text);
+  cursor: pointer;
+  border-radius: 16px;
+  position: relative;
+  overflow: hidden;
+  min-height: 120px;
+  display: flex;
+  align-items: stretch;
+  transition: transform 0.3s cubic-bezier(0.2, 0, 0, 1), box-shadow 0.3s ease;
+  text-decoration: none;
+}
+
+@media (min-width: 768px) {
+  .card-plus-progress {
+    min-height: 140px;
+  }
+}
+
+.card-plus-progress:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.2);
+}
+
+.card-plus-progress:focus-visible {
+  outline: 2px solid var(--card-blue);
+  outline-offset: 2px;
+}
+
+.plus-progress-fill {
+  position: absolute;
+  inset: 0;
+  width: 0%;
+  background: var(--card-red);
+  opacity: 0.12;
+  transition: width 0.6s ease;
+  pointer-events: none;
+}
+
+.plus-progress-content {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  padding: 24px 28px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+}
+
+@media (min-width: 768px) {
+  .plus-progress-content {
+    padding: 28px 36px;
+  }
+}
+
+.plus-progress-left {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.plus-progress-label {
+  font-family: var(--font-display);
+  font-size: 20px;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  line-height: 1.2;
+}
+
+@media (min-width: 768px) {
+  .plus-progress-label {
+    font-size: 24px;
+  }
+}
+
+.plus-progress-hint {
+  font-family: var(--font-body);
+  font-size: 13px;
+  color: var(--text-muted);
+}
+
+.plus-progress-right {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex-shrink: 0;
+  text-align: center;
+}
+
+.plus-progress-days {
+  font-family: var(--font-display);
+  font-size: 48px;
+  font-weight: 900;
+  line-height: 1;
+  letter-spacing: -0.04em;
+  color: var(--card-red);
+}
+
+@media (min-width: 768px) {
+  .plus-progress-days {
+    font-size: 64px;
+  }
+}
+
+.plus-progress-unit {
+  font-family: var(--font-body);
+  font-size: 13px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--text-muted);
+  margin-top: 2px;
+}
+
+@media (max-width: 767px) {
+  .card-plus-progress {
+    min-height: 100px;
+  }
+  .plus-progress-content {
+    padding: 16px 20px;
+    gap: 14px;
+  }
+  .plus-progress-label {
+    font-size: 16px;
+  }
+  .plus-progress-days {
+    font-size: 36px;
+  }
+}
+
+/* Skolestart Modal (utvidet) */
+.plus-skolestart-dialog {
+  width: min(640px, 100%);
+  max-height: 85vh;
+  overflow-y: auto;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  padding: 32px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.plus-skolestart-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 16px;
+}
+
+.plus-skolestart-header > div {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.plus-skolestart-icon {
+  font-size: 28px;
+  font-weight: 900;
+  color: #FFD60A;
+  font-family: var(--font-display);
+  line-height: 1;
+}
+
+.plus-skolestart-title {
+  font-family: var(--font-display);
+  font-size: 24px;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+}
+
+.plus-skolestart-close {
+  background: none;
+  border: none;
+  color: var(--text-muted);
+  cursor: pointer;
+  padding: 6px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s;
+  flex-shrink: 0;
+}
+
+.plus-skolestart-close:hover {
+  background: rgba(255, 255, 255, 0.06);
+  color: var(--text);
+}
+
+.plus-skolestart-sub {
+  font-family: var(--font-body);
+  font-size: 15px;
+  color: var(--text-muted);
+  line-height: 1.6;
+}
+
+.plus-skolestart-sub strong {
+  color: var(--text);
+}
+
+.plus-skolestart-checklist {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  overflow: hidden;
+}
+
+.plus-sjekkpunkt {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  padding: 16px 18px;
+  border-bottom: 1px solid var(--border);
+  transition: background 0.15s;
+}
+
+.plus-sjekkpunkt:last-child {
+  border-bottom: none;
+}
+
+.plus-sjekkpunkt:hover {
+  background: rgba(255, 255, 255, 0.02);
+}
+
+[data-theme="light"] .plus-sjekkpunkt:hover {
+  background: rgba(0, 0, 0, 0.02);
+}
+
+.plus-sjekkpunkt-icon {
+  flex-shrink: 0;
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  background: rgba(255, 214, 10, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.plus-sjekkpunkt-icon .material-icons {
+  font-size: 18px;
+  color: #FFD60A;
+}
+
+.plus-sjekkpunkt-content {
+  flex: 1;
+  min-width: 0;
+}
+
+.plus-sjekkpunkt-title {
+  font-family: var(--font-display);
+  font-size: 15px;
+  font-weight: 700;
+  margin-bottom: 4px;
+}
+
+.plus-sjekkpunkt-desc {
+  font-family: var(--font-body);
+  font-size: 13px;
+  color: var(--text-muted);
+  line-height: 1.55;
+}
+
+.plus-sjekkpunkt-desc a {
+  color: var(--card-blue);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.plus-sjekkpunkt-desc a:hover {
+  color: var(--text);
+}
+
+.plus-skolestart-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+/* Light mode — mørkere gul/gull for WCAG 2.1 AA-kontrast */
+[data-theme="light"] .plus-badge {
+  color: #A67C00;
+}
+
+[data-theme="light"] .plus-card.active {
+  border-color: #A67C00;
+}
+
+[data-theme="light"] .plus-header-icon {
+  color: #A67C00;
+}
+
+[data-theme="light"] .plus-status.active-status {
+  color: #7A5C00;
+  border-color: rgba(122, 92, 0, 0.3);
+  background: rgba(122, 92, 0, 0.08);
+}
+
+[data-theme="light"] .plus-toggle-btn.activate {
+  background: #C89600;
+}
+
+[data-theme="light"] .plus-quick-link .material-icons {
+  color: #A67C00;
+}
+
+[data-theme="light"] .plus-skolestart-icon {
+  color: #A67C00;
+}
+
+[data-theme="light"] .plus-sjekkpunkt-icon {
+  background: rgba(166, 124, 0, 0.12);
+}
+
+[data-theme="light"] .plus-sjekkpunkt-icon .material-icons {
+  color: #A67C00;
+}
+
+[data-theme="light"] .plus-skolestart-close:hover {
+  background: rgba(0, 0, 0, 0.05);
+}
+
+[data-theme="light"] .plus-quick-link:hover {
+  background: rgba(166, 124, 0, 0.08);
+  border-color: rgba(166, 124, 0, 0.3);
 }

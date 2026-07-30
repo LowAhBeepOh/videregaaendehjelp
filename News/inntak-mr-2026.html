@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+  <script defer src="https://cloud.umami.is/script.js" data-website-id="24f80a75-a09f-4f80-94e0-d9103f0d734d"></script>
+<meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Inntak til VGS i Møre og Romsdal 2026 – Videregående Hjelp+</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200;300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+  <style>
+    :root {
+      --bg: #050505;
+      --text: #ffffff;
+      --text-muted: #888;
+      --surface: #1c1c1e;
+      --border: #2c2c2e;
+      --card-red: #D40B00;
+      --card-green: #30D158;
+      --card-blue: #5865F2;
+      --card-yellow: #FFD60A;
+      --font-display: 'Inter Tight', sans-serif;
+      --font-body: 'Manrope', sans-serif;
+    }
+
+    [data-theme="light"] {
+      --bg: #ffffff;
+      --text: #000000;
+      --text-muted: #555;
+      --surface: #f2f2f7;
+      --border: #e5e5ea;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: var(--font-body);
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      min-height: 100vh;
+    }
+
+    header {
+      padding: 20px 0;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .header-content {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 0 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .back-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--text-muted);
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 14px;
+      transition: color 0.2s;
+    }
+
+    .back-btn:hover { color: var(--text); }
+
+    .plus-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      color: var(--card-yellow);
+      font-weight: 900;
+      font-size: 14px;
+      text-decoration: none;
+    }
+
+    main {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 40px 20px 80px 20px;
+    }
+
+    .article-meta {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 16px;
+      flex-wrap: wrap;
+    }
+
+    .article-date {
+      color: var(--card-red);
+      font-size: 14px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .article-tag {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      color: var(--text-muted);
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      padding: 3px 10px;
+      border-radius: 100px;
+    }
+
+    .article-tag.plus {
+      border-color: var(--card-yellow);
+      color: var(--card-yellow);
+    }
+
+    [data-theme="light"] .article-tag.plus {
+      border-color: #A67C00;
+      color: #A67C00;
+    }
+
+    .article-title {
+      font-family: var(--font-display);
+      font-size: 40px;
+      font-weight: 800;
+      line-height: 1.1;
+      margin-bottom: 16px;
+      letter-spacing: -0.03em;
+    }
+
+    @media (min-width: 768px) {
+      .article-title { font-size: 56px; }
+    }
+
+    .article-intro {
+      font-size: 20px;
+      color: var(--text-muted);
+      margin-bottom: 32px;
+      line-height: 1.5;
+      font-weight: 400;
+    }
+
+    .article-hero {
+      width: 100%;
+      height: 400px;
+      object-fit: cover;
+      border-radius: 16px;
+      margin-bottom: 32px;
+      background: var(--surface);
+    }
+
+    .summary-box {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 24px;
+      margin-bottom: 40px;
+    }
+
+    .summary-box-label {
+      font-size: 11px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--card-yellow);
+      margin-bottom: 20px;
+    }
+
+    .summary-box strong {
+      font-size: 15px;
+      color: var(--text);
+      display: block;
+      margin-top: 16px;
+      margin-bottom: 8px;
+    }
+
+    .summary-box strong:first-of-type { margin-top: 0; }
+
+    .summary-box p {
+      font-size: 15px;
+      color: var(--text-muted);
+      line-height: 1.6;
+      margin: 0;
+    }
+
+    .article-content {
+      font-size: 18px;
+      color: rgba(255, 255, 255, 0.9);
+    }
+
+    [data-theme="light"] .article-content {
+      color: rgba(0, 0, 0, 0.85);
+    }
+
+    .article-content p { margin-bottom: 24px; }
+
+    .article-content h2 {
+      font-family: var(--font-display);
+      font-size: 28px;
+      font-weight: 700;
+      margin: 48px 0 16px 0;
+      color: var(--text);
+    }
+
+    .article-content ul {
+      margin-bottom: 24px;
+      padding-left: 24px;
+    }
+
+    .article-content li { margin-bottom: 8px; }
+
+    .callout {
+      border-left: 3px solid var(--card-yellow);
+      background: rgba(255, 214, 10, 0.08);
+      border-radius: 0 12px 12px 0;
+      padding: 20px 24px;
+      margin: 32px 0;
+      font-size: 16px;
+    }
+
+    .callout .callout-label {
+      font-size: 11px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--card-yellow);
+      margin-bottom: 8px;
+    }
+
+    .callout p { margin-bottom: 0; font-size: 16px; }
+
+    .callout.blue {
+      border-left-color: var(--card-blue);
+      background: rgba(88, 101, 242, 0.08);
+    }
+
+    .callout.blue .callout-label { color: var(--card-blue); }
+
+    .stat-block {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 28px;
+      margin: 40px 0;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+    }
+
+    @media (max-width: 600px) {
+      .stat-block { grid-template-columns: 1fr; }
+    }
+
+    .stat-number {
+      font-family: var(--font-display);
+      font-size: 42px;
+      font-weight: 800;
+      color: var(--card-red);
+      line-height: 1;
+      margin-bottom: 6px;
+    }
+
+    .stat-desc {
+      font-size: 14px;
+      color: var(--text-muted);
+      line-height: 1.4;
+    }
+
+    .source {
+      font-size: 13px;
+      color: var(--text-muted);
+      margin-top: -16px;
+      margin-bottom: 24px;
+    }
+
+    .source a {
+      color: var(--text-muted);
+      text-decoration: underline;
+    }
+
+    .sources-list {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 24px 28px;
+      margin: 40px 0;
+    }
+
+    .sources-list-label {
+      font-size: 11px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--text-muted);
+      margin-bottom: 16px;
+    }
+
+    .sources-list ul {
+      padding-left: 0;
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .sources-list li {
+      font-size: 14px;
+      color: var(--text-muted);
+    }
+
+    .sources-list a {
+      color: var(--card-blue);
+      text-decoration: none;
+    }
+
+    .sources-list a:hover {
+      text-decoration: underline;
+    }
+
+    .divider {
+      border: none;
+      border-top: 1px solid var(--border);
+      margin: 48px 0;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="header-content">
+      <a href="../news.html" class="back-btn">
+        <span class="material-icons" style="font-size: 18px;" aria-hidden="true">arrow_back</span>
+        Tilbake til nyheter
+      </a>
+      <span class="plus-tag">+ Pluss</span>
+    </div>
+  </header>
+
+  <main>
+    <article>
+      <div class="article-meta">
+        <span class="article-date">10. Juni 2026</span>
+        <span class="article-tag">Møre og Romsdal</span>
+        <span class="article-tag">Inntak</span>
+        <span class="article-tag plus">+ Pluss</span>
+      </div>
+
+      <h1 class="article-title">Inntak til VGS i Møre og Romsdal 2026</h1>
+
+      <p class="article-intro">Inntakskontoret i Møre og Romsdal behandler alle søknader om skoleplass via vigo.no. Fristen for ordinær søknad er 1. mars. Fylket praktiserer fritt skolevalg for Vg1-elever. Her får du oversikt over inntaksprosessen, poenggrenser og kontaktinformasjon.</p>
+
+      <img
+        src="https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?q=80&w=1472&auto=format&fit=crop"
+        alt="Inntak VGS"
+        class="article-hero"
+      >
+
+      <div class="summary-box">
+        <div class="summary-box-label">Nøkkelinformasjon</div>
+        <strong>Søknadsfrist ordinær</strong>
+        <p>1. mars – for alle søkere til videregående opplæring.</p>
+        <strong>Søknadsfrist særskilt</strong>
+        <p>1. februar – for søkere med fortrinnsrett, individuell behandling eller nyankomne.</p>
+        <strong>Fritt skolevalg</strong>
+        <p>Møre og Romsdal praktiserer fritt skolevalg for Vg1 – du kan søke hvilken som helst skole i fylket.</p>
+        <strong>Inntakskontoret</strong>
+        <p>E-post: inntak@mrfylke.no | Telefon: 71 28 01 50 | Postboks 2500, 6404 Molde</p>
+      </div>
+
+      <div class="article-content">
+
+        <h2>Slik søker du</h2>
+        <p>All søking til videregående skole i Møre og Romsdal foregår digitalt på <a href="https://vigo.no" target="_blank" style="color: var(--card-yellow);">vigo.no</a>. Du logger inn med elektronisk ID (MinID, BankID eller lignende) og fyller ut søknaden med dine prioriterte utdanningsprogram og skoler.</p>
+
+        <p>Før du søker, bør du sette deg godt inn i hvilke utdanningsprogram som finnes. Bruk <a href="https://vilbli.no" target="_blank" style="color: var(--card-yellow);">vilbli.no</a> for å utforske de 15 utdanningsprogrammene (5 studieforberedende og 10 yrkesfaglige) og se hvilke skoler i fylket som tilbyr dem.</p>
+
+        <div class="callout blue">
+          <div class="callout-label">Fritt skolevalg i MR</div>
+          <p>I Møre og Romsdal kan du søke deg til hvilken som helst videregående skole i fylket, uavhengig av hvor du bor. Dette kalles fritt skolevalg og gjelder for søkere til Vg1. For Vg2 og Vg3 er du i større grad bundet til skolen du allerede går på, men omvalg er mulig.</p>
+        </div>
+
+        <h2>Viktige datoer for inntaket</h2>
+        <ul>
+          <li><strong>1. februar 2026</strong> – Søknadsfrist for søkere med særskilte behov (fortrinnsrett, individuell behandling, nyankomne)</li>
+          <li><strong>1. mars 2026</strong> – Ordinær søknadsfrist for alle andre</li>
+          <li><strong>Juli 2026</strong> – Inntaket kjøres, og du får svar på vigo.no</li>
+          <li><strong>August 2026</strong> – Flere inntaksrunder og ventelistebehandling</li>
+        </ul>
+
+        <p>Søknaden kan endres helt frem til fristen går ut. Etter fristen er det søknaden slik den står som blir vurdert. Pass derfor på at du har satt opp prioriteringene dine i riktig rekkefølge.</p>
+
+        <h2>Poenggrenser og karakterberegning</h2>
+        <p>Inntaket til videregående skole baseres på karakterpoengene dine fra ungdomsskolen. Poengene regnes ut fra de 11 beste karakterene dine, der hver karakter gir følgende poeng:</p>
+        <ul>
+          <li>6 = 6 poeng</li>
+          <li>5 = 5 poeng</li>
+          <li>4 = 4 poeng</li>
+          <li>3 = 3 poeng</li>
+          <li>2 = 2 poeng</li>
+          <li>1 = 0 poeng</li>
+        </ul>
+
+        <p>Du kan få inntil 4 tilleggspoeng for en kombinasjon av realfag og fremmedspråk. Maksimalt poeng er 66 (62 karakterpoeng + 4 tilleggspoeng).</p>
+
+        <p>For å sjekke poenggrenser for skoler i Møre og Romsdal, kan du bruke vårt verktøy på <a href="../Tools/point-limit.html" style="color: var(--card-yellow);">Poenggrense-siden</a>, som er oppdatert med historiske data fra tidligere opptak.</p>
+
+        <div class="stat-block">
+          <div class="stat-item">
+            <div class="stat-number">27</div>
+            <div class="stat-desc">videregående skoler i Møre og Romsdal fylke.</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-number">15</div>
+            <div class="stat-desc">utdanningsprogrammer å velge mellom (5 studieforberedende + 10 yrkesfaglige).</div>
+          </div>
+        </div>
+        <p class="source">Kilde: <a href="https://vilbli.no" target="_blank">vilbli.no – Søk på skole og program</a></p>
+
+        <h2>Etter inntaket – svar på tilbud</h2>
+        <p>Når inntaket er gjennomført (vanligvis i løpet av juli), logger du inn på vigo.no for å se hvilket tilbud du har fått. Det er viktig at du <strong>svarer på tilbudet</strong> innen fristen, ellers kan du miste plassen. Du kan også takke ja til en plass og samtidig stå på venteliste for et høyere prioritert ønske.</p>
+
+        <div class="callout">
+          <div class="callout-label">Hvis du ikke får det du ønsker</div>
+          <p>Du kan klage på inntaket hvis du mener at poengberegningen er feil, eller at du skulle hatt fortrinnsrett. Klage sendes til inntakskontoret i Møre og Romsdal innen 3 uker. Hvis klagen ikke tas til følge, går den videre til Statsforvalteren.</p>
+        </div>
+
+        <h2>Kontakt inntakskontoret</h2>
+        <p>Inntakskontoret i Møre og Romsdal fylkeskommune sitter i Molde og behandler alle søknader om skoleplass og læreplass i fylket. Ta kontakt hvis du har spørsmål:</p>
+        <ul>
+          <li><strong>E-post:</strong> <a href="mailto:inntak@mrfylke.no" style="color: var(--card-yellow);">inntak@mrfylke.no</a></li>
+          <li><strong>Telefon:</strong> 71 28 01 50</li>
+          <li><strong>Adresse:</strong> Kompetanse- og næringsavdelinga / Inntakskontoret, Postboks 2500, 6404 Molde</li>
+          <li><strong>Nettside:</strong> <a href="https://mrfylke.no/tenester/skole-og-opplaring/opplaring-i-skole/overgang-og-innsoking-til-vidaregaande/sok-vidaregaande-opplaring/" target="_blank" style="color: var(--card-yellow);">mrfylke.no – Søk videregående opplæring</a></li>
+        </ul>
+
+        <div class="sources-list">
+          <div class="sources-list-label">Kilder og videre lesning</div>
+          <ul>
+            <li><a href="https://mrfylke.no/tenester/skole-og-opplaring/opplaring-i-skole/overgang-og-innsoking-til-vidaregaande/sok-vidaregaande-opplaring/" target="_blank">Møre og Romsdal fylkeskommune – Søk videregående opplæring</a></li>
+            <li><a href="https://vigo.no" target="_blank">vigo.no – Søknadsportal</a></li>
+            <li><a href="https://vilbli.no/nb/no/a/inntakskontorene-6" target="_blank">vilbli.no – Inntakskontorene</a></li>
+            <li><a href="https://vilbli.no/nb/no/a/soknadsfrister-og-inntakskalender-6" target="_blank">vilbli.no – Søknadsfrister og inntakskalender</a></li>
+          </ul>
+        </div>
+
+      </div>
+    </article>
+  </main>
+
+  <script>
+    if (!localStorage.getItem('theme')) {
+      localStorage.setItem('theme', 'dark');
+    }
+    document.documentElement.setAttribute('data-theme', localStorage.getItem('theme'));
+  </script>
+</body>
+</html>

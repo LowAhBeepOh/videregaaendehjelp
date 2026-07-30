@@ -9,29 +9,32 @@
       "plus": false
     },
     {
-      "name": "Skolestart 2026 – alt du trenger å vite for MR",
-      "desc": "Første skoledag er 17. august 2026. Her finner du informasjon om oppmøte, PC-ordning, skoleskyss og viktige datoer for elever i Møre og Romsdal.",
+      "name": "Skolestart 2026 i Møre og Romsdal – viktige datoer og praktisk informasjon",
+      "desc": "Første skoledag for videregående skoler i Møre og Romsdal er mandag 17. august 2026. Her er alt du trenger å vite om skoleruta, PC-bestilling, skoleskyss via FRAM, og utstyrsstipend fra Lånekassen.",
       "thumb": "https://images.unsplash.com/photo-1588072432836-e10032774350?q=80&w=1472&auto=format&fit=crop",
       "date": "2026-07-15",
-      "link": "#",
+      "source": "mrfylke.no – Skolerute, skolestart.mrfylke.no – PC-ordning, lanekassen.no – Utstyrsstipend",
+      "link": "News/skolestart-mr-2026.html",
       "plus": true,
       "county": "Møre og Romsdal"
     },
     {
-      "name": "Eksamen våren 2026 – oppdatert timeplan",
-      "desc": "Skriftlig eksamen avvikles 4.–21. mai 2026. Eksamenstrekk skjer 28. april. Les om de nye eksamensdatoene og hva de betyr for deg.",
+      "name": "Eksamen våren 2026 – nye datoer og tidligere trekk",
+      "desc": "Udir har flyttet skriftlig eksamen til 4.–21. mai 2026, om lag én uke tidligere enn før. Eksamenstrekk for både skriftlig og muntlig skjer samtidig 28. april. Sensurfristen er 19. juni. Les om hva dette betyr for din planlegging.",
       "thumb": "https://images.unsplash.com/photo-1452860606245-08a4f48bd6f6?q=80&w=1470&auto=format&fit=crop",
       "date": "2026-06-20",
-      "link": "#",
+      "source": "udir.no – Eksamensplan 2026, eksamensplan.udir.no",
+      "link": "News/eksamen-varen-2026.html",
       "plus": true,
       "county": "Møre og Romsdal"
     },
     {
-      "name": "Inntak og poenggrenser for MR 2026",
-      "desc": "Få oversikt over inntaksdata og poenggrenser for videregående skoler i Møre og Romsdal. Inntakskontoret nås på inntak@mrfylke.no eller tlf. 71 28 01 50.",
+      "name": "Inntak til VGS i Møre og Romsdal – poenggrenser og kontakter 2026",
+      "desc": "Inntakskontoret i Møre og Romsdal behandler alle søknader via vigo.no. Fristen for ordinær søknad er 1. mars. Fylket praktiserer fritt skolevalg for Vg1-elever. Kontakt inntak@mrfylke.no eller tlf. 71 28 01 50 for spørsmål om inntak, poenggrenser og ventelister.",
       "thumb": "https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?q=80&w=1472&auto=format&fit=crop",
       "date": "2026-06-10",
-      "link": "#",
+      "source": "mrfylke.no – Søk videregående opplæring, vilbli.no – Inntakskontorene",
+      "link": "News/inntak-mr-2026.html",
       "plus": true,
       "county": "Møre og Romsdal"
     }
