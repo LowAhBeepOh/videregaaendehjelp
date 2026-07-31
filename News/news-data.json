@@ -2,9 +2,9 @@
   "news": [
     {
       "name": "Videregående Hjelp+ (Pluss) er lansert",
-      "desc": "Videregående Hjelp+ er en gratis Pluss-versjon for elever i Møre og Romsdal. Les hvordan du aktiverer Pluss, og hva du får tilgang til.",
+      "desc": "Videregående Hjelp+ er en bedre versjon av nettsiden for elever i Møre og Romsdal. Les om du har tilgang til Videregående Hjelp+, hvordan du aktiverer det, og hva du får tilgang til.",
       "thumb": "../Assets/Thumbnails/news_thumb_plus.png",
-      "date": "2026-07-30",
+      "date": "2026-07-31",
       "link": "News/videregaaende-hjelp-plus.html",
       "plus": false,
       "county": "Møre og Romsdal"
@@ -21,7 +21,7 @@
       "name": "Skolestart 2026 i Møre og Romsdal – viktige datoer og praktisk informasjon",
       "desc": "Første skoledag for videregående skoler i Møre og Romsdal er mandag 17. august 2026. Her er alt du trenger å vite om skoleruta, PC-bestilling, skoleskyss via FRAM, og utstyrsstipend fra Lånekassen.",
       "thumb": "https://images.unsplash.com/photo-1509062522246-3755977927d7?q=80&w=1832&auto=format&fit=crop",
-      "date": "2026-07-30",
+      "date": "2026-07-31",
       "source": "mrfylke.no – Skolerute, skolestart.mrfylke.no – PC-ordning, lanekassen.no – Utstyrsstipend",
       "link": "News/skolestart-mr-2026.html",
       "plus": true,
@@ -31,7 +31,7 @@
       "name": "Inntak til VGS i Møre og Romsdal – poenggrenser og kontakter 2026",
       "desc": "Inntakskontoret i Møre og Romsdal behandler alle søknader via vigo.no. Fristen for ordinær søknad er 1. mars. Fylket praktiserer fritt skolevalg for Vg1-elever. Kontakt inntak@mrfylke.no eller tlf. 71 28 01 50 for spørsmål om inntak, poenggrenser og ventelister.",
       "thumb": "https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?q=80&w=1472&auto=format&fit=crop",
-      "date": "2026-06-30",
+      "date": "2026-06-31",
       "source": "mrfylke.no – Søk videregående opplæring, vilbli.no – Inntakskontorene",
       "link": "News/inntak-mr-2026.html",
       "plus": true,
