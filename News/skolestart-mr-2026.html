@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+  <script defer src="https://cloud.umami.is/script.js" data-website-id="24f80a75-a09f-4f80-94e0-d9103f0d734d"></script>
+<meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Skolestart 2026 i Møre og Romsdal – Videregående Hjelp+</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200;300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+  <style>
+    :root {
+      --bg: #050505;
+      --text: #ffffff;
+      --text-muted: #888;
+      --surface: #1c1c1e;
+      --border: #2c2c2e;
+      --card-red: #D40B00;
+      --card-green: #30D158;
+      --card-blue: #5865F2;
+      --card-yellow: #FFD60A;
+      --font-display: 'Inter Tight', sans-serif;
+      --font-body: 'Manrope', sans-serif;
+    }
+
+    [data-theme="light"] {
+      --bg: #ffffff;
+      --text: #000000;
+      --text-muted: #555;
+      --surface: #f2f2f7;
+      --border: #e5e5ea;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: var(--font-body);
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      min-height: 100vh;
+    }
+
+    header {
+      padding: 20px 0;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .header-content {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 0 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .back-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--text-muted);
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 14px;
+      transition: color 0.2s;
+    }
+
+    .back-btn:hover { color: var(--text); }
+
+    .plus-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      color: var(--card-yellow);
+      font-weight: 900;
+      font-size: 14px;
+      text-decoration: none;
+    }
+
+    main {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 40px 20px 80px 20px;
+    }
+
+    .article-meta {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 16px;
+      flex-wrap: wrap;
+    }
+
+    .article-date {
+      color: var(--card-red);
+      font-size: 14px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .article-tag {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      color: var(--text-muted);
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      padding: 3px 10px;
+      border-radius: 100px;
+    }
+
+    .article-tag.plus {
+      border-color: var(--card-yellow);
+      color: var(--card-yellow);
+    }
+
+    [data-theme="light"] .article-tag.plus {
+      border-color: var(--plus-gold-light);
+      color: var(--plus-gold-light);
+    }
+
+    .article-title {
+      font-family: var(--font-display);
+      font-size: 40px;
+      font-weight: 800;
+      line-height: 1.1;
+      margin-bottom: 16px;
+      letter-spacing: -0.03em;
+    }
+
+    @media (min-width: 768px) {
+      .article-title { font-size: 56px; }
+    }
+
+    .article-intro {
+      font-size: 20px;
+      color: var(--text-muted);
+      margin-bottom: 32px;
+      line-height: 1.5;
+      font-weight: 400;
+    }
+
+    .article-hero {
+      width: 100%;
+      height: 400px;
+      object-fit: cover;
+      border-radius: 16px;
+      margin-bottom: 32px;
+      background: var(--surface);
+    }
+
+    .summary-box {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 24px;
+      margin-bottom: 40px;
+    }
+
+    .summary-box-label {
+      font-size: 11px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--card-yellow);
+      margin-bottom: 20px;
+    }
+
+    .summary-box strong {
+      font-size: 15px;
+      color: var(--text);
+      display: block;
+      margin-top: 16px;
+      margin-bottom: 8px;
+    }
+
+    .summary-box strong:first-of-type {
+      margin-top: 0;
+    }
+
+    .summary-box p {
+      font-size: 15px;
+      color: var(--text-muted);
+      line-height: 1.6;
+      margin: 0;
+    }
+
+    .article-content {
+      font-size: 18px;
+      color: rgba(255, 255, 255, 0.9);
+    }
+
+    [data-theme="light"] .article-content {
+      color: rgba(0, 0, 0, 0.85);
+    }
+
+    .article-content p { margin-bottom: 24px; }
+
+    .article-content h2 {
+      font-family: var(--font-display);
+      font-size: 28px;
+      font-weight: 700;
+      margin: 48px 0 16px 0;
+      color: var(--text);
+    }
+
+    .article-content ul {
+      margin-bottom: 24px;
+      padding-left: 24px;
+    }
+
+    .article-content li { margin-bottom: 8px; }
+
+    .callout {
+      border-left: 3px solid var(--card-yellow);
+      background: rgba(255, 214, 10, 0.08);
+      border-radius: 0 12px 12px 0;
+      padding: 20px 24px;
+      margin: 32px 0;
+      font-size: 16px;
+    }
+
+    .callout .callout-label {
+      font-size: 11px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--card-yellow);
+      margin-bottom: 8px;
+    }
+
+    .callout p { margin-bottom: 0; font-size: 16px; }
+
+    .checklist-block {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 24px;
+      margin: 40px 0;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .checklist-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+    }
+
+    .checklist-item .material-icons {
+      font-size: 20px;
+      color: var(--card-yellow);
+      margin-top: 2px;
+      flex-shrink: 0;
+    }
+
+    .checklist-item-text {
+      font-size: 15px;
+      color: var(--text);
+      line-height: 1.5;
+    }
+
+    .checklist-item-text strong {
+      display: block;
+      margin-bottom: 2px;
+    }
+
+    .source {
+      font-size: 13px;
+      color: var(--text-muted);
+      margin-top: -16px;
+      margin-bottom: 24px;
+    }
+
+    .source a {
+      color: var(--text-muted);
+      text-decoration: underline;
+    }
+
+    .sources-list {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 24px 28px;
+      margin: 40px 0;
+    }
+
+    .sources-list-label {
+      font-size: 11px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--text-muted);
+      margin-bottom: 16px;
+    }
+
+    .sources-list ul {
+      padding-left: 0;
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .sources-list li {
+      font-size: 14px;
+      color: var(--text-muted);
+    }
+
+    .sources-list a {
+      color: var(--card-blue);
+      text-decoration: none;
+    }
+
+    .sources-list a:hover {
+      text-decoration: underline;
+    }
+
+    .divider {
+      border: none;
+      border-top: 1px solid var(--border);
+      margin: 48px 0;
+    }
+
+    .back-icon {
+      font-size: 18px;
+    }
+
+    .callout-link {
+      color: var(--card-yellow);
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="header-content">
+      <a href="../news.html" class="back-btn">
+        <span class="material-icons back-icon" aria-hidden="true">arrow_back</span>
+        Tilbake til nyheter
+      </a>
+      <span class="plus-tag">+ Pluss</span>
+    </div>
+  </header>
+
+  <main>
+    <article>
+      <div class="article-meta">
+        <span class="article-date">31. Juli 2026</span>
+        <span class="article-tag">Møre og Romsdal</span>
+        <span class="article-tag plus">+ Pluss</span>
+      </div>
+
+      <h1 class="article-title">Skolestart 2026 i Møre og Romsdal</h1>
+
+      <p class="article-intro">Første skoledag for videregående skoler i Møre og Romsdal er mandag 17. august 2026. Her er en komplett guide med alt du trenger å vite – fra skoleruta og PC-bestilling til skoleskyss og utstyrsstipend.</p>
+
+      <img
+        src="https://images.unsplash.com/photo-1509062522246-3755977927d7?q=80&w=1832&auto=format&fit=crop"
+        alt="Skolestart"
+        class="article-hero"
+      >
+
+      <div class="summary-box">
+        <div class="summary-box-label">Hurtigoversikt</div>
+        <strong>Første skoledag</strong>
+        <p>Mandag 17. august 2026. Oppmøtetider varierer fra skole til skole – sjekk skolens egne nettsider.</p>
+        <strong>Siste skoledag</strong>
+        <p>Fredag 18. juni 2027.</p>
+        <strong>Høstferie</strong>
+        <p>Uke 41 (5.–9. oktober 2026).</p>
+        <strong>Vinterferie</strong>
+        <p>Uke 8 (22.–26. februar 2027).</p>
+        <strong>Påskeferie</strong>
+        <p>22.–29. mars 2027. Første skoledag etter påske: 30. mars.</p>
+      </div>
+
+      <div class="article-content">
+
+        <h2>Skoleruta 2026–2027</h2>
+        <p>Møre og Romsdal fylkeskommune har fastsatt skoleruta for skoleåret 2026–2027. Den gjelder for alle fylkets videregående skoler. Merk at enkelte skoler kan ha lokale planleggingsdager som avviker fra den sentrale ruta – sjekk din skoles nettside for eksakte datoer.</p>
+
+        <p>Sentrale datoer i skoleåret:</p>
+        <ul>
+          <li><strong>17. august 2026</strong> – Første skoledag</li>
+          <li><strong>5.–9. oktober 2026</strong> – Høstferie (uke 41)</li>
+          <li><strong>18. desember 2026</strong> – Siste skoledag før jul</li>
+          <li><strong>5. januar 2027</strong> – Første skoledag etter juleferie</li>
+          <li><strong>22.–26. februar 2027</strong> – Vinterferie (uke 8)</li>
+          <li><strong>22.–29. mars 2027</strong> – Påskeferie</li>
+          <li><strong>6. mai 2027</strong> – Kristi himmelfartsdag (fri)</li>
+          <li><strong>7. mai 2027</strong> – Inneklemt dag (elevfri)</li>
+          <li><strong>17. mai 2027</strong> – Nasjonaldag</li>
+          <li><strong>18. juni 2027</strong> – Siste skoledag</li>
+        </ul>
+        <p class="source">Kilde: <a href="https://mrfylke.no/tenester/skole-og-opplaring/opplaring-i-skole/skoleruta/" target="_blank">Møre og Romsdal fylkeskommune – Skoleruta</a>, <a href="https://skolefri.no/skolerute/more-og-romsdal" target="_blank">Skolefri.no – Skolerute MR</a></p>
+
+        <h2>Bestill skole-PC</h2>
+        <p>Alle elever i videregående skole i Møre og Romsdal må ha en bærbar PC til undervisning. PC-en bestilles via fylkeskommunens skolestartportal. Er du under 18 år, må foresatte logge inn og bekrefte valget ditt.</p>
+
+        <div class="callout">
+          <div class="callout-label">Slik gjør du</div>
+          <p>Gå til <a href="https://skolestart.mrfylke.no" target="_blank" class="callout-link">skolestart.mrfylke.no</a>, logg inn med fødselsnummer, og velg PC-modell. Foresatte må bekrefte hvis du er under 18.</p>
+        </div>
+
+        <p>Fylkeskommunen tilbyr ulike modeller og ordninger. Du får mer informasjon om priser og levering på portalen når du logger inn.</p>
+        <p class="source">Kilde: <a href="https://skolestart.mrfylke.no" target="_blank">skolestart.mrfylke.no – PC-ordning</a></p>
+
+        <h2>Søk skoleskyss (hvis du har over 6 km)</h2>
+        <p>Bor du mer enn 6 kilometer fra skolen (målt fra folkeregistrert adresse), har du rett på gratis skoleskyss. Det legges automatisk til 100 meter i din favør ved avstandsberegningen. Du kan sjekke selv via FRAMs kartverktøy på skoleskyss-siden.</p>
+
+        <p><strong>Viktig:</strong> Du må søke om skoleskyss <strong>hvert eneste år</strong>, selv om du hadde skyss i fjor og fortsatt bor på samme adresse. Søknaden behandles av FRAM (Møre og Romsdal fylkes kollektivselskap), som administrerer skyssen på vegne av fylkeskommunen.</p>
+
+        <div class="callout">
+          <div class="callout-label">Slik søker du</div>
+          <p>Gå til <a href="https://skoleskyss.mrfylke.no" target="_blank" class="callout-link">skoleskyss.mrfylke.no</a> og fyll ut søknaden. Du kan søke så snart du har fått bekreftet skoleplass. Du får et skoleskysskort fra FRAM når søknaden er godkjent.</p>
+        </div>
+
+        <p>Merk at regelen om «farlig skoleveg» <strong>ikke</strong> gjelder for elever i videregående skole. Voksne deltakere over 24 år har heller ikke rett til gratis skoleskyss.</p>
+        <p class="source">Kilde: <a href="https://mrfylke.no/tenester/veg-og-kollektiv/kollektivtransport/skoleskyss/skoleskyss-i-vidaregaande-skole/" target="_blank">mrfylke.no – Skoleskyss i videregående</a>, <a href="https://frammr.no" target="_blank">frammr.no</a></p>
+
+        <h2>Søk utstyrsstipend fra Lånekassen</h2>
+        <p>Som elev i videregående skole kan du søke om utstyrsstipend fra Lånekassen. Stipendet skal dekke nødvendig utstyr som PC, bøker, og for yrkesfaglige linjer også verktøy, klær og annet spesialutstyr.</p>
+
+        <p>Størrelsen på stipendet varierer etter hvilket utdanningsprogram du går på:</p>
+        <ul>
+          <li><strong>1 427 kr</strong> – laveste sats (for eksempel studiespesialisering)</li>
+          <li><strong>7 353 kr</strong> – høyeste sats (for yrkesfag med dyrt utstyr)</li>
+        </ul>
+
+        <p>Du søker digitalt via «Dine sider» på lanekassen.no. Søknadsfristen for høstsemesteret er <strong>15. november</strong>, og for vårsemesteret <strong>15. mars</strong>. Du må ha fått skoleplass før du kan søke.</p>
+        <p class="source">Kilde: <a href="https://lanekassen.no/nb-NO/stipend-og-lan/norge/videregaende-skole/videregaende-skole/" target="_blank">Lånekassen – Videregående skole</a></p>
+
+        <h2>Sjekk utdanningsprogrammet på Vilbli.no</h2>
+        <p>Vilbli.no er fylkenes offisielle informasjonstjeneste for søkere til videregående opplæring. Her finner du detaljert informasjon om alle utdanningsprogrammer, hvilke skoler i Møre og Romsdal som tilbyr dem, og hva de ulike løpene fører til.</p>
+
+        <p>Nettsiden eies og driftes av fylkeskommunene i fellesskap, og datagrunnlaget hentes direkte fra inntakssystemet VIGO. Det betyr at informasjonen alltid er oppdatert og offisiell.</p>
+        <p class="source">Kilde: <a href="https://vilbli.no" target="_blank">vilbli.no – Fylkenes informasjonstjeneste</a></p>
+
+        <hr class="divider">
+
+        <h2>Huskeliste før skolestart</h2>
+
+        <div class="checklist-block">
+          <div class="checklist-item">
+            <span class="material-icons">assignment</span>
+            <div class="checklist-item-text">
+              <strong>Sjekk skoleplassen på VIGO</strong>
+              Logg inn på vigo.no for å se inntakstilbud og svare innen fristen.
+            </div>
+          </div>
+          <div class="checklist-item">
+            <span class="material-icons">calendar_month</span>
+            <div class="checklist-item-text">
+              <strong>Sett deg inn i skoleruta</strong>
+              Merk av for høstferie, vinterferie, eksamensperioder og planleggingsdager.
+            </div>
+          </div>
+          <div class="checklist-item">
+            <span class="material-icons">directions_bus</span>
+            <div class="checklist-item-text">
+              <strong>Søk skoleskyss via FRAM</strong>
+              Gjør det hvert år, selv om du hadde skyss i fjor. skoleskyss.mrfylke.no
+            </div>
+          </div>
+          <div class="checklist-item">
+            <span class="material-icons">computer</span>
+            <div class="checklist-item-text">
+              <strong>Bestill skole-PC</strong>
+              skolestart.mrfylke.no – husk at foresatte må bekrefte hvis du er under 18.
+            </div>
+          </div>
+          <div class="checklist-item">
+            <span class="material-icons">account_balance</span>
+            <div class="checklist-item-text">
+              <strong>Søk utstyrsstipend</strong>
+              lanekassen.no – frist 15. november. 1 427–7 353 kr avhengig av linje.
+            </div>
+          </div>
+          <div class="checklist-item">
+            <span class="material-icons">info</span>
+            <div class="checklist-item-text">
+              <strong>Sjekk vilbli.no</strong>
+              Finn ut alt om utdanningsprogrammet ditt og hvilke muligheter det gir.
+            </div>
+          </div>
+        </div>
+
+        <div class="sources-list">
+          <div class="sources-list-label">Kilder og videre lesning</div>
+          <ul>
+            <li><a href="https://mrfylke.no/tenester/skole-og-opplaring/opplaring-i-skole/skoleruta/" target="_blank">Møre og Romsdal fylkeskommune – Skoleruta</a></li>
+            <li><a href="https://skolestart.mrfylke.no" target="_blank">skolestart.mrfylke.no – PC-ordning og skolestartinfo</a></li>
+            <li><a href="https://mrfylke.no/tenester/veg-og-kollektiv/kollektivtransport/skoleskyss/skoleskyss-i-vidaregaande-skole/" target="_blank">mrfylke.no – Skoleskyss for videregående</a></li>
+            <li><a href="https://lanekassen.no/nb-NO/stipend-og-lan/norge/videregaende-skole/videregaende-skole/" target="_blank">Lånekassen – Stipend til videregående skole</a></li>
+            <li><a href="https://vilbli.no" target="_blank">vilbli.no – Fylkenes informasjonstjeneste</a></li>
+            <li><a href="https://vigo.no" target="_blank">vigo.no – Søknadsportal for videregående opplæring</a></li>
+          </ul>
+        </div>
+
+      </div>
+    </article>
+  </main>
+
+  <script>
+    if (!localStorage.getItem('theme')) {
+      localStorage.setItem('theme', 'dark');
+    }
+    document.documentElement.setAttribute('data-theme', localStorage.getItem('theme'));
+  </script>
+</body>
+</html>

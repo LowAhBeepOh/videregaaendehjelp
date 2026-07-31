@@ -11,6 +11,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200;300;400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+  <link rel="stylesheet" href="Assets/css/plus.css">
   <link rel="stylesheet" href="Assets/css/profile.css">
   <style>
     :root {
@@ -219,6 +220,7 @@
       color: var(--text);
       margin-top: auto;
     }
+
   </style>
   <link rel="stylesheet" href="Assets/css/shared-header.css">
   <script defer src="Assets/js/shared-header.js"></script>
@@ -280,26 +282,35 @@
 
     function renderAllNews(data) {
       const grid = document.getElementById('newsGrid');
-      const newsArray = (Array.isArray(data) ? data : (data.news || [])).sort((a, b) => new Date(b.date) - new Date(a.date));
+      const isPlus = window.VHplus && VHplus.isActive();
+      let newsArray = (Array.isArray(data) ? data : (data.news || [])).sort((a, b) => new Date(b.date) - new Date(a.date));
+
+      // Filter out Plus-news for non-Plus users
+      if (!isPlus) {
+        newsArray = newsArray.filter(function (n) { return !n.plus; });
+      }
 
       if (newsArray.length === 0) {
         grid.innerHTML = '<p style="color: var(--text-muted);">Ingen nyheter publisert enda.</p>';
         return;
       }
 
-      grid.innerHTML = newsArray.map(item => `
-        <a href="${item.link}" class="news-card">
+      grid.innerHTML = newsArray.map(function (item) {
+        var plusBadge = item.plus ? '<span class="news-plus-badge">+ Pluss</span>' : '';
+        return `
+        <a href="${item.link}" class="news-card${item.plus ? ' news-card-plus' : ''}">
           <div class="news-thumb-container">
             <img src="${item.thumb}" alt="Bilde for nyhet" class="news-thumb">
           </div>
           <div class="news-content">
-            <div class="news-date">${formatNewsDate(item.date)}</div>
+            <div class="news-date">${formatNewsDate(item.date)}${plusBadge}</div>
             <h2 class="news-title">${item.name}</h2>
             <p class="news-desc">${item.desc}</p>
             <div class="news-read-more">Les saken <span class="material-icons" style="font-size: 16px;">arrow_forward</span></div>
           </div>
         </a>
-      `).join('');
+      `;
+      }).join('');
     }
 
     fetch('News/news-data.json')
@@ -310,6 +321,7 @@
         document.getElementById('newsGrid').innerHTML = '<p>Kunne ikke laste nyheter akkurat nå.</p>';
       });
   </script>
+  <script src="Assets/js/plus.js"></script>
   <script src="Assets/js/profile.js"></script>
 </body>
 </html>

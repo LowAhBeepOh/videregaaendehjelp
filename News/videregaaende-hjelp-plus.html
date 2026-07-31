@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+  <script defer src="https://cloud.umami.is/script.js" data-website-id="24f80a75-a09f-4f80-94e0-d9103f0d734d"></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Videregående Hjelp+ er lansert. Les hvordan du aktiverer Pluss, og hva du får tilgang til som elev i Møre og Romsdal.">
+  <title>Videregående Hjelp+ (Pluss) er lansert – Videregående Hjelp</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200;300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+  <style>
+    :root {
+      --bg: #050505;
+      --text: #ffffff;
+      --text-muted: #888;
+      --surface: #1c1c1e;
+      --border: #2c2c2e;
+      --card-red: #D40B00;
+      --card-blue: #5865F2;
+      --card-yellow: #FFD60A;
+      --font-display: 'Inter Tight', sans-serif;
+      --font-body: 'Manrope', sans-serif;
+    }
+
+    [data-theme="light"] {
+      --bg: #ffffff;
+      --text: #000000;
+      --text-muted: #555;
+      --surface: #f2f2f7;
+      --border: #e5e5ea;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: var(--font-body);
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      min-height: 100vh;
+    }
+
+    header {
+      padding: 20px 0;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .header-content {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 0 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .back-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--text-muted);
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 14px;
+      transition: color 0.2s;
+    }
+
+    .back-btn:hover { color: var(--text); }
+    .back-btn .material-icons { font-size: 18px; }
+
+    .plus-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      color: var(--card-yellow);
+      font-weight: 900;
+      font-size: 14px;
+      white-space: nowrap;
+    }
+
+    main {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 40px 20px 80px;
+    }
+
+    .article-meta {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 16px;
+      flex-wrap: wrap;
+    }
+
+    .article-date {
+      color: var(--card-red);
+      font-size: 14px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .article-tag {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      color: var(--text-muted);
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      padding: 3px 10px;
+      border-radius: 100px;
+    }
+
+    .article-tag.plus {
+      border-color: var(--card-yellow);
+      color: var(--card-yellow);
+    }
+
+    [data-theme="light"] .article-tag.plus {
+      border-color: var(--plus-gold-light);
+      color: var(--plus-gold-light);
+    }
+
+    .article-title {
+      font-family: var(--font-display);
+      font-size: 40px;
+      font-weight: 800;
+      line-height: 1.1;
+      margin-bottom: 16px;
+      letter-spacing: -0.03em;
+    }
+
+    @media (min-width: 768px) {
+      .article-title { font-size: 56px; }
+    }
+
+    .article-intro {
+      font-size: 20px;
+      color: var(--text-muted);
+      margin-bottom: 32px;
+      line-height: 1.5;
+    }
+
+    .article-hero {
+      width: 100%;
+      height: 400px;
+      object-fit: cover;
+      border-radius: 16px;
+      margin-bottom: 32px;
+      background: var(--surface);
+    }
+
+    .summary-box,
+    .feature-list,
+    .steps-box {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 24px;
+    }
+
+    .summary-box {
+      margin-bottom: 40px;
+    }
+
+    .summary-label,
+    .feature-label,
+    .steps-label {
+      font-size: 11px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--card-yellow);
+      margin-bottom: 20px;
+    }
+
+    .summary-box strong {
+      display: block;
+      color: var(--text);
+      font-size: 15px;
+      margin-top: 16px;
+      margin-bottom: 6px;
+    }
+
+    .summary-box strong:first-of-type { margin-top: 0; }
+
+    .summary-box p {
+      color: var(--text-muted);
+      font-size: 15px;
+      line-height: 1.6;
+      margin: 0;
+    }
+
+    .article-content {
+      font-size: 18px;
+      color: rgba(255, 255, 255, 0.9);
+    }
+
+    [data-theme="light"] .article-content {
+      color: rgba(0, 0, 0, 0.85);
+    }
+
+    .article-content p { margin-bottom: 24px; }
+
+    .article-content h2 {
+      font-family: var(--font-display);
+      font-size: 28px;
+      font-weight: 700;
+      margin: 48px 0 16px;
+      color: var(--text);
+    }
+
+    .article-content ul {
+      margin: 0 0 24px;
+      padding-left: 24px;
+    }
+
+    .article-content li { margin-bottom: 8px; }
+
+    .feature-list {
+      margin: 32px 0 40px;
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+
+    .feature-item,
+    .step-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+    }
+
+    .feature-item .material-icons,
+    .step-number {
+      flex-shrink: 0;
+      color: var(--card-yellow);
+    }
+
+    .feature-item .material-icons {
+      font-size: 21px;
+      margin-top: 2px;
+    }
+
+    .feature-item strong,
+    .step-item strong {
+      display: block;
+      color: var(--text);
+      margin-bottom: 2px;
+      font-size: 16px;
+    }
+
+    .feature-item span:last-child,
+    .step-item p {
+      color: var(--text-muted);
+      font-size: 15px;
+      line-height: 1.5;
+    }
+
+    .steps-box {
+      margin: 32px 0 40px;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .step-number {
+      width: 28px;
+      height: 28px;
+      border: 1px solid var(--card-yellow);
+      border-radius: 50%;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font-display);
+      font-weight: 800;
+      font-size: 14px;
+    }
+
+    .step-item p { margin: 0; }
+
+    .callout {
+      border-left: 3px solid var(--card-blue);
+      background: rgba(88, 101, 242, 0.1);
+      border-radius: 0 12px 12px 0;
+      padding: 20px 24px;
+      margin: 32px 0;
+    }
+
+    .callout-label {
+      color: var(--card-blue);
+      font-size: 11px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      margin-bottom: 8px;
+    }
+
+    .callout p {
+      font-size: 16px;
+      margin: 0;
+    }
+
+    .article-content a {
+      color: var(--card-blue);
+      text-decoration: underline;
+      text-underline-offset: 2px;
+    }
+
+    .sources-list {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 24px 28px;
+      margin: 40px 0;
+    }
+
+    .sources-list-label {
+      color: var(--text-muted);
+      font-size: 11px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      margin-bottom: 16px;
+    }
+
+    .sources-list ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .sources-list li {
+      color: var(--text-muted);
+      font-size: 14px;
+    }
+
+    .sources-list a {
+      color: var(--card-blue);
+      text-decoration: none;
+    }
+
+    .sources-list a:hover { text-decoration: underline; }
+
+    @media (max-width: 480px) {
+      main { padding-top: 28px; }
+      .article-title { font-size: 36px; }
+      .article-intro { font-size: 18px; }
+      .article-hero { height: 240px; }
+      .summary-box,
+      .feature-list,
+      .steps-box { padding: 20px; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="header-content">
+      <a href="../news.html" class="back-btn">
+        <span class="material-icons" aria-hidden="true">arrow_back</span>
+        Tilbake til nyheter
+      </a>
+    </div>
+  </header>
+
+  <main>
+    <article>
+      <div class="article-meta">
+        <span class="article-date">31. juli 2026</span>
+        <span class="article-tag">Oppdatering</span>
+      </div>
+
+      <h1 class="article-title">Videregående Hjelp+ (Pluss) er lansert</h1>
+
+      <p class="article-intro">Videregående Hjelp+ er vår nye Pluss-versjon for elever i Møre og Romsdal. Her samler vi mer lokalt og relevant innhold, egne nyheter og funksjoner som gjør nettsiden enklere å tilpasse til skolehverdagen din.</p>
+
+      <img
+        src="../Assets/Thumbnails/news_thumb_plus.png"
+        alt="Et gult pluss-tegn på en svart bakgrunn. Pluss-tegnet har en lyskilde som gir en glødende effekt."
+        class="article-hero"
+      >
+
+      <div class="summary-box">
+        <div class="summary-label">Kort forklart</div>
+        <strong>Hvem er Pluss for?</strong>
+        <p>Elever og brukere som er i Møre og Romsdal.</p>
+        <strong>Hva koster det?</strong>
+        <p>Ingenting! Videregående Hjelp+ er helt gratis på Videregående Hjelp. Det er ikke en betalt tjeneste.</p>
+        <strong>Hvor aktiverer jeg det?</strong>
+        <p>Gå til <a href="../profile.html">Min profil</a>, oppfyll kravene og trykk på knappen for å bytte til Videregående Hjelp+.</p>
+      </div>
+
+      <div class="article-content">
+        <h2>Hva er Videregående Hjelp+?</h2>
+        <p>Videregående Hjelp+ er en mer personlig og innholdsrik versjon av Videregående Hjelp. Pluss er laget med elever i Møre og Romsdal i tankene, slik at vi kan samle informasjon som er ekstra relevant for skoleelever i fylket.</p>
+
+        <p>Det betyr ikke at den vanlige versjonen forsvinner. Du kan når som helst bruke den vanlige Videregående Hjelp-versjonen, eller bytte til Pluss igjen fra profilen din når du oppfyller kravene.</p>
+
+        <div class="callout">
+          <div class="callout-label">Viktig å vite</div>
+          <p>Pluss er fortsatt under utvikling. Nye funksjoner, nyheter og innhold kan derfor bli lagt til litt etter litt.</p>
+        </div>
+
+        <h2>Dette får du med Pluss</h2>
+        <div class="feature-list">
+          <div class="feature-item">
+            <span class="material-icons">lock_open</span>
+            <div>
+              <strong>Mer eksklusivt innhold</strong>
+              <span>Få tilgang til innhold og informasjon som er laget spesielt for Pluss-brukere.</span>
+            </div>
+          </div>
+          <div class="feature-item">
+            <span class="material-icons">place</span>
+            <div>
+              <strong>Innhold for Møre og Romsdal</strong>
+              <span>Se informasjon som tar utgangspunkt i hva elever i fylket trenger å vite.</span>
+            </div>
+          </div>
+          <div class="feature-item">
+            <span class="material-icons">newspaper</span>
+            <div>
+              <strong>Lokale og aktuelle nyheter</strong>
+              <span>Få nyheter om for eksempel skolestart, VIGO, Udir, Vilbli.no og Møre og Romsdal fylkeskommune.</span>
+            </div>
+          </div>
+          <div class="feature-item">
+            <span class="material-icons">science</span>
+            <div>
+              <strong>Tidlig tilgang til betafunksjoner</strong>
+              <span>Pluss-brukere kan få prøve nye funksjoner før de eventuelt blir tilgjengelige for alle.</span>
+            </div>
+          </div>
+          <div class="feature-item">
+            <span class="material-icons">tune</span>
+            <div>
+              <strong>Flere tilpasningsmuligheter</strong>
+              <span>Profilen din kan brukes til å gi en mer personlig opplevelse på nettsiden.</span>
+            </div>
+          </div>
+          <div class="feature-item">
+            <span class="material-icons">checklist</span>
+            <div>
+              <strong>Praktisk informasjon samlet på ett sted</strong>
+              <span>Pluss kan samle nyttige sjekklister og informasjon, som huskelisten før skolestart.</span>
+            </div>
+          </div>
+        </div>
+
+        <h2>Slik aktiverer du Pluss</h2>
+        <p>Du aktiverer Videregående Hjelp+ fra profilsiden. For å bruke Pluss må du ha en profil, en konto på nettsiden og fylket Møre og Romsdal valgt på profilen.</p>
+
+        <div class="steps-box">
+          <div class="steps-label">Dette må være på plass før aktivering</div>
+          <div class="step-item">
+            <span class="step-number">1</span>
+            <div>
+              <strong>Lag en profil</strong>
+              <p>Åpne <a href="../profile.html">Min profil</a> og fyll ut grunnleggende informasjon i profilen din.</p>
+            </div>
+          </div>
+          <div class="step-item">
+            <span class="step-number">2</span>
+            <div>
+              <strong>Opprett eller koble til en konto</strong>
+              <p>Du må være logget inn med en konto på Videregående Hjelp. Kontoen brukes blant annet til å koble profilen din til Pluss.</p>
+            </div>
+          </div>
+          <div class="step-item">
+            <span class="step-number">3</span>
+            <div>
+              <strong>Velg Møre og Romsdal</strong>
+              <p>Velg «Møre og Romsdal» som fylke i profilen din. Deretter finner du Pluss-kortet på profilsiden og kan aktivere funksjonen.</p>
+            </div>
+          </div>
+        </div>
+
+        <p>Når alle kravene er oppfylt, trykker du på <strong>«Bytt til Videregående Hjelp+ (Pluss)»</strong>. Etter aktiveringen vises et lite «+»-merke ved logoen, og Pluss-innholdet blir tilgjengelig på nettsiden.</p>
+
+        <h2>Hva skjer hvis du bytter fylke?</h2>
+        <p>Pluss er laget for Møre og Romsdal. Hvis du endrer fylket på profilen din til et annet fylke, kan Pluss bli utilgjengelig fordi innholdet og funksjonene er knyttet til fylket.</p>
+
+        <p>Ved deaktivering får du velge om du vil beholde eller slette Pluss-dataene dine. Dette kan være valg, innstillinger og annen informasjon som er spesifikk for Pluss-versjonen. Du kan også deaktivere Pluss manuelt fra Pluss-kortet på profilsiden.</p>
+
+        <h2>Hva kommer videre?</h2>
+        <p>Pluss er starten på en mer lokalt tilpasset del av Videregående Hjelp. Vi kommer til å bygge videre på innholdet og funksjonene etter hvert som vi ser hva elever faktisk trenger i skolehverdagen.</p>
+
+        <p>Følg med på nyhetssiden for nye oppdateringer. Har du forslag til innhold eller funksjoner som kan være nyttige for elever i Møre og Romsdal, kan du sende innspill via nettsiden.</p>
+
+        <div class="sources-list">
+          <div class="sources-list-label">Slik kommer du i gang</div>
+          <ul>
+            <li><a href="../profile.html">Åpne Min profil og aktiver Pluss</a></li>
+            <li><a href="../news.html">Se flere nyheter</a></li>
+            <li><a href="../index.html">Gå til forsiden</a></li>
+          </ul>
+        </div>
+      </div>
+    </article>
+  </main>
+
+  <script>
+    if (!localStorage.getItem('theme')) {
+      localStorage.setItem('theme', 'dark');
+    }
+    document.documentElement.setAttribute('data-theme', localStorage.getItem('theme'));
+  </script>
+</body>
+</html>

@@ -1,0 +1,655 @@
+/* Plus brand color variables */
+:root {
+  --plus-gold: #FFD60A;
+  --plus-gold-light: #A67C00;
+  --plus-gold-lighter: #C89600;
+  --plus-gold-dark: #7A5C00;
+  --plus-gold-rgba: rgba(255, 214, 10, 0.4);
+}
+
+[data-theme="light"] {
+  --plus-gold: #A67C00;
+  --plus-gold-rgba: rgba(166, 124, 0, 0.4);
+}
+
+/* Quick Info Section for Plus users */
+.plus-badge {
+  font-weight: 900;
+  color: var(--plus-gold);
+  font-size: 1.2em;
+  margin-left: 3px;
+  display: inline;
+  text-shadow: 0 0 8px var(--plus-gold-rgba);
+  letter-spacing: 0;
+  vertical-align: baseline;
+  line-height: 1;
+}
+
+/* Plus badge on news cards */
+.news-plus-badge {
+  display: inline-block;
+  font-weight: 900;
+  color: var(--plus-gold);
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-left: 8px;
+  padding: 2px 8px;
+  border: 1px solid var(--plus-gold);
+  border-radius: 6px;
+  line-height: 1.4;
+}
+
+.news-card-plus {
+  border-color: rgba(255, 214, 10, 0.25);
+}
+
+.news-card-plus:hover {
+  border-color: rgba(255, 214, 10, 0.5);
+}
+
+/* Plus Section Card on profile.html */
+.plus-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  padding: 36px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+@media (max-width: 640px) {
+  .plus-card {
+    padding: 22px;
+  }
+}
+
+.plus-card.active {
+  border-color: var(--plus-gold);
+  box-shadow: 0 0 0 1px rgba(255, 214, 10, 0.15);
+}
+
+.plus-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.plus-header-icon {
+  font-size: 28px;
+  font-weight: 900;
+  color: var(--plus-gold);
+  font-family: var(--font-display);
+  line-height: 1;
+}
+
+.plus-header h2 {
+  font-family: var(--font-display);
+  font-size: 22px;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  color: var(--text);
+}
+
+.plus-description {
+  font-family: var(--font-body);
+  font-size: 14px;
+  color: var(--text-muted);
+  line-height: 1.6;
+}
+
+.plus-status {
+  font-family: var(--font-body);
+  font-size: 13px;
+  font-weight: 600;
+  padding: 10px 14px;
+  border-radius: 10px;
+  line-height: 1.5;
+}
+
+.plus-status.ready {
+  background: rgba(48, 209, 88, 0.1);
+  color: var(--card-green);
+  border: 1px solid rgba(48, 209, 88, 0.2);
+}
+
+.plus-status.locked {
+  background: rgba(136, 136, 136, 0.08);
+  color: var(--text-muted);
+  border: 1px solid var(--border);
+}
+
+.plus-status.active-status {
+  background: rgba(255, 214, 10, 0.1);
+  color: var(--plus-gold);
+  border: 1px solid rgba(255, 214, 10, 0.2);
+}
+
+.plus-toggle-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 14px 24px;
+  border-radius: 999px;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 15px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  border: none;
+  width: fit-content;
+}
+
+.plus-toggle-btn.activate {
+  background: var(--plus-gold);
+  color: #000;
+}
+
+.plus-toggle-btn.activate:hover {
+  filter: brightness(1.08);
+  transform: translateY(-2px);
+}
+
+.plus-toggle-btn.activate:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.plus-toggle-btn.deactivate {
+  background: transparent;
+  color: var(--card-red);
+  border: 1px solid var(--card-red);
+}
+
+.plus-toggle-btn.deactivate:hover {
+  background: rgba(212, 11, 0, 0.06);
+  transform: translateY(-2px);
+}
+
+.plus-locked-reason {
+  font-size: 13px;
+  color: var(--text-muted);
+  line-height: 1.5;
+}
+
+/* Deactivation Modal */
+.plus-modal-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 3000;
+  background: rgba(0, 0, 0, 0.66);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 18px;
+}
+
+.plus-modal-backdrop[hidden] {
+  display: none;
+}
+
+.plus-modal-dialog {
+  width: min(480px, 100%);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  padding: 32px;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.plus-modal-title {
+  font-family: var(--font-display);
+  font-size: 24px;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+}
+
+.plus-modal-desc {
+  font-family: var(--font-body);
+  font-size: 14px;
+  color: var(--text-muted);
+  line-height: 1.6;
+}
+
+.plus-modal-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.plus-modal-btn {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 18px;
+  border-radius: 12px;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  border: 1px solid var(--border);
+  background: transparent;
+  color: var(--text);
+  text-align: left;
+}
+
+.plus-modal-btn:hover {
+  background: rgba(255, 255, 255, 0.05);
+  border-color: var(--text-muted);
+}
+
+.plus-modal-btn .material-icons {
+  font-size: 20px;
+  flex-shrink: 0;
+}
+
+.plus-modal-btn.primary {
+  background: var(--card-blue);
+  color: #fff;
+  border-color: var(--card-blue);
+}
+
+.plus-modal-btn.primary:hover {
+  filter: brightness(1.08);
+}
+
+.plus-modal-btn.danger {
+  color: var(--card-red);
+  border-color: var(--card-red);
+}
+
+.plus-modal-btn.danger:hover {
+  background: rgba(212, 11, 0, 0.06);
+}
+
+.plus-modal-btn-safe {
+  color: var(--text-muted);
+}
+
+.plus-modal-btn-safe:hover {
+  color: var(--text);
+  border-color: var(--text-muted);
+}
+
+/* Quick links (used inside modal) */
+.plus-quick-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.plus-quick-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 10px 16px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  color: var(--text);
+  text-decoration: none;
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: 13px;
+  transition: all 0.2s ease;
+}
+
+[data-theme="light"] .plus-quick-link {
+  background: rgba(0, 0, 0, 0.03);
+}
+
+.plus-quick-link:hover {
+  background: rgba(255, 214, 10, 0.08);
+  border-color: rgba(255, 214, 10, 0.25);
+  transform: translateY(-2px);
+}
+
+.plus-quick-link .material-icons {
+  font-size: 16px;
+  color: var(--plus-gold);
+}
+
+/* School Start Progress Bar Bento Card */
+.bento-grid-item-plus {
+  grid-column: 1 / -1;
+}
+
+@media (min-width: 1024px) {
+  .bento-grid-item-plus {
+    grid-column: span 2;
+  }
+}
+
+.card-plus-progress {
+  background: #ffffff;
+  border: 1px solid var(--border);
+  color: #000000;
+  cursor: pointer;
+  border-radius: 16px;
+  position: relative;
+  overflow: hidden;
+  min-height: 120px;
+  display: flex;
+  align-items: stretch;
+  transition: transform 0.3s cubic-bezier(0.2, 0, 0, 1), box-shadow 0.3s ease;
+  text-decoration: none;
+}
+
+@media (min-width: 768px) {
+  .card-plus-progress {
+    min-height: 140px;
+  }
+}
+
+.card-plus-progress:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.2);
+}
+
+.card-plus-progress:focus-visible {
+  outline: 2px solid var(--card-blue);
+  outline-offset: 2px;
+}
+
+.plus-progress-fill {
+  position: absolute;
+  inset: 0;
+  width: 0%;
+  background: #d40b00;
+  opacity: 0.22;
+  transition: width 0.6s ease;
+  pointer-events: none;
+}
+
+.plus-progress-content {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  padding: 24px 28px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+}
+
+@media (min-width: 768px) {
+  .plus-progress-content {
+    padding: 28px 36px;
+  }
+}
+
+.plus-progress-left {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.plus-progress-label {
+  font-family: var(--font-display);
+  font-size: 20px;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  line-height: 1.2;
+}
+
+@media (min-width: 768px) {
+  .plus-progress-label {
+    font-size: 24px;
+  }
+}
+
+.plus-progress-hint {
+  font-family: var(--font-body);
+  font-size: 13px;
+  color: #666666;
+}
+
+.plus-progress-right {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex-shrink: 0;
+  text-align: center;
+}
+
+.plus-progress-days {
+  font-family: var(--font-display);
+  font-size: 48px;
+  font-weight: 900;
+  line-height: 1;
+  letter-spacing: -0.04em;
+  color: var(--card-red);
+}
+
+@media (min-width: 768px) {
+  .plus-progress-days {
+    font-size: 64px;
+  }
+}
+
+.plus-progress-unit {
+  font-family: var(--font-body);
+  font-size: 13px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: #666666;
+  margin-top: 2px;
+}
+
+@media (max-width: 767px) {
+  .card-plus-progress {
+    min-height: 100px;
+  }
+  .plus-progress-content {
+    padding: 18px 22px;
+    gap: 12px;
+  }
+  .plus-progress-left {
+    flex: 1;
+    min-width: 0;
+  }
+  .plus-progress-label {
+    font-size: 17px;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    line-height: 1.25;
+  }
+  .plus-progress-hint {
+    font-size: 12px;
+  }
+  .plus-progress-days {
+    font-size: 36px;
+  }
+  .plus-progress-unit {
+    font-size: 11px;
+  }
+}
+
+/* Skolestart Modal (utvidet) */
+.plus-skolestart-dialog {
+  width: min(640px, 100%);
+  max-height: 85vh;
+  overflow-y: auto;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  padding: 32px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.plus-skolestart-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 16px;
+}
+
+.plus-skolestart-header > div {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.plus-skolestart-icon {
+  font-size: 28px;
+  font-weight: 900;
+  color: var(--plus-gold);
+  font-family: var(--font-display);
+  line-height: 1;
+}
+
+.plus-skolestart-title {
+  font-family: var(--font-display);
+  font-size: 24px;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+}
+
+.plus-skolestart-close {
+  background: none;
+  border: none;
+  color: var(--text-muted);
+  cursor: pointer;
+  padding: 6px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s;
+  flex-shrink: 0;
+}
+
+.plus-skolestart-close:hover {
+  background: rgba(255, 255, 255, 0.06);
+  color: var(--text);
+}
+
+.plus-skolestart-sub {
+  font-family: var(--font-body);
+  font-size: 15px;
+  color: var(--text-muted);
+  line-height: 1.6;
+}
+
+.plus-skolestart-sub strong {
+  color: var(--text);
+}
+
+.plus-skolestart-checklist {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  overflow: hidden;
+}
+
+.plus-sjekkpunkt {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  padding: 16px 18px;
+  border-bottom: 1px solid var(--border);
+  transition: background 0.15s;
+}
+
+.plus-sjekkpunkt:last-child {
+  border-bottom: none;
+}
+
+.plus-sjekkpunkt:hover {
+  background: rgba(255, 255, 255, 0.02);
+}
+
+[data-theme="light"] .plus-sjekkpunkt:hover {
+  background: rgba(0, 0, 0, 0.02);
+}
+
+.plus-sjekkpunkt-icon {
+  flex-shrink: 0;
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  background: rgba(255, 214, 10, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.plus-sjekkpunkt-icon .material-icons {
+  font-size: 18px;
+  color: var(--plus-gold);
+}
+
+.plus-sjekkpunkt-content {
+  flex: 1;
+  min-width: 0;
+}
+
+.plus-sjekkpunkt-title {
+  font-family: var(--font-display);
+  font-size: 15px;
+  font-weight: 700;
+  margin-bottom: 4px;
+}
+
+.plus-sjekkpunkt-desc {
+  font-family: var(--font-body);
+  font-size: 13px;
+  color: var(--text-muted);
+  line-height: 1.55;
+}
+
+.plus-sjekkpunkt-desc a {
+  color: var(--card-blue);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.plus-sjekkpunkt-desc a:hover {
+  color: var(--text);
+}
+
+.plus-skolestart-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+/* Light mode overrides */
+[data-theme="light"] .news-plus-badge {
+  color: var(--plus-gold-light);
+  border-color: var(--plus-gold-light);
+}
+
+[data-theme="light"] .plus-status.active-status {
+  color: var(--plus-gold-dark);
+  border-color: rgba(122, 92, 0, 0.3);
+  background: rgba(122, 92, 0, 0.08);
+}
+
+[data-theme="light"] .plus-toggle-btn.activate {
+  background: var(--plus-gold-lighter);
+}
+
+[data-theme="light"] .plus-sjekkpunkt-icon {
+  background: rgba(166, 124, 0, 0.12);
+}
+
+[data-theme="light"] .plus-skolestart-close:hover {
+  background: rgba(0, 0, 0, 0.05);
+}
+
+[data-theme="light"] .plus-quick-link:hover {
+  background: rgba(166, 124, 0, 0.08);
+  border-color: rgba(166, 124, 0, 0.3);
+}
