@@ -1282,7 +1282,7 @@
   <div class="plus-modal-backdrop" id="plusDeactivateModal" hidden aria-hidden="true">
     <div class="plus-modal-dialog" role="dialog" aria-modal="true" aria-labelledby="plusModalTitle">
       <h2 class="plus-modal-title" id="plusModalTitle">Deaktiver Videregående Hjelp+?</h2>
-      <p class="plus-modal-desc">Du er i ferd med å deaktivere Pluss. Hva vil du gjøre med Pluss-dataene dine? (valg, innstillinger og annen data som er spesifikk for Pluss-versjonen)</p>
+      <p class="plus-modal-desc" id="plusModalDesc">Du er i ferd med å deaktivere Pluss. Hva vil du gjøre med Pluss-dataene dine? (valg, innstillinger og annen data som er spesifikk for Pluss-versjonen)</p>
       <div class="plus-modal-actions">
         <button type="button" class="plus-modal-btn primary" id="plusKeepBtn">
           <span class="material-icons">undo</span>
@@ -2101,6 +2101,12 @@
         var active = VHplus.isActive();
         var canActivate = VHplus.canActivate();
 
+        // Revalidate: if Plus is stored as active but user no longer qualifies, deactivate
+        if (active && !canActivate) {
+          VHplus.deactivate();
+          active = false;
+        }
+
         plusCard.classList.toggle('active', active);
 
         if (active) {
@@ -2166,6 +2172,9 @@
         if (!window.VHplus || !VHplus.isActive()) return;
         if (countyInput.value !== VHplus.REQUIRED_COUNTY) {
           VHplus.showDeactivationModal({
+            title: 'Endre fylke?',
+            description: 'Når du bytter fylke mister du tilgangen til Videregående Hjelp+, fordi Pluss kun er tilgjengelig for elever i Møre og Romsdal. Vil du fortsette med å endre fylke, eller beholde Pluss ved å holde deg i Møre og Romsdal?',
+            keepBtnText: 'Behold Pluss (avbryt endring)',
             onCancel: function () {
               // Revert county selection
               var profile = VHprofile.get();
@@ -2177,12 +2186,9 @@
                 VHplus.clearPlusData();
               }
               VHplus.deactivate();
-              // Update the profile with the new county
-              var currentGrade = getCurrentGrade();
-              VHprofile.set({
-                county: countyInput.value || null,
-                grade: currentGrade,
-              });
+              // Note: County change is already reflected in countyInput.value
+              // It will persist when user clicks "Lagre" along with other form fields
+              // No direct VHprofile.set() call here to avoid partial saves
               updatePlusUI();
             },
           });

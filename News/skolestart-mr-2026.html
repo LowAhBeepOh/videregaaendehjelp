@@ -119,8 +119,8 @@
     }
 
     [data-theme="light"] .article-tag.plus {
-      border-color: #A67C00;
-      color: #A67C00;
+      border-color: var(--plus-gold-light);
+      color: var(--plus-gold-light);
     }
 
     .article-title {
@@ -326,13 +326,21 @@
       border-top: 1px solid var(--border);
       margin: 48px 0;
     }
+
+    .back-icon {
+      font-size: 18px;
+    }
+
+    .callout-link {
+      color: var(--card-yellow);
+    }
   </style>
 </head>
 <body>
   <header>
     <div class="header-content">
       <a href="../news.html" class="back-btn">
-        <span class="material-icons" style="font-size: 18px;" aria-hidden="true">arrow_back</span>
+        <span class="material-icons back-icon" aria-hidden="true">arrow_back</span>
         Tilbake til nyheter
       </a>
       <span class="plus-tag">+ Pluss</span>
@@ -396,7 +404,7 @@
 
         <div class="callout">
           <div class="callout-label">Slik gjør du</div>
-          <p>Gå til <a href="https://skolestart.mrfylke.no" target="_blank" style="color: var(--card-yellow);">skolestart.mrfylke.no</a>, logg inn med fødselsnummer, og velg PC-modell. Foresatte må bekrefte hvis du er under 18.</p>
+          <p>Gå til <a href="https://skolestart.mrfylke.no" target="_blank" class="callout-link">skolestart.mrfylke.no</a>, logg inn med fødselsnummer, og velg PC-modell. Foresatte må bekrefte hvis du er under 18.</p>
         </div>
 
         <p>Fylkeskommunen tilbyr ulike modeller og ordninger. Du får mer informasjon om priser og levering på portalen når du logger inn.</p>
@@ -409,7 +417,7 @@
 
         <div class="callout">
           <div class="callout-label">Slik søker du</div>
-          <p>Gå til <a href="https://skoleskyss.mrfylke.no" target="_blank" style="color: var(--card-yellow);">skoleskyss.mrfylke.no</a> og fyll ut søknaden. Du kan søke så snart du har fått bekreftet skoleplass. Du får et skoleskysskort fra FRAM når søknaden er godkjent.</p>
+          <p>Gå til <a href="https://skoleskyss.mrfylke.no" target="_blank" class="callout-link">skoleskyss.mrfylke.no</a> og fyll ut søknaden. Du kan søke så snart du har fått bekreftet skoleplass. Du får et skoleskysskort fra FRAM når søknaden er godkjent.</p>
         </div>
 
         <p>Merk at regelen om «farlig skoleveg» <strong>ikke</strong> gjelder for elever i videregående skole. Voksne deltakere over 24 år har heller ikke rett til gratis skoleskyss.</p>

@@ -24,6 +24,8 @@ legg til `"plus": true` og eventuelt `"county": "Møre og Romsdal"`:
 }
 ```
 
+**Viktig:** `plus` og `county` er kun visningsfiltre i klienten. De gir ikke tilgangskontroll på serversiden. Siden lenket HTML-innhold (f.eks. `News/mr-skolestart.html`) er offentlig tilgjengelig statisk innhold, kan det nås direkte uten Plus-aktivering. Hvis eksklusivt innhold kreves, må det implementeres via server-side tilgangskontroll, autentisert API, eller ved å flytte innholdet utenfor offentlige mapper.
+
 ### Forslag til Pluss-nyheter:
 - **Skolestartinfo**: Datoer, frister og praktisk info for MR-elever
 - **Inntak og poenggrenser**: Oppdaterte poenggrenser for MR-skoler
@@ -92,8 +94,11 @@ Dette kan implementeres som:
 ### Lagring:
 ```javascript
 // Feed-innstillinger lagres i VHplus settings
+// Viktig: Merge inn i eksisterende settings for å bevare andre verdier
+var currentData = VHplus.get();
+var currentSettings = currentData.settings || {};
 VHplus.set({
-  settings: {
+  settings: Object.assign({}, currentSettings, {
     feed: {
       showGuides: true,
       showTools: true,
@@ -102,7 +107,7 @@ VHplus.set({
       hiddenGuides: [],
       preferredSubjects: [],
     }
-  }
+  })
 });
 ```
 
@@ -128,13 +133,24 @@ Pluss-data (innstillinger, preferanser) bør synkroniseres til Supabase
 ```javascript
 // I plus.js eller account.js
 var plusData = VHplus.get();
+var currentProfile = await VHaccount.getCurrentProfile();
+var existingSyncData = (currentProfile && currentProfile.sync_data) || {};
+
+// Kun synkroniser preferanser og innstillinger, IKKE enabled/activatedAt
+// Plus-autorisasjon bør bestemmes av pålitelige konto-/server-data, ikke localStorage
+var syncablePlusData = {
+  preferences: plusData.preferences,
+  settings: plusData.settings,
+};
+
 await VHaccount.updateProfile({
-  sync_data: {
-    ...existingSyncData,
-    plus: plusData,
-  },
+  sync_data: Object.assign({}, existingSyncData, {
+    plus: syncablePlusData,
+  }),
 });
 ```
+
+**Viktig:** Client-kontrollerte felter som `enabled` og `activatedAt` skal IKKE synkroniseres, da Plus-autorisasjon bør valideres mot pålitelig server-side data (f.eks. verifisert fylke og konto-status) i stedet for localStorage-verdier.
 
 ---
 

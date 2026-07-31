@@ -1,9 +1,9 @@
 ouuu shii glemte at jeg ikke skulle commite denne, ja ja early access ig...?
-- I Frankrike er ketchup forbudt i skolekantiner, med mindre det serveres en liten porsjon til pommes frites. Myndighetene mener det fornærmer den franske matkulturen.
+- I Frankrike er det strenge regler for ketchup i skolekantiner – den kan kun serveres i små porsjoner til pommes frites, som ledd i å fremme den franske matkulturen. (Kilde: French Ministry of Agriculture, 2011)
 
 - Framhaldsskolen, en praktisk skole for arbeidslivet etter folkeskolen, ble avskaffet i 1969 da den niårige grunnskolen ble innført i Norge.
 
-- Norske lærere fikk offisielt forbud mot fysisk avstraffelse i 1936, men uformelle refselsesmetoder levde videre i klasserommene i flere tiår etterpå.
+- Norske lærere fikk offisielt forbud mot fysisk avstraffelse i 1936, men uformelle refselsesmetoder levde videre i klasserommene i flere tiår etterpå. (Kilde: Stortingsforhandlinger 1936)
 
 - Forskning viser at det å skrive for hånd aktiverer et mye rikere nettverk av hjerneceller enn å skrive på tastatur, noe som gir dramatisk bedre hukommelse.
 
@@ -18,14 +18,13 @@ ouuu shii glemte at jeg ikke skulle commite denne, ja ja early access ig...?
 - Norske gutter og jenter ble ikke undervist sammen i sløyd og heimkunnskap før Mønsterplanen av 1974 gjorde fellesundervisning obligatorisk.
 - Studier viser at elever presterer over tjue prosent svakere når romtemperaturen stiger mot tretti grader, sammenlignet med et kjølig klasserom.
 - Vanskelig lesbare skrifttyper kan faktisk tvinge hjernen til dypere bearbeidelse, slik at du husker stoffet bedre. Fenomenet kalles «desirable difficulty».
-- I Armenia er folkedans et obligatorisk og karakterbestemt fag for å bevare landets nasjonale kulturarv.
-- I gamle norske skoler måtte lærere føre straffeprotokoller der de dokumenterte hvert eneste slag de ga med bjørkeris eller linjal.
+- I Armenia er folkedans et obligatorisk og karakterbestemt fag for å bevare landets nasjonale kulturarv. (Kilde: Armenian Ministry of Education)
+- I gamle norske skoler måtte lærere føre straffeprotokoller der de dokumenterte fysisk avstraffelse med linjal eller lignende. (Kilde: Norsk skolehistorisk litteratur)
 - Å ha internett lett tilgjengelig gjør at hjernen slutter å anstrenge seg for å huske informasjon. Den stoler blindt på at Google lagrer alt for deg.
 - På 1800-tallet og tidlig 1900-tall måtte norske elever pugge katekisme og Bibel-vers utenat som en stor del av skoledagen, i tillegg til å lære latin og gresk.
 - Tenåringers døgnrytme er biologisk forskjøvet, så å kreve full konsentrasjon klokka åtte om morgenen tilsvarer ifølge søvnforskere å fungere i en mild form for rus.
 - I New Mexico, USA, ligger en skole fullstendig under bakken inne i et gammelt atombombesenter, komplett med 800 kilos ståldører og egne luftfiltre.
 - Emosjonelle opplevelser frigjør dopamin som fungerer som en slags kjemisk «huskelapp» i hjernen, og gjør at følelsesladede minner fester seg mye sterkere enn nøytrale fakta.
-- Norske elever måtte tidligere ta med seg sitt eget bjørkeris til skolen som læreren kunne bruke til fysisk avstraffelse.
 - Tyskland har skoler med offisielle «lykketimer» på timeplanen, der elevene lærer om livsmestring og harmoni, helt uten karakterer eller eksamener.
 - Vitenskapen viser at det faktisk er mulig å plante helt falske minner hos mennesker, slik at de kan detaljert huske og leve seg inn i hendelser som aldri har skjedd.
 - Grønnruss var en egen russetype for elever som fullførte realskolen, og forsvant da realskolen ble avskaffet i 1969.

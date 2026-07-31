@@ -1414,12 +1414,22 @@
       modal.hidden = false;
       modal.setAttribute('aria-hidden', 'false');
       var closeBtn = document.getElementById('plusSkolestartClose');
+      if (!closeBtn) return;
+
+      var previousFocus = document.activeElement;
+      var removeTrap = window.VHplus && VHplus.trapFocus ? VHplus.trapFocus(modal) : function(){};
+      closeBtn.focus();
+
       function close() {
         modal.hidden = true;
         modal.setAttribute('aria-hidden', 'true');
         closeBtn.removeEventListener('click', close);
         document.removeEventListener('keydown', onKey);
         modal.removeEventListener('click', onBackdrop);
+        removeTrap();
+        var trigger = document.getElementById('plusSkolestartTrigger');
+        if (trigger) trigger.focus();
+        else if (previousFocus) previousFocus.focus();
       }
       function onKey(e) { if (e.key === 'Escape') close(); }
       function onBackdrop(e) { if (e.target === modal) close(); }

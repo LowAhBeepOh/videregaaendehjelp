@@ -27,13 +27,21 @@
 
   function set(patch) {
     var next = Object.assign({}, get(), patch || {});
-    localStorage.setItem(PLUS_KEY, JSON.stringify(next));
+    try {
+      localStorage.setItem(PLUS_KEY, JSON.stringify(next));
+    } catch (e) {
+      // Storage unavailable or quota exceeded
+    }
     document.dispatchEvent(new CustomEvent(PLUS_EVENT, { detail: next }));
     return next;
   }
 
   function clear() {
-    localStorage.removeItem(PLUS_KEY);
+    try {
+      localStorage.removeItem(PLUS_KEY);
+    } catch (e) {
+      // Storage unavailable
+    }
     document.dispatchEvent(new CustomEvent(PLUS_EVENT, { detail: defaultPlusData() }));
   }
 
@@ -84,15 +92,83 @@
     });
   }
 
+  function trapFocus(element) {
+    var focusableElements = element.querySelectorAll(
+      'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
+    );
+    var firstFocusable = focusableElements[0];
+    var lastFocusable = focusableElements[focusableElements.length - 1];
+
+    function onTrapKeydown(e) {
+      if (e.key !== 'Tab') return;
+      if (e.shiftKey) {
+        if (document.activeElement === firstFocusable) {
+          e.preventDefault();
+          lastFocusable.focus();
+        }
+      } else {
+        if (document.activeElement === lastFocusable) {
+          e.preventDefault();
+          firstFocusable.focus();
+        }
+      }
+    }
+
+    element.addEventListener('keydown', onTrapKeydown);
+    return function removeTrap() {
+      element.removeEventListener('keydown', onTrapKeydown);
+    };
+  }
+
   function showDeactivationModal(options) {
     var backdrop = document.getElementById('plusDeactivateModal');
     if (!backdrop) return;
     backdrop.hidden = false;
     backdrop.setAttribute('aria-hidden', 'false');
 
+    var modalTitle = document.getElementById('plusModalTitle');
+    var modalDesc = document.getElementById('plusModalDesc');
     var keepBtn = document.getElementById('plusKeepBtn');
     var keepDataBtn = document.getElementById('plusDeactKeepDataBtn');
     var deleteDataBtn = document.getElementById('plusDeactDeleteDataBtn');
+
+    if (!keepBtn || !keepDataBtn || !deleteDataBtn) return;
+
+    // Store original text for restoration
+    var originalTitle = modalTitle ? modalTitle.textContent : '';
+    var originalDesc = modalDesc ? modalDesc.textContent : '';
+    var originalKeepBtnHTML = keepBtn ? keepBtn.innerHTML : '';
+
+    // Apply custom copy if provided
+    if (options && options.title && modalTitle) {
+      modalTitle.textContent = options.title;
+    }
+    if (options && options.description && modalDesc) {
+      modalDesc.textContent = options.description;
+    }
+    if (options && options.keepBtnText && keepBtn) {
+      var keepBtnIcon = keepBtn.querySelector('.material-icons');
+      var keepBtnIconText = keepBtnIcon ? keepBtnIcon.outerHTML : '';
+      keepBtn.innerHTML = keepBtnIconText + (options.keepBtnText || 'Nei, behold Pluss!');
+    }
+
+    var previousFocus = document.activeElement;
+    keepBtn.focus();
+    var removeTrap = trapFocus(backdrop);
+
+    function onBackdropClick(e) {
+      if (e.target === backdrop) {
+        cleanup();
+        if (options && options.onCancel) options.onCancel();
+      }
+    }
+
+    function onKeydown(e) {
+      if (e.key === 'Escape') {
+        cleanup();
+        if (options && options.onCancel) options.onCancel();
+      }
+    }
 
     var cleanup = function () {
       backdrop.hidden = true;
@@ -100,6 +176,14 @@
       keepBtn.removeEventListener('click', onKeep);
       keepDataBtn.removeEventListener('click', onKeepData);
       deleteDataBtn.removeEventListener('click', onDeleteData);
+      backdrop.removeEventListener('click', onBackdropClick);
+      document.removeEventListener('keydown', onKeydown);
+      removeTrap();
+      // Restore original modal text
+      if (modalTitle) modalTitle.textContent = originalTitle;
+      if (modalDesc) modalDesc.textContent = originalDesc;
+      if (keepBtn) keepBtn.innerHTML = originalKeepBtnHTML;
+      if (previousFocus) previousFocus.focus();
     };
 
     function onKeep() {
@@ -120,28 +204,18 @@
     keepBtn.addEventListener('click', onKeep);
     keepDataBtn.addEventListener('click', onKeepData);
     deleteDataBtn.addEventListener('click', onDeleteData);
-
-    // Close on Escape
-    function onKeydown(e) {
-      if (e.key === 'Escape') {
-        cleanup();
-        document.removeEventListener('keydown', onKeydown);
-        if (options && options.onCancel) options.onCancel();
-      }
-    }
     document.addEventListener('keydown', onKeydown);
-
-    // Close on backdrop click
-    backdrop.addEventListener('click', function (e) {
-      if (e.target === backdrop) {
-        cleanup();
-        if (options && options.onCancel) options.onCancel();
-      }
-    });
+    backdrop.addEventListener('click', onBackdropClick);
   }
 
   function clearPlusData() {
-    localStorage.removeItem(PLUS_KEY);
+    try {
+      localStorage.removeItem(PLUS_KEY);
+    } catch (e) {
+      // Storage unavailable
+    }
+    var data = defaultPlusData();
+    document.dispatchEvent(new CustomEvent(PLUS_EVENT, { detail: data }));
   }
 
   // Run on load
@@ -165,6 +239,7 @@
     renderPlusBadge: renderPlusBadge,
     showDeactivationModal: showDeactivationModal,
     clearPlusData: clearPlusData,
+    trapFocus: trapFocus,
     REQUIRED_COUNTY: REQUIRED_COUNTY,
     PLUS_EVENT: PLUS_EVENT,
     PLUS_KEY: PLUS_KEY,
