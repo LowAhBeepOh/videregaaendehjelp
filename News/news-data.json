@@ -3,7 +3,7 @@
     {
       "name": "Videregående Hjelp+ (Pluss) er lansert",
       "desc": "Videregående Hjelp+ er en bedre versjon av nettsiden for elever i Møre og Romsdal. Les om du har tilgang til Videregående Hjelp+, hvordan du aktiverer det, og hva du får tilgang til.",
-      "thumb": "../Assets/Thumbnails/news_thumb_plus.png",
+      "thumb": "Assets/Thumbnails/news_thumb_plus.png",
       "date": "2026-07-31",
       "link": "News/videregaaende-hjelp-plus.html",
       "plus": false,
