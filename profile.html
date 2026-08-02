@@ -641,7 +641,7 @@
     padding: 4px 18px 18px 18px;
     display: flex;
     flex-direction: column;
-    gap: 14px;
+    gap: 0;
   }
 
   .tint-settings-hint {
@@ -649,6 +649,7 @@
     font-size: 13px;
     color: var(--text-muted);
     line-height: 1.5;
+    margin-bottom: 14px;
   }
 
   .tint-presets {
@@ -742,23 +743,39 @@
     cursor: pointer;
   }
 
-  /* Plus color picker inside tint settings */
+  .tint-section {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    border-top: 1px solid var(--border);
+    padding-top: 14px;
+  }
+
+  .tint-section-label {
+    font-family: var(--font-display);
+    font-size: 12px;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--text-muted);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
   .tint-color-row {
     display: flex;
     flex-direction: column;
     gap: 10px;
+    border: 1px solid rgba(255, 214, 10, 0.28);
+    border-radius: 12px;
+    padding: 14px;
+    margin-bottom: 14px;
+    background: rgba(255, 214, 10, 0.05);
   }
 
-  .tint-color-label {
-    font-family: var(--font-display);
-    font-size: 13px;
-    font-weight: 700;
-    color: var(--text-muted);
-    text-transform: uppercase;
-    letter-spacing: 0.06em;
-    display: flex;
-    align-items: center;
-    gap: 8px;
+  .tint-color-row[hidden] {
+    display: none;
   }
 
   .tint-plus-badge {
@@ -773,8 +790,8 @@
   }
 
   .tint-color-swatches {
-    display: flex;
-    flex-wrap: wrap;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(104px, 1fr));
     gap: 8px;
   }
 
@@ -782,7 +799,7 @@
     display: inline-flex;
     align-items: center;
     gap: 8px;
-    padding: 8px 14px;
+    padding: 8px 12px;
     border-radius: 10px;
     font-family: var(--font-body);
     font-size: 13px;
@@ -796,11 +813,53 @@
 
   .tint-color-btn:hover {
     border-color: var(--text-muted);
+    background: rgba(255, 255, 255, 0.05);
+  }
+
+  [data-theme="light"] .tint-color-btn:hover {
+    background: rgba(0, 0, 0, 0.04);
   }
 
   .tint-color-btn[aria-checked="true"] {
-    border-color: var(--card-blue);
-    background: rgba(88, 101, 242, 0.08);
+    border-color: var(--text);
+    background: rgba(255, 255, 255, 0.06);
+  }
+
+  [data-theme="light"] .tint-color-btn[aria-checked="true"] {
+    background: rgba(0, 0, 0, 0.05);
+  }
+
+  .tint-color-btn[data-tint-color="#D0F54E"][aria-checked="true"] {
+    border-color: #D0F54E;
+    background: rgba(208, 245, 78, 0.16);
+  }
+  .tint-color-btn[data-tint-color="#5865F2"][aria-checked="true"] {
+    border-color: #5865F2;
+    background: rgba(88, 101, 242, 0.18);
+  }
+  .tint-color-btn[data-tint-color="#FF9F0A"][aria-checked="true"] {
+    border-color: #FF9F0A;
+    background: rgba(255, 159, 10, 0.16);
+  }
+  .tint-color-btn[data-tint-color="#d40b00"][aria-checked="true"] {
+    border-color: #d40b00;
+    background: rgba(212, 11, 0, 0.18);
+  }
+  .tint-color-btn[data-tint-color="#FFD60A"][aria-checked="true"] {
+    border-color: #FFD60A;
+    background: rgba(255, 214, 10, 0.16);
+  }
+  .tint-color-btn[data-tint-color="#00C2E0"][aria-checked="true"] {
+    border-color: #00C2E0;
+    background: rgba(0, 194, 224, 0.16);
+  }
+  .tint-color-btn[data-tint-color="#FF6EB4"][aria-checked="true"] {
+    border-color: #FF6EB4;
+    background: rgba(255, 110, 180, 0.16);
+  }
+  .tint-color-btn[data-tint-color="#30D158"][aria-checked="true"] {
+    border-color: #30D158;
+    background: rgba(48, 209, 88, 0.16);
   }
 
   .tint-color-btn:focus-visible {
@@ -810,11 +869,11 @@
 
   .tint-swatch {
     display: inline-block;
-    width: 14px;
-    height: 14px;
+    width: 16px;
+    height: 16px;
     border-radius: 50%;
     flex-shrink: 0;
-    border: 1px solid rgba(255,255,255,0.15);
+    border: 1px solid rgba(128, 128, 128, 0.35);
   }
 
   .tint-swatch-auto {
@@ -825,6 +884,15 @@
       #d40b00 270deg 360deg
     );
   }
+
+  .tint-color-btn[data-tint-color="#D0F54E"] .tint-swatch { background: #D0F54E; }
+  .tint-color-btn[data-tint-color="#5865F2"] .tint-swatch { background: #5865F2; }
+  .tint-color-btn[data-tint-color="#FF9F0A"] .tint-swatch { background: #FF9F0A; }
+  .tint-color-btn[data-tint-color="#d40b00"] .tint-swatch { background: #d40b00; }
+  .tint-color-btn[data-tint-color="#FFD60A"] .tint-swatch { background: #FFD60A; }
+  .tint-color-btn[data-tint-color="#00C2E0"] .tint-swatch { background: #00C2E0; }
+  .tint-color-btn[data-tint-color="#FF6EB4"] .tint-swatch { background: #FF6EB4; }
+  .tint-color-btn[data-tint-color="#30D158"] .tint-swatch { background: #30D158; }
 
   .account-card {
     margin-top: 4px;
@@ -1235,47 +1303,54 @@
 
             <!-- Plus-only color picker (shown only when Plus is active) -->
             <div class="tint-color-row" id="plusColorRow" hidden>
-              <span class="tint-color-label">Farge <span class="tint-plus-badge">Pluss</span></span>
+              <span class="tint-section-label">Farge <span class="tint-plus-badge">Pluss</span></span>
               <div class="tint-color-swatches" role="radiogroup" aria-label="Velg tint-farge">
                 <button type="button" class="tint-color-btn" data-tint-color="" aria-checked="true" title="Standard (basert på trinn)">
                   <span class="tint-swatch tint-swatch-auto"></span>Standard
                 </button>
                 <button type="button" class="tint-color-btn" data-tint-color="#D0F54E" aria-checked="false" title="Lime (8-10)">
-                  <span class="tint-swatch" style="background:#D0F54E;"></span>Lime
+                  <span class="tint-swatch"></span>Lime
                 </button>
                 <button type="button" class="tint-color-btn" data-tint-color="#5865F2" aria-checked="false" title="Blå (VG1-VG2)">
-                  <span class="tint-swatch" style="background:#5865F2;"></span>Blå
+                  <span class="tint-swatch"></span>Blå
                 </button>
                 <button type="button" class="tint-color-btn" data-tint-color="#FF9F0A" aria-checked="false" title="Oransje (Alumni)">
-                  <span class="tint-swatch" style="background:#FF9F0A;"></span>Oransje
+                  <span class="tint-swatch"></span>Oransje
                 </button>
                 <button type="button" class="tint-color-btn" data-tint-color="#d40b00" aria-checked="false" title="Rød (Lærer)">
-                  <span class="tint-swatch" style="background:#d40b00;"></span>Rød
+                  <span class="tint-swatch"></span>Rød
                 </button>
                 <button type="button" class="tint-color-btn" data-tint-color="#FFD60A" aria-checked="false" title="Gul/gull">
-                  <span class="tint-swatch" style="background:#FFD60A;"></span>Gull
+                  <span class="tint-swatch"></span>Gull
                 </button>
                 <button type="button" class="tint-color-btn" data-tint-color="#00C2E0" aria-checked="false" title="Cyan">
-                  <span class="tint-swatch" style="background:#00C2E0;"></span>Cyan
+                  <span class="tint-swatch"></span>Cyan
                 </button>
                 <button type="button" class="tint-color-btn" data-tint-color="#FF6EB4" aria-checked="false" title="Rosa">
-                  <span class="tint-swatch" style="background:#FF6EB4;"></span>Rosa
+                  <span class="tint-swatch"></span>Rosa
                 </button>
                 <button type="button" class="tint-color-btn" data-tint-color="#30D158" aria-checked="false" title="Grønn">
-                  <span class="tint-swatch" style="background:#30D158;"></span>Grønn
+                  <span class="tint-swatch"></span>Grønn
                 </button>
               </div>
             </div>
 
-            <div class="tint-presets" role="radiogroup" aria-label="Tint-intensitet">
-              <button type="button" class="tint-preset-btn" data-tint="off" role="radio" aria-checked="false">Av</button>
-              <button type="button" class="tint-preset-btn" data-tint="subtle" role="radio" aria-checked="false">Svak</button>
-              <button type="button" class="tint-preset-btn" data-tint="strong" role="radio" aria-checked="false">Sterk</button>
+            <div class="tint-section">
+              <span class="tint-section-label">Intensitet</span>
+              <div class="tint-presets" role="radiogroup" aria-label="Tint-intensitet">
+                <button type="button" class="tint-preset-btn" data-tint="off" role="radio" aria-checked="false">Av</button>
+                <button type="button" class="tint-preset-btn" data-tint="subtle" role="radio" aria-checked="false">Svak</button>
+                <button type="button" class="tint-preset-btn" data-tint="strong" role="radio" aria-checked="false">Sterk</button>
+              </div>
             </div>
-            <label class="tint-scope-row">
-              <input type="checkbox" id="tintScopeAll">
-              <span>Tint alt (også kort og overflater)</span>
-            </label>
+
+            <div class="tint-section">
+              <span class="tint-section-label">Omfang</span>
+              <label class="tint-scope-row">
+                <input type="checkbox" id="tintScopeAll">
+                <span>Tint alt (også kort og overflater)</span>
+              </label>
+            </div>
           </div>
         </details>
 
