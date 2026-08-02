@@ -689,7 +689,7 @@
 
     /* ─── Attachments ─── */
     .opinion-attachment { position: relative; margin-top: 10px; border-radius: 14px; overflow: hidden; border: 1px solid var(--border); }
-    .opinion-attachment img { display: block; width: 100%; height: auto; max-height: 350px; object-fit: cover; cursor: zoom-in; transition: opacity 0.15s; }
+    .opinion-attachment img { display: block; width: 100%; height: auto; max-height: 600px; object-fit: contain; cursor: zoom-in; transition: opacity 0.15s; background: rgba(0,0,0,0.04); }
     .opinion-attachment img:hover { opacity: 0.9; }
     .opinion-attachment.blurred img { filter: blur(20px); pointer-events: none; cursor: default; }
     /* ─── Lightbox ─── */
@@ -1247,6 +1247,13 @@
       let img = await loadImageFromDataUrl(originalDataUrl);
       let width = img.naturalWidth;
       let height = img.naturalHeight;
+      // Reject images with extreme aspect ratios (more than 4:1 in either direction)
+      if (width > 0 && height > 0) {
+        const ratio = width / height;
+        if (ratio > 4 || ratio < 0.25) {
+          throw new Error('Bildet har en ekstrem bildeforhold (mer enn 4:1 eller 1:4). Prøv et annet bilde.');
+        }
+      }
       const maxSide = 1200;
       if (Math.max(width, height) > maxSide) {
         const scale = maxSide / Math.max(width, height);

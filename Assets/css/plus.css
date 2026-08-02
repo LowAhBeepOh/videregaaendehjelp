@@ -48,26 +48,72 @@
   border-color: rgba(255, 214, 10, 0.5);
 }
 
-/* Plus Section Card on profile.html */
+/* Plus Section Card on profile.html — rendered as a <details> collapsible */
 .plus-card {
   background: var(--surface);
   border: 1px solid var(--border);
   border-radius: 20px;
-  padding: 36px;
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
+  overflow: hidden;
+  padding: 0;
 }
 
 @media (max-width: 640px) {
   .plus-card {
-    padding: 22px;
+    border-radius: 16px;
   }
 }
 
 .plus-card.active {
   border-color: var(--plus-gold);
   box-shadow: 0 0 0 1px rgba(255, 214, 10, 0.15);
+}
+
+.plus-card-summary {
+  list-style: none;
+  cursor: pointer;
+  padding: 18px 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  user-select: none;
+  transition: background 0.15s ease;
+}
+
+.plus-card-summary::-webkit-details-marker {
+  display: none;
+}
+
+.plus-card-summary:hover {
+  background: rgba(255, 255, 255, 0.03);
+}
+
+[data-theme="light"] .plus-card-summary:hover {
+  background: rgba(0, 0, 0, 0.02);
+}
+
+.plus-card-summary:focus-visible {
+  outline: 2px solid var(--card-blue);
+  outline-offset: 2px;
+}
+
+.plus-card-chevron {
+  font-size: 22px;
+  color: var(--text-muted);
+  flex-shrink: 0;
+  transition: transform 0.2s ease;
+}
+
+.plus-card[open] .plus-card-chevron {
+  transform: rotate(180deg);
+}
+
+.plus-card-body {
+  padding: 0 24px 24px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  border-top: 1px solid var(--border);
 }
 
 .plus-header {
@@ -550,7 +596,16 @@
   gap: 4px;
   border: 1px solid var(--border);
   border-radius: 14px;
-  overflow: hidden;
+  overflow-y: auto;
+  max-height: 40vh;
+  overscroll-behavior: contain;
+}
+
+@media (min-width: 640px) {
+  .plus-skolestart-checklist {
+    max-height: none;
+    overflow-y: visible;
+  }
 }
 
 .plus-sjekkpunkt {
