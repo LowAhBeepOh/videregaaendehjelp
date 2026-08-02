@@ -163,6 +163,26 @@
       color: var(--text-muted);
     }
 
+    .rewrite-notice {
+      margin: -16px 0 32px;
+      padding: 18px 20px;
+      border: 2px solid var(--card-red);
+      border-left-width: 8px;
+      background: color-mix(in srgb, var(--card-red) 20%, var(--surface));
+      color: var(--text);
+    }
+
+    .rewrite-notice h2 {
+      font-family: var(--font-display);
+      font-size: 20px;
+      margin-bottom: 6px;
+    }
+
+    .rewrite-notice p {
+      color: var(--text);
+      font-size: 14px;
+    }
+
     /* Content Grid */
     .guides-grid {
       display: grid;
@@ -520,6 +540,11 @@
       <h1>Guider</h1>
       <p>Lær alt du trenger å vite om videregående skole. Fra hvordan det fungerer til tips for å lykkes.</p>
     </section>
+
+    <aside class="rewrite-notice" aria-labelledby="rewrite-notice-title">
+      <h2 id="rewrite-notice-title">Alle guider skal skrives om</h2>
+      <p>Guidene på Videregående Hjelp vil bli gjennomgått, skrevet om og endret fordi nettstedet innfører en ny <strong>Kildesjekk-regel</strong> og en ny <strong>Kvalitetsregel</strong>. Innholdet kan derfor endres mens arbeidet pågår.</p>
+    </aside>
 
     <section class="filter-section">
       <button class="filter-btn active" data-filter="all">Alle</button>
