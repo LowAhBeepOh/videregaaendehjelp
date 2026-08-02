@@ -236,6 +236,18 @@
       width: 100%;
     }
 
+    /* Select elements need an explicit background so the dropdown options
+       are readable in dark mode — 'transparent' inherits the page bg in
+       the open popup on most browsers, but some render it as white. */
+    select.field-input {
+      background: var(--surface);
+    }
+
+    select.field-input option {
+      background: var(--surface);
+      color: var(--text);
+    }
+
     .field-input::placeholder {
       color: var(--text-muted);
       opacity: 0.6;
@@ -629,7 +641,7 @@
     padding: 4px 18px 18px 18px;
     display: flex;
     flex-direction: column;
-    gap: 14px;
+    gap: 0;
   }
 
   .tint-settings-hint {
@@ -637,6 +649,7 @@
     font-size: 13px;
     color: var(--text-muted);
     line-height: 1.5;
+    margin-bottom: 14px;
   }
 
   .tint-presets {
@@ -729,6 +742,157 @@
     accent-color: var(--card-blue);
     cursor: pointer;
   }
+
+  .tint-section {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    border-top: 1px solid var(--border);
+    padding-top: 14px;
+  }
+
+  .tint-section-label {
+    font-family: var(--font-display);
+    font-size: 12px;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--text-muted);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .tint-color-row {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    border: 1px solid rgba(255, 214, 10, 0.28);
+    border-radius: 12px;
+    padding: 14px;
+    margin-bottom: 14px;
+    background: rgba(255, 214, 10, 0.05);
+  }
+
+  .tint-color-row[hidden] {
+    display: none;
+  }
+
+  .tint-plus-badge {
+    font-size: 10px;
+    font-weight: 700;
+    color: var(--plus-gold);
+    border: 1px solid var(--plus-gold);
+    border-radius: 6px;
+    padding: 1px 6px;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+  }
+
+  .tint-color-swatches {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(104px, 1fr));
+    gap: 8px;
+  }
+
+  .tint-color-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 12px;
+    border-radius: 10px;
+    font-family: var(--font-body);
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.15s ease;
+    border: 1.5px solid var(--border);
+    background: transparent;
+    color: var(--text);
+  }
+
+  .tint-color-btn:hover {
+    border-color: var(--text-muted);
+    background: rgba(255, 255, 255, 0.05);
+  }
+
+  [data-theme="light"] .tint-color-btn:hover {
+    background: rgba(0, 0, 0, 0.04);
+  }
+
+  .tint-color-btn[aria-checked="true"] {
+    border-color: var(--text);
+    background: rgba(255, 255, 255, 0.06);
+  }
+
+  [data-theme="light"] .tint-color-btn[aria-checked="true"] {
+    background: rgba(0, 0, 0, 0.05);
+  }
+
+  .tint-color-btn[data-tint-color="#D0F54E"][aria-checked="true"] {
+    border-color: #D0F54E;
+    background: rgba(208, 245, 78, 0.16);
+  }
+  .tint-color-btn[data-tint-color="#5865F2"][aria-checked="true"] {
+    border-color: #5865F2;
+    background: rgba(88, 101, 242, 0.18);
+  }
+  .tint-color-btn[data-tint-color="#FF9F0A"][aria-checked="true"] {
+    border-color: #FF9F0A;
+    background: rgba(255, 159, 10, 0.16);
+  }
+  .tint-color-btn[data-tint-color="#d40b00"][aria-checked="true"] {
+    border-color: #d40b00;
+    background: rgba(212, 11, 0, 0.18);
+  }
+  .tint-color-btn[data-tint-color="#FFD60A"][aria-checked="true"] {
+    border-color: #FFD60A;
+    background: rgba(255, 214, 10, 0.16);
+  }
+  .tint-color-btn[data-tint-color="#00C2E0"][aria-checked="true"] {
+    border-color: #00C2E0;
+    background: rgba(0, 194, 224, 0.16);
+  }
+  .tint-color-btn[data-tint-color="#FF6EB4"][aria-checked="true"] {
+    border-color: #FF6EB4;
+    background: rgba(255, 110, 180, 0.16);
+  }
+  .tint-color-btn[data-tint-color="#30D158"][aria-checked="true"] {
+    border-color: #30D158;
+    background: rgba(48, 209, 88, 0.16);
+  }
+
+  .tint-color-btn:focus-visible {
+    outline: 2px solid var(--card-blue);
+    outline-offset: 2px;
+  }
+
+  .tint-swatch {
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    flex-shrink: 0;
+    border: 1px solid rgba(128, 128, 128, 0.35);
+  }
+
+  .tint-swatch-auto {
+    background: conic-gradient(
+      #D0F54E 0deg 90deg,
+      #5865F2 90deg 180deg,
+      #FF9F0A 180deg 270deg,
+      #d40b00 270deg 360deg
+    );
+  }
+
+  .tint-color-btn[data-tint-color="#D0F54E"] .tint-swatch { background: #D0F54E; }
+  .tint-color-btn[data-tint-color="#5865F2"] .tint-swatch { background: #5865F2; }
+  .tint-color-btn[data-tint-color="#FF9F0A"] .tint-swatch { background: #FF9F0A; }
+  .tint-color-btn[data-tint-color="#d40b00"] .tint-swatch { background: #d40b00; }
+  .tint-color-btn[data-tint-color="#FFD60A"] .tint-swatch { background: #FFD60A; }
+  .tint-color-btn[data-tint-color="#00C2E0"] .tint-swatch { background: #00C2E0; }
+  .tint-color-btn[data-tint-color="#FF6EB4"] .tint-swatch { background: #FF6EB4; }
+  .tint-color-btn[data-tint-color="#30D158"] .tint-swatch { background: #30D158; }
 
   .account-card {
     margin-top: 4px;
@@ -1131,34 +1295,81 @@
         </div>
 
         <details class="tint-settings" id="tintSettings">
-          <summary>Tint-innstillinger</summary>
+          <summary>Farge og Tint-innstillinger</summary>
           <div class="tint-settings-body">
             <p class="tint-settings-hint">
-              Bakgrunnen får et svakt preg av valgt trinn-farge. Ingen trinn valgt = ingen tint.
+              Bakgrunnen får et svakt preg av valgt farge. Ingen trinn valgt = ingen tint.
             </p>
-            <div class="tint-presets" role="radiogroup" aria-label="Tint-intensitet">
-              <button type="button" class="tint-preset-btn" data-tint="off" role="radio" aria-checked="false">Av</button>
-              <button type="button" class="tint-preset-btn" data-tint="subtle" role="radio" aria-checked="false">Svak</button>
-              <button type="button" class="tint-preset-btn" data-tint="strong" role="radio" aria-checked="false">Sterk</button>
+
+            <!-- Plus-only color picker (shown only when Plus is active) -->
+            <div class="tint-color-row" id="plusColorRow" hidden>
+              <span class="tint-section-label">Farge <span class="tint-plus-badge">Pluss</span></span>
+              <div class="tint-color-swatches" role="radiogroup" aria-label="Velg tint-farge">
+                <button type="button" class="tint-color-btn" data-tint-color="" aria-checked="true" title="Standard (basert på trinn)">
+                  <span class="tint-swatch tint-swatch-auto"></span>Standard
+                </button>
+                <button type="button" class="tint-color-btn" data-tint-color="#D0F54E" aria-checked="false" title="Lime (8-10)">
+                  <span class="tint-swatch"></span>Lime
+                </button>
+                <button type="button" class="tint-color-btn" data-tint-color="#5865F2" aria-checked="false" title="Blå (VG1-VG2)">
+                  <span class="tint-swatch"></span>Blå
+                </button>
+                <button type="button" class="tint-color-btn" data-tint-color="#FF9F0A" aria-checked="false" title="Oransje (Alumni)">
+                  <span class="tint-swatch"></span>Oransje
+                </button>
+                <button type="button" class="tint-color-btn" data-tint-color="#d40b00" aria-checked="false" title="Rød (Lærer)">
+                  <span class="tint-swatch"></span>Rød
+                </button>
+                <button type="button" class="tint-color-btn" data-tint-color="#FFD60A" aria-checked="false" title="Gul/gull">
+                  <span class="tint-swatch"></span>Gull
+                </button>
+                <button type="button" class="tint-color-btn" data-tint-color="#00C2E0" aria-checked="false" title="Cyan">
+                  <span class="tint-swatch"></span>Cyan
+                </button>
+                <button type="button" class="tint-color-btn" data-tint-color="#FF6EB4" aria-checked="false" title="Rosa">
+                  <span class="tint-swatch"></span>Rosa
+                </button>
+                <button type="button" class="tint-color-btn" data-tint-color="#30D158" aria-checked="false" title="Grønn">
+                  <span class="tint-swatch"></span>Grønn
+                </button>
+              </div>
             </div>
-            <label class="tint-scope-row">
-              <input type="checkbox" id="tintScopeAll">
-              <span>Tint alt (også kort og overflater)</span>
-            </label>
+
+            <div class="tint-section">
+              <span class="tint-section-label">Intensitet</span>
+              <div class="tint-presets" role="radiogroup" aria-label="Tint-intensitet">
+                <button type="button" class="tint-preset-btn" data-tint="off" role="radio" aria-checked="false">Av</button>
+                <button type="button" class="tint-preset-btn" data-tint="subtle" role="radio" aria-checked="false">Svak</button>
+                <button type="button" class="tint-preset-btn" data-tint="strong" role="radio" aria-checked="false">Sterk</button>
+              </div>
+            </div>
+
+            <div class="tint-section">
+              <span class="tint-section-label">Omfang</span>
+              <label class="tint-scope-row">
+                <input type="checkbox" id="tintScopeAll">
+                <span>Tint alt (også kort og overflater)</span>
+              </label>
+            </div>
           </div>
         </details>
 
         <!-- Videregående Hjelp+ (Pluss) -->
-        <div class="plus-card" id="plusCard">
-          <div class="plus-header">
-            <span class="plus-header-icon">+</span>
-            <h2>Videregående Hjelp+ (Pluss)</h2>
+        <details class="plus-card" id="plusCard">
+          <summary class="plus-card-summary">
+            <div class="plus-header">
+              <span class="plus-header-icon">+</span>
+              <h2>Videregående Hjelp+ (Pluss)</h2>
+            </div>
+            <span class="plus-card-chevron material-icons">expand_more</span>
+          </summary>
+          <div class="plus-card-body">
+            <p class="plus-description">Få tilgang til eksklusivt innhold, MR-spesifikke nyheter og flere tilpasningsmuligheter. Krever profil, konto og fylke satt til Møre og Romsdal.</p>
+            <div class="plus-status" id="plusStatus"></div>
+            <button type="button" class="plus-toggle-btn" id="plusToggleBtn"></button>
+            <p class="plus-locked-reason" id="plusLockedReason" hidden></p>
           </div>
-          <p class="plus-description">Få tilgang til eksklusivt innhold, MR-spesifikke nyheter og flere tilpasningsmuligheter. Krever profil, konto og fylke satt til Møre og Romsdal.</p>
-          <div class="plus-status" id="plusStatus"></div>
-          <button type="button" class="plus-toggle-btn" id="plusToggleBtn"></button>
-          <p class="plus-locked-reason" id="plusLockedReason" hidden></p>
-        </div>
+        </details>
 
         <div class="status-message" id="status" role="status" aria-live="polite"></div>
 
@@ -1504,6 +1715,19 @@
         if (tintScopeCheckbox) {
           tintScopeCheckbox.checked = scope === 'all';
         }
+        // Show/hide Plus color row
+        const plusColorRow = document.getElementById('plusColorRow');
+        if (plusColorRow) {
+          const isPlus = window.VHplus && VHplus.isActive();
+          plusColorRow.hidden = !isPlus;
+          if (isPlus) {
+            const currentColor = profile.customTintColor || '';
+            document.querySelectorAll('.tint-color-btn').forEach((btn) => {
+              const match = btn.dataset.tintColor === currentColor;
+              btn.setAttribute('aria-checked', match ? 'true' : 'false');
+            });
+          }
+        }
       }
       // VHprofile.setTint() is synchronous and fires vhjelp:tint-changed, which
       // is wired to paintTintUI() below — no inline re-paint needed here.
@@ -1528,6 +1752,22 @@
           }
         });
       }
+      // Plus color swatches
+      document.querySelectorAll('.tint-color-btn').forEach((btn) => {
+        btn.addEventListener('click', async () => {
+          const current = VHprofile.get();
+          VHprofile.setTint(
+            current.tintIntensity || 'subtle',
+            current.tintScope || 'bg',
+            btn.dataset.tintColor || null
+          );
+          if (window.VHaccount && VHaccount.getCurrentUser()) {
+            await VHaccount.syncSettingsToAccount().catch(() => {});
+          }
+        });
+      });
+      // Re-paint tint UI when Plus status changes
+      document.addEventListener('vhjelp:plus-changed', paintTintUI);
       // Live both on profile grade changes and on tint-only edits (the latter
       // is dispatched by VHprofile.setTint / applyTint).
       gradeRadios.forEach((r) => r.addEventListener('change', paintTintUI));
@@ -2101,11 +2341,9 @@
         var active = VHplus.isActive();
         var canActivate = VHplus.canActivate();
 
-        // Revalidate: if Plus is stored as active but user no longer qualifies, deactivate
-        if (active && !canActivate) {
-          VHplus.deactivate();
-          active = false;
-        }
+        // Note: Plus is NOT auto-deactivated on logout or account change.
+        // It is only deactivated when the user manually turns it off, or
+        // when they change their county away from Møre og Romsdal.
 
         plusCard.classList.toggle('active', active);
 
@@ -2113,20 +2351,20 @@
           plusStatus.className = 'plus-status active-status';
           plusStatus.textContent = 'Videregående Hjelp+ er aktivert. Du har tilgang til eksklusivt innhold for Møre og Romsdal.';
           plusToggleBtn.className = 'plus-toggle-btn deactivate';
-          plusToggleBtn.textContent = 'Bytt tilbake til Videregående Hjelp (uten Pluss)';
+          plusToggleBtn.innerHTML = '<span class="material-icons" style="font-size:18px;">close</span> Bytt tilbake til Videregående Hjelp (uten Pluss)';
           plusLockedReason.hidden = true;
         } else if (canActivate) {
           plusStatus.className = 'plus-status ready';
           plusStatus.textContent = 'Du oppfyller kravene for å aktivere Pluss!';
           plusToggleBtn.className = 'plus-toggle-btn activate';
-          plusToggleBtn.textContent = 'Bytt til Videregående Hjelp+ (Pluss)';
+          plusToggleBtn.innerHTML = '<span class="material-icons" style="font-size:18px;">add</span> Bytt til Videregående Hjelp+ (Pluss)';
           plusToggleBtn.disabled = false;
           plusLockedReason.hidden = true;
         } else {
           plusStatus.className = 'plus-status locked';
           plusStatus.textContent = 'Du må oppfylle kravene for å aktivere Pluss.';
           plusToggleBtn.className = 'plus-toggle-btn activate';
-          plusToggleBtn.textContent = 'Bytt til Videregående Hjelp+ (Pluss)';
+          plusToggleBtn.innerHTML = '<span class="material-icons" style="font-size:18px;">lock</span> Bytt til Videregående Hjelp+ (Pluss)';
           plusToggleBtn.disabled = true;
           // Show why locked
           var reasons = [];

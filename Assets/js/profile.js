@@ -100,6 +100,7 @@
       tintIntensity: 'subtle',
       tintScope: 'bg',
       syncThemeDevices: false,
+      customTintColor: null,
     };
   }
 
@@ -531,7 +532,9 @@
 
     const intensity = profile.tintIntensity || DEFAULT_TINT_INTENSITY;
     const scope = profile.tintScope || DEFAULT_TINT_SCOPE;
-    const tintHex = profile.grade && GRADE_TINT[profile.grade];
+    // Plus users may override the tint color; fall back to grade-based tint.
+    const isPlus = window.VHplus && VHplus.isActive();
+    const tintHex = (isPlus && profile.customTintColor) || (profile.grade && GRADE_TINT[profile.grade]);
     const preset = TINT_PRESETS[intensity];
     if (tintHex && preset && preset.alpha > 0) {
       const tintRgb = hexToRgb(tintHex);
@@ -570,13 +573,16 @@
     );
   }
 
-  function setTint(intensity, scope) {
+  function setTint(intensity, scope, customTintColor) {
     const validIntensities = Object.keys(TINT_PRESETS);
     const validScopes = ['bg', 'all'];
     const next = {
       tintIntensity: validIntensities.includes(intensity) ? intensity : DEFAULT_TINT_INTENSITY,
       tintScope: validScopes.includes(scope) ? scope : DEFAULT_TINT_SCOPE,
     };
+    if (customTintColor !== undefined) {
+      next.customTintColor = customTintColor || null;
+    }
     // Persist inside the existing profile JSON so the setting roams with the
     // user's identity. We deliberately do NOT dispatch vhjelp:profile-updated
     // here — a tint tweak shouldn't re-run renderHeader / renderGradePill
@@ -590,6 +596,8 @@
   // Re-tint whenever the OS / page theme flips, because the base palette
   // values (--bg, --surface) are tied to the active theme.
   document.addEventListener('vhjelp:theme-changed', applyTint);
+  // Re-tint when Plus status changes (custom color may become active/inactive).
+  document.addEventListener('vhjelp:plus-changed', applyTint);
 
   window.VHprofile = {
     get,
