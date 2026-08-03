@@ -277,17 +277,63 @@
       padding: 5px 10px;
     }
     .plus-gate-icon { font-size: 40px; color: var(--card-orange); display: block; margin-bottom: 8px; }
-    /* ---------- Plasser (enkel linje) ---------- */
+    /* ---------- Plasser (stort panel med slider) ---------- */
     .plasser-panel {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 20px 22px;
+      margin-bottom: 28px;
+    }
+    .plasser-row {
       display: flex;
       align-items: center;
-      gap: 8px;
-      color: var(--text-muted);
+      gap: 14px;
+    }
+    .plasser-ikon {
+      flex: 0 0 auto;
+      width: 48px;
+      height: 48px;
+      border-radius: 14px;
+      background: rgba(255, 159, 10, 0.14);
+      color: var(--card-orange);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .plasser-ikon .material-icons { font-size: 26px; }
+    .plasser-tekst {
+      display: flex;
+      flex-direction: column;
+      line-height: 1.15;
+    }
+    .plasser-ledig {
+      font-family: var(--font-display);
+      font-size: 34px;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      color: var(--text);
+    }
+    .plasser-etikett {
       font-size: 13px;
       font-weight: 600;
-      margin-bottom: 8px;
+      color: var(--text-muted);
     }
-    .plasser-panel .material-icons { color: var(--card-orange); font-size: 18px; }
+    .plasser-bar {
+      margin-top: 14px;
+      height: 8px;
+      border-radius: 999px;
+      background: var(--border);
+      overflow: hidden;
+    }
+    .plasser-bar-fill {
+      height: 100%;
+      width: 100%;
+      border-radius: 999px;
+      background: var(--card-orange);
+      transition: width 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+    .plasser-bar-fill.lav { background: var(--card-red); }
 
     /* ---------- Velgere (nivå + år) ---------- */
     .velger-rad {
@@ -1118,9 +1164,18 @@
         </p>
       </div>
 
-      <!-- Plasser: enkel linje med ledige/tilgjengelige plasser -->
+      <!-- Plasser: stort panel med progress-slider som går ned når plassene blir færre -->
       <div class="plasser-panel" id="plasserPanel" hidden>
-        <span class="plasser-info" id="plasserInfo">Laster…</span>
+        <div class="plasser-row">
+          <span class="plasser-ikon"><i class="material-icons" aria-hidden="true">group</i></span>
+          <p class="plasser-tekst">
+            <span class="plasser-ledig" id="plasserLedig">–</span>
+            <span class="plasser-etikett" id="plasserEtikett">av 50 plasser igjen</span>
+          </p>
+        </div>
+        <div class="plasser-bar" id="plasserBar" role="progressbar" aria-label="Ledige plasser på prøveeksamen" aria-valuemin="0" aria-valuemax="50" aria-valuenow="50">
+          <div class="plasser-bar-fill" id="plasserFill"></div>
+        </div>
       </div>
 
       <h2 class="section-title">Velg prøve</h2>
@@ -1671,14 +1726,23 @@
       const MAKS_PLASSER = 50;
       async function loadPlasserBrukt() {
         const panel = $('plasserPanel');
-        const info = $('plasserInfo');
-        if (!panel || !info) return;
-        const utenRpc = () => {
+        const ledigEl = $('plasserLedig');
+        const etikettEl = $('plasserEtikett');
+        const fill = $('plasserFill');
+        const bar = $('plasserBar');
+        if (!panel || !ledigEl || !fill || !bar) return;
+        const sett = (ledig) => {
+          const prosent = Math.max(0, Math.min(100, Math.round((ledig / MAKS_PLASSER) * 100)));
+          ledigEl.textContent = String(ledig);
+          etikettEl.textContent = 'av 50 plasser igjen';
+          // Slideren viser hvor mange plasser som er IGJEN – den går ned etter hvert som plassene blir færre.
+          fill.style.width = prosent + '%';
+          fill.classList.toggle('lav', ledig <= 10);
+          bar.setAttribute('aria-valuenow', String(ledig));
           panel.hidden = false;
-          info.innerHTML = '50 plasser igjen <i class="material-icons" aria-hidden="true">group</i>';
         };
         if (!(window.VHaccount && VHaccount.client)) {
-          utenRpc();
+          sett(MAKS_PLASSER);
           return;
         }
         try {
@@ -1686,14 +1750,12 @@
           if (error) throw error;
           const brukt = typeof data === 'number' ? data : null;
           if (brukt == null) {
-            utenRpc();
+            sett(MAKS_PLASSER);
             return;
           }
-          const ledig = Math.max(0, MAKS_PLASSER - brukt);
-          panel.hidden = false;
-          info.innerHTML = `${ledig} av ${MAKS_PLASSER} plasser igjen <i class="material-icons" aria-hidden="true">group</i>`;
+          sett(Math.max(0, MAKS_PLASSER - brukt));
         } catch (e) {
-          utenRpc();
+          sett(MAKS_PLASSER);
         }
       }
 
