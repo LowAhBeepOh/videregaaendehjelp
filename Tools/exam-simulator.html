@@ -150,23 +150,7 @@
     .btn-ghost:hover:not(:disabled) { border-color: var(--text-muted); }
 
     /* ---------- Intro screen ---------- */
-    .hero { padding: 56px 0 8px; }
-
-    .hero-badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      background: var(--card-lime);
-      color: #000;
-      font-size: 12px;
-      font-weight: 800;
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
-      padding: 8px 14px;
-      border-radius: 999px;
-      margin-bottom: 20px;
-    }
-    .hero-badge .material-icons { font-size: 16px; }
+    .hero { padding: 56px 0 24px; }
 
     .hero-title {
       font-family: var(--font-display);
@@ -176,35 +160,14 @@
       line-height: 1.02;
       margin-bottom: 16px;
     }
-    .hero-title em {
-      font-family: var(--font-serif);
-      font-weight: 400;
-      font-style: italic;
-    }
-    .hero-year { color: var(--text-muted); }
 
     .hero-sub {
       font-size: 17px;
       line-height: 1.6;
       color: var(--text-muted);
       max-width: 640px;
-      margin-bottom: 24px;
+      margin-bottom: 0;
     }
-
-    .hero-stats { display: flex; flex-wrap: wrap; gap: 10px; }
-    .hero-stat {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 999px;
-      padding: 8px 14px;
-      font-size: 13px;
-      font-weight: 600;
-      color: var(--text-muted);
-    }
-    .hero-stat .material-icons { font-size: 16px; }
 
     .section-title {
       font-family: var(--font-display);
@@ -252,7 +215,8 @@
     }
     .exam-card:focus-visible { outline: 2px solid var(--card-blue); outline-offset: 2px; }
 
-    .exam-card-top { display: flex; align-items: center; justify-content: space-between; }
+    .exam-card-top { display: flex; align-items: center; justify-content: space-between; gap: 10px; }
+    .exam-card-top-badges { display: inline-flex; align-items: center; gap: 6px; flex-wrap: wrap; justify-content: flex-end; }
     .exam-icon {
       width: 48px;
       height: 48px;
@@ -262,14 +226,6 @@
       justify-content: center;
       font-size: 24px;
     }
-    .exam-tag {
-      font-size: 11px;
-      font-weight: 800;
-      text-transform: uppercase;
-      letter-spacing: 0.06em;
-      color: var(--text-muted);
-    }
-
     .accent-lime .exam-icon { background: rgba(208, 245, 78, 0.15); color: var(--card-lime); }
     .accent-lime:hover { border-color: var(--card-lime); }
     .accent-blue .exam-icon { background: rgba(88, 101, 242, 0.15); color: var(--card-blue); }
@@ -304,6 +260,68 @@
 
     .exam-card.submitted { border-style: dashed; }
     .exam-card.submitted:hover { transform: none; box-shadow: none; }
+    .exam-card.locked { border-style: dashed; cursor: not-allowed; }
+    .exam-card.locked:hover { transform: none; box-shadow: none; }
+    .exam-lock-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      color: var(--card-orange);
+      background: rgba(255, 159, 10, 0.12);
+      border: 1px solid rgba(255, 159, 10, 0.35);
+      border-radius: 999px;
+      padding: 5px 10px;
+    }
+    .plus-gate-icon { font-size: 40px; color: var(--card-orange); display: block; margin-bottom: 8px; }
+    /* ---------- Plasser (enkel linje) ---------- */
+    .plasser-panel {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--text-muted);
+      font-size: 13px;
+      font-weight: 600;
+      margin-bottom: 8px;
+    }
+    .plasser-panel .material-icons { color: var(--card-orange); font-size: 18px; }
+
+    /* ---------- Velgere (nivå + år) ---------- */
+    .velger-rad {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+    .nivaa-toggle, .aar-toggle {
+      display: inline-flex;
+      gap: 4px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      padding: 4px;
+    }
+    .nivaa-btn {
+      border: none;
+      background: transparent;
+      color: var(--text-muted);
+      font-family: var(--font-display);
+      font-size: 14px;
+      font-weight: 700;
+      padding: 8px 18px;
+      border-radius: 999px;
+      cursor: pointer;
+      transition: background 0.2s ease, color 0.2s ease;
+    }
+    .nivaa-btn:hover { color: var(--text); }
+    .nivaa-btn.active {
+      background: var(--card-blue);
+      color: #fff;
+    }
+    .nivaa-btn:focus-visible { outline: 2px solid var(--card-blue); outline-offset: 2px; }
     .exam-submitted-badge {
       display: inline-flex;
       align-items: center;
@@ -325,41 +343,6 @@
       font-weight: 600;
       color: var(--text-muted);
     }
-
-    .steps {
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 14px;
-      margin-top: 20px;
-    }
-    @media (min-width: 768px) { .steps { grid-template-columns: repeat(3, 1fr); } }
-
-    .step {
-      display: flex;
-      gap: 16px;
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 16px;
-      padding: 20px;
-    }
-    .step-num {
-      flex: 0 0 auto;
-      width: 36px;
-      height: 36px;
-      border-radius: 12px;
-      background: var(--card-blue);
-      color: #fff;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-family: var(--font-display);
-      font-weight: 800;
-      font-size: 16px;
-    }
-    .step:nth-child(2) .step-num { background: var(--card-orange); color: #000; }
-    .step:nth-child(3) .step-num { background: var(--card-green); color: #000; }
-    .step h3 { font-family: var(--font-display); font-size: 16px; font-weight: 800; letter-spacing: -0.01em; margin-bottom: 4px; }
-    .step p { font-size: 14px; color: var(--text-muted); }
 
     .disclaimer {
       display: flex;
@@ -1128,50 +1111,31 @@
     <!-- Intro: pick an exam -->
     <section class="screen" id="screenIntro">
       <div class="hero">
-        <span class="hero-badge"><i class="material-icons">school</i> Prøveeksamen · Uoffisiell</span>
-        <h1 class="hero-title">VGS-Hjelp sin <em>eksamen</em> <span class="hero-year">(2026)</span></h1>
+        <h1 class="hero-title">VGS-Hjelp sin eksamen</h1>
         <p class="hero-sub">
           En gratis prøveeksamen for deg som vil øve til den skriftlige eksamen. Velg fag, sett i gang,
           og svar under samme tidspress som på en ekte eksamen.
         </p>
-        <div class="hero-stats">
-          <span class="hero-stat"><i class="material-icons">schedule</i> <span id="heroDurationStat">Laster…</span></span>
-          <span class="hero-stat"><i class="material-icons">assignment</i> <span id="heroFagStat">Laster…</span></span>
-          <span class="hero-stat"><i class="material-icons">desktop_windows</i> Kun PC og laptop</span>
-        </div>
+      </div>
+
+      <!-- Plasser: enkel linje med ledige/tilgjengelige plasser -->
+      <div class="plasser-panel" id="plasserPanel" hidden>
+        <span class="plasser-info" id="plasserInfo">Laster…</span>
       </div>
 
       <h2 class="section-title">Velg prøve</h2>
       <p class="section-note">
-        Prøvene er i startfasen: oppgavene er eksempler som viser hvordan prøveeksamen fungerer,
-        og flere fag og oppgaver kommer etter hvert.
+        Prøveeksamenen er en Videregående Hjelp+-funksjon: du må være logget inn og ha Pluss
+        aktivert for å starte en prøve. Velg først nivå og år, og finn deretter faget.
+        Oppgavene er eksempler som viser hvordan prøveeksamen fungerer.
       </p>
-      <div class="exam-grid" id="examGrid"></div>
-
-      <h2 class="section-title">Slik fungerer det</h2>
-      <div class="steps">
-        <div class="step">
-          <span class="step-num">1</span>
-          <div>
-            <h3>Velg en prøve</h3>
-            <p>Plukk faget du vil øve på, les reglene og start prøven.</p>
-          </div>
-        </div>
-        <div class="step">
-          <span class="step-num">2</span>
-          <div>
-            <h3>Svar under tidspress</h3>
-            <p>En nedtelling viser hvor mye tid du har igjen. Du kan hoppe mellom oppgavene og svare i den rekkefølgen du vil.</p>
-          </div>
-        </div>
-        <div class="step">
-          <span class="step-num">3</span>
-          <div>
-            <h3>Lever og få karakter</h3>
-            <p>Når tiden er ute – eller du er ferdig – kan du levere svarene til vurdering hos Videregående Hjelp og få karakter tilbake.</p>
-          </div>
+      <div class="velger-rad">
+        <div class="nivaa-toggle" id="nivaaToggle" role="tablist" aria-label="Velg nivå"></div>
+        <div class="aar-toggle" id="aarToggle" role="tablist" aria-label="Velg år">
+          <button type="button" class="nivaa-btn active" role="tab" aria-selected="true">Vår 2026</button>
         </div>
       </div>
+      <div class="exam-grid" id="examGrid"></div>
 
       <div class="disclaimer">
         <i class="material-icons">info</i>
@@ -1391,6 +1355,17 @@
     </div>
   </div>
 
+  <!-- Plus-gate: requires login + Videregående Hjelp+ to start an exam -->
+  <div class="modal-backdrop" id="plusGateModal" hidden>
+    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="plusGateTitle">
+      <h3 id="plusGateTitle">Dette krever Videregående Hjelp+</h3>
+      <div id="plusGateBody"></div>
+      <div class="modal-actions">
+        <button type="button" class="btn btn-ghost" id="plusGateCloseBtn">Lukk</button>
+      </div>
+    </div>
+  </div>
+
   <!-- Overview (task list) -->
   <div class="modal-backdrop" id="overviewModal" hidden>
     <div class="modal" role="dialog" aria-modal="true" aria-labelledby="overviewTitle">
@@ -1444,6 +1419,8 @@
       let MAKS_VARIGHET = 300;
       let examsLoaded = false;
       let submissionsByFag = {}; // fag_id -> own submission (one exam per subject)
+      let plusAktiv = false;    // user logged in AND has Videregående Hjelp+ active
+      let valgtNivaa = '';      // currently selected level (e.g. 'VG1')
 
       const state = {
         examId: null,
@@ -1612,11 +1589,11 @@
             EXAMS[f.id] = {
               id: f.id,
               title: f.tittel || f.id,
+              nivaa: f.nivaa || '',
               icon: f.ikon || 'edit',
               accent: f.accent || 'lime',
               durationMin: Math.min(Math.max(1, Number(f.varighetMin) || MAKS_VARIGHET), MAKS_VARIGHET),
               description: f.beskrivelse || '',
-              tag: f.tag || 'Eksempeloppgaver',
               inputLabel: f.inputLabel || 'Skriving',
               tillatteNettsteder: Array.isArray(f.tillatteNettsteder) ? f.tillatteNettsteder : [],
               tasks: (Array.isArray(f.oppgaver) ? f.oppgaver : []).map((o) => ({
@@ -1678,18 +1655,91 @@
         }
       }
 
+      // The practice exam is a Plus feature: the user must be logged in AND
+      // have Videregående Hjelp+ active. Cards stay visible but are locked.
+      // The user check matters because the Plus flag persists in localStorage
+      // after logout – a stale flag alone must not open the gate.
+      function sjekkPlusAktiv() {
+        plusAktiv = !!(window.VHplus && VHplus.isActive() &&
+          window.VHaccount && VHaccount.getCurrentUser());
+        return plusAktiv;
+      }
+
+      // How many of the 50 reviewer slots are used, shown as how many are
+      // still available. RPC is security definer, so everyone can read the
+      // total even with RLS.
+      const MAKS_PLASSER = 50;
+      async function loadPlasserBrukt() {
+        const panel = $('plasserPanel');
+        const info = $('plasserInfo');
+        if (!panel || !info) return;
+        const utenRpc = () => {
+          panel.hidden = false;
+          info.innerHTML = '50 plasser igjen <i class="material-icons" aria-hidden="true">group</i>';
+        };
+        if (!(window.VHaccount && VHaccount.client)) {
+          utenRpc();
+          return;
+        }
+        try {
+          const { data, error } = await VHaccount.client.rpc('eksamen_plasser_brukt');
+          if (error) throw error;
+          const brukt = typeof data === 'number' ? data : null;
+          if (brukt == null) {
+            utenRpc();
+            return;
+          }
+          const ledig = Math.max(0, MAKS_PLASSER - brukt);
+          panel.hidden = false;
+          info.innerHTML = `${ledig} av ${MAKS_PLASSER} plasser igjen <i class="material-icons" aria-hidden="true">group</i>`;
+        } catch (e) {
+          utenRpc();
+        }
+      }
+
+      // Level selector: show the exams for the chosen level (10. klasse/VG1)
+      // instead of mixing all levels into one list of separate exams.
+      function renderNivaaToggle() {
+        const toggle = $('nivaaToggle');
+        if (!toggle) return;
+        const nivåer = [...new Set(Object.values(EXAMS).map((e) => e.nivaa).filter(Boolean))]
+          .sort((a, b) => (a === '10. trinn' ? -1 : b === '10. trinn' ? 1 : 0));
+        if (nivåer.length < 2) {
+          toggle.hidden = true;
+          return;
+        }
+        toggle.hidden = false;
+        if (!nivåer.includes(valgtNivaa)) valgtNivaa = nivåer[0];
+        toggle.innerHTML = nivåer.map((nivaa) => {
+          const label = nivaa === '10. trinn' ? '10. klasse' : nivaa;
+          return `<button type="button" class="nivaa-btn ${nivaa === valgtNivaa ? 'active' : ''}" data-nivaa="${escHtml(nivaa)}" role="tab" aria-selected="${nivaa === valgtNivaa ? 'true' : 'false'}">${escHtml(label)}</button>`;
+        }).join('');
+        toggle.querySelectorAll('.nivaa-btn').forEach((btn) => {
+          btn.addEventListener('click', () => {
+            valgtNivaa = btn.dataset.nivaa;
+            renderNivaaToggle();
+            renderExamGrid();
+          });
+        });
+      }
+
       function renderExamGrid() {
         const grid = $('examGrid');
-        grid.innerHTML = Object.values(EXAMS).map((exam) => {
+        sjekkPlusAktiv();
+        const synlige = Object.values(EXAMS).filter((e) => !valgtNivaa || e.nivaa === valgtNivaa);
+        grid.innerHTML = synlige.map((exam) => {
           const sub = submissionsByFag[exam.id];
+          const locked = !plusAktiv && !sub;
           const badge = sub
             ? submissionBadgeHtml(sub)
-            : `<span class="exam-tag">${escHtml(exam.tag)}</span>`;
+            : locked
+              ? '<span class="exam-lock-badge"><i class="material-icons">lock</i> Krever Pluss</span>'
+              : '';
           return `
-          <div class="exam-card accent-${exam.accent}${sub ? ' submitted' : ''}" role="button" tabindex="0" data-exam="${exam.id}" ${sub ? 'aria-label="Prøven er levert. Trykk for å se status."' : ''}>
+          <div class="exam-card accent-${exam.accent}${sub ? ' submitted' : ''}${locked ? ' locked' : ''}" role="button" tabindex="0" data-exam="${exam.id}" ${sub ? 'aria-label="Prøven er levert. Trykk for å se status."' : locked ? 'aria-label="Krever Videregående Hjelp+. Trykk for å se mer."' : ''}>
             <div class="exam-card-top">
               <span class="exam-icon"><i class="material-icons">${exam.icon}</i></span>
-              ${badge}
+              ${badge ? `<span class="exam-card-top-badges">${badge}</span>` : ''}
             </div>
             <h3>${escHtml(exam.title)}</h3>
             <p>${escHtml(exam.description)}</p>
@@ -1698,14 +1748,19 @@
               <span class="exam-meta-item"><i class="material-icons">assignment</i>${exam.tasks.length} oppgaver</span>
               <span class="exam-meta-item"><i class="material-icons">edit</i>${escHtml(exam.inputLabel)}</span>
             </div>
-            <span class="exam-submitted-note">${sub ? 'Allerede levert – trykk for å se status' : 'Trykk for å starte prøven'}</span>
+            <span class="exam-submitted-note">${sub ? 'Allerede levert – trykk for å se status' : locked ? 'Krever Videregående Hjelp+ for å starte' : 'Trykk for å starte prøven'}</span>
           </div>`;
         }).join('');
 
         grid.querySelectorAll('.exam-card').forEach((card) => {
           const start = () => {
-            if (submissionsByFag[card.dataset.exam]) openSubmissionModal(card.dataset.exam);
-            else startExam(card.dataset.exam);
+            if (submissionsByFag[card.dataset.exam]) {
+              openSubmissionModal(card.dataset.exam);
+            } else if (!sjekkPlusAktiv()) {
+              openPlusGate();
+            } else {
+              startExam(card.dataset.exam);
+            }
           };
           card.addEventListener('click', start);
           card.addEventListener('keydown', (e) => {
@@ -1717,12 +1772,41 @@
         });
       }
 
+      // Shows why an exam is locked: not logged in vs. missing Plus.
+      function openPlusGate() {
+        const user = (window.VHaccount && VHaccount.getCurrentUser) ? VHaccount.getCurrentUser() : null;
+        const body = $('plusGateBody');
+        if (!user) {
+          body.innerHTML = `
+            <p>Prøveeksamenen krever at du er logget inn på en konto hos Videregående Hjelp.</p>
+            <div class="modal-actions">
+              <a class="btn btn-primary" href="../profile.html"><i class="material-icons">login</i> Logg inn / lag profil</a>
+            </div>`;
+        } else {
+          body.innerHTML = `
+            <p>Prøveeksamenen er en Videregående Hjelp+-funksjon. Du er logget inn, men må aktivere Pluss på profilen din for å starte en prøve.</p>
+            <div class="modal-actions">
+              <a class="btn btn-primary" href="../profile.html"><i class="material-icons">workspace_premium</i> Aktiver Pluss</a>
+            </div>`;
+        }
+        $('plusGateModal').hidden = false;
+        $('plusGateCloseBtn').focus();
+      }
+
+      function closePlusGate() {
+        $('plusGateModal').hidden = true;
+      }
+
       // ---------- Flyt ----------
       function startExam(examId) {
         const exam = EXAMS[examId];
         if (!exam) return;
         if (submissionsByFag[examId]) {
           openSubmissionModal(examId);
+          return;
+        }
+        if (!sjekkPlusAktiv()) {
+          openPlusGate();
           return;
         }
         state.examId = examId;
@@ -2254,11 +2338,12 @@
         await renderSubmitSection();
       }
 
-      // Admins see a shortcut to the review panel from the result screen
+      // Sensors and admins see a shortcut to the review panel from the result screen
       function adminPanelNote() {
         const profile = (window.VHaccount && VHaccount.getCurrentProfile) ? VHaccount.getCurrentProfile() : null;
-        if (!profile || profile.mod_role !== 'admin') return '';
-        return '<div class="admin-panel-note"><i class="material-icons">verified_user</i> Du er administrator. <a href="eksamen-admin.html">Åpne vurderingspanelet</a></div>';
+        if (!profile || !['admin', 'sensor'].includes(profile.mod_role)) return '';
+        const rollenavn = profile.mod_role === 'sensor' ? 'sensor' : 'administrator';
+        return `<div class="admin-panel-note"><i class="material-icons">verified_user</i> Du er ${rollenavn}. <a href="eksamen-admin.html">Åpne vurderingspanelet</a></div>`;
       }
 
       async function renderSubmitSection() {
@@ -2354,6 +2439,12 @@
           await VHaccount.refreshAuth();
           const user = VHaccount.getCurrentUser();
           if (!user) throw new Error('Du må være logget inn for å levere.');
+          // Maks 50 personer per sensor – sjekk plassene før vi legger til.
+          if (!sjekkPlusAktiv()) throw new Error('Du må ha Videregående Hjelp+ for å levere en prøve.');
+          const { data: plasserData, error: plasserError } = await VHaccount.client.rpc('eksamen_plasser_brukt');
+          if (!plasserError && typeof plasserData === 'number' && plasserData >= 50) {
+            throw new Error('Prøveeksamenen er full akkurat nå: maks 50 personer per sensor. Prøv igjen senere.');
+          }
           const usedMin = Math.round(state.usedMs / 60000);
           const svarPayload = state.svarModus === 'dokument'
             ? {
@@ -2390,9 +2481,12 @@
           closeSubmitModal();
           const missingTable = /does not exist|relation/i.test(String(e.message || ''));
           const duplicate = /duplicate key|23505/i.test(String(e.message || ''));
-          const msg = duplicate
-            ? 'Du har allerede levert denne prøven. Du kan bare levere én prøve per fag.'
-            : missingTable
+          const full = /full/i.test(String(e.message || ''));
+          const msg = full
+            ? 'Prøveeksamenen er full akkurat nå: maks 50 personer per sensor. Prøv igjen senere.'
+            : duplicate
+              ? 'Du har allerede levert denne prøven. Du kan bare levere én prøve per fag.'
+              : missingTable
               ? 'Innleveringssystemet er ikke satt opp ennå. Kjør SQL-en i LogMD/eksamen-innleveringer.sql i Supabase-dashbordet, og prøv igjen.'
               : (String(e.message || '') || 'Kunne ikke levere svarene. Prøv igjen senere.');
           const section = $('submitSection');
@@ -2486,6 +2580,13 @@
       $('submissionModal').addEventListener('click', (e) => {
         if (e.target === $('submissionModal')) closeSubmissionModal();
       });
+      $('plusGateCloseBtn').addEventListener('click', closePlusGate);
+      $('plusGateModal').addEventListener('click', (e) => {
+        if (e.target === $('plusGateModal')) closePlusGate();
+      });
+      document.addEventListener('vhjelp:plus-changed', () => {
+        if (!state.examId) renderExamGrid();
+      });
 
       document.addEventListener('visibilitychange', () => {
         if (document.hidden && state.examId && !state.finished && state.startTs) {
@@ -2504,12 +2605,11 @@
         await loadExams();
         if (!examsLoaded) return;
         await loadMySubmissions();
+        loadPlasserBrukt();
+        renderNivaaToggle();
         renderExamGrid();
 
-        // Dynamic hero stats based on the task bank
-        const hours = MAKS_VARIGHET / 60;
-        $('heroDurationStat').textContent = Number.isInteger(hours) ? hours + ' timer' : MAKS_VARIGHET + ' minutter';
-        $('heroFagStat').textContent = Object.keys(EXAMS).length + ' fag å velge mellom';
+
 
         if (loadSession()) {
           if (state.finished) {

@@ -5,10 +5,10 @@
     {
       "id": "matte-1p",
       "tittel": "Matematikk 1P",
+      "nivaa": "VG1",
       "ikon": "calculate",
       "accent": "lime",
       "beskrivelse": "Praktiske oppgaver i prosent, økonomi, statistikk og funksjoner.",
-      "tag": "Eksempeloppgaver",
       "inputLabel": "Kortsvar og utregning",
       "tillatteNettsteder": ["geogebra.org", "udir.no"],
       "oppgaver": [
@@ -57,10 +57,10 @@
     {
       "id": "norsk-hovedmal",
       "tittel": "Norsk hovedmål",
+      "nivaa": "VG1",
       "ikon": "edit_note",
       "accent": "blue",
       "beskrivelse": "Tekstforståelse, skriving og analyse – bygget opp som en ekte norskeksamen.",
-      "tag": "Eksempeloppgaver",
       "inputLabel": "Skriving og analyse",
       "tillatteNettsteder": ["ordbokene.no", "naob.no"],
       "oppgaver": [
@@ -121,6 +121,123 @@
               "innhold": "<blockquote class=\"poem\"><p>August</p><p>Sytten i går, men<br>voksen i dag. Jeg<br>kan ikke skjønne hvor all den tiden ble av.</p><p>Jeg hadde svar,<br>jeg hadde planer,<br>men nå vet jeg ikke hvor jeg skal hen.</p><p>Enda er det så mye jeg<br>skulle gjort, men<br>alt gikk så fort.</p></blockquote><p><em>Teksten er forkortet og tilrettelagt for denne prøveeksamenen.</em></p>"
             }
           ]
+        }
+      ]
+    },
+    {
+      "id": "matte-10",
+      "tittel": "Matematikk",
+      "nivaa": "10. trinn",
+      "ikon": "calculate",
+      "accent": "orange",
+      "beskrivelse": "Prosent, geometri, statistikk og sannsynlighet for 10. trinn.",
+      "inputLabel": "Kortsvar og utregning",
+      "tillatteNettsteder": ["udir.no"],
+      "oppgaver": [
+        {
+          "id": "matte-10-1",
+          "tittel": "Prosent og brøk",
+          "poeng": 6,
+          "type": "langsvar",
+          "tekst": "<p>I denne oppgaven skal du regne med prosent og brøk.</p>",
+          "deloppgaver": [
+            { "bokstav": "a", "tekst": "I en klasse med 30 elever er 40 % jenter. Hvor mange jenter er det i klassen?", "merknad": "Vis utregningen." },
+            { "bokstav": "b", "tekst": "En bukse kostet 500 kr og ble satt ned med 25 % under et salg. Hva er den nye prisen?", "merknad": "Vis utregningen." },
+            { "bokstav": "c", "tekst": "Hvilken brøk er størst: 3/4 eller 5/8? Begrunn svaret.", "merknad": "Vis utregningen." }
+          ],
+          "vurdering": ["svar på oppgaven", "utregning og framgangsmåte", "bruk av fagbegrep"],
+          "vurderingskriterier": "a) 30 × 0,40 = 12 jenter. b) 500 × 0,75 = 375 kr. c) 3/4 = 0,75 og 5/8 = 0,625, så 3/4 er størst.",
+          "vedlegg": null
+        },
+        {
+          "id": "matte-10-2",
+          "tittel": "Geometri og måling",
+          "poeng": 4,
+          "type": "kortsvar",
+          "tekst": "<p>En hageseng har form som et rektangel med lengde 4 m og bredde 2,5 m.</p>",
+          "deloppgaver": [
+            { "bokstav": "a", "tekst": "Regn ut arealet av hagesengen i kvadratmeter.", "merknad": "Vis utregningen." },
+            { "bokstav": "b", "tekst": "Hvor mange kvadratmeter utgjør 1/5 av hagesengen?", "merknad": "Vis utregningen." }
+          ],
+          "vurdering": ["svar på oppgaven", "riktig enhet og avrunding"],
+          "vurderingskriterier": "a) Areal = 4 m × 2,5 m = 10 m². b) 10 m² ÷ 5 = 2 m².",
+          "vedlegg": null
+        },
+        {
+          "id": "matte-10-3",
+          "tittel": "Statistikk og sannsynlighet",
+          "poeng": 5,
+          "type": "langsvar",
+          "tekst": "<p>På en skole spurte de 20 elever om hvor mange timer de brukte på lekser en uke. Svarene var: 1, 2, 2, 3, 3, 3, 4, 4, 4, 4, 5, 5, 5, 5, 5, 6, 6, 7, 8, 9.</p>",
+          "deloppgaver": [
+            { "bokstav": "a", "tekst": "Finn gjennomsnittet av timene elevene brukte på lekser.", "merknad": "Vis utregningen." },
+            { "bokstav": "b", "tekst": "Finn medianen av svarene.", "merknad": "Vis utregningen." },
+            { "bokstav": "c", "tekst": "En elev trekkes tilfeldig. Hva er sannsynligheten for at eleven brukte mer enn 5 timer? Gi svaret som brøk og desimaltall.", "merknad": "Vis utregningen." }
+          ],
+          "vurdering": ["svar på oppgaven", "utregning og framgangsmåte", "bruk av fagbegrep"],
+          "vurderingskriterier": "a) Sum: 90, gjennomsnitt = 90/20 = 4,5 timer. b) Sortert rekke, midten mellom 10. og 11. verdi (4 og 5) → median 4,5. c) Mer enn 5 timer: 5, 6, 6, 7, 8, 9 = 6 av 20 → 6/20 = 0,3.",
+          "vedlegg": null
+        }
+      ]
+    },
+    {
+      "id": "norsk-10",
+      "tittel": "Norsk hovedmål",
+      "nivaa": "10. trinn",
+      "ikon": "edit_note",
+      "accent": "blue",
+      "beskrivelse": "Lesing, skriving og tekstforståelse for 10. trinn.",
+      "inputLabel": "Skriving og tekstforståelse",
+      "tillatteNettsteder": ["ordbokene.no", "naob.no"],
+      "oppgaver": [
+        {
+          "id": "norsk-10-1",
+          "tittel": "Lesing og tekstforståelse",
+          "poeng": 6,
+          "type": "langsvar",
+          "tekst": "",
+          "deloppgaver": [
+            { "bokstav": "a", "tekst": "Hva er hovedbudskapet i teksten «Bli bedre til å lese»?", "merknad": "Du bør skrive 2–4 setninger." },
+            { "bokstav": "b", "tekst": "Hvilke råd gir teksten for å bli en bedre leser? Nevn minst tre råd og forklar dem.", "merknad": "Du bør skrive 50–100 ord." },
+            { "bokstav": "c", "tekst": "Hvorfor tror du teksten sier at det å lese ofte er viktigere enn å lese lenge? Begrunn svaret ditt med eksempler fra teksten.", "merknad": "Du bør skrive 100–150 ord." }
+          ],
+          "vurdering": ["svar på oppgaven", "språk og fagbegrep", "formalia"],
+          "vurderingskriterier": "1a) Hovedbudskapet er at jevn lesing forbedrer leseforståelsen. 1b) Eleven må nevne minst tre råd fra teksten (f.eks. lese ofte, velge riktige bøker, snakke om det man leser) og forklare dem. 1c) Eleven må begrunne med eksempler fra teksten.",
+          "vedlegg": [
+            {
+              "tittel": "teksten «Bli bedre til å lese» (tilrettelagt)",
+              "innhold": "<p>Mange elever lurer på hvordan de kan bli bedre til å lese. Svaret er enklere enn man tror: det handler om å lese ofte, ikke bare lenge. Når du leser litt hver dag, blir hjernen vant til å følge med i teksten, og du forstår mer av det du leser.</p><p>Det hjelper også å velge bøker som ikke er for vanskelige. Hvis du må stoppe for å slå opp hvert eneste ord, mister du flyten i lesingen. Start med bøker du faktisk synes er interessante, og bygg deg opp etter hvert.</p><p>Til slutt: snakk med andre om det du har lest. Når du forklarer noe med egne ord, oppdager du raskt om du har forstått det du leste.</p><p><em>Teksten er forkortet og tilrettelagt for denne prøveeksamenen.</em></p>"
+            }
+          ]
+        },
+        {
+          "id": "norsk-10-2",
+          "tittel": "Skriveoppgave",
+          "poeng": 6,
+          "type": "langsvar",
+          "tekst": "<p>Du skal skrive en fortelling. Velg én av oppgavene under.</p>",
+          "deloppgaver": [
+            { "bokstav": "a", "tekst": "Skriv en fortelling som begynner med setningen: «Plutselig var det helt stille.»", "merknad": "Du bør skrive 300–500 ord." },
+            { "bokstav": "b", "tekst": "Skriv en fortelling om en person som må ta et vanskelig valg. Bruk gode beskrivelser og en tydelig slutning.", "merknad": "Du bør skrive 300–500 ord." }
+          ],
+          "vurdering": ["svar på oppgaven", "struktur", "språklig stil", "formalia"],
+          "vurderingskriterier": "Vurder om teksten har: en tydelig handling, god struktur med innledning/midtdel/avslutning, variert og presist språk, og riktig formalia.",
+          "vedlegg": null
+        },
+        {
+          "id": "norsk-10-3",
+          "tittel": "Språk og grammatikk",
+          "poeng": 3,
+          "type": "kortsvar",
+          "tekst": "<p>Svar kort på oppgavene under.</p>",
+          "deloppgaver": [
+            { "bokstav": "a", "tekst": "Finn verbet i setningen: «Hunden løp raskt over gårdsplassen.»", "merknad": "" },
+            { "bokstav": "b", "tekst": "Skriv setningen i preteritum (fortid): «Jeg leser en bok.»", "merknad": "" },
+            { "bokstav": "c", "tekst": "Hva er forskjellen på en hovedsetning og en leddsetning? Gi ett eksempel på hver.", "merknad": "" }
+          ],
+          "vurdering": ["svar på oppgaven", "bruk av fagbegrep"],
+          "vurderingskriterier": "a) «løp». b) «Jeg leste en bok.» c) En hovedsetning kan stå alene, en leddsetning er avhengig av hovedsetningen. Eksempler: «Jeg kom hjem» (hovedsetning) og «fordi det regnet» (leddsetning).",
+          "vedlegg": null
         }
       ]
     }

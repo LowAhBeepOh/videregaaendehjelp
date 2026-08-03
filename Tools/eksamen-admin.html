@@ -159,6 +159,18 @@
       margin-bottom: 8px;
     }
     .admin-head p { font-size: 15px; color: var(--text-muted); max-width: 620px; }
+    .admin-head .plasser-note {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--card-orange);
+      border: 1px dashed rgba(255, 159, 10, 0.5);
+      border-radius: 12px;
+      padding: 8px 12px;
+      margin-top: 14px;
+    }
 
     /* ---------- Filter tabs ---------- */
     .filter-tabs {
@@ -567,6 +579,7 @@
           Gjennomgå innleveringer fra prøveeksamenen. Åpne en innlevering for å lese svarene,
           se registrerte hendelser og sette karakter med kommentar.
         </p>
+        <p class="plasser-note" id="plasserNote"><i class="material-icons">group</i> Laster plass-info…</p>
       </div>
       <div class="filter-tabs" id="filterTabs" role="tablist" aria-label="Filtrer innleveringer"></div>
       <div class="submission-list" id="submissionList"></div>
@@ -709,6 +722,13 @@
         profileMap = {};
         (profilesRes.data || []).forEach((p) => { profileMap[p.id] = p; });
         submissions = subsRes.data || [];
+
+        // Plass-info: hvor mange unike brukere har levert (maks 50 per sensor)
+        const plasserEl = document.getElementById('plasserNote');
+        if (plasserEl) {
+          const brukt = new Set(submissions.map((s) => s.user_id)).size;
+          plasserEl.innerHTML = `<i class="material-icons">group</i> ${brukt} av 50 plasser brukt`;
+        }
       }
 
       // ---------- List ----------
@@ -1016,13 +1036,14 @@
 
         const user = VHaccount.getCurrentUser();
         if (!user) {
-          renderGate('login', 'Logg inn på kontoen din for å åpne vurderingspanelet. Bare administratorer får tilgang.');
+          renderGate('login', 'Logg inn på kontoen din for å åpne vurderingspanelet. Bare sensorer og administratorer får tilgang.');
           return;
         }
 
         const profile = VHaccount.getCurrentProfile();
-        if (!profile || profile.mod_role !== 'admin') {
-          renderGate('denied', 'Denne siden er kun for administratorer. Kontakt Videregående Hjelp hvis du mener dette er feil.');
+        const erSensor = profile && ['admin', 'sensor'].includes(profile.mod_role);
+        if (!profile || !erSensor) {
+          renderGate('denied', 'Denne siden er kun for sensorer og administratorer. Kontakt Videregående Hjelp hvis du mener dette er feil.');
           return;
         }
 
