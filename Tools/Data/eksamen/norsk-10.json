@@ -1,0 +1,68 @@
+{
+  "id": "norsk-10",
+  "tittel": "Norsk hovedmål",
+  "nivaa": "10. trinn",
+  "ikon": "edit_note",
+  "accent": "blue",
+  "beskrivelse": "Tre skriveoppgaver i Vår 2026-strukturen: refleksjon, valg mellom refleksjon og fortelling, og refleksjon. Ingen tekstvedlegg – som i den nye eksamenen uten nett.",
+  "inputLabel": "Skriving og tekstforståelse",
+  "tillatteNettsteder": ["ordbokene.no", "naob.no"],
+  "deler": [],
+  "oppgaver": [
+    {
+      "id": "norsk-10-1",
+      "tittel": "Reflekterende tekst",
+      "poeng": 4,
+      "type": "langsvar",
+      "tekst": "<p>I oppgave 1 skal du skrive en reflekterende tekst. En reflekterende tekst utforsker et tema fra flere sider: du skal vise egne tanker, begrunne dem og treffe leseren. Teksten skal ha en tydelig struktur med innledning, flere avsnitt og en avslutning som samler trådene.</p><p><strong>Skriv en reflekterende tekst med tittelen «Alltid pålogget».</strong> Reflekter over hvordan skjermer og sosiale medier påvirker hverdagen, relasjonene og oppmerksomheten din – og andres. Utforsk minst to ulike perspektiver, bruk egne erfaringer, og vurder om det er mulig å finne en balanse.</p><p>Du bør skrive 400–600 ord.</p>",
+      "deloppgaver": null,
+      "vurdering": [
+        "at du utforsker temaet fra minst to perspektiver og viser egne tanker",
+        "at du bruker fagbegreper og konkrete eksempler",
+        "at du skriver en tekst med avsnitt og klar struktur",
+        "at du varierer språket og binder sammen setningene",
+        "at du har god rettskriving og tegnsetting"
+      ],
+      "vurderingskriterier": "Eleven må reflektere over flere sider ved skjermbruk (f.eks. fellesskap og isolasjon, underholdning og avhengighet, oppmerksomhet og konsentrasjon), bruke egne erfaringer og konkrete eksempler, og komme fram til en egen vurdering. Fagbegreper som appellformer og virkemidler kan brukes. Struktur med innledning, avsnitt og avslutning, variert språk og god rettskriving vektlegges.",
+      "vedlegg": null
+    },
+    {
+      "id": "norsk-10-2",
+      "tittel": "Skriveoppgave – velg én",
+      "poeng": 9,
+      "type": "langsvar",
+      "tekst": "<p>I oppgave 2 skal du svare på enten oppgave 2a eller oppgave 2b. Du bør skrive 450–650 ord. Teksten skal ha en tydelig struktur.</p>",
+      "deloppgaver": [
+        { "bokstav": "a", "tekst": "<strong>Reflekterende tekst:</strong> Skriv en reflekterende tekst der du utforsker hva det vil si å våge – å ta sjanser, feile og prøve igjen. Reflekter over hvorfor det noen ganger er lettere å la være enn å prøve, og over hva som gjør at noen våger likevel. Bruk egne erfaringer og minst ett eksempel fra bøker, filmer, nyheter eller historie.", "merknad": "Du bør skrive 450–650 ord." },
+        { "bokstav": "b", "tekst": "<strong>Fantasi/fiction:</strong> Skriv en fortelling som begynner med setningen: «Det var den dagen ingenting lenger var som før.» Bygg opp en tydelig handling med spenning og en overraskelse, og gi fortellingen en avslutning som runder av. Bruk minst to av disse virkemidlene: sanselige beskrivelser, dialog, kontrast eller symbolikk.", "merknad": "Du bør skrive 450–650 ord." }
+      ],
+      "vurdering": [
+        "at du svarer på oppgaven du har valgt",
+        "at du reflekterer på flere sider (2a) eller bygger opp en tydelig handling med virkemidler (2b)",
+        "at du bruker fagbegreper og konkrete eksempler",
+        "at du skriver en tekst med avsnitt og klar struktur",
+        "at du varierer språket og binder sammen setningene",
+        "at du har god rettskriving og tegnsetting"
+      ],
+      "vurderingskriterier": "2a) Eleven må reflektere over flere sider ved det å våge: frykt for å feile, trygghet i det kjente, hva som gir mot. Egne erfaringer + minst ett eksempel utenfra (bok, film, nyhet, historie) kreves. 2b) Eleven må skrive en fortelling som starter med den gitte setningen, med spenningsoppbygging, en overraskelse og en avslutning, og bruke minst to av virkemidlene sanselige beskrivelser, dialog, kontrast eller symbolikk. Begge: klar struktur, variert språk og god rettskriving.",
+      "vedlegg": null
+    },
+    {
+      "id": "norsk-10-3",
+      "tittel": "Reflekterende tekst",
+      "poeng": 7,
+      "type": "langsvar",
+      "tekst": "<p>I oppgave 3 skal du skrive en reflekterende tekst med en tydelig struktur: innledning, avsnitt som utforsker temaet fra ulike sider, og en avslutning med en egen konklusjon.</p><p><strong>Skriv en reflekterende tekst med tittelen «Vennskap som forandrer seg».</strong> Reflekter over hvordan vennskap har utviklet seg gjennom oppveksten din, hva et godt vennskap krever av deg, og hvordan du tror vennskap kan se annerledes ut i framtiden. Bruk konkrete eksempler og egne tanker, og vurder både det du har fått og det du har mistet.</p><p>Du bør skrive 400–600 ord.</p>",
+      "deloppgaver": null,
+      "vurdering": [
+        "at du utforsker vennskap fra flere sider og viser egne tanker",
+        "at du bruker konkrete eksempler og vurderer både det positive og det vanskelige",
+        "at du skriver en tekst med avsnitt og klar struktur",
+        "at du varierer språket og binder sammen setningene",
+        "at du har god rettskriving og tegnsetting"
+      ],
+      "vurderingskriterier": "Eleven må reflektere over utviklingen av vennskap gjennom oppveksten, hva vennskap krever (tid, tillit, ærlighet), og tenke framover. Både positive og vanskelige sider skal belyses med konkrete eksempler. Struktur med innledning, avsnitt og egen konklusjon, variert språk og god rettskriving vektlegges.",
+      "vedlegg": null
+    }
+  ]
+}

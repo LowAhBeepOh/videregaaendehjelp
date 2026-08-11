@@ -470,6 +470,20 @@
       margin-top: 8px;
     }
     .svar-doc-file .material-icons { font-size: 15px; }
+    .svar-doc-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      margin-left: 10px;
+      padding: 3px 10px;
+      border-radius: 999px;
+      background: rgba(88, 101, 242, 0.1);
+      color: var(--card-blue);
+      font-weight: 700;
+      text-decoration: none;
+    }
+    .svar-doc-link:hover { background: rgba(88, 101, 242, 0.18); }
+    .svar-doc-link .material-icons { font-size: 14px; }
     .bekreftet-note {
       display: inline-flex;
       align-items: center;
@@ -696,10 +710,15 @@
       // ---------- Data ----------
       async function loadExamBank() {
         try {
-          const res = await fetch('Data/eksamensoppgaver.json');
+          const res = await fetch('Data/eksamen/index.json');
           if (!res.ok) return;
           const data = await res.json();
-          (data.fag || []).forEach((f) => { examBank[f.id] = f; });
+          const fagene = await Promise.all((data.fag || []).map(async (fil) => {
+            const r = await fetch('Data/eksamen/' + fil);
+            if (!r.ok) return null;
+            return r.json();
+          }));
+          fagene.filter(Boolean).forEach((f) => { examBank[f.id] = f; });
         } catch (e) {
           // Optional – task titles simply fall back to "Oppgave N"
         }
@@ -882,7 +901,7 @@
               <div class="svar-item-head">Dokument-svar</div>
               ${sporsmaal}
               <div class="svar-item-body">${escHtml(payload.dokument || '')}</div>
-              ${fil.navn ? `<span class="svar-doc-file"><i class="material-icons">attach_file</i> ${escHtml(fil.navn)}${fil.størrelse ? ' · ' + escHtml(formatSize(fil.størrelse)) : ''}</span>` : ''}
+              ${fil.navn ? `<span class="svar-doc-file"><i class="material-icons">attach_file</i> ${escHtml(fil.navn)}${fil.størrelse ? ' · ' + escHtml(formatSize(fil.størrelse)) : ''}${fil.data && fil.data.startsWith('data:') ? ` <a class="svar-doc-link" href="${fil.data}" download="${escHtml(fil.navn)}" rel="noopener"><i class="material-icons">download</i> Åpne dokument</a>` : ''}</span>` : ''}
               ${payload.bekreftet ? '<span class="bekreftet-note"><i class="material-icons">verified</i> Eleven bekreftet at svaret lastes opp som dokument</span>' : ''}
             </div>`;
         }

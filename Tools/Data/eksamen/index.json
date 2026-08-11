@@ -1,0 +1,8 @@
+{
+  "versjon": 3,
+  "maksVarighetMin": 300,
+  "fag": [
+    "matte-10.json",
+    "norsk-10.json"
+  ]
+}

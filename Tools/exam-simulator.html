@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="no">
+<html lang="no" data-theme="light">
 <head>
   <script defer src="https://cloud.umami.is/script.js" data-website-id="24f80a75-a09f-4f80-94e0-d9103f0d734d"></script>
   <meta charset="UTF-8">
@@ -149,6 +149,13 @@
     .btn-ghost { background: transparent; border: 1px solid var(--border); color: var(--text); }
     .btn-ghost:hover:not(:disabled) { border-color: var(--text-muted); }
 
+    .btn-danger { background: var(--card-red); color: #fff; }
+    .btn-danger:hover:not(:disabled) {
+      filter: brightness(1.08);
+      transform: translateY(-1px);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
+    }
+
     /* ---------- Intro screen ---------- */
     .hero { padding: 56px 0 24px; }
 
@@ -194,6 +201,31 @@
       color: var(--text-muted);
       font-size: 14px;
     }
+    .kommer-snart {
+      background: var(--surface);
+      border: 1px dashed var(--border);
+      border-radius: 16px;
+      padding: 48px 24px;
+      text-align: center;
+      color: var(--text-muted);
+      font-size: 14px;
+    }
+    .kommer-snart .material-icons {
+      font-size: 44px;
+      color: var(--card-orange);
+      display: block;
+      margin-bottom: 12px;
+    }
+    .kommer-snart strong {
+      display: block;
+      font-family: var(--font-display);
+      font-size: 20px;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      color: var(--text);
+      margin-bottom: 4px;
+    }
+    .kommer-snart p { margin: 0; }
 
     .exam-card {
       text-align: left;
@@ -240,23 +272,6 @@
       letter-spacing: -0.02em;
     }
     .exam-card p { font-size: 14px; color: var(--text-muted); flex-grow: 1; }
-
-    .exam-meta {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-      border-top: 1px solid var(--border);
-      padding-top: 14px;
-    }
-    .exam-meta-item {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      font-size: 12px;
-      font-weight: 600;
-      color: var(--text-muted);
-    }
-    .exam-meta-item .material-icons { font-size: 15px; }
 
     .exam-card.submitted { border-style: dashed; }
     .exam-card.submitted:hover { transform: none; box-shadow: none; }
@@ -388,6 +403,8 @@
       font-size: 12px;
       font-weight: 600;
       color: var(--text-muted);
+      border-top: 1px solid var(--border);
+      padding-top: 12px;
     }
 
     .disclaimer {
@@ -461,6 +478,23 @@
       color: var(--text);
     }
     .rules-disclaimer .material-icons { color: var(--card-red); flex: 0 0 auto; margin-top: 2px; }
+    .rules-disclaimer-body { flex: 1; }
+    .promise-btn {
+      margin-top: 14px;
+      background: transparent;
+      border: 1.5px solid rgba(212, 11, 0, 0.45);
+      color: var(--card-red);
+    }
+    .promise-btn:hover:not(:disabled):not(.promised) {
+      border-color: var(--card-red);
+      background: rgba(212, 11, 0, 0.08);
+    }
+    .promise-btn.promised {
+      border-color: var(--card-red);
+      background: rgba(212, 11, 0, 0.12);
+      cursor: default;
+    }
+    .promise-btn.promised:disabled { opacity: 1; }
 
     .info-actions {
       display: flex;
@@ -492,23 +526,6 @@
       border-radius: 8px;
       flex: 0 0 auto;
     }
-    .eksempel-badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 5px;
-      flex: 0 0 auto;
-      background: rgba(255, 159, 10, 0.15);
-      border: 1px solid rgba(255, 159, 10, 0.4);
-      color: var(--card-orange);
-      font-size: 11px;
-      font-weight: 800;
-      letter-spacing: 0.05em;
-      border-radius: 999px;
-      padding: 5px 10px;
-      text-transform: uppercase;
-      white-space: nowrap;
-    }
-    .eksempel-badge .material-icons { font-size: 13px; }
     .breadcrumb {
       flex: 1;
       min-width: 0;
@@ -532,7 +549,6 @@
     .save-status .material-icons { font-size: 16px; }
     @media (max-width: 560px) {
       .save-status { font-size: 12px; }
-      .eksempel-badge { font-size: 10px; padding: 4px 8px; }
     }
 
     .timer-chip {
@@ -555,6 +571,29 @@
       color: var(--card-red);
       border-color: var(--card-red);
       background: rgba(212, 11, 0, 0.08);
+    }
+
+    .abort-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: transparent;
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      color: var(--text-muted);
+      font-family: var(--font-display);
+      font-size: 13px;
+      font-weight: 700;
+      padding: 8px 14px;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: border-color 0.2s ease, color 0.2s ease;
+    }
+    .abort-btn:hover { border-color: var(--card-red); color: var(--card-red); }
+    .abort-btn:focus-visible { outline: 2px solid var(--card-red); outline-offset: 2px; }
+    .abort-btn .material-icons { font-size: 16px; }
+    @media (max-width: 560px) {
+      .abort-btn { font-size: 12px; padding: 6px 10px; }
     }
 
 
@@ -607,27 +646,25 @@
     .task-chips {
       position: relative;
       display: flex;
-      gap: 8px;
+      gap: 6px;
       overflow-x: auto;
+      justify-content: safe center;
       padding: 4px 2px;
       scrollbar-width: none;
     }
     .task-chips::-webkit-scrollbar { display: none; }
-    @media (min-width: 900px) {
-      .exam-bottombar .task-chips { justify-content: center; }
-    }
 
     .task-btn {
       flex: 0 0 auto;
-      width: 44px;
-      height: 44px;
+      width: 40px;
+      height: 40px;
       border-radius: 50%;
       border: 1.5px solid var(--border);
       background: var(--bg);
       color: var(--text);
       font-family: var(--font-display);
       font-weight: 800;
-      font-size: 15px;
+      font-size: 14px;
       cursor: pointer;
       transition: all 0.15s ease;
     }
@@ -643,6 +680,17 @@
     [data-theme="light"] .task-btn.done:not(.active) {
       background: rgba(208, 245, 78, 0.35);
       color: #000;
+    }
+    .task-del-sep {
+      flex: 0 0 auto;
+      align-self: center;
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      padding: 0 4px 0 8px;
+      white-space: nowrap;
     }
 
     .task-panel {
@@ -677,6 +725,29 @@
     }
     .deloppgave p { font-size: 16px; line-height: 1.7; }
     .oppgave-merknad { margin-top: 6px; font-size: 14px; color: var(--text-muted); }
+
+    .del-badge {
+      display: inline-block;
+      background: rgba(88, 101, 242, 0.12);
+      border: 1px solid rgba(88, 101, 242, 0.4);
+      color: var(--card-blue);
+      font-family: var(--font-display);
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      border-radius: 999px;
+      padding: 5px 12px;
+      margin-bottom: 10px;
+    }
+    .info-del-head {
+      list-style: none;
+      margin-top: 10px;
+      font-family: var(--font-display);
+      font-size: 15px;
+      font-weight: 800;
+      color: var(--card-blue);
+    }
 
     .vurdering-box {
       margin-top: 24px;
@@ -742,8 +813,8 @@
     .exam-bottombar .task-chips { flex: 1; min-width: 0; }
     .circle-btn {
       flex: 0 0 auto;
-      width: 44px;
-      height: 44px;
+      width: 40px;
+      height: 40px;
       border-radius: 50%;
       display: inline-flex;
       align-items: center;
@@ -754,7 +825,7 @@
       cursor: pointer;
       transition: all 0.15s ease;
     }
-    .circle-btn .material-icons { font-size: 20px; }
+    .circle-btn .material-icons { font-size: 18px; }
     .circle-btn:hover:not(:disabled) { border-color: var(--text-muted); transform: translateY(-1px); }
     .circle-btn:disabled { opacity: 0.35; cursor: not-allowed; }
     .circle-btn.info-circle.active {
@@ -845,6 +916,41 @@
     }
     .vedlegg-innhold blockquote.poem p { margin: 4px 0; }
 
+    /* Figures and tables inside tasks, like real exams */
+    .task-text .fig, .deloppgave .fig {
+      display: block;
+      width: 100%;
+      max-width: 460px;
+      height: auto;
+      margin: 14px auto;
+    }
+    .fig-kap {
+      font-size: 12px;
+      color: var(--text-muted);
+      text-align: center;
+      margin: 2px 0 14px;
+    }
+    .data-tabell {
+      width: 100%;
+      max-width: 460px;
+      margin: 12px auto;
+      border-collapse: collapse;
+      font-size: 14px;
+    }
+    .data-tabell th, .data-tabell td {
+      border: 1px solid var(--border);
+      padding: 6px 10px;
+      text-align: left;
+    }
+    .data-tabell th { background: var(--surface); font-weight: 700; }
+    .data-tabell caption {
+      caption-side: top;
+      font-size: 12px;
+      color: var(--text-muted);
+      text-align: center;
+      padding-bottom: 6px;
+    }
+
     /* Document upload (shown in the last task of document mode) */
     .upload-box {
       margin-top: 24px;
@@ -870,6 +976,8 @@
     .upload-field input[type="file"] { display: none; }
     .upload-label { display: inline-flex; align-items: center; gap: 8px; font-size: 14px; font-weight: 600; }
     .upload-label .material-icons { font-size: 18px; color: var(--card-blue); }
+    .upload-hint { font-size: 13px; color: var(--text-muted); margin-top: 8px; }
+    .upload-hint.error { color: #b91c1c; font-weight: 600; }
     .confirm-box {
       display: flex;
       align-items: flex-start;
@@ -1181,8 +1289,8 @@
       <h2 class="section-title">Velg prøve</h2>
       <p class="section-note">
         Prøveeksamenen er en Videregående Hjelp+-funksjon: du må være logget inn og ha Pluss
-        aktivert for å starte en prøve. Velg først nivå og år, og finn deretter faget.
-        Oppgavene er eksempler som viser hvordan prøveeksamen fungerer.
+        aktivert for å starte en prøve. Foreløpig finnes det kun prøver for
+        <strong>10. klasse</strong> i matematikk og norsk. Flere fag og nivåer kommer senere.
       </p>
       <div class="velger-rad">
         <div class="nivaa-toggle" id="nivaaToggle" role="tablist" aria-label="Velg nivå"></div>
@@ -1207,12 +1315,14 @@
     <div class="exam-chrome" id="examChrome">
       <div class="exam-topbar">
         <img class="exam-logo" src="../vgshjelp-logo.png" alt="Videregående Hjelp">
-        <span class="eksempel-badge"><i class="material-icons">warning</i> EKSEMPEL</span>
         <span class="breadcrumb" id="breadcrumbText"></span>
         <div class="exam-topbar-right">
+          <button type="button" class="abort-btn" id="abortExamBtn" hidden>
+            <i class="material-icons">close</i> Avbryt eksamen
+          </button>
           <span class="timer-chip" id="timerChip">
             <i class="material-icons">timer</i>
-            <span id="timerText">300:00</span>
+            <span id="timerText">300 min</span>
           </span>
           <span class="save-status" id="saveStatus"><i class="material-icons">check</i> lagret</span>
         </div>
@@ -1221,7 +1331,6 @@
       <div class="exam-warning" id="examWarning" hidden>
         <i class="material-icons">warning</i>
         <span class="exam-warning-text" id="examWarningText"></span>
-        <button type="button" class="btn btn-ghost" id="reFullscreenBtn">Gå tilbake til fullskjerm</button>
       </div>
 
       <!-- Info page: shown before the exam starts and again via the (i) button -->
@@ -1278,7 +1387,10 @@
 
           <div class="rules-disclaimer">
             <i class="material-icons">info</i>
-            <p>Husk at dette IKKE er en offisiell eksamen! Vennligst ikke juks eller gjør noe man IKKE skal gjøre på en ekte eksamen. Et menneske kommer til å sjekke svarene dine etter du er ferdig med dette, så det er bare dumt hvis du skal ikke gjøre det skikkelig.</p>
+            <div class="rules-disclaimer-body">
+              <p>Husk at dette IKKE er en offisiell eksamen! Vennligst ikke juks eller gjør noe man IKKE skal gjøre på en ekte eksamen. Et menneske kommer til å sjekke svarene dine etter du er ferdig med dette, så det er bare dumt hvis du skal ikke gjøre det skikkelig.</p>
+              <button type="button" class="btn promise-btn" id="promiseBtn"><i class="material-icons">handshake</i> Jeg lover jeg skal ikke jukse</button>
+            </div>
           </div>
 
           <div class="info-start" id="infoStartSection">
@@ -1296,7 +1408,7 @@
             </div>
             <div class="info-actions">
               <button type="button" class="btn btn-ghost" id="infoBackBtn"><i class="material-icons">arrow_back</i> Velg en annen prøve</button>
-              <button type="button" class="btn btn-primary" id="startExamBtn"><i class="material-icons">check_circle</i> Start prøven</button>
+              <button type="button" class="btn btn-primary" id="startExamBtn" disabled><i class="material-icons">check_circle</i> Start prøven</button>
             </div>
           </div>
         </div>
@@ -1306,7 +1418,7 @@
       <section class="screen" id="screenExam" hidden>
         <div class="exam-progress-row">
           <div class="exam-progress"><div class="exam-progress-fill" id="progressFill"></div></div>
-          <span class="answered-label" id="answeredLabel">Besvart 0 av 3</span>
+          <span class="answered-label" id="answeredLabel">Besvart 0 av 0</span>
         </div>
 
         <section class="task-panel" id="taskPanel"></section>
@@ -1387,6 +1499,18 @@
     </div>
   </div>
 
+  <!-- Abort exam confirmation -->
+  <div class="modal-backdrop" id="abortModal" hidden>
+    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="abortModalTitle">
+      <h3 id="abortModalTitle">Avbryte eksamen?</h3>
+      <p>Alle svarene dine slettes, og du kommer tilbake til start. Eksamenen blir ikke levert til vurdering, og du kan starte på nytt når du vil.</p>
+      <div class="modal-actions">
+        <button type="button" class="btn btn-ghost" id="cancelAbortBtn">Fortsett på eksamen</button>
+        <button type="button" class="btn btn-danger" id="confirmAbortBtn">Avbryt eksamen</button>
+      </div>
+    </div>
+  </div>
+
   <!-- Submission confirmation -->
   <div class="modal-backdrop" id="submitModal" hidden>
     <div class="modal" role="dialog" aria-modal="true" aria-labelledby="submitModalTitle">
@@ -1455,10 +1579,19 @@
     window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', () => {
       if ((localStorage.getItem('theme') || 'system') === 'system') {
         initTheme();
+        document.documentElement.setAttribute('data-theme', 'light');
       }
     });
 
     initTheme();
+
+    // The exam simulator is always in light mode, regardless of the user's
+    // theme. The shared profile scripts re-apply the stored theme on events,
+    // so force light here and after every theme change.
+    document.documentElement.setAttribute('data-theme', 'light');
+    document.addEventListener('vhjelp:theme-changed', () => {
+      document.documentElement.setAttribute('data-theme', 'light');
+    });
   </script>
   <script src="../Assets/js/plus.js"></script>
   <script src="../Assets/js/profile.js"></script>
@@ -1469,7 +1602,7 @@
       const STORAGE_KEY = 'vhjelp:exam-sim:session';
       const WARNING_MS = 5 * 60 * 1000;
 
-      // Populated from Tools/Data/eksamensoppgaver.json
+      // Populated from Tools/Data/eksamen/index.json + one file per subject
       let EXAMS = {};
       let MAKS_VARIGHET = 300;
       let examsLoaded = false;
@@ -1510,16 +1643,15 @@
         document.body.classList.toggle('in-exam', inChrome);
         $('infoBtn').classList.toggle('active', name === 'info');
         if (inChrome) updateNavButtons();
+        // The whole page always runs in light mode, regardless of the user's theme
+        document.documentElement.setAttribute('data-theme', 'light');
+        // The abort button is only shown while an exam is running
+        $('abortExamBtn').hidden = !(state.startTs && !state.finished);
         window.scrollTo({ top: 0 });
       }
 
       function escHtml(str) {
         return String(str ?? '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
-      }
-
-      function countWords(str) {
-        const m = String(str || '').trim().match(/\S+/g);
-        return m ? m.length : 0;
       }
 
       function formatSize(bytes) {
@@ -1556,7 +1688,11 @@
             answers: state.answers,
             svarModus: state.svarModus,
             document: state.document,
-            dokumentFil: state.dokumentFil,
+            // Filinnholdet (base64) lagres ikke i localStorage – kun metadata.
+            // Hvis siden lastes inn på nytt, må eleven velge filen igjen.
+            dokumentFil: state.dokumentFil
+              ? { navn: state.dokumentFil.navn, størrelse: state.dokumentFil.størrelse }
+              : null,
             dokumentBekreftet: state.dokumentBekreftet,
             startTs: state.startTs,
             durationMs: state.durationMs,
@@ -1636,11 +1772,17 @@
 
       async function loadExams() {
         try {
-          const res = await fetch('Data/eksamensoppgaver.json');
+          const res = await fetch('Data/eksamen/index.json');
           if (!res.ok) throw new Error('Kunne ikke laste eksamensdata');
           const data = await res.json();
           MAKS_VARIGHET = Math.max(1, Number(data.maksVarighetMin) || 300);
-          (Array.isArray(data.fag) ? data.fag : []).forEach((f) => {
+          const fagfilene = Array.isArray(data.fag) ? data.fag : [];
+          const fagene = await Promise.all(fagfilene.map(async (fil) => {
+            const r = await fetch('Data/eksamen/' + fil);
+            if (!r.ok) throw new Error('Kunne ikke laste ' + fil);
+            return r.json();
+          }));
+          fagene.forEach((f) => {
             EXAMS[f.id] = {
               id: f.id,
               title: f.tittel || f.id,
@@ -1651,9 +1793,11 @@
               description: f.beskrivelse || '',
               inputLabel: f.inputLabel || 'Skriving',
               tillatteNettsteder: Array.isArray(f.tillatteNettsteder) ? f.tillatteNettsteder : [],
+              deler: Array.isArray(f.deler) ? f.deler : [],
               tasks: (Array.isArray(f.oppgaver) ? f.oppgaver : []).map((o) => ({
                 title: o.tittel || 'Oppgave',
                 points: Number(o.poeng) || 0,
+                del: Number(o.del) || 0,
                 input: o.type === 'kortsvar' ? 'short' : 'long',
                 text: o.tekst || '',
                 deloppgaver: Array.isArray(o.deloppgaver) ? o.deloppgaver.map((d) => ({
@@ -1759,22 +1903,21 @@
         }
       }
 
-      // Level selector: show the exams for the chosen level (10. klasse/VG1)
-      // instead of mixing all levels into one list of separate exams.
+      // '10. trinn' is the internal level id; '10. klasse' is the label shown to users
+      function nivaaLabel(nivaa) {
+        return nivaa === '10. trinn' ? '10. klasse' : nivaa;
+      }
+
+      // The trinn selector always shows the two planned levels. VG1 has no
+      // exams yet, so the grid shows a "coming soon" message for it.
       function renderNivaaToggle() {
         const toggle = $('nivaaToggle');
         if (!toggle) return;
-        const nivåer = [...new Set(Object.values(EXAMS).map((e) => e.nivaa).filter(Boolean))]
-          .sort((a, b) => (a === '10. trinn' ? -1 : b === '10. trinn' ? 1 : 0));
-        if (nivåer.length < 2) {
-          toggle.hidden = true;
-          return;
-        }
+        const nivåer = ['10. trinn', 'VG1'];
         toggle.hidden = false;
         if (!nivåer.includes(valgtNivaa)) valgtNivaa = nivåer[0];
         toggle.innerHTML = nivåer.map((nivaa) => {
-          const label = nivaa === '10. trinn' ? '10. klasse' : nivaa;
-          return `<button type="button" class="nivaa-btn ${nivaa === valgtNivaa ? 'active' : ''}" data-nivaa="${escHtml(nivaa)}" role="tab" aria-selected="${nivaa === valgtNivaa ? 'true' : 'false'}">${escHtml(label)}</button>`;
+          return `<button type="button" class="nivaa-btn ${nivaa === valgtNivaa ? 'active' : ''}" data-nivaa="${escHtml(nivaa)}" role="tab" aria-selected="${nivaa === valgtNivaa ? 'true' : 'false'}">${escHtml(nivaaLabel(nivaa))}</button>`;
         }).join('');
         toggle.querySelectorAll('.nivaa-btn').forEach((btn) => {
           btn.addEventListener('click', () => {
@@ -1788,6 +1931,15 @@
       function renderExamGrid() {
         const grid = $('examGrid');
         sjekkPlusAktiv();
+        if (valgtNivaa === 'VG1') {
+          grid.innerHTML = `
+            <div class="kommer-snart">
+              <i class="material-icons">construction</i>
+              <strong>Vi jobber med en prøveeksamen for VG1</strong>
+              <p>Snart kan du øve til skriftlig eksamen på videregående her også.</p>
+            </div>`;
+          return;
+        }
         const synlige = Object.values(EXAMS).filter((e) => !valgtNivaa || e.nivaa === valgtNivaa);
         grid.innerHTML = synlige.map((exam) => {
           const sub = submissionsByFag[exam.id];
@@ -1805,11 +1957,6 @@
             </div>
             <h3>${escHtml(exam.title)}</h3>
             <p>${escHtml(exam.description)}</p>
-            <div class="exam-meta">
-              <span class="exam-meta-item"><i class="material-icons">schedule</i>${exam.durationMin} min</span>
-              <span class="exam-meta-item"><i class="material-icons">assignment</i>${exam.tasks.length} oppgaver</span>
-              <span class="exam-meta-item"><i class="material-icons">edit</i>${escHtml(exam.inputLabel)}</span>
-            </div>
             <span class="exam-submitted-note">${sub ? 'Allerede levert – trykk for å se status' : locked ? 'Krever Videregående Hjelp+ for å starte' : 'Trykk for å starte prøven'}</span>
           </div>`;
         }).join('');
@@ -1889,15 +2036,43 @@
         showScreen('info');
       }
 
+      function delInfo(exam, task) {
+        if (!task.del) return null;
+        const info = (exam.deler || []).find((d) => d.nr === task.del);
+        return { nr: task.del, tittel: info && info.tittel ? info.tittel : '' };
+      }
+
       function renderInfo() {
         const exam = EXAMS[state.examId];
         const started = !!state.startTs;
         $('infoExamTitle').textContent = 'Eksamen i ' + exam.title;
         const hours = MAKS_VARIGHET / 60;
-        $('infoVarighet').textContent = 'Eksamen varer i ' +
+        let varighetTekst = 'Eksamen varer i ' +
           (Number.isInteger(hours) ? hours + ' timer' : MAKS_VARIGHET + ' minutter') + '.';
-        $('infoOppgaveList').innerHTML = exam.tasks.map((t, i) =>
-          `<li>Oppgave ${i + 1}${t.title && t.title !== 'Oppgave' ? ' – ' + escHtml(t.title) : ''}</li>`).join('');
+        if (exam.deler.length) {
+          varighetTekst += ' Prøven er todelt: ' + exam.deler
+            .map((d) => 'del ' + d.nr + ' (' + d.tittel + ')').join(' og ') + '.';
+          const medTid = exam.deler.filter((d) => Number(d.minutter) > 0);
+          if (medTid.length) {
+            const tid = medTid
+              .map((d) => 'del ' + d.nr + ' innen ' + (Number(d.minutter) % 60 === 0 ? Number(d.minutter) / 60 + ' timer' : Number(d.minutter) + ' minutter'))
+              .join(' og ');
+            varighetTekst += ' I en ekte eksamen leveres ' + tid +
+              '. Her går alt i ett, men du bør løse del 1 uten kalkulator for å øve realistisk.';
+          }
+        }
+        $('infoVarighet').textContent = varighetTekst;
+        let oppgaveHtml = '';
+        let forrigeDel = 0;
+        exam.tasks.forEach((t, i) => {
+          if (t.del && t.del !== forrigeDel) {
+            const d = (exam.deler || []).find((x) => x.nr === t.del);
+            oppgaveHtml += `<li class="info-del-head"><strong>Del ${t.del}${d && d.tittel ? ' – ' + escHtml(d.tittel) : ''}</strong></li>`;
+            forrigeDel = t.del;
+          }
+          oppgaveHtml += `<li>Oppgave ${i + 1}${t.title && t.title !== 'Oppgave' ? ' – ' + escHtml(t.title) : ''}</li>`;
+        });
+        $('infoOppgaveList').innerHTML = oppgaveHtml;
         $('infoNettsteder').innerHTML = exam.tillatteNettsteder.length
           ? exam.tillatteNettsteder.map((s) => `<li>${escHtml(s)}</li>`).join('')
           : '<li>Ingen nettbaserte hjelpemidler er tillatt i denne prøven.</li>';
@@ -1907,6 +2082,18 @@
         document.querySelectorAll('input[name="svarModus"]').forEach((r) => {
           r.checked = r.value === state.svarModus;
         });
+        // The exam can only be started after the student has promised not to
+        // cheat. Reset the promise state every time the info page is shown
+        // before the exam has started.
+        const promiseBtn = $('promiseBtn');
+        const startBtn = $('startExamBtn');
+        promiseBtn.hidden = started;
+        if (!started) {
+          promiseBtn.classList.remove('promised');
+          promiseBtn.disabled = false;
+          promiseBtn.innerHTML = '<i class="material-icons">handshake</i> Jeg lover jeg skal ikke jukse';
+          startBtn.disabled = true;
+        }
         $('infoStartSection').hidden = started;
         $('timerChip').hidden = !started;
         $('breadcrumbText').textContent = exam.title + ' / Prøveeksamen 2026 / Informasjon om eksamenen';
@@ -1928,9 +2115,8 @@
 
       function enterExam() {
         const exam = EXAMS[state.examId];
-        // The exam screen keeps the site's normal design (same colors and
-        // theme as the rest of the site). Only the site header/footer are
-        // hidden while the exam runs.
+        // The exam flow always runs in light mode (handled by showScreen).
+        // Only the site header/footer are hidden while the exam runs.
         $('timerChip').hidden = false;
         renderTaskNav();
         renderTask();
@@ -1943,11 +2129,6 @@
         }
       }
 
-      function restoreTheme() {
-        document.body.classList.remove('in-exam');
-        if (window.VHprofile && VHprofile.applyTheme) VHprofile.applyTheme();
-      }
-
       function isAnswered(index) {
         const value = state.answers[index];
         return typeof value === 'string' && value.trim().length > 0;
@@ -1958,6 +2139,14 @@
         chips.innerHTML = '';
         const exam = EXAMS[state.examId];
         exam.tasks.forEach((task, i) => {
+          const info = delInfo(exam, task);
+          if (info && (i === 0 || !exam.tasks[i - 1].del || exam.tasks[i - 1].del !== task.del)) {
+            const sep = document.createElement('span');
+            sep.className = 'task-del-sep';
+            sep.textContent = 'Del ' + info.nr;
+            sep.setAttribute('aria-hidden', 'true');
+            chips.appendChild(sep);
+          }
           const btn = document.createElement('button');
           btn.type = 'button';
           btn.className = 'task-btn';
@@ -1986,11 +2175,11 @@
         const exam = EXAMS[state.examId];
         const total = exam.tasks.length;
         if (state.svarModus === 'dokument') {
-          const words = countWords(state.document || '');
-          $('answeredLabel').textContent = words > 0
-            ? 'Dokumentet ditt · ' + words + ' ord'
-            : 'Dokumentet er tomt';
-          $('progressFill').style.width = words > 0 ? '100%' : '0%';
+          const filLastet = !!(state.dokumentFil && state.dokumentFil.data);
+          $('answeredLabel').textContent = filLastet
+            ? 'Dokument lastet opp'
+            : 'Ingen dokument lastet opp ennå';
+          $('progressFill').style.width = filLastet ? '100%' : '0%';
         } else {
           const answered = exam.tasks.filter((_, i) => isAnswered(i)).length;
           $('answeredLabel').textContent = 'Besvart ' + answered + ' av ' + total;
@@ -2008,7 +2197,7 @@
         updateChipStates();
         updateProgress();
 
-        // Keep the active task visible in the chip row on mobile
+        // Keep the active task visible in the chip row when the bar overflows
         const chips = $('taskChips');
         const active = chips.querySelector('.task-btn.active');
         if (active) {
@@ -2028,6 +2217,7 @@
 
         $('breadcrumbText').textContent = exam.title + ' / Prøveeksamen 2026 / Oppgave ' + num;
 
+        const del = delInfo(exam, task);
         const delHtml = renderDeloppgaver(task, num);
         const vurderingHtml = task.vurdering.length
           ? `<div class="vurdering-box">
@@ -2037,11 +2227,12 @@
              </div>`
           : '';
         const answerHtml = state.svarModus === 'dokument'
-          ? renderDocumentBlock(task, num)
+          ? renderDocumentBlock(num)
           : renderTaskAnswer(task, num);
 
         panel.innerHTML = `
           <div class="task-head">
+            ${del ? `<span class="del-badge">Del ${del.nr}${del.tittel ? ' · ' + escHtml(del.tittel) : ''}</span>` : ''}
             <h2>Oppgave ${num}</h2>
           </div>
           ${delHtml}
@@ -2097,30 +2288,25 @@
           </div>`;
       }
 
-      function renderDocumentBlock(task, num) {
+      function renderDocumentBlock(num) {
+        // I dokumentmodus svarer eleven i sitt eget dokument og laster det opp
+        // i den siste oppgaven – det er ingen svarfelt i de andre oppgavene.
         const isLast = num === EXAMS[state.examId].tasks.length;
-        const docValue = escHtml(state.document || '');
-        const words = countWords(state.document || '');
-        const uploadHtml = isLast ? `
+        if (!isLast) return '';
+        return `
           <div class="upload-box">
             <h4>Last opp dokumentet ditt</h4>
-            <p>Last opp dokumentet med svarene dine. I denne prøveversjonen lagres dokumentet i nettleseren og sendes med ved levering – ingen fil blir sendt til en server.</p>
+            <p>Last opp dokumentet med svarene dine. Dokumentet sendes med når du leverer, og blir lest av en sensor. Maks 5 MB.</p>
             <label class="upload-field">
               <input type="file" id="documentFile" accept=".pdf,.docx,.odt,.txt">
               <span class="upload-label"><i class="material-icons">upload_file</i> ${state.dokumentFil ? escHtml(state.dokumentFil.navn) + ' (' + formatSize(state.dokumentFil.størrelse) + ')' : 'Velg fil…'}</span>
             </label>
+            <p class="upload-hint" id="uploadHint" hidden></p>
             <label class="confirm-box">
               <input type="checkbox" id="docConfirm" ${state.dokumentBekreftet ? 'checked' : ''}>
-              <span>Jeg bekrefter at jeg svarer på denne oppgaven i et dokument som jeg laster opp i den siste oppgaven.</span>
+              <span>Jeg bekrefter at jeg svarer på hele prøven i dette dokumentet, som jeg laster opp her.</span>
             </label>
-          </div>` : '';
-        return `
-          <div class="answer-block">
-            <label class="answer-label" for="documentField">Dokumentet ditt</label>
-            <textarea class="answer-area document-area" id="documentField" rows="14" placeholder="Skriv hele svaret ditt her...">${docValue}</textarea>
-            <p class="answer-hint"><i class="material-icons">save</i> Dokumentet er det samme i alle oppgaver og lagres automatisk · ${words} ord</p>
-          </div>
-          ${uploadHtml}`;
+          </div>`;
       }
 
       function renderVedlegg(task) {
@@ -2139,14 +2325,10 @@
       }
 
       function bindAnswerEvents() {
-        const field = $('answerField') || $('documentField');
+        const field = $('answerField');
         if (field) {
           field.addEventListener('input', () => {
-            if (field.id === 'documentField') {
-              state.document = field.value;
-            } else {
-              state.answers[state.currentTask] = field.value;
-            }
+            state.answers[state.currentTask] = field.value;
             saveSession();
             markSaving();
             updateChipStates();
@@ -2157,15 +2339,50 @@
         if (fileInput) {
           fileInput.addEventListener('change', () => {
             const file = fileInput.files && fileInput.files[0];
-            if (file) {
-              state.dokumentFil = { navn: file.name, størrelse: file.size };
-              const label = fileInput.closest('.upload-field').querySelector('.upload-label');
-              label.innerHTML = '<i class="material-icons">upload_file</i> ' + escHtml(file.name) + ' (' + formatSize(file.size) + ')';
-            } else {
+            const label = fileInput.closest('.upload-field').querySelector('.upload-label');
+            const hint = $('uploadHint');
+            const resetLabel = () => {
+              label.innerHTML = '<i class="material-icons">upload_file</i> Velg fil…';
+              if (hint) { hint.hidden = true; hint.classList.remove('error'); }
+            };
+            if (!file) {
               state.dokumentFil = null;
+              resetLabel();
+              saveSession();
+              markSaving();
+              return;
             }
-            saveSession();
-            markSaving();
+            // Filinnholdet (base64) sendes med ved levering, så sensoren kan åpne dokumentet.
+            // Maks 5 MB – base64-en gjør innholdet omtrent 33 % større.
+            if (file.size > 5 * 1024 * 1024) {
+              state.dokumentFil = null;
+              fileInput.value = '';
+              resetLabel();
+              if (hint) {
+                hint.textContent = 'Filen er for stor – maks 5 MB.';
+                hint.hidden = false;
+                hint.classList.add('error');
+              }
+              saveSession();
+              markSaving();
+              return;
+            }
+            const reader = new FileReader();
+            reader.onload = () => {
+              state.dokumentFil = { navn: file.name, størrelse: file.size, data: String(reader.result) };
+              label.innerHTML = '<i class="material-icons">upload_file</i> ' + escHtml(file.name) + ' (' + formatSize(file.size) + ')';
+              if (hint) { hint.hidden = true; hint.classList.remove('error'); }
+              saveSession();
+              markSaving();
+            };
+            reader.onerror = () => {
+              state.dokumentFil = null;
+              fileInput.value = '';
+              resetLabel();
+              saveSession();
+              markSaving();
+            };
+            reader.readAsDataURL(file);
           });
         }
         const confirm = $('docConfirm');
@@ -2222,10 +2439,8 @@
       }
 
       function formatClock(ms) {
-        const totalSec = Math.ceil(ms / 1000);
-        const m = Math.floor(totalSec / 60);
-        const s = totalSec % 60;
-        return m + ':' + String(s).padStart(2, '0');
+        const m = Math.ceil(ms / 60000);
+        return m + ' min';
       }
 
       function startTimer() {
@@ -2276,16 +2491,6 @@
         warningTimeout = setTimeout(() => { $('examWarning').hidden = true; }, 8000);
       }
 
-      // Log rule breaches – the assessor can see these during grading
-      function onFullscreenChange() {
-        const inFullscreen = !!(document.fullscreenElement || document.webkitFullscreenElement);
-        if (!inFullscreen && state.examId && !state.finished && state.startTs) {
-          state.hendelser.forlotFullskjerm = (state.hendelser.forlotFullskjerm || 0) + 1;
-          saveSession();
-          showExamWarning('Du forlot fullskjermmodus. Gå tilbake til fullskjerm for å fortsette.');
-        }
-      }
-
       // ---------- Oversikt ----------
       function openOverview() {
         const exam = EXAMS[state.examId];
@@ -2311,6 +2516,18 @@
       function closeOverview() {
         $('overviewModal').hidden = true;
         $('overviewBtn').focus();
+      }
+
+      // ---------- Avbryt eksamen ----------
+      function openAbortModal() {
+        if (!state.startTs || state.finished) return;
+        $('abortModal').hidden = false;
+        $('cancelAbortBtn').focus();
+      }
+
+      function closeAbortModal() {
+        $('abortModal').hidden = true;
+        $('abortExamBtn').focus();
       }
 
       // ---------- Avslutning ----------
@@ -2377,7 +2594,6 @@
         state.usedMs = state.durationMs - remainingMs();
         saveSession();
         exitFullscreen();
-        restoreTheme();
         renderResult();
         showScreen('result');
       }
@@ -2387,14 +2603,16 @@
         const exam = EXAMS[state.examId];
         const total = exam.tasks.length;
         const answered = state.svarModus === 'dokument'
-          ? ((state.document || '').trim() ? total : 0)
+          ? ((state.dokumentFil && state.dokumentFil.data && state.dokumentBekreftet) ? total : 0)
           : exam.tasks.filter((_, i) => isAnswered(i)).length;
         const usedMin = Math.round(state.usedMs / 60000);
         const totalMin = Math.round(state.durationMs / 60000);
 
         $('resultExamName').textContent = exam.title;
         $('resultTime').textContent = usedMin + ' av ' + totalMin + ' min';
-        $('resultAnswered').textContent = answered + ' av ' + total;
+        $('resultAnswered').textContent = state.svarModus === 'dokument'
+          ? (answered ? '1 av 1 dokument' : '0 av 1 dokument')
+          : answered + ' av ' + total;
         $('resultTotal').textContent = total + ' oppgaver';
 
         await renderSubmitSection();
@@ -2495,6 +2713,26 @@
 
       async function submitExam() {
         const exam = EXAMS[state.examId];
+        // I dokumentmodus må dokumentet være lastet opp og bekreftet før levering.
+        // Hvis ikke, sendes eleven tilbake til siste oppgave med en forklaring.
+        if (state.svarModus === 'dokument' && (!state.dokumentFil || !state.dokumentFil.data || !state.dokumentBekreftet)) {
+          closeSubmitModal();
+          state.finished = false;
+          goToTask(exam.tasks.length - 1);
+          showScreen('exam');
+          startTimer();
+          const hint = $('uploadHint');
+          if (hint) {
+            hint.textContent = !state.dokumentFil
+              ? 'Du må laste opp dokumentet her før du kan levere.'
+              : !state.dokumentFil.data
+                ? 'Siden ble lastet inn på nytt – velg dokumentet igjen før du leverer.'
+                : 'Du må bekrefte at du svarer i dokumentet før du leverer.';
+            hint.hidden = false;
+            hint.classList.add('error');
+          }
+          return;
+        }
         const btn = $('confirmSubmitBtn');
         btn.disabled = true;
         try {
@@ -2579,7 +2817,6 @@
         clearSession();
         resetState();
         exitFullscreen();
-        restoreTheme();
         showScreen('intro');
         renderExamGrid();
       }
@@ -2587,6 +2824,15 @@
       // ---------- Events ----------
       $('confirmEndBtn').addEventListener('click', finishExam);
       $('cancelEndBtn').addEventListener('click', closeEndModal);
+      $('abortExamBtn').addEventListener('click', openAbortModal);
+      $('cancelAbortBtn').addEventListener('click', closeAbortModal);
+      $('confirmAbortBtn').addEventListener('click', () => {
+        closeAbortModal();
+        backToIntro();
+      });
+      $('abortModal').addEventListener('click', (e) => {
+        if (e.target === $('abortModal')) closeAbortModal();
+      });
       $('prevTaskBtn').addEventListener('click', () => goToTask(state.currentTask - 1));
       $('nextTaskBtn').addEventListener('click', () => {
         const exam = EXAMS[state.examId];
@@ -2613,16 +2859,23 @@
       $('retakeBtn').addEventListener('click', backToIntro);
       $('chooseAnotherBtn').addEventListener('click', backToIntro);
       $('infoBackBtn').addEventListener('click', backToIntro);
+      $('promiseBtn').addEventListener('click', () => {
+        $('promiseBtn').classList.add('promised');
+        $('promiseBtn').disabled = true;
+        $('promiseBtn').innerHTML = '<i class="material-icons">verified</i> Lovet!';
+        $('startExamBtn').disabled = false;
+        $('startExamBtn').focus();
+      });
       $('startExamBtn').addEventListener('click', () => {
         enterFullscreen();
         beginExam();
       });
-      $('reFullscreenBtn').addEventListener('click', enterFullscreen);
       $('confirmSubmitBtn').addEventListener('click', submitExam);
       $('cancelSubmitBtn').addEventListener('click', closeSubmitModal);
 
       document.addEventListener('keydown', (e) => {
         if (e.key !== 'Escape') return;
+        if (!$('abortModal').hidden) closeAbortModal();
         if (!$('endModal').hidden) closeEndModal();
         if (!$('submitModal').hidden) closeSubmitModal();
         if (!$('overviewModal').hidden) closeOverview();
@@ -2656,9 +2909,6 @@
           saveSession();
           showExamWarning('Ikke bytt fane under eksamen. Hendelsen er logget.');
         }
-      });
-      ['fullscreenchange', 'webkitfullscreenchange'].forEach((ev) => {
-        document.addEventListener(ev, onFullscreenChange);
       });
 
       // ---------- Init ----------
