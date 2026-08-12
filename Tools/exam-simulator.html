@@ -1283,7 +1283,7 @@
     <!-- Intro: pick an exam -->
     <section class="screen" id="screenIntro">
       <div class="hero">
-        <h1 class="hero-title">VGS-Hjelp sin eksamen</h1>
+        <h1 class="hero-title">VGS-Hjelp sin eksamen <span style="font-size: 0.6em; color: #afae71;">(beta)</span></h1>
         <p class="hero-sub">
           En gratis prøveeksamen for deg som vil øve til den skriftlige eksamen. Velg fag, sett i gang,
           og svar under samme tidspress som på en ekte eksamen.
@@ -1325,6 +1325,7 @@
           utarbeidet av Udir. Oppgavene ligner på eksamensoppgaver, men er ikke hentet fra ekte eksamenssett.
           Offisielle eksamensoppgaver finner du gratis på
           <a href="https://www.udir.no/eksamen-og-prover/eksamen/tidligere-eksamensoppgaver/" target="_blank" rel="noopener">udir.no</a>.
+          (Du vil trenge et passord fra en lærer på skolen din for å se eksamensoppgavene der.)
         </p>
       </div>
     </section>
@@ -2255,8 +2256,8 @@
           </div>
           ${delHtml}
           ${vurderingHtml}
-          ${answerHtml}
-          ${renderVedlegg(task)}`;
+          ${renderVedlegg(task)}
+          ${answerHtml}`;
 
         if (window.initTaskCharts) initTaskCharts(panel);
         bindAnswerEvents();
