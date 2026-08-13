@@ -2390,7 +2390,12 @@
             const reader = new FileReader();
             reader.onload = () => {
               state.dokumentFil = { navn: file.name, størrelse: file.size, data: String(reader.result) };
-              label.innerHTML = '<i class="material-icons">upload_file</i> ' + escHtml(file.name) + ' (' + formatSize(file.size) + ')';
+              // Set the file name as text so it is never parsed as HTML
+              label.textContent = '';
+              const icon = document.createElement('i');
+              icon.className = 'material-icons';
+              icon.textContent = 'upload_file';
+              label.append(icon, document.createTextNode(' ' + file.name + ' (' + formatSize(file.size) + ')'));
               if (hint) { hint.hidden = true; hint.classList.remove('error'); }
               saveSession();
               markSaving();
