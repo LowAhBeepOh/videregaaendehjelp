@@ -2684,7 +2684,7 @@
           <div class="submit-panel">
             <h3>Få prøven vurdert</h3>
             <p>Svarene dine sendes til Videregående Hjelp, hvor et menneske vurderer dem. Du får karakteren din her når vurderingen er ferdig.</p>
-            <button type="button" class="btn btn-primary" id="submitGradeBtn"><i class="material-icons">grade</i> Gi karakter</button>
+            <button type="button" class="btn btn-primary" id="submitGradeBtn"><i class="material-icons">send</i> Send til en sensor for vurdering</button>
             <p class="submit-meta">Logget inn som ${escHtml(user.email || user.id || '')}.</p>
             ${adminPanelNote()}
           </div>`;
@@ -2705,7 +2705,7 @@
             panel.innerHTML = `
               <h3>Fant ikke innleveringen</h3>
               <p>Innleveringen ble ikke funnet. Lever på nytt med knappen under.</p>
-              <button type="button" class="btn btn-primary" id="submitGradeBtn"><i class="material-icons">grade</i> Gi karakter</button>
+              <button type="button" class="btn btn-primary" id="submitGradeBtn"><i class="material-icons">send</i> Send til en sensor for vurdering</button>
               ${adminPanelNote()}`;
             $('submitGradeBtn').addEventListener('click', openSubmitModal);
             return;

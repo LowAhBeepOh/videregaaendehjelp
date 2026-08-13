@@ -478,6 +478,62 @@
       color: var(--card-green);
     }
     .svar-fasit .material-icons { font-size: 15px; flex: 0 0 auto; margin-top: 1px; }
+    .svar-vedlegg {
+      margin-top: 12px;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      background: var(--bg);
+      overflow: hidden;
+    }
+    .svar-vedlegg summary {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 12px 16px;
+      font-family: var(--font-display);
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--card-blue);
+      cursor: pointer;
+      list-style: none;
+      user-select: none;
+    }
+    .svar-vedlegg summary::-webkit-details-marker { display: none; }
+    .svar-vedlegg summary:hover { background: var(--surface); }
+    .svar-vedlegg summary:focus-visible { outline: 2px solid var(--card-blue); outline-offset: -2px; }
+    .svar-vedlegg summary .material-icons { font-size: 17px; }
+    .svar-vedlegg summary::after {
+      content: 'expand_more';
+      font-family: 'Material Icons';
+      font-size: 18px;
+      margin-left: auto;
+      color: var(--text-muted);
+      transition: transform 0.2s ease;
+    }
+    .svar-vedlegg[open] summary::after { transform: rotate(180deg); }
+    .vedlegg-innhold {
+      padding: 2px 18px 18px;
+      font-size: 14px;
+      line-height: 1.7;
+      border-top: 1px solid var(--border);
+    }
+    .vedlegg-innhold p + p { margin-top: 10px; }
+    .vedlegg-innhold blockquote {
+      border-left: 3px solid var(--border);
+      padding-left: 14px;
+      margin: 12px 0;
+      font-style: italic;
+      color: var(--text-muted);
+    }
+    .vedlegg-innhold blockquote.poem {
+      border-left: none;
+      padding-left: 0;
+      font-style: normal;
+      text-align: center;
+      color: var(--text);
+      margin: 16px 0;
+    }
+    .vedlegg-innhold blockquote.poem p { margin: 4px 0; }
     .svar-doc-file {
       display: inline-flex;
       align-items: center;
@@ -877,7 +933,22 @@
         ].join('');
       }
 
-      // Render the task text (intro + deloppgaver + sensor key) above an answer
+      function vedleggHtml(vedlegg) {
+        const list = Array.isArray(vedlegg)
+          ? vedlegg.filter((v) => v && v.innhold)
+          : (typeof vedlegg === 'string' && vedlegg.trim() ? [{ tittel: '', innhold: vedlegg }] : []);
+        if (!list.length) return '';
+        return list.map((v, idx) => {
+          const tittel = v.tittel || ('Vedlegg ' + (idx + 1));
+          return `
+            <details class="svar-vedlegg">
+              <summary><i class="material-icons">description</i> ${escHtml(tittel)}</summary>
+              <div class="vedlegg-innhold">${v.innhold}</div>
+            </details>`;
+        }).join('');
+      }
+
+      // Render the task text (intro + deloppgaver + vedlegg + sensor key) above an answer
       function sporsmaalHtml(task, i, showHeading) {
         if (!task) return '';
         const parts = [];
@@ -897,6 +968,8 @@
             </div>`).join('');
           parts.push(`<div class="svar-subs">${subs}</div>`);
         }
+        const vedlegg = vedleggHtml(task.vedlegg);
+        if (vedlegg) parts.push(vedlegg);
         if (task.vurderingskriterier) {
           parts.push(`<div class="svar-fasit"><i class="material-icons">fact_check</i> <div>Sensor-nøkkel: ${escHtml(task.vurderingskriterier)}</div></div>`);
         }
