@@ -579,6 +579,53 @@
     .card-opinions { background: var(--card-blue); color: #fff; }
     .card-opinions .card-title { font-family: var(--font-serif); font-style: italic; font-size: 24px; color: #fff; line-height: 1.25; }
 
+    /* Inboks: shows the user's submitted practice exams. Hidden entirely when
+       the user has no submissions. Graded entries use a simple click-to-reveal
+       for the grade (no gift box). */
+    .card-inbox { background: var(--card-pale); }
+    .card-inbox[hidden] { display: none; }
+    .card-inbox .fun-fact-label { color: #000; }
+    .inbox-content { display: flex; flex-direction: column; gap: 10px; font-size: 14px; }
+    .inbox-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 14px 16px;
+      background: rgba(0, 0, 0, 0.05);
+      border-radius: 12px;
+    }
+    .inbox-fag { font-weight: 800; font-size: 15px; }
+    .inbox-status { font-weight: 600; font-size: 13px; opacity: 0.7; }
+    .inbox-reveal {
+      width: 100%;
+      border: none;
+      background: rgba(0, 0, 0, 0.05);
+      border-radius: 12px;
+      padding: 14px 16px;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 4px;
+      cursor: pointer;
+      font-family: var(--font-body);
+      font-size: 14px;
+      text-align: left;
+      color: #000;
+    }
+    .inbox-reveal:hover { background: rgba(0, 0, 0, 0.09); }
+    .inbox-reveal:focus-visible { outline: 2px solid #000; outline-offset: 2px; }
+    .inbox-reveal-hint { font-weight: 700; font-size: 13px; opacity: 0.75; }
+    .inbox-reveal-grade { display: none; font-weight: 800; font-size: 17px; color: #1e7a34; }
+    .inbox-reveal.open .inbox-reveal-hint { display: none; }
+    .inbox-reveal.open .inbox-reveal-grade { display: block; }
+    /* Simple pop-in animation when the grade is revealed */
+    .inbox-reveal.open .inbox-reveal-grade { animation: inbox-pop 0.35s cubic-bezier(0.2, 0, 0, 1); }
+    @keyframes inbox-pop {
+      0% { opacity: 0; transform: translateY(6px) scale(0.96); }
+      100% { opacity: 1; transform: translateY(0) scale(1); }
+    }
+
     .card-icon {
       background: rgba(0,0,0,0.1);
       color: #000;
@@ -847,6 +894,84 @@
         .subscribe();
     }
 
+    function inboxStatusText(status) {
+      if (status === 'under_vurdering') return 'Under vurdering';
+      if (status === 'avvist') return 'Avvist';
+      return 'Venter på vurdering';
+    }
+
+    // One inbox entry. Graded exams become a click-to-reveal row: the first
+    // click reveals the grade with a small animation, the second click opens
+    // the exam simulator for the full details. The rest are plain fag+status.
+    function inboxItemHtml(s) {
+      const fag = escHtml(s.fag_tittel || 'Prøveeksamen');
+      if (s.status === 'vurdert' && s.karakter) {
+        return `
+          <button type="button" class="inbox-reveal" aria-expanded="false" aria-label="Vis karakteren i ${fag}">
+            <span class="inbox-fag">${fag}</span>
+            <span class="inbox-reveal-hint">Karakteren er klar – trykk for å se</span>
+            <span class="inbox-reveal-grade">Karakter: ${escHtml(s.karakter)}</span>
+          </button>`;
+      }
+      return `
+        <div class="inbox-item">
+          <span class="inbox-fag">${fag}</span>
+          <span class="inbox-status">${inboxStatusText(s.status)}</span>
+        </div>`;
+    }
+
+    function bindInboxReveals(container) {
+      container.querySelectorAll('.inbox-reveal').forEach((btn) => {
+        let revealed = false;
+        btn.addEventListener('click', () => {
+          if (!revealed) {
+            revealed = true;
+            btn.classList.add('open');
+            btn.setAttribute('aria-expanded', 'true');
+            btn.setAttribute('aria-label', 'Åpne detaljene i prøveeksamenen');
+          } else {
+            window.location.href = 'Tools/exam-simulator.html';
+          }
+        });
+      });
+    }
+
+    // The inbox card is hidden entirely when the user is logged out or has no
+    // submissions. When present it lists every submitted exam with its status.
+    async function loadInbox() {
+      const card = document.getElementById('inboxCard');
+      const el = document.getElementById('inboxContent');
+      if (!card || !el) return;
+      try {
+        const { data: sessionData } = await sb.auth.getSession();
+        const user = sessionData && sessionData.session ? sessionData.session.user : null;
+        if (!user) {
+          card.hidden = true;
+          return;
+        }
+        const { data, error } = await sb.from('eksamen_innleveringer')
+          .select('fag_tittel, status, karakter')
+          .eq('user_id', user.id)
+          .order('created_at', { ascending: false });
+        if (error) throw error;
+        if (!data || !data.length) {
+          card.hidden = true;
+          return;
+        }
+        card.hidden = false;
+        const items = data.map(inboxItemHtml).join('');
+        el.innerHTML = items;
+        bindInboxReveals(el);
+      } catch (e) {
+        card.hidden = true;
+      }
+    }
+
+    // Keep the inbox card in sync when the user signs in or out
+    if (sb) {
+      sb.auth.onAuthStateChange(() => { loadInbox(); });
+    }
+
     const funFacts = [
       // --- Rettigheter og regler ---
       {
@@ -1081,6 +1206,16 @@
 
       // News container
       html += `<div class="grid-item-news-featured" id="newsFeaturedContainer"></div>`;
+
+      // Inboks (hidden until the user has at least one submitted exam; filled by loadInbox)
+      html += `
+        <div class="bento-card card-inbox grid-item-featured" id="inboxCard" hidden>
+          <div>
+            <div class="fun-fact-label"><i class="material-icons fun-fact-label-icon">mail</i> Inboks</div>
+            <div id="inboxContent" class="inbox-content"></div>
+          </div>
+        </div>
+      `;
 
       // Plus skolestart-bento (vises kun for Pluss-brukere, styres av JS)
       html += `<div class="bento-grid-item-plus" id="plusSkolestartBento" style="display:none;">
@@ -1438,7 +1573,7 @@
     }
 
     document.addEventListener('DOMContentLoaded', () => {
-      generateGrid(); loadLatestOpinionHome(); subscribeOpinionHome(); renderBookmarks();
+      generateGrid(); loadLatestOpinionHome(); subscribeOpinionHome(); renderBookmarks(); loadInbox();
       fetch('News/news-data.json').then(r => r.json()).then(d => renderFeaturedNews(d)).catch(e => console.error(e));
       renderPlusBento();
       // Wire up the skolestart bento card

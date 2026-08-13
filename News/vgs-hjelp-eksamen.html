@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+  <script defer src="https://cloud.umami.is/script.js" data-website-id="24f80a75-a09f-4f80-94e0-d9103f0d734d"></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="VGS-Hjelp sin eksamen er her: en realistisk prøveeksamen i matematikk og norsk for 10. trinn med tidtaker, fullskjerm og vurdering fra et menneske.">
+  <title>VGS-Hjelp sin eksamen er her – Videregående Hjelp</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200;300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+  <style>
+    :root {
+      --bg: #050505;
+      --text: #ffffff;
+      --text-muted: #888;
+      --surface: #1c1c1e;
+      --border: #2c2c2e;
+      --card-red: #D40B00;
+      --card-blue: #5865F2;
+      --card-yellow: #FFD60A;
+      --font-display: 'Inter Tight', sans-serif;
+      --font-body: 'Manrope', sans-serif;
+    }
+
+    [data-theme="light"] {
+      --bg: #ffffff;
+      --text: #000000;
+      --text-muted: #555;
+      --surface: #f2f2f7;
+      --border: #e5e5ea;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: var(--font-body);
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      min-height: 100vh;
+    }
+
+    header {
+      padding: 20px 0;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .header-content {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 0 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .back-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--text-muted);
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 14px;
+      transition: color 0.2s;
+    }
+
+    .back-btn:hover { color: var(--text); }
+    .back-btn .material-icons { font-size: 18px; }
+
+    .plus-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      color: var(--card-yellow);
+      font-weight: 900;
+      font-size: 14px;
+      white-space: nowrap;
+    }
+
+    main {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 40px 20px 80px;
+    }
+
+    .article-meta {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 16px;
+      flex-wrap: wrap;
+    }
+
+    .article-date {
+      color: var(--card-red);
+      font-size: 14px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .article-tag {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      color: var(--text-muted);
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      padding: 3px 10px;
+      border-radius: 100px;
+    }
+
+    .article-tag.plus {
+      border-color: var(--card-yellow);
+      color: var(--card-yellow);
+    }
+
+    [data-theme="light"] .article-tag.plus {
+      border-color: var(--plus-gold-light);
+      color: var(--plus-gold-light);
+    }
+
+    .article-title {
+      font-family: var(--font-display);
+      font-size: 40px;
+      font-weight: 800;
+      line-height: 1.1;
+      margin-bottom: 16px;
+      letter-spacing: -0.03em;
+    }
+
+    @media (min-width: 768px) {
+      .article-title { font-size: 56px; }
+    }
+
+    .article-intro {
+      font-size: 20px;
+      color: var(--text-muted);
+      margin-bottom: 32px;
+      line-height: 1.5;
+    }
+
+    .article-hero {
+      width: 100%;
+      height: 400px;
+      object-fit: cover;
+      border-radius: 16px;
+      margin-bottom: 32px;
+      background: var(--surface);
+    }
+
+    .summary-box,
+    .steps-box {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 24px;
+    }
+
+    .summary-box {
+      margin-bottom: 40px;
+    }
+
+    .summary-label,
+    .steps-label {
+      font-size: 11px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--card-yellow);
+      margin-bottom: 20px;
+    }
+
+    .summary-box strong {
+      display: block;
+      color: var(--text);
+      font-size: 15px;
+      margin-top: 16px;
+      margin-bottom: 6px;
+    }
+
+    .summary-box strong:first-of-type { margin-top: 0; }
+
+    .summary-box p {
+      color: var(--text-muted);
+      font-size: 15px;
+      line-height: 1.6;
+      margin: 0;
+    }
+
+    .article-content {
+      font-size: 18px;
+      color: rgba(255, 255, 255, 0.9);
+    }
+
+    [data-theme="light"] .article-content {
+      color: rgba(0, 0, 0, 0.85);
+    }
+
+    .article-content p { margin-bottom: 24px; }
+
+    .article-content h2 {
+      font-family: var(--font-display);
+      font-size: 28px;
+      font-weight: 700;
+      margin: 48px 0 16px;
+      color: var(--text);
+    }
+
+    .article-content ul {
+      margin: 0 0 24px;
+      padding-left: 24px;
+    }
+
+    .article-content li { margin-bottom: 8px; }
+
+    .step-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+    }
+
+    .step-number {
+      flex-shrink: 0;
+      color: var(--card-yellow);
+    }
+
+    .step-item strong {
+      display: block;
+      color: var(--text);
+      margin-bottom: 2px;
+      font-size: 16px;
+    }
+
+    .step-item p {
+      color: var(--text-muted);
+      font-size: 15px;
+      line-height: 1.5;
+    }
+
+    .steps-box {
+      margin: 32px 0 40px;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .step-number {
+      width: 28px;
+      height: 28px;
+      border: 1px solid var(--card-yellow);
+      border-radius: 50%;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font-display);
+      font-weight: 800;
+      font-size: 14px;
+    }
+
+    .step-item p { margin: 0; }
+
+    .callout {
+      border-left: 3px solid var(--card-blue);
+      background: rgba(88, 101, 242, 0.1);
+      border-radius: 0 12px 12px 0;
+      padding: 20px 24px;
+      margin: 32px 0;
+    }
+
+    .callout-label {
+      color: var(--card-blue);
+      font-size: 11px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      margin-bottom: 8px;
+    }
+
+    .callout p {
+      font-size: 16px;
+      margin: 0;
+    }
+
+    .article-content a {
+      color: var(--card-blue);
+      text-decoration: underline;
+      text-underline-offset: 2px;
+    }
+
+    .sources-list {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 24px 28px;
+      margin: 40px 0;
+    }
+
+    .sources-list-label {
+      color: var(--text-muted);
+      font-size: 11px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      margin-bottom: 16px;
+    }
+
+    .sources-list ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .sources-list li {
+      color: var(--text-muted);
+      font-size: 14px;
+    }
+
+    .sources-list a {
+      color: var(--card-blue);
+      text-decoration: none;
+    }
+
+    .sources-list a:hover { text-decoration: underline; }
+
+    @media (max-width: 480px) {
+      main { padding-top: 28px; }
+      .article-title { font-size: 36px; }
+      .article-intro { font-size: 18px; }
+      .article-hero { height: 240px; }
+      .summary-box,
+      .steps-box { padding: 20px; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="header-content">
+      <a href="../news.html" class="back-btn">
+        <span class="material-icons" aria-hidden="true">arrow_back</span>
+        Tilbake til nyheter
+      </a>
+    </div>
+  </header>
+
+  <main>
+    <article>
+      <div class="article-meta">
+        <span class="article-date">13. august 2026</span>
+        <span class="article-tag">Nytt verktøy</span>
+      </div>
+
+      <h1 class="article-title">VGS-Hjelp sin eksamen er her</h1>
+
+      <p class="article-intro">Nå kan du ta en realistisk prøveeksamen i matematikk eller norsk direkte på nettsiden, med vurdering fra et menneske.</p>
+
+      <img
+        src="../Assets/Thumbnails/news_thumb_vgshexam.png"
+        alt="Bilde for nyheten om VGS-Hjelp sin eksamen"
+        class="article-hero"
+      >
+
+      <div class="callout">
+        <div class="callout-label">Krever Pluss</div>
+        <p>For å ta eksamenen må du ha Videregående Hjelp+ (Pluss) aktivert på profilen din. Pluss er gratis, og du aktiverer det på <a href="../profile.html">Min profil</a>.</p>
+      </div>
+
+      <div class="summary-box">
+        <div class="summary-label">Kort forklart</div>
+        <strong>Hva er det?</strong>
+        <p>En uoffisiell prøveeksamen i matematikk og norsk for 10. trinn, laget av Videregående Hjelp. Oppgavene ligner på eksamensoppgaver, men er ikke hentet fra ekte eksamenssett.</p>
+        <strong>Hvor lang tid varer den?</strong>
+        <p>5 timer, med en tidtaker som starter når du trykker «Start prøven».</p>
+        <strong>Hvem vurderer svarene?</strong>
+        <p>Et menneske fra Videregående Hjelp leser besvarelsen din og gir deg en karakter.</p>
+        <strong>Hva trenger jeg?</strong>
+        <p>En profil, innlogging og Videregående Hjelp+ (Pluss) aktivert. Eksamenen tas på PC eller laptop.</p>
+      </div>
+
+      <div class="article-content">
+        <h2>Hva er VGS-Hjelp sin eksamen?</h2>
+        <p>VGS-Hjelp sin eksamen er en prøveeksamen som er laget for å kjenne på hvordan det faktisk er å sitte til eksamen. Klokka tikker, du må forholde deg til hjelpemiddel- og kilde-regler, og du får et varsel hvis du forlater fullskjermen eller bytter fane under prøven.</p>
+
+        <p>Eksamenen er uoffisiell og laget av Videregående Hjelp. Foreløpig finnes det prøver i matematikk og norsk for 10. trinn, og flere fag og nivåer kommer senere. Vil du prøve? Åpne <a href="../Tools/exam-simulator.html">VGS-Hjelp sin eksamen</a>.</p>
+
+        <h2>Hva kan du øve på?</h2>
+        <ul>
+          <li>Matematikk 10. klasse</li>
+          <li>Norsk 10. klasse</li>
+        </ul>
+
+        <h2>Slik er eksamenen lagt opp</h2>
+        <ul>
+          <li><strong>Tidtaker på 5 timer</strong>: klokka starter når du trykker «Start prøven», og du ser hele tiden hvor mye tid du har igjen.</li>
+          <li><strong>Fullskjermmodus</strong>: du får et varsel hvis du forlater fullskjermen eller bytter fane under prøven.</li>
+          <li><strong>To svarmåter</strong>: svar per oppgave, eller skriv hele svaret i ett dokument og last det opp.</li>
+          <li><strong>Kun PC og laptop</strong>: mobil og nettbrett støttes ikke.</li>
+        </ul>
+
+        <h2>Slik fungerer vurderingen</h2>
+        <p>Svarene dine sendes til Videregående Hjelp, hvor et menneske leser dem og setter en karakter. Du får karakteren din på nettsiden når vurderingen er ferdig. Du kan bare levere én prøve per fag, så det lønner seg å gjøre det ordentlig første gangen.</p>
+
+        <p>Som på en ekte eksamen må du oppgi kildene du har brukt, og besvarelsen blir sjekket for plagiat og KI-generert innhold. Det er også et begrenset antall plasser på hver prøve, så ikke vent for lenge hvis du vil ta den.</p>
+
+        <div class="callout">
+          <div class="callout-label">Viktig å vite</div>
+          <p>VGS-Hjelp sin eksamen er ikke en offisiell eksamen fra Udir. Den er laget av Videregående Hjelp for å øve, og oppgavene er ikke hentet fra ekte eksamenssett. Offisielle tidligere eksamensoppgaver finner du gratis på <a href="https://www.udir.no/eksamen-og-prover/eksamen/tidligere-eksamensoppgaver/" target="_blank" rel="noopener">udir.no</a>.</p>
+        </div>
+
+        <h2>Slik kommer du i gang</h2>
+        <div class="steps-box">
+          <div class="steps-label">Tre steg til din første prøveeksamen</div>
+          <div class="step-item">
+            <span class="step-number">1</span>
+            <div>
+              <strong>Lag en profil og logg inn</strong>
+              <p>Åpne <a href="../profile.html">Min profil</a> og lag eller logg inn på kontoen din.</p>
+            </div>
+          </div>
+          <div class="step-item">
+            <span class="step-number">2</span>
+            <div>
+              <strong>Aktiver Videregående Hjelp+</strong>
+              <p>Velg Møre og Romsdal på profilen din og aktiver Pluss. Eksamenen krever Pluss for å starte.</p>
+            </div>
+          </div>
+          <div class="step-item">
+            <span class="step-number">3</span>
+            <div>
+              <strong>Åpne eksamenen</strong>
+              <p>Gå til <a href="../tools.html">Verktøy</a> og trykk på «VGS-Hjelp sin eksamen», eller åpne den direkte.</p>
+            </div>
+          </div>
+        </div>
+
+        <h2>Hva kommer videre?</h2>
+        <p>Foreløpig finnes det prøver i matematikk og norsk for 10. trinn. Vi bygger ut med flere fag og nivåer etter hvert som vi ser hva elevene trenger mest.</p>
+
+        <p>Følg med på nyhetssiden for oppdateringer. Har du innspill til funksjonen eller oppgavene, kan du sende det inn via nettsiden.</p>
+
+        <div class="sources-list">
+          <div class="sources-list-label">Slik kommer du i gang</div>
+          <ul>
+            <li><a href="../tools.html">Se alle verktøy</a></li>
+            <li><a href="../profile.html">Aktiver Pluss på Min profil</a></li>
+            <li><a href="../news.html">Se flere nyheter</a></li>
+          </ul>
+        </div>
+      </div>
+    </article>
+  </main>
+
+  <script>
+    if (!localStorage.getItem('theme')) {
+      localStorage.setItem('theme', 'dark');
+    }
+    document.documentElement.setAttribute('data-theme', localStorage.getItem('theme'));
+  </script>
+</body>
+</html>

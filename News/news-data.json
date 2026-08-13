@@ -1,6 +1,14 @@
 {
   "news": [
     {
+      "name": "VGS-Hjelp sin eksamen er her",
+      "desc": "Nå kan du ta en realistisk prøveeksamen i matematikk eller norsk for 10. trinn – med tidtaker, fullskjermmodus og vurdering fra et menneske. Krever Videregående Hjelp+.",
+      "thumb": "Assets/Thumbnails/news_thumb_vgshexam.png",
+      "date": "2026-08-13",
+      "link": "News/vgs-hjelp-eksamen.html",
+      "plus": false
+    },
+    {
       "name": "Videregående Hjelp+ (Pluss) er lansert",
       "desc": "Videregående Hjelp+ er en bedre versjon av nettsiden for elever i Møre og Romsdal. Les om du har tilgang til Videregående Hjelp+, hvordan du aktiverer det, og hva du får tilgang til.",
       "thumb": "Assets/Thumbnails/news_thumb_plus.png",

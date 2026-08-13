@@ -1,0 +1,90 @@
+{
+  "id": "norsk-10",
+  "tittel": "Norsk hovedmål",
+  "nivaa": "10. trinn",
+  "ikon": "edit_note",
+  "accent": "blue",
+  "beskrivelse": "Prøv deg på Norsk eksamen!",
+  "inputLabel": "Skriving og tekstforståelse",
+  "tillatteNettsteder": ["ordbokene.no", "naob.no"],
+  "deler": [],
+  "oppgaver": [
+    {
+      "id": "norsk-10-1",
+      "tittel": "Reflekterende tekst",
+      "poeng": 4,
+      "type": "langsvar",
+      "tekst": "<p>I oppgave 1 skal du skrive en reflekterende tekst. En reflekterende tekst utforsker et tema fra flere sider: du skal vise egne tanker, begrunne dem og treffe leseren. Teksten skal ha en tydelig struktur med innledning, flere avsnitt og en avslutning som samler trådene.</p><p><strong>Skriv en reflekterende tekst med tittelen «Alltid pålogget».</strong> Reflekter over hvordan skjermer og sosiale medier påvirker hverdagen, relasjonene og oppmerksomheten din – og andres. Utforsk minst to ulike perspektiver, bruk egne erfaringer, og vurder om det er mulig å finne en balanse.</p><p><strong>Bruk vedlegget i teksten din.</strong> Ta utgangspunkt i noe av det som står der – du kan diskutere det, utdype det eller være uenig med det – og vis at du har lest det.</p><p>Du bør skrive 400–600 ord.</p>",
+      "deloppgaver": null,
+      "vurdering": [
+        "at du bruker vedlegget i teksten din",
+        "at du utforsker temaet fra minst to perspektiver og viser egne tanker",
+        "at du bruker fagbegreper og konkrete eksempler",
+        "at du skriver en tekst med avsnitt og klar struktur",
+        "at du varierer språket og binder sammen setningene",
+        "at du har god rettskriving og tegnsetting"
+      ],
+      "vurderingskriterier": "Eleven må reflektere over flere sider ved skjermbruk (f.eks. fellesskap og isolasjon, underholdning og avhengighet, oppmerksomhet og konsentrasjon), bruke egne erfaringer og konkrete eksempler, og komme fram til en egen vurdering. Fagbegreper som appellformer og virkemidler kan brukes. Vedlegget skal synes i besvarelsen. Struktur med innledning, avsnitt og avslutning, variert språk og god rettskriving vektlegges.",
+      "vedlegg": [
+        {
+          "tittel": "«Skjermen og jeg» – kronikk",
+          "innhold": "<p><em>Kronikk av Emma Paprika, elev på 10. trinn. Skrevet for VGS-Hjelp sin prøveeksamen.</em></p><p>Det begynte egentlig med at jeg skulle sjekke én ting. Én melding, ett bilde, én video. «Bare fem minutter», sa jeg til meg selv. To timer senere lå jeg fortsatt i senga, med tommelen i bevegelse og øynene så tørre at de sved.</p><p>Jeg er ikke alene om dette. Spør du noen i klassen min hvor mange timer de bruker på mobilen hver dag, vil de fleste svare med en unnskyldning: «Jeg må jo svare folk», «det er der alt skjer», «hva skal jeg ellers gjøre?» Og de har ikke helt feil. Sosiale medier er der vennene våre er. Det er der vi planlegger, ler og finner ut hvem vi er. Å være pålogget er ikke bare en vane – det er en måte å høre til på.</p><p>Men jeg har begynt å legge merke til noe rart. Vi sitter i samme rom, men er alle sammen andre steder. Jeg kan ha åtti unike besøk på storyen min, og likevel føle meg alene. Vi måler oss mot hverandres beste øyeblikk og glemmer at alle har dårlige dager som aldri blir lagt ut. Ingen legger ut bildet av seg selv gråtende i trappen. Ingen skriver om kvelden de ble sittende igjen uten å bli invitert.</p><p>Det verste er ikke tiden vi mister. Det er oppmerksomheten. Jeg kan sitte med lekser og «høre på» en venn samtidig som jeg scroller, og til slutt har jeg verken gjort leksene eller hørt etter. Å være til stede i bare én ting om gangen føles nesten som en luksus nå. Men det er ikke en luksus. Det er en ferdighet – og den kan trenes.</p><p>Jeg tror ikke svaret er å slette alt. Det ville være å kaste ut fellesskapet og mulighetene sammen med badevannet. Men jeg tror vi trenger å bestemme selv igjen. Hvem styrer egentlig livene våre – vi, eller appene? Kanskje er balansen så enkel som å legge telefonen i et annet rom når vi er sammen med dem vi faktisk er glad i. Kanskje er det å tørre å kjede seg som er den nye motstanden.</p><p>Jeg vet ikke om jeg har funnet svaret ennå. Men jeg har begynt å lete – med telefonen avslått i lomma.</p>"
+        }
+      ]
+    },
+    {
+      "id": "norsk-10-2",
+      "tittel": "Skriveoppgave – velg én",
+      "poeng": 9,
+      "type": "langsvar",
+      "tekst": "<p>I oppgave 2 skal du svare på enten oppgave 2a eller oppgave 2b. Du bør skrive 450–650 ord. Teksten skal ha en tydelig struktur.</p><p><strong>Bruk vedleggene i svaret ditt.</strong> De gir deg stoff å bygge på, uansett hvilken oppgave du velger.</p>",
+      "deloppgaver": [
+        { "bokstav": "a", "tekst": "<strong>Reflekterende tekst:</strong> Skriv en reflekterende tekst der du utforsker hva det vil si å våge – å ta sjanser, feile og prøve igjen. Reflekter over hvorfor det noen ganger er lettere å la være enn å prøve, og over hva som gjør at noen våger likevel. Bruk egne erfaringer og minst ett eksempel fra bøker, filmer, nyheter eller historie.", "merknad": "Du bør skrive 450–650 ord." },
+        { "bokstav": "b", "tekst": "<strong>Fantasi/fiction:</strong> Skriv en fortelling som begynner med setningen: «Det var den dagen ingenting lenger var som før.» Bygg opp en tydelig handling med spenning og en overraskelse, og gi fortellingen en avslutning som runder av. Bruk minst to av disse virkemidlene: sanselige beskrivelser, dialog, kontrast eller symbolikk.", "merknad": "Du bør skrive 450–650 ord." }
+      ],
+      "vurdering": [
+        "at du svarer på oppgaven du har valgt",
+        "at du bruker vedleggene i teksten din",
+        "at du reflekterer på flere sider (2a) eller bygger opp en tydelig handling med virkemidler (2b)",
+        "at du bruker fagbegreper og konkrete eksempler",
+        "at du skriver en tekst med avsnitt og klar struktur",
+        "at du varierer språket og binder sammen setningene",
+        "at du har god rettskriving og tegnsetting"
+      ],
+      "vurderingskriterier": "2a) Eleven må reflektere over flere sider ved det å våge: frykt for å feile, trygghet i det kjente, hva som gir mot. Egne erfaringer + minst ett eksempel utenfra (bok, film, nyhet, historie) kreves. 2b) Eleven må skrive en fortelling som starter med den gitte setningen, med spenningsoppbygging, en overraskelse og en avslutning, og bruke minst to av virkemidlene sanselige beskrivelser, dialog, kontrast eller symbolikk. Eleven skal vise at vedleggene er brukt i besvarelsen. Begge: klar struktur, variert språk og god rettskriving.",
+      "vedlegg": [
+        {
+          "tittel": "«Mot er noe du gjør» – kronikk",
+          "innhold": "<p><em>Kronikk. Skrevet for VGS-Hjelp sin prøveeksamen.</em></p><p>Vi elsker historier om folk som våget. Hoppet, stilte opp, sa fra, prøvde igjen. Vi kaller dem modige, som om mot var noe de ble født med – en slags superkraft de hadde fra starten. Men de færreste av dem ville ha kjent seg igjen i det bildet. Spør du noen som har gjort noe vanskelig, får du ofte det samme svaret: «Jeg var livredd.»</p><p>Kanskje er mot ikke fraværet av frykt, men å gjøre noe til tross for den. Den som aldri våger noe, slipper riktignok å mislykkes – men hun går også glipp av alt som ligger på den andre siden av å prøve. For det er en hemmelighet vi sjelden snakker om: Å feile er ikke det motsatte av å lykkes. Å feile er selve starten. Den første prøven du stryker på, det første svaret du sier feil i klassen, den første gangen du ber om hjelp – ingenting av dette er tegn på at du er mislykket. Det er tegn på at du er i gang.</p><p>Hvorfor er det da så lett å la være? Fordi det å la være er trygt. Ingen ler av deg for noe du ikke gjorde. Ingen legger merke til at du holdt deg i bakgrunnen. Men den tryggheten har en stille pris: Du blir aldri sett, aldri hørt, aldri husket. Og du får aldri vite hva som kunne ha skjedd hvis du hadde prøvd.</p><p>Det finnes ingen garanti for at det å våge lønner seg. Noen ganger taper man. Noen ganger ler de. Men hver gang du våger – selv når det går galt – lærer du noe som ingen lærebok kan gi deg: at du overlever. At verden ikke raser sammen selv om du feiler. Og at neste gang blir litt lettere, for nå vet du at du tåler det.</p><p>Kanskje er det slik mot bygges. Ikke i store sprang, men i små: å rekke opp hånden, å si unnskyld, å be om en ny sjanse, å prøve igjen etter at det gikk galt første gang. Mot er ikke noe du har. Mot er noe du gjør – om og om igjen, til det blir en vane.</p>"
+        },
+        {
+          "tittel": "«På den andre siden» – dikt",
+          "innhold": "<p><em>Dikt. Skrevet for VGS-Hjelp sin prøveeksamen.</em></p><blockquote class=\"poem\"><p>På den andre siden av «hva om»,</p><p>ligger en verden jeg ikke kjenner.</p><p>Alle sier det er farlig der,</p><p>men ingen som gikk, angrer.</p></blockquote><blockquote class=\"poem\"><p>Stemmene rundt meg hvisker:</p><p>«Ikke gjør det – hva om det går galt?»</p><p>Men hviskene kommer aldri fra dem</p><p>som en gang våget og falt.</p></blockquote><blockquote class=\"poem\"><p>Jeg samler mot i små drypp –</p><p>en hånd som rekker opp,</p><p>et ord jeg sier høyt,</p><p>et skritt ut på isen.</p></blockquote><blockquote class=\"poem\"><p>Å feile er ikke å falle.</p><p>Å falle er ikke å bli liggende.</p><p>Det verste som finnes</p><p>er aldri å prøve.</p></blockquote><blockquote class=\"poem\"><p>Og den dagen jeg gjør det,</p><p>den gangen jeg går,</p><p>er det kanskje slik mot blir til:</p><p>ett skritt om gangen.</p></blockquote><blockquote class=\"poem\"><p>Kanskje blir det ikke som jeg drømte.</p><p>Kanskje blir det bedre.</p><p>Men jeg vil heller vite</p><p>enn å lure resten av livet.</p></blockquote>"
+        }
+      ]
+    },
+    {
+      "id": "norsk-10-3",
+      "tittel": "Reflekterende tekst",
+      "poeng": 7,
+      "type": "langsvar",
+      "tekst": "<p>I oppgave 3 skal du skrive en reflekterende tekst med en tydelig struktur: innledning, avsnitt som utforsker temaet fra ulike sider, og en avslutning med en egen konklusjon.</p><p><strong>Skriv en reflekterende tekst med tittelen «Vennskap som forandrer seg».</strong> Reflekter over hvordan vennskap har utviklet seg gjennom oppveksten din, hva et godt vennskap krever av deg, og hvordan du tror vennskap kan se annerledes ut i framtiden. Bruk konkrete eksempler og egne tanker, og vurder både det du har fått og det du har mistet.</p><p><strong>Bruk vedlegget i teksten din.</strong> Ta utgangspunkt i noe av det som står der – du kan diskutere det, utdype det eller være uenig med det – og vis at du har lest det.</p><p>Du bør skrive 400–600 ord.</p>",
+      "deloppgaver": null,
+      "vurdering": [
+        "at du bruker vedlegget i teksten din",
+        "at du utforsker vennskap fra flere sider og viser egne tanker",
+        "at du bruker konkrete eksempler og vurderer både det positive og det vanskelige",
+        "at du skriver en tekst med avsnitt og klar struktur",
+        "at du varierer språket og binder sammen setningene",
+        "at du har god rettskriving og tegnsetting"
+      ],
+      "vurderingskriterier": "Eleven må reflektere over utviklingen av vennskap gjennom oppveksten, hva vennskap krever (tid, tillit, ærlighet), og tenke framover. Både positive og vanskelige sider skal belyses med konkrete eksempler. Vedlegget skal synes i besvarelsen. Struktur med innledning, avsnitt og egen konklusjon, variert språk og god rettskriving vektlegges.",
+      "vedlegg": [
+        {
+          "tittel": "«Vennskap er noe du gjør» – essay",
+          "innhold": "<p><em>Essay. Skrevet for VGS-Hjelp sin prøveeksamen.</em></p><p>Vi hadde et hemmelig håndtrykk, venninnen min og jeg. Det tok oss nesten et helt år å lære det utenat: tre klapp, to håndtrykk og en finger som tegnet en usynlig sirkel i lufta. Vi trodde det var koden til noe stort – og på en måte var det det. Det var koden til å høre til.</p><p>Da jeg var liten, var vennskap enkelt. Den som lekte med deg etter skolen, var vennen din. Vi trengte ikke å snakke om hvordan vi hadde det eller forklare hvorfor vi var sinte. Vi bare fortsatte å leke, og dagen etter var alt som før igjen.</p><p>I ungdomsskolen ble det annerledes. Plutselig handlet vennskap om mer enn å leke. Det handlet om å stole på hverandre, om å tørre å si hva man tenker, om å holde på hemmeligheter og be om unnskyldning når man hadde tråkket feil. Noen vennskap vokste seg sterkere enn jeg hadde trodd var mulig. Andre forsvant uten at noen sa noe – de bare glapp, som ballonger som slapp taket.</p><p>Det jeg har lært, er at et godt vennskap koster noe. Det koster tid, når du helst ville vært et annet sted. Det koster ærlighet, når det er lettere å si det den andre vil høre. Og noen ganger koster det å stå opp for den andre, selv når det er upopulært. Men jeg har også lært at det er den beste investeringen jeg har. En venn som kjenner deg, som husker hvem du var da du var elleve, er verdt mer enn all oppmerksomheten i verden.</p><p>Når jeg tenker på framtiden, vet jeg at vennskap kommer til å se annerledes ut. Vi flytter kanskje fra hverandre, får nye jobber, nye liv. Kanskje er vi bare venner på skjermen om ti år. Men jeg tror kjernen blir den samme: Noen som vet hvem du er, og som velger deg igjen og igjen – ikke fordi dere går i samme klasse, men fordi de vil.</p><p>Det hemmelige håndtrykket er borte nå. Vi vokste fra det uten å si det høyt. Men det vi hadde, ligger fortsatt der – i historier vi kan le av, og i en venn som vet at når hun spør «hvordan har du det?», mener hun det.</p>"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,2967 @@
+<!DOCTYPE html>
+<html lang="no" data-theme="light">
+<head>
+  <script defer src="https://cloud.umami.is/script.js" data-website-id="24f80a75-a09f-4f80-94e0-d9103f0d734d"></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="VGS-Hjelp sin eksamen (2026) – en uoffisiell prøveeksamen der du kan øve til skriftlig eksamen med tidspress, oppgaver og vurdering.">
+  <meta name="keywords" content="eksamen, prøveeksamen, øving, skriftlig eksamen, simulator, tidspress, videregående, VGS">
+  <meta name="robots" content="index, follow">
+  <meta name="author" content="Videregående Hjelp">
+  <meta name="language" content="Norwegian">
+  <meta property="og:title" content="Eksamen Simulator 2026 – Videregående Hjelp">
+  <meta property="og:description" content="Øv til skriftlig eksamen med VGS-Hjelp sin uoffisielle prøveeksamen. Velg fag, svar under tidspress og få prøven vurdert.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://lowahbeepoh.github.io/videregaaendehjelp/Tools/exam-simulator.html">
+  <meta property="og:image" content="https://lowahbeepoh.github.io/videregaaendehjelp/vgshjelp-logo.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Eksamen Simulator 2026 – Videregående Hjelp">
+  <meta name="twitter:description" content="Uoffisiell prøveeksamen for elever som vil øve til skriftlig eksamen.">
+  <link rel="canonical" href="https://lowahbeepoh.github.io/videregaaendehjelp/Tools/exam-simulator.html">
+  <title>Eksamen Simulator 2026 – Videregående Hjelp</title>
+  <link rel="shortcut icon" href="../vgshjelp-logo.png" type="image/x-icon">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200;300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+  <link rel="stylesheet" href="../Assets/css/plus.css">
+  <link rel="stylesheet" href="../Assets/css/profile.css">
+  <link rel="stylesheet" href="../Assets/css/shared-header.css">
+  <script defer src="../Assets/js/shared-header.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+  <script defer src="../Assets/js/exam-charts.js"></script>
+  <style>
+    :root {
+      /* Bold Palette – matches index.html */
+      --bg: #050505;
+      --text: #ffffff;
+      --text-muted: #888;
+
+      --card-red: #d40b00;
+      --card-lime: #D0F54E;
+      --card-blue: #5865F2;
+      --card-orange: #FF9F0A;
+      --card-green: #30D158;
+      --card-pale: #F2F2F7;
+
+      --surface: #1c1c1e;
+      --border: #2c2c2e;
+
+      /* Typography */
+      --font-display: 'Inter Tight', sans-serif;
+      --font-body: 'Manrope', sans-serif;
+      --font-serif: 'Instrument Serif', serif;
+
+      --ls-tight: -0.015em;
+      --ls-normal: -0.01em;
+    }
+
+    [data-theme="light"] {
+      --bg: #ffffff;
+      --text: #000000;
+      --text-muted: #555;
+      --surface: #f2f2f7;
+      --border: #e5e5ea;
+    }
+
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    [hidden] { display: none !important; }
+
+    body {
+      font-family: var(--font-body);
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.5;
+      min-height: 100vh;
+      overflow-x: hidden;
+      letter-spacing: var(--ls-normal);
+    }
+
+    main {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 16px 40px;
+    }
+
+    @media (min-width: 480px) {
+      main { padding: 0 20px 60px; }
+    }
+
+    /* The site header is not sticky on this page so the exam timer bar can
+       stick to the very top of the viewport without overlapping it. The
+       dropdown is anchored to .nav-container instead. */
+    header { position: static; }
+    .nav-container { position: relative; }
+
+    /* ---------- Device gate ---------- */
+    .device-block-screen {
+      display: none;
+      position: fixed;
+      inset: 0;
+      z-index: 5000;
+      background: var(--bg);
+      color: var(--text);
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      text-align: center;
+      padding: 24px;
+    }
+    html.device-blocked .device-block-screen { display: flex; }
+    html.device-blocked main { display: none; }
+    .device-block-icon { font-size: 56px; color: var(--card-orange); }
+    .device-block-title { font-family: var(--font-display); font-size: 28px; font-weight: 800; letter-spacing: -0.03em; }
+    .device-block-text { color: var(--text-muted); max-width: 420px; font-size: 14px; }
+
+    /* Buttons */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 12px 20px;
+      border-radius: 12px;
+      border: none;
+      font-family: var(--font-display);
+      font-size: 14px;
+      font-weight: 700;
+      letter-spacing: var(--ls-tight);
+      cursor: pointer;
+      text-decoration: none;
+      transition: all 0.2s ease;
+    }
+    .btn .material-icons { font-size: 18px; }
+    .btn:disabled { opacity: 0.4; cursor: not-allowed; }
+
+    .btn-primary { background: var(--card-lime); color: #000; }
+    .btn-primary:hover:not(:disabled) {
+      filter: brightness(1.06);
+      transform: translateY(-1px);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
+    }
+
+    .btn-ghost { background: transparent; border: 1px solid var(--border); color: var(--text); }
+    .btn-ghost:hover:not(:disabled) { border-color: var(--text-muted); }
+
+    .btn-danger { background: var(--card-red); color: #fff; }
+    .btn-danger:hover:not(:disabled) {
+      filter: brightness(1.08);
+      transform: translateY(-1px);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
+    }
+
+    /* ---------- Intro screen ---------- */
+    .hero { padding: 56px 0 24px; }
+
+    .hero-title {
+      font-family: var(--font-display);
+      font-size: clamp(36px, 7vw, 60px);
+      font-weight: 800;
+      letter-spacing: -0.04em;
+      line-height: 1.02;
+      margin-bottom: 16px;
+    }
+
+    .hero-sub {
+      font-size: 17px;
+      line-height: 1.6;
+      color: var(--text-muted);
+      max-width: 640px;
+      margin-bottom: 0;
+    }
+
+    .section-title {
+      font-family: var(--font-display);
+      font-size: 22px;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      margin: 56px 0 8px;
+    }
+    .section-note { font-size: 14px; color: var(--text-muted); max-width: 640px; margin-bottom: 20px; }
+
+    .exam-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 16px;
+    }
+    @media (min-width: 768px) { .exam-grid { grid-template-columns: repeat(3, 1fr); } }
+
+    .load-error {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 40px 24px;
+      text-align: center;
+      color: var(--text-muted);
+      font-size: 14px;
+    }
+    .kommer-snart {
+      background: var(--surface);
+      border: 1px dashed var(--border);
+      border-radius: 16px;
+      padding: 48px 24px;
+      text-align: center;
+      color: var(--text-muted);
+      font-size: 14px;
+    }
+    .kommer-snart .material-icons {
+      font-size: 44px;
+      color: var(--card-orange);
+      display: block;
+      margin-bottom: 12px;
+    }
+    .kommer-snart strong {
+      display: block;
+      font-family: var(--font-display);
+      font-size: 20px;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      color: var(--text);
+      margin-bottom: 4px;
+    }
+    .kommer-snart p { margin: 0; }
+
+    .exam-card {
+      text-align: left;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      background: var(--surface);
+      border: 2px solid var(--border);
+      border-radius: 16px;
+      padding: 24px;
+      color: var(--text);
+      font-family: var(--font-body);
+      cursor: pointer;
+      transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+    }
+    .exam-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 32px rgba(0, 0, 0, 0.3);
+    }
+    .exam-card:focus-visible { outline: 2px solid var(--card-blue); outline-offset: 2px; }
+
+    .exam-card-top { display: flex; align-items: center; justify-content: space-between; gap: 10px; }
+    .exam-card-top-badges { display: inline-flex; align-items: center; gap: 6px; flex-wrap: wrap; justify-content: flex-end; }
+    .exam-icon {
+      width: 48px;
+      height: 48px;
+      border-radius: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+    }
+    .accent-lime .exam-icon { background: rgba(208, 245, 78, 0.15); color: var(--card-lime); }
+    .accent-lime:hover { border-color: var(--card-lime); }
+    .accent-blue .exam-icon { background: rgba(88, 101, 242, 0.15); color: var(--card-blue); }
+    .accent-blue:hover { border-color: var(--card-blue); }
+    .accent-orange .exam-icon { background: rgba(255, 159, 10, 0.15); color: var(--card-orange); }
+    .accent-orange:hover { border-color: var(--card-orange); }
+
+    .exam-card h3 {
+      font-family: var(--font-display);
+      font-size: 20px;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+    }
+    .exam-card p { font-size: 14px; color: var(--text-muted); flex-grow: 1; }
+
+    .exam-card.submitted { border-style: dashed; }
+    .exam-card.submitted:hover { transform: none; box-shadow: none; }
+    .exam-card.locked { border-style: dashed; cursor: not-allowed; }
+    .exam-card.locked:hover { transform: none; box-shadow: none; }
+    .exam-lock-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      color: var(--card-orange);
+      background: rgba(255, 159, 10, 0.12);
+      border: 1px solid rgba(255, 159, 10, 0.35);
+      border-radius: 999px;
+      padding: 5px 10px;
+    }
+    .plus-gate-icon { font-size: 40px; color: var(--card-orange); display: block; margin-bottom: 8px; }
+    /* ---------- Plasser (stort panel med slider) ---------- */
+    .plasser-panel {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 20px 22px;
+      margin-bottom: 28px;
+    }
+    .plasser-row {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+    .plasser-ikon {
+      flex: 0 0 auto;
+      width: 48px;
+      height: 48px;
+      border-radius: 14px;
+      background: rgba(255, 159, 10, 0.14);
+      color: var(--card-orange);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .plasser-ikon .material-icons { font-size: 26px; }
+    .plasser-tekst {
+      display: flex;
+      flex-direction: column;
+      line-height: 1.15;
+    }
+    .plasser-ledig {
+      font-family: var(--font-display);
+      font-size: 34px;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      color: var(--text);
+    }
+    .plasser-etikett {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text-muted);
+    }
+    .plasser-bar {
+      margin-top: 14px;
+      height: 8px;
+      border-radius: 999px;
+      background: var(--border);
+      overflow: hidden;
+    }
+    .plasser-bar-fill {
+      height: 100%;
+      width: 100%;
+      border-radius: 999px;
+      background: var(--card-orange);
+      transition: width 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+    .plasser-bar-fill.lav { background: var(--card-red); }
+
+    /* ---------- Velgere (nivå + år) ---------- */
+    .velger-rad {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+    .nivaa-toggle, .aar-toggle {
+      display: inline-flex;
+      gap: 4px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      padding: 4px;
+    }
+    .nivaa-btn {
+      border: none;
+      background: transparent;
+      color: var(--text-muted);
+      font-family: var(--font-display);
+      font-size: 14px;
+      font-weight: 700;
+      padding: 8px 18px;
+      border-radius: 999px;
+      cursor: pointer;
+      transition: background 0.2s ease, color 0.2s ease;
+    }
+    .nivaa-btn:hover { color: var(--text); }
+    .nivaa-btn.active {
+      background: var(--card-blue);
+      color: #fff;
+    }
+    .nivaa-btn:focus-visible { outline: 2px solid var(--card-blue); outline-offset: 2px; }
+    .exam-submitted-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      color: var(--card-lime);
+      background: rgba(208, 245, 78, 0.12);
+      border: 1px solid rgba(208, 245, 78, 0.35);
+      border-radius: 999px;
+      padding: 5px 10px;
+    }
+    .exam-submitted-badge .material-icons { font-size: 13px; }
+    [data-theme="light"] .exam-submitted-badge { background: rgba(208, 245, 78, 0.45); color: #000; }
+    .exam-submitted-note {
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--text-muted);
+      border-top: 1px solid var(--border);
+      padding-top: 12px;
+    }
+
+    .disclaimer {
+      display: flex;
+      gap: 14px;
+      align-items: flex-start;
+      margin-top: 48px;
+      padding: 18px 20px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      font-size: 14px;
+      line-height: 1.6;
+      color: var(--text-muted);
+    }
+    .disclaimer .material-icons { font-size: 20px; color: var(--card-orange); flex: 0 0 auto; margin-top: 2px; }
+    .disclaimer a { color: var(--text); font-weight: 600; }
+
+    /* ---------- Info page (like a real exam's info page) ---------- */
+    .info-panel { max-width: 860px; margin: 0 auto; padding: 32px 0 8px; }
+    .info-panel > h1 {
+      font-family: var(--font-display);
+      font-size: clamp(24px, 4vw, 32px);
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      margin-bottom: 28px;
+    }
+    .info-section { display: flex; gap: 16px; margin-bottom: 28px; }
+    .info-icon { font-size: 26px; color: var(--card-blue); flex: 0 0 auto; margin-top: 4px; }
+    .info-section h2 {
+      font-family: var(--font-display);
+      font-size: 18px;
+      font-weight: 800;
+      letter-spacing: -0.01em;
+      margin-bottom: 6px;
+    }
+    .info-section p { font-size: 15px; line-height: 1.65; color: var(--text-muted); margin-bottom: 10px; }
+    .info-section ul { margin: 0 0 10px 20px; display: flex; flex-direction: column; gap: 6px; font-size: 15px; line-height: 1.6; }
+
+    .info-start { margin-top: 32px; padding-top: 24px; border-top: 1px solid var(--border); }
+    .info-start-title { font-family: var(--font-display); font-size: 18px; font-weight: 800; margin-bottom: 4px; }
+    .info-start-sub { font-size: 14px; color: var(--text-muted); margin-bottom: 16px; }
+    .modus-options { display: flex; flex-direction: column; gap: 10px; }
+    .modus-option {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      background: var(--surface);
+      border: 1.5px solid var(--border);
+      border-radius: 12px;
+      padding: 14px 16px;
+      cursor: pointer;
+      transition: border-color 0.2s ease;
+    }
+    .modus-option:hover { border-color: var(--text-muted); }
+    .modus-option:has(input:checked) { border-color: var(--card-lime); }
+    .modus-option input { margin-top: 3px; accent-color: var(--card-lime); }
+    .modus-option strong { display: block; font-family: var(--font-display); font-size: 15px; font-weight: 800; }
+    .modus-option small { font-size: 13px; color: var(--text-muted); }
+
+    .rules-disclaimer {
+      display: flex;
+      gap: 14px;
+      align-items: flex-start;
+      background: rgba(212, 11, 0, 0.08);
+      border: 1px solid rgba(212, 11, 0, 0.3);
+      border-radius: 14px;
+      padding: 18px 20px;
+      font-size: 14px;
+      line-height: 1.6;
+      color: var(--text);
+    }
+    .rules-disclaimer .material-icons { color: var(--card-red); flex: 0 0 auto; margin-top: 2px; }
+    .rules-disclaimer-body { flex: 1; }
+    .promise-btn {
+      margin-top: 14px;
+      background: transparent;
+      border: 1.5px solid rgba(212, 11, 0, 0.45);
+      color: var(--card-red);
+    }
+    .promise-btn:hover:not(:disabled):not(.promised) {
+      border-color: var(--card-red);
+      background: rgba(212, 11, 0, 0.08);
+    }
+    .promise-btn.promised {
+      border-color: var(--card-red);
+      background: rgba(212, 11, 0, 0.12);
+      cursor: default;
+    }
+    .promise-btn.promised:disabled { opacity: 1; }
+
+    .info-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      justify-content: space-between;
+      margin-top: 24px;
+    }
+
+    /* ---------- Exam screen (like a real exam platform) ---------- */
+    .exam-topbar {
+      position: sticky;
+      top: 0;
+      z-index: 40;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background: var(--bg);
+      border-bottom: 1px solid var(--border);
+      margin: 0 -16px;
+      padding: 10px 16px;
+    }
+    @media (min-width: 480px) {
+      .exam-topbar { margin: 0 -20px; padding: 10px 20px; }
+    }
+    .exam-logo {
+      width: 30px;
+      height: 30px;
+      border-radius: 8px;
+      flex: 0 0 auto;
+    }
+    .breadcrumb {
+      flex: 1;
+      min-width: 0;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text-muted);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .exam-topbar-right { margin-left: auto; display: flex; align-items: center; gap: 10px; }
+    .save-status {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text-muted);
+      white-space: nowrap;
+    }
+    .save-status .material-icons { font-size: 16px; }
+    @media (max-width: 560px) {
+      .save-status { font-size: 12px; }
+    }
+
+    .timer-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      padding: 8px 14px;
+      font-family: var(--font-display);
+      font-size: 15px;
+      font-weight: 800;
+      font-variant-numeric: tabular-nums;
+      letter-spacing: -0.01em;
+      transition: color 0.2s ease, border-color 0.2s ease, background 0.2s ease;
+    }
+    .timer-chip .material-icons { font-size: 16px; }
+    .timer-chip.warning {
+      color: var(--card-red);
+      border-color: var(--card-red);
+      background: rgba(212, 11, 0, 0.08);
+    }
+
+    .abort-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: transparent;
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      color: var(--text-muted);
+      font-family: var(--font-display);
+      font-size: 13px;
+      font-weight: 700;
+      padding: 8px 14px;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: border-color 0.2s ease, color 0.2s ease;
+    }
+    .abort-btn:hover { border-color: var(--card-red); color: var(--card-red); }
+    .abort-btn:focus-visible { outline: 2px solid var(--card-red); outline-offset: 2px; }
+    .abort-btn .material-icons { font-size: 16px; }
+    @media (max-width: 560px) {
+      .abort-btn { font-size: 12px; padding: 6px 10px; }
+    }
+
+
+    .exam-warning {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background: #fff3cd;
+      border: 1px solid #ffe69c;
+      color: #664d03;
+      border-radius: 10px;
+      padding: 12px 16px;
+      margin-top: 16px;
+      font-size: 14px;
+      font-weight: 600;
+    }
+    .exam-warning .material-icons { font-size: 18px; flex: 0 0 auto; }
+    .exam-warning-text { flex: 1; }
+    .exam-warning .btn { flex: 0 0 auto; padding: 8px 14px; }
+
+    .exam-progress-row {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      max-width: 860px;
+      margin: 20px auto 0;
+    }
+    .exam-progress {
+      flex: 1;
+      height: 6px;
+      background: var(--border);
+      border-radius: 99px;
+      overflow: hidden;
+    }
+    .exam-progress-fill {
+      height: 100%;
+      width: 0;
+      background: var(--card-lime);
+      border-radius: 99px;
+      transition: width 0.3s ease;
+    }
+    .answered-label {
+      flex: 0 0 auto;
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--text-muted);
+      white-space: nowrap;
+    }
+
+    .task-chips {
+      position: relative;
+      display: flex;
+      gap: 6px;
+      overflow-x: auto;
+      justify-content: safe center;
+      padding: 4px 2px;
+      scrollbar-width: none;
+    }
+    .task-chips::-webkit-scrollbar { display: none; }
+
+    .task-btn {
+      flex: 0 0 auto;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      border: 1.5px solid var(--border);
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--font-display);
+      font-weight: 800;
+      font-size: 14px;
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+    .task-btn:hover { border-color: var(--text-muted); transform: translateY(-1px); }
+    .task-btn.active {
+      background: var(--card-lime);
+      border-color: var(--card-lime);
+      color: #000;
+      box-shadow: 0 0 0 3px rgba(208, 245, 78, 0.3);
+    }
+    .task-btn.done:not(.active) { border-color: var(--card-lime); color: var(--card-lime); }
+    /* Light lime text is hard to read on white – fill with soft lime in light mode */
+    [data-theme="light"] .task-btn.done:not(.active) {
+      background: rgba(208, 245, 78, 0.35);
+      color: #000;
+    }
+    .task-del-sep {
+      flex: 0 0 auto;
+      align-self: center;
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      padding: 0 4px 0 8px;
+      white-space: nowrap;
+    }
+
+    .task-panel {
+      max-width: 860px;
+      margin: 20px auto 0;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 24px;
+    }
+    @media (min-width: 768px) { .task-panel { padding: 32px; } }
+
+    .task-head { margin-bottom: 16px; }
+    .task-head h2 {
+      font-family: var(--font-display);
+      font-size: 24px;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+    }
+
+    .task-text { font-size: 16px; line-height: 1.7; }
+    .task-text p + p { margin-top: 12px; }
+    .task-text ul { margin: 12px 0 0 20px; display: flex; flex-direction: column; gap: 6px; }
+
+    .deloppgave { margin-top: 20px; }
+    .deloppgave h3 {
+      font-family: var(--font-display);
+      font-size: 17px;
+      font-weight: 800;
+      letter-spacing: -0.01em;
+      margin-bottom: 6px;
+    }
+    .deloppgave p { font-size: 16px; line-height: 1.7; }
+    .oppgave-merknad { margin-top: 6px; font-size: 14px; color: var(--text-muted); }
+
+    .del-badge {
+      display: inline-block;
+      background: rgba(88, 101, 242, 0.12);
+      border: 1px solid rgba(88, 101, 242, 0.4);
+      color: var(--card-blue);
+      font-family: var(--font-display);
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      border-radius: 999px;
+      padding: 5px 12px;
+      margin-bottom: 10px;
+    }
+    .info-del-head {
+      list-style: none;
+      margin-top: 10px;
+      font-family: var(--font-display);
+      font-size: 15px;
+      font-weight: 800;
+      color: var(--card-blue);
+    }
+
+    .vurdering-box {
+      margin-top: 24px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 16px 20px;
+    }
+    .vurdering-box h3 {
+      font-family: var(--font-display);
+      font-size: 16px;
+      font-weight: 800;
+      margin-bottom: 4px;
+    }
+    .vurdering-box p { font-size: 14px; color: var(--text-muted); margin-bottom: 6px; }
+    .vurdering-box ul { margin: 0 0 0 20px; display: flex; flex-direction: column; gap: 4px; font-size: 14px; }
+
+    .answer-block { margin-top: 24px; }
+    .answer-label { display: block; font-size: 13px; font-weight: 700; margin-bottom: 10px; }
+
+    .answer-input, .answer-area {
+      width: 100%;
+      background: var(--bg);
+      border: 1.5px solid var(--border);
+      border-radius: 12px;
+      color: var(--text);
+      font-family: var(--font-body);
+      font-size: 16px;
+      line-height: 1.6;
+      padding: 14px 16px;
+      outline: none;
+      transition: border-color 0.2s ease;
+    }
+    .answer-area { resize: vertical; min-height: 180px; }
+    .answer-input:focus, .answer-area:focus { border-color: var(--card-lime); }
+    .answer-input::placeholder, .answer-area::placeholder { color: var(--text-muted); opacity: 0.6; }
+
+    .answer-hint {
+      margin-top: 8px;
+      font-size: 12px;
+      color: var(--text-muted);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .answer-hint .material-icons { font-size: 14px; }
+
+    .exam-bottombar {
+      position: sticky;
+      bottom: 0;
+      z-index: 40;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background: var(--bg);
+      border-top: 1px solid var(--border);
+      margin: 24px -16px -40px;
+      padding: 10px 16px;
+    }
+    @media (min-width: 480px) {
+      .exam-bottombar { margin: 24px -20px -60px; padding: 10px 20px; }
+    }
+    .exam-bottombar .task-chips { flex: 1; min-width: 0; }
+    .circle-btn {
+      flex: 0 0 auto;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border: 1.5px solid var(--border);
+      background: var(--bg);
+      color: var(--text);
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+    .circle-btn .material-icons { font-size: 18px; }
+    .circle-btn:hover:not(:disabled) { border-color: var(--text-muted); transform: translateY(-1px); }
+    .circle-btn:disabled { opacity: 0.35; cursor: not-allowed; }
+    .circle-btn.info-circle.active {
+      background: var(--card-blue);
+      border-color: var(--card-blue);
+      color: #fff;
+    }
+    .circle-btn.next-arrow {
+      background: var(--card-blue);
+      border-color: var(--card-blue);
+      color: #fff;
+    }
+    .circle-btn.next-arrow:hover:not(:disabled) { filter: brightness(1.1); transform: translateY(-1px); }
+    .overview-pill {
+      flex: 0 0 auto;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      border: 1.5px solid var(--border);
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--font-display);
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: 0.02em;
+      border-radius: 999px;
+      padding: 10px 14px;
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+    .overview-pill:hover:not(:disabled) { border-color: var(--text-muted); }
+    .overview-pill:disabled { opacity: 0.35; cursor: not-allowed; }
+    .overview-pill .material-icons { font-size: 16px; }
+    @media (max-width: 560px) {
+      .circle-btn { width: 40px; height: 40px; }
+      .overview-pill { padding: 8px 10px; font-size: 11px; }
+    }
+
+    /* Attachments shown as tabs, like on a real exam */
+    .vedlegg-section { margin-top: 28px; }
+    .vedlegg-tabs { display: flex; gap: 6px; }
+    .vedlegg-tab {
+      border: 1px solid var(--border);
+      border-bottom: none;
+      background: var(--surface);
+      color: var(--text-muted);
+      font-family: var(--font-body);
+      font-size: 13px;
+      font-weight: 700;
+      padding: 10px 18px;
+      border-radius: 10px 10px 0 0;
+      cursor: pointer;
+    }
+    .vedlegg-tab.active {
+      background: var(--bg);
+      color: var(--text);
+      position: relative;
+      top: 1px;
+    }
+    .vedlegg-box {
+      border: 1px solid var(--border);
+      border-radius: 0 14px 14px 14px;
+      background: var(--surface);
+      padding: 20px 24px;
+    }
+    .vedlegg-tittel {
+      font-family: var(--font-display);
+      font-size: 15px;
+      font-weight: 800;
+      margin-bottom: 10px;
+    }
+    .vedlegg-innhold { font-size: 15px; line-height: 1.7; }
+    .vedlegg-innhold p + p { margin-top: 10px; }
+    .vedlegg-innhold blockquote {
+      border-left: 3px solid var(--border);
+      padding-left: 14px;
+      margin: 12px 0;
+      font-style: italic;
+      color: var(--text-muted);
+    }
+    .vedlegg-innhold blockquote.poem {
+      border-left: none;
+      padding-left: 0;
+      font-style: normal;
+      text-align: center;
+      color: var(--text);
+      margin: 16px 0;
+    }
+    .vedlegg-innhold blockquote.poem p { margin: 4px 0; }
+
+    /* Figures and tables inside tasks, like real exams */
+    .task-text .fig, .deloppgave .fig {
+      display: block;
+      width: 100%;
+      max-width: 460px;
+      height: auto;
+      margin: 14px auto;
+    }
+    .fig-chart-wrap {
+      position: relative;
+      width: 100%;
+      max-width: 460px;
+      height: 260px;
+      margin: 14px auto;
+    }
+    .fig-chart-fallback {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 13px;
+      color: var(--text-muted);
+    }
+    .fig-kap {
+      font-size: 12px;
+      color: var(--text-muted);
+      text-align: center;
+      margin: 2px 0 14px;
+    }
+    .data-tabell {
+      width: 100%;
+      max-width: 460px;
+      margin: 12px auto;
+      border-collapse: collapse;
+      font-size: 14px;
+    }
+    .data-tabell th, .data-tabell td {
+      border: 1px solid var(--border);
+      padding: 6px 10px;
+      text-align: left;
+    }
+    .data-tabell th { background: var(--surface); font-weight: 700; }
+    .data-tabell caption {
+      caption-side: top;
+      font-size: 12px;
+      color: var(--text-muted);
+      text-align: center;
+      padding-bottom: 6px;
+    }
+
+    /* Document upload (shown in the last task of document mode) */
+    .upload-box {
+      margin-top: 24px;
+      border: 1px dashed var(--border);
+      border-radius: 14px;
+      padding: 18px 20px;
+      background: var(--surface);
+    }
+    .upload-box h4 { font-family: var(--font-display); font-size: 16px; font-weight: 800; margin-bottom: 6px; }
+    .upload-box > p { font-size: 14px; color: var(--text-muted); line-height: 1.6; margin-bottom: 14px; }
+    .upload-field {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      border: 1.5px solid var(--border);
+      border-radius: 12px;
+      background: var(--bg);
+      padding: 12px 14px;
+      cursor: pointer;
+      transition: border-color 0.2s ease;
+    }
+    .upload-field:hover { border-color: var(--text-muted); }
+    .upload-field input[type="file"] { display: none; }
+    .upload-label { display: inline-flex; align-items: center; gap: 8px; font-size: 14px; font-weight: 600; }
+    .upload-label .material-icons { font-size: 18px; color: var(--card-blue); }
+    .upload-hint { font-size: 13px; color: var(--text-muted); margin-top: 8px; }
+    .upload-hint.error { color: #b91c1c; font-weight: 600; }
+    .confirm-box {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      margin-top: 16px;
+      border: 1.5px solid var(--border);
+      border-radius: 12px;
+      background: var(--bg);
+      padding: 14px 16px;
+      cursor: pointer;
+    }
+    .confirm-box input { margin-top: 3px; accent-color: var(--card-lime); }
+    .confirm-box span { font-size: 14px; line-height: 1.5; }
+
+    /* ---------- Result screen ---------- */
+    .result-panel { max-width: 760px; margin: 0 auto; }
+    .result-head { text-align: center; padding: 56px 0 8px; }
+    .result-icon { font-size: 44px; color: var(--card-green); }
+    .result-head h2 {
+      font-family: var(--font-display);
+      font-size: 32px;
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      margin: 12px 0 8px;
+    }
+    .result-head p { color: var(--text-muted); font-size: 15px; }
+
+    .result-stats {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      margin: 28px 0 8px;
+    }
+    @media (max-width: 560px) { .result-stats { grid-template-columns: 1fr; } }
+    .result-stat {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 18px 12px;
+      text-align: center;
+    }
+    .result-stat-label {
+      display: block;
+      font-size: 11px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.07em;
+      color: var(--text-muted);
+      margin-bottom: 6px;
+    }
+    .result-stat-value {
+      font-family: var(--font-display);
+      font-size: 20px;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+    }
+
+    /* ---------- Submission / assessment ---------- */
+    .submit-section { margin-top: 32px; }
+    .submit-panel {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 24px;
+    }
+    .submit-panel h3 {
+      font-family: var(--font-display);
+      font-size: 20px;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      margin-bottom: 8px;
+    }
+    .submit-panel > p { font-size: 14px; color: var(--text-muted); line-height: 1.6; margin-bottom: 16px; }
+    .submit-panel .submit-status, #submissionModalBody .submit-status { display: inline-flex; align-items: center; gap: 8px; font-weight: 700; font-size: 14px; padding: 8px 14px; border-radius: 999px; margin-bottom: 4px; }
+    .submit-status .material-icons { font-size: 16px; }
+    .submit-status.pending { background: rgba(255, 159, 10, 0.12); color: var(--card-orange); border: 1px solid rgba(255, 159, 10, 0.35); }
+    .submit-status.done { background: rgba(48, 209, 88, 0.12); color: var(--card-green); border: 1px solid rgba(48, 209, 88, 0.35); }
+    .submit-status.rejected { background: rgba(212, 11, 0, 0.1); color: var(--card-red); border: 1px solid rgba(212, 11, 0, 0.35); }
+    .submit-panel .submit-grade, #submissionModalBody .submit-grade {
+      font-family: var(--font-display);
+      font-size: 48px;
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      margin: 12px 0 4px;
+    }
+    .submit-panel .submit-comment, #submissionModalBody .submit-comment {
+      font-size: 14px;
+      line-height: 1.6;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 14px 16px;
+      margin: 12px 0;
+    }
+    .submit-panel .submit-error {
+      background: rgba(212, 11, 0, 0.08);
+      border: 1px solid rgba(212, 11, 0, 0.3);
+      color: var(--card-red);
+      border-radius: 10px;
+      padding: 12px 16px;
+      font-size: 14px;
+      line-height: 1.6;
+      margin-bottom: 16px;
+    }
+    .submit-panel .submit-meta, #submissionModalBody .submit-meta { font-size: 12px; color: var(--text-muted); margin-top: 12px; margin-bottom: 0; }
+    .submit-panel .admin-panel-note {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-top: 14px;
+      padding: 10px 14px;
+      background: rgba(88, 101, 242, 0.1);
+      border: 1px solid rgba(88, 101, 242, 0.35);
+      border-radius: 10px;
+      font-size: 13px;
+      line-height: 1.5;
+    }
+    .submit-panel .admin-panel-note .material-icons { font-size: 16px; color: var(--card-blue); flex: 0 0 auto; }
+    .submit-panel .admin-panel-note a { color: var(--card-blue); font-weight: 700; }
+
+    .result-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      justify-content: center;
+      margin-top: 32px;
+    }
+
+    /* ---------- Modal ---------- */
+    .modal-backdrop {
+      position: fixed;
+      inset: 0;
+      z-index: 2000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 16px;
+      background: rgba(0, 0, 0, 0.6);
+    }
+    .modal {
+      width: 100%;
+      max-width: 420px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 28px;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+    }
+    .modal h3 {
+      font-family: var(--font-display);
+      font-size: 20px;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      margin-bottom: 8px;
+    }
+    .modal p { font-size: 14px; line-height: 1.6; color: var(--text-muted); margin-bottom: 24px; }
+    .modal-actions { display: flex; gap: 10px; justify-content: flex-end; flex-wrap: wrap; }
+
+    .overview-list { display: flex; flex-direction: column; gap: 8px; margin: 16px 0 20px; max-height: 60vh; overflow-y: auto; }
+    .overview-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      width: 100%;
+      text-align: left;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 12px 14px;
+      cursor: pointer;
+      color: var(--text);
+      font-family: var(--font-body);
+      transition: border-color 0.15s ease;
+    }
+    .overview-item:hover { border-color: var(--card-blue); }
+    .overview-num {
+      flex: 0 0 auto;
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      border: 1.5px solid var(--border);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font-display);
+      font-weight: 800;
+      font-size: 14px;
+    }
+    .overview-title { flex: 1; font-size: 14px; font-weight: 600; }
+    .overview-status {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--text-muted);
+      white-space: nowrap;
+    }
+    .overview-status .material-icons { font-size: 16px; }
+    .overview-status.done { color: var(--card-green); }
+
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 40px 0;
+      text-align: center;
+      color: var(--text-muted);
+      font-size: 14px;
+      margin-top: 80px;
+    }
+
+    /* During the exam the site header and footer are hidden so the exam keeps
+       full focus – it has its own top bar and bottom bar. Everything else on
+       the exam screen uses the site's normal design (same colors and theme). */
+    body.in-exam header,
+    body.in-exam footer { display: none; }
+
+    .exam-chrome { display: none; }
+    .exam-chrome.visible { display: block; }
+  </style>
+</head>
+<body>
+  <!-- Device gate: only shown when the device is a phone or tablet -->
+  <div class="device-block-screen" id="deviceBlockScreen">
+    <i class="material-icons device-block-icon">desktop_windows</i>
+    <h1 class="device-block-title" id="deviceBlockTitle">Vennligst bruk en PC eller Laptop!</h1>
+    <p class="device-block-text">Prøveeksamenen er laget for PC og laptop og kan ikke gjennomføres på mobil eller nettbrett. Åpne siden på en datamaskin for å fortsette.</p>
+    <a class="btn btn-ghost" href="../tools.html"><i class="material-icons">arrow_back</i> Tilbake til verktøy</a>
+  </div>
+  <script>
+    // Runs early so the exam can never be started on a phone or tablet
+    (function () {
+      var ua = (navigator.userAgent || '') + ' ' + (navigator.vendor || '');
+      var blocked =
+        /iPhone|iPod|Android.*Mobile|Windows Phone|BlackBerry|BB10|IEMobile|Mobile.*Firefox/i.test(ua) ||
+        /iPad/i.test(ua) ||
+        (/Android/i.test(ua) && !/Mobile/i.test(ua)) ||
+        (navigator.maxTouchPoints > 1 && /Mac/.test(navigator.platform || '') && !window.matchMedia('(any-pointer: fine)').matches);
+      if (blocked) {
+        document.documentElement.classList.add('device-blocked');
+        var title = document.getElementById('deviceBlockTitle');
+        if (title) {
+          title.setAttribute('tabindex', '-1');
+          title.focus();
+        }
+      }
+    }());
+  </script>
+
+  <main>
+    <header>
+      <div class="header-content">
+        <a href="../index.html" class="logo">
+          <span class="logo-text">Videregående Hjelp</span>
+          <img class="logo-image" src="../vgshjelp-logo.png" alt="Videregående Hjelp">
+        </a>
+        <div class="header-right">
+          <div class="nav-container">
+            <a href="../guides.html" class="nav-link">
+              <i class="material-icons">book</i>
+              <span>Guider</span>
+            </a>
+            <a href="../tools.html" class="nav-link">
+              <i class="material-icons">quiz</i>
+              <span>Verktøy</span>
+            </a>
+            <button class="burger-btn" id="burgerBtn" aria-label="Meny">
+              <i class="material-icons">menu</i>
+            </button>
+            <div class="nav-dropdown" id="navDropdown">
+              <a href="../resources.html" class="dropdown-item">
+                <i class="material-icons">folder</i>
+                Ressurser
+              </a>
+              <a href="../news.html" class="dropdown-item nav-news-mobile">
+                <i class="material-icons">newspaper</i>
+                Nyheter
+              </a>
+            </div>
+          </div>
+          <a href="../profile.html" class="profile-pill" aria-label="Min profil"></a>
+        </div>
+      </div>
+    </header>
+
+    <!-- Intro: pick an exam -->
+    <section class="screen" id="screenIntro">
+      <div class="hero">
+        <h1 class="hero-title">VGS-Hjelp sin eksamen <span style="font-size: 0.6em; color: #afae71;">(beta)</span></h1>
+        <p class="hero-sub">
+          En gratis prøveeksamen for deg som vil øve til den skriftlige eksamen. Velg fag, sett i gang,
+          og svar under samme tidspress som på en ekte eksamen.
+        </p>
+      </div>
+
+      <!-- Plasser: stort panel med progress-slider som går ned når plassene blir færre -->
+      <div class="plasser-panel" id="plasserPanel" hidden>
+        <div class="plasser-row">
+          <span class="plasser-ikon"><i class="material-icons" aria-hidden="true">group</i></span>
+          <p class="plasser-tekst">
+            <span class="plasser-ledig" id="plasserLedig">–</span>
+            <span class="plasser-etikett" id="plasserEtikett">av 50 plasser igjen</span>
+          </p>
+        </div>
+        <div class="plasser-bar" id="plasserBar" role="progressbar" aria-label="Ledige plasser på prøveeksamen" aria-valuemin="0" aria-valuemax="50" aria-valuenow="50">
+          <div class="plasser-bar-fill" id="plasserFill"></div>
+        </div>
+      </div>
+
+      <h2 class="section-title">Velg prøve</h2>
+      <p class="section-note">
+        Prøveeksamenen er en Videregående Hjelp+-funksjon: du må være logget inn og ha Pluss
+        aktivert for å starte en prøve. Foreløpig finnes det kun prøver for
+        <strong>10. klasse</strong> i matematikk og norsk. Flere fag og nivåer kommer senere.
+      </p>
+      <div class="velger-rad">
+        <div class="nivaa-toggle" id="nivaaToggle" role="tablist" aria-label="Velg nivå"></div>
+        <div class="aar-toggle" id="aarToggle" role="tablist" aria-label="Velg år">
+          <button type="button" class="nivaa-btn active" role="tab" aria-selected="true">Vår 2026</button>
+        </div>
+      </div>
+      <div class="exam-grid" id="examGrid"></div>
+
+      <div class="disclaimer">
+        <i class="material-icons">info</i>
+        <p>
+          VGS-Hjelp sin eksamen er en uoffisiell prøveeksamen laget av Videregående Hjelp, og er ikke
+          utarbeidet av Udir. Oppgavene ligner på eksamensoppgaver, men er ikke hentet fra ekte eksamenssett.
+          Offisielle eksamensoppgaver finner du gratis på
+          <a href="https://www.udir.no/eksamen-og-prover/eksamen/tidligere-eksamensoppgaver/" target="_blank" rel="noopener">udir.no</a>.
+          (Du vil trenge et passord fra en lærer på skolen din for å se eksamensoppgavene der.)
+        </p>
+      </div>
+    </section>
+
+    <!-- Exam platform: topbar, info page and tasks share the same chrome -->
+    <div class="exam-chrome" id="examChrome">
+      <div class="exam-topbar">
+        <img class="exam-logo" src="../vgshjelp-logo.png" alt="Videregående Hjelp">
+        <span class="breadcrumb" id="breadcrumbText"></span>
+        <div class="exam-topbar-right">
+          <button type="button" class="abort-btn" id="abortExamBtn" hidden>
+            <i class="material-icons">close</i> Avbryt eksamen
+          </button>
+          <span class="timer-chip" id="timerChip">
+            <i class="material-icons">timer</i>
+            <span id="timerText">300 min</span>
+          </span>
+          <span class="save-status" id="saveStatus"><i class="material-icons">check</i> lagret</span>
+        </div>
+      </div>
+
+      <div class="exam-warning" id="examWarning" hidden>
+        <i class="material-icons">warning</i>
+        <span class="exam-warning-text" id="examWarningText"></span>
+      </div>
+
+      <!-- Info page: shown before the exam starts and again via the (i) button -->
+      <section class="screen" id="screenInfo" hidden>
+        <div class="info-panel">
+          <h1 id="infoExamTitle">Eksamen i …</h1>
+
+          <div class="info-section">
+            <i class="material-icons info-icon">schedule</i>
+            <div>
+              <h2>Informasjon</h2>
+              <p id="infoVarighet">Eksamen varer i 5 timer.</p>
+              <p>Nedenfor ser du en oversikt over oppgavene.</p>
+              <ul id="infoOppgaveList"></ul>
+              <p>Du får informasjon i hver oppgave om hvor langt du skal skrive.</p>
+            </div>
+          </div>
+
+          <div class="info-section">
+            <i class="material-icons info-icon">straighten</i>
+            <div>
+              <h2>Hjelpemidler</h2>
+              <p>Under eksamenen kan du bruke alle hjelpemidler som ikke krever internett. I tillegg kan du bruke disse nettbaserte hjelpemidlene:</p>
+              <ul id="infoNettsteder"></ul>
+              <p>Ellers gjelder disse begrensningene:</p>
+              <ul>
+                <li>Du har ikke lov til å bruke hjelpemidler som gjør det mulig å kommunisere, som mobiltelefon, programvare for samskriving, chat eller lignende.</li>
+                <li>Du har ikke lov til å bruke kunstig intelligens til å generere innhold i svaret ditt.</li>
+                <li>Du har ikke lov til å bruke oversettelsesprogrammer.</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="info-section">
+            <i class="material-icons info-icon">menu_book</i>
+            <div>
+              <h2>Kilder</h2>
+              <p>Du må oppgi eventuelle kilder du bruker i svaret ditt, slik at det er lett å finne fram til dem:</p>
+              <ul>
+                <li>Bøker og annen litteratur må føres opp med både forfatter og tittel.</li>
+                <li>Internettkilder må føres opp med nettadresse og lesedato.</li>
+              </ul>
+              <p>Eksamenssvaret ditt blir undersøkt for plagiat. Hvis du ikke har oppgitt kilder du har brukt, kan det påvirke vurderingen av svaret ditt.</p>
+            </div>
+          </div>
+
+          <div class="info-section">
+            <i class="material-icons info-icon">send</i>
+            <div>
+              <h2>Levering</h2>
+              <p id="infoLevering"></p>
+            </div>
+          </div>
+
+          <div class="rules-disclaimer">
+            <i class="material-icons">info</i>
+            <div class="rules-disclaimer-body">
+              <p>Husk at dette IKKE er en offisiell eksamen! Vennligst ikke juks eller gjør noe man IKKE skal gjøre på en ekte eksamen. Et menneske kommer til å sjekke svarene dine etter du er ferdig med dette, så det er bare dumt hvis du skal ikke gjøre det skikkelig.</p>
+              <button type="button" class="btn promise-btn" id="promiseBtn"><i class="material-icons">handshake</i> Jeg lover jeg skal ikke jukse</button>
+            </div>
+          </div>
+
+          <div class="info-start" id="infoStartSection">
+            <h2 class="info-start-title">Hvordan vil du svare?</h2>
+            <p class="info-start-sub">Velg hvordan du vil skrive svarene dine på prøven. Klokken starter ikke før du trykker «Start prøven».</p>
+            <div class="modus-options">
+              <label class="modus-option">
+                <input type="radio" name="svarModus" value="per-oppgave" checked>
+                <span><strong>Svar per oppgave</strong><small>Svarfelt i hver oppgave – svarene lagres automatisk i nettleseren.</small></span>
+              </label>
+              <label class="modus-option">
+                <input type="radio" name="svarModus" value="dokument">
+                <span><strong>Svar i ett dokument</strong><small>Skriv hele svaret i ett dokument, og «last opp» det i den siste oppgaven – som på en ekte eksamen.</small></span>
+              </label>
+            </div>
+            <div class="info-actions">
+              <button type="button" class="btn btn-ghost" id="infoBackBtn"><i class="material-icons">arrow_back</i> Velg en annen prøve</button>
+              <button type="button" class="btn btn-primary" id="startExamBtn" disabled><i class="material-icons">check_circle</i> Start prøven</button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Tasks -->
+      <section class="screen" id="screenExam" hidden>
+        <div class="exam-progress-row">
+          <div class="exam-progress"><div class="exam-progress-fill" id="progressFill"></div></div>
+          <span class="answered-label" id="answeredLabel">Besvart 0 av 0</span>
+        </div>
+
+        <section class="task-panel" id="taskPanel"></section>
+      </section>
+
+      <!-- Bottom navigation, like a real exam: back, info, task numbers, overview, next -->
+      <div class="exam-bottombar">
+        <button type="button" class="circle-btn" id="prevTaskBtn" aria-label="Forrige oppgave">
+          <i class="material-icons">arrow_back</i>
+        </button>
+        <button type="button" class="circle-btn info-circle" id="infoBtn" aria-label="Informasjon om eksamenen">
+          <i class="material-icons">info</i>
+        </button>
+        <div class="task-chips" id="taskChips" aria-label="Oppgavenavigasjon"></div>
+        <button type="button" class="overview-pill" id="overviewBtn">
+          <i class="material-icons">keyboard_arrow_up</i> OVERSIKT <span id="overviewCountLabel"></span>
+        </button>
+        <button type="button" class="circle-btn next-arrow" id="nextTaskBtn" aria-label="Neste oppgave">
+          <i class="material-icons">arrow_forward</i>
+        </button>
+      </div>
+    </div>
+
+    <!-- Result -->
+    <section class="screen" id="screenResult" hidden>
+      <div class="result-panel">
+        <div class="result-head">
+          <i class="material-icons result-icon">task_alt</i>
+          <h2>Prøven er levert!</h2>
+          <p>Godt jobbet med <strong id="resultExamName"></strong>. Her er en oversikt over prøven din.</p>
+        </div>
+
+        <div class="result-stats">
+          <div class="result-stat">
+            <span class="result-stat-label">Tid brukt</span>
+            <span class="result-stat-value" id="resultTime"></span>
+          </div>
+          <div class="result-stat">
+            <span class="result-stat-label">Besvart</span>
+            <span class="result-stat-value" id="resultAnswered"></span>
+          </div>
+          <div class="result-stat">
+            <span class="result-stat-label">Oppgaver</span>
+            <span class="result-stat-value" id="resultTotal"></span>
+          </div>
+        </div>
+
+        <div class="submit-section" id="submitSection"></div>
+
+        <div class="result-actions">
+          <button type="button" class="btn btn-primary" id="retakeBtn">
+            <i class="material-icons">replay</i> Ta prøven på nytt
+          </button>
+          <button type="button" class="btn btn-ghost" id="chooseAnotherBtn">
+            <i class="material-icons">library_books</i> Velg en annen prøve
+          </button>
+          <a class="btn btn-ghost" href="../tools.html">
+            <i class="material-icons">arrow_back</i> Tilbake til verktøy
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <footer>
+      <p>&copy; 2026 Videregående Hjelp. Et åpent prosjekt for alle.</p>
+    </footer>
+  </main>
+
+  <!-- End-exam confirmation -->
+  <div class="modal-backdrop" id="endModal" hidden>
+    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="endModalTitle">
+      <h3 id="endModalTitle">Avslutte prøven?</h3>
+      <p>Du har <strong id="endModalTimeLeft"></strong> igjen. Vil du levere svarene dine nå?</p>
+      <div class="modal-actions">
+        <button type="button" class="btn btn-ghost" id="cancelEndBtn">Fortsett på prøven</button>
+        <button type="button" class="btn btn-primary" id="confirmEndBtn">Lever prøven</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Abort exam confirmation -->
+  <div class="modal-backdrop" id="abortModal" hidden>
+    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="abortModalTitle">
+      <h3 id="abortModalTitle">Avbryte eksamen?</h3>
+      <p>Alle svarene dine slettes, og du kommer tilbake til start. Eksamenen blir ikke levert til vurdering, og du kan starte på nytt når du vil.</p>
+      <div class="modal-actions">
+        <button type="button" class="btn btn-ghost" id="cancelAbortBtn">Fortsett på eksamen</button>
+        <button type="button" class="btn btn-danger" id="confirmAbortBtn">Avbryt eksamen</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Submission confirmation -->
+  <div class="modal-backdrop" id="submitModal" hidden>
+    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="submitModalTitle">
+      <h3 id="submitModalTitle">Lever til vurdering?</h3>
+      <p>Svarene dine sendes til Videregående Hjelp, hvor et menneske vurderer dem. Du kan ikke endre svarene etter at de er levert.</p>
+      <div class="modal-actions">
+        <button type="button" class="btn btn-ghost" id="cancelSubmitBtn">Avbryt</button>
+        <button type="button" class="btn btn-primary" id="confirmSubmitBtn">Lever til vurdering</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Already submitted status -->
+  <div class="modal-backdrop" id="submissionModal" hidden>
+    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="submissionModalTitle">
+      <h3 id="submissionModalTitle">Prøven er allerede levert</h3>
+      <div id="submissionModalBody"></div>
+      <div class="modal-actions">
+        <button type="button" class="btn btn-primary" id="submissionModalCloseBtn">OK</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Plus-gate: requires login + Videregående Hjelp+ to start an exam -->
+  <div class="modal-backdrop" id="plusGateModal" hidden>
+    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="plusGateTitle">
+      <h3 id="plusGateTitle">Dette krever Videregående Hjelp+</h3>
+      <div id="plusGateBody"></div>
+      <div class="modal-actions">
+        <button type="button" class="btn btn-ghost" id="plusGateCloseBtn">Lukk</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Overview (task list) -->
+  <div class="modal-backdrop" id="overviewModal" hidden>
+    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="overviewTitle">
+      <h3 id="overviewTitle">Oversikt</h3>
+      <div class="overview-list" id="overviewList"></div>
+      <div class="modal-actions">
+        <button type="button" class="btn btn-ghost" id="overviewCloseBtn">Lukk</button>
+        <button type="button" class="btn btn-primary" id="overviewExitBtn"><i class="material-icons">close</i> Avslutt prøven</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="../Assets/js/account.js"></script>
+  <script>
+    // Theme Management (same as tools.html)
+    function initTheme() {
+      setTheme(localStorage.getItem('theme') || 'system');
+    }
+
+    function setTheme(theme) {
+      localStorage.setItem('theme', theme);
+
+      let finalTheme = theme;
+      if (theme === 'system') {
+        finalTheme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+      }
+
+      document.documentElement.setAttribute('data-theme', finalTheme);
+    }
+
+    window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', () => {
+      if ((localStorage.getItem('theme') || 'system') === 'system') {
+        initTheme();
+        document.documentElement.setAttribute('data-theme', 'light');
+      }
+    });
+
+    initTheme();
+
+    // The exam simulator is always in light mode, regardless of the user's
+    // theme. The shared profile scripts re-apply the stored theme on events,
+    // so force light here and after every theme change.
+    document.documentElement.setAttribute('data-theme', 'light');
+    document.addEventListener('vhjelp:theme-changed', () => {
+      document.documentElement.setAttribute('data-theme', 'light');
+    });
+  </script>
+  <script src="../Assets/js/plus.js"></script>
+  <script src="../Assets/js/profile.js"></script>
+  <script>
+    (function () {
+      'use strict';
+
+      const STORAGE_KEY = 'vhjelp:exam-sim:session';
+      const WARNING_MS = 5 * 60 * 1000;
+
+      // Populated from Tools/Data/eksamen/index.json + one file per subject
+      let EXAMS = {};
+      let MAKS_VARIGHET = 300;
+      let examsLoaded = false;
+      let submissionsByFag = {}; // fag_id -> own submission (one exam per subject)
+      let plusAktiv = false;    // user logged in AND has Videregående Hjelp+ active
+      let valgtNivaa = '';      // currently selected level (e.g. 'VG1')
+
+      const state = {
+        examId: null,
+        currentTask: 0,
+        answers: {},
+        svarModus: 'per-oppgave',
+        document: '',
+        dokumentFil: null,
+        dokumentBekreftet: false,
+        startTs: null,
+        durationMs: 0,
+        usedMs: 0,
+        finished: false,
+        timerInterval: null,
+        hendelser: {},
+        submissionId: null
+      };
+
+      const $ = (id) => document.getElementById(id);
+
+      const SCREENS = { intro: 'screenIntro', info: 'screenInfo', exam: 'screenExam', result: 'screenResult' };
+
+      let currentScreen = 'intro';
+
+      function showScreen(name) {
+        currentScreen = name;
+        const inChrome = name === 'info' || name === 'exam';
+        Object.entries(SCREENS).forEach(([key, id]) => {
+          $(id).hidden = key !== name;
+        });
+        $('examChrome').classList.toggle('visible', inChrome);
+        document.body.classList.toggle('in-exam', inChrome);
+        $('infoBtn').classList.toggle('active', name === 'info');
+        if (inChrome) updateNavButtons();
+        // The whole page always runs in light mode, regardless of the user's theme
+        document.documentElement.setAttribute('data-theme', 'light');
+        // The abort button is only shown while an exam is running
+        $('abortExamBtn').hidden = !(state.startTs && !state.finished);
+        window.scrollTo({ top: 0 });
+      }
+
+      function escHtml(str) {
+        return String(str ?? '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+      }
+
+      function formatSize(bytes) {
+        if (!bytes) return '0 B';
+        if (bytes < 1024) return bytes + ' B';
+        if (bytes < 1048576) return (bytes / 1024).toFixed(1).replace(/\.0$/, '') + ' KB';
+        return (bytes / 1048576).toFixed(1) + ' MB';
+      }
+
+      let saveDebounce = null;
+      function markSaving() {
+        $('saveStatus').innerHTML = '<i class="material-icons">hourglass_top</i> lagrer…';
+        if (saveDebounce) clearTimeout(saveDebounce);
+        saveDebounce = setTimeout(markSaved, 600);
+      }
+      function markSaved() {
+        $('saveStatus').innerHTML = '<i class="material-icons">check</i> lagret';
+      }
+
+      function formatDate(iso) {
+        if (!iso) return '';
+        const d = new Date(iso);
+        if (isNaN(d.getTime())) return '';
+        return d.toLocaleDateString('no-NO', { day: '2-digit', month: 'long', year: 'numeric' }) +
+          ' kl. ' + d.toLocaleTimeString('no-NO', { hour: '2-digit', minute: '2-digit' });
+      }
+
+      // ---------- Lagring ----------
+      function saveSession() {
+        try {
+          localStorage.setItem(STORAGE_KEY, JSON.stringify({
+            examId: state.examId,
+            currentTask: state.currentTask,
+            answers: state.answers,
+            svarModus: state.svarModus,
+            document: state.document,
+            // Filinnholdet (base64) lagres ikke i localStorage – kun metadata.
+            // Hvis siden lastes inn på nytt, må eleven velge filen igjen.
+            dokumentFil: state.dokumentFil
+              ? { navn: state.dokumentFil.navn, størrelse: state.dokumentFil.størrelse }
+              : null,
+            dokumentBekreftet: state.dokumentBekreftet,
+            startTs: state.startTs,
+            durationMs: state.durationMs,
+            usedMs: state.usedMs,
+            finished: state.finished,
+            hendelser: state.hendelser,
+            submissionId: state.submissionId
+          }));
+        } catch (e) {
+          // Storage unavailable – the page still works, just without auto-save
+        }
+      }
+
+      function loadSession() {
+        try {
+          const raw = localStorage.getItem(STORAGE_KEY);
+          if (!raw) return false;
+          const s = JSON.parse(raw);
+          if (!s || !s.examId || !EXAMS[s.examId] || !s.startTs) return false;
+          state.examId = s.examId;
+          state.currentTask = s.currentTask || 0;
+          state.answers = s.answers || {};
+          state.startTs = s.startTs;
+          state.durationMs = s.durationMs;
+          state.usedMs = s.usedMs || 0;
+          state.finished = !!s.finished;
+          state.hendelser = s.hendelser || {};
+          state.submissionId = s.submissionId || null;
+          state.svarModus = s.svarModus || 'per-oppgave';
+          state.document = s.document || '';
+          state.dokumentFil = s.dokumentFil || null;
+          state.dokumentBekreftet = !!s.dokumentBekreftet;
+          return true;
+        } catch (e) {
+          return false;
+        }
+      }
+
+      function clearSession() {
+        try {
+          localStorage.removeItem(STORAGE_KEY);
+        } catch (e) {
+          // Storage unavailable
+        }
+      }
+
+      function resetState() {
+        stopTimer();
+        state.examId = null;
+        state.currentTask = 0;
+        state.answers = {};
+        state.startTs = null;
+        state.durationMs = 0;
+        state.usedMs = 0;
+        state.finished = false;
+        state.hendelser = {};
+        state.submissionId = null;
+        state.svarModus = 'per-oppgave';
+        state.document = '';
+        state.dokumentFil = null;
+        state.dokumentBekreftet = false;
+      }
+
+      // ---------- Data (oppgavebank i JSON) ----------
+      function normalizeVedlegg(vedlegg) {
+        if (Array.isArray(vedlegg)) {
+          return vedlegg.filter((v) => v && v.innhold).map((v) => ({
+            tittel: v.tittel || '',
+            innhold: v.innhold
+          }));
+        }
+        if (typeof vedlegg === 'string' && vedlegg.trim()) {
+          return [{ tittel: '', innhold: vedlegg }];
+        }
+        return [];
+      }
+
+      async function loadExams() {
+        try {
+          const res = await fetch('Data/eksamen/index.json');
+          if (!res.ok) throw new Error('Kunne ikke laste eksamensdata');
+          const data = await res.json();
+          MAKS_VARIGHET = Math.max(1, Number(data.maksVarighetMin) || 300);
+          const fagfilene = Array.isArray(data.fag) ? data.fag : [];
+          const fagene = await Promise.all(fagfilene.map(async (fil) => {
+            const r = await fetch('Data/eksamen/' + fil);
+            if (!r.ok) throw new Error('Kunne ikke laste ' + fil);
+            return r.json();
+          }));
+          fagene.forEach((f) => {
+            EXAMS[f.id] = {
+              id: f.id,
+              title: f.tittel || f.id,
+              nivaa: f.nivaa || '',
+              icon: f.ikon || 'edit',
+              accent: f.accent || 'lime',
+              durationMin: Math.min(Math.max(1, Number(f.varighetMin) || MAKS_VARIGHET), MAKS_VARIGHET),
+              description: f.beskrivelse || '',
+              inputLabel: f.inputLabel || 'Skriving',
+              tillatteNettsteder: Array.isArray(f.tillatteNettsteder) ? f.tillatteNettsteder : [],
+              deler: Array.isArray(f.deler) ? f.deler : [],
+              tasks: (Array.isArray(f.oppgaver) ? f.oppgaver : []).map((o) => ({
+                title: o.tittel || 'Oppgave',
+                points: Number(o.poeng) || 0,
+                del: Number(o.del) || 0,
+                input: o.type === 'kortsvar' ? 'short' : 'long',
+                text: o.tekst || '',
+                deloppgaver: Array.isArray(o.deloppgaver) ? o.deloppgaver.map((d) => ({
+                  bokstav: d.bokstav || '',
+                  tekst: d.tekst || '',
+                  merknad: d.merknad || ''
+                })) : [],
+                vurdering: Array.isArray(o.vurdering) ? o.vurdering : [],
+                vedlegg: normalizeVedlegg(o.vedlegg)
+              }))
+            };
+          });
+          examsLoaded = Object.keys(EXAMS).length > 0;
+        } catch (e) {
+          examsLoaded = false;
+          console.error('loadExams:', e);
+        }
+        if (!examsLoaded) {
+          const grid = $('examGrid');
+          if (grid) {
+            grid.innerHTML = '<div class="load-error">Kunne ikke laste eksamensdata. Prøv å laste siden på nytt.</div>';
+          }
+        }
+      }
+
+      function submissionBadgeHtml(sub) {
+        if (sub.status === 'vurdert' && sub.karakter) {
+          return `<span class="exam-submitted-badge"><i class="material-icons">grade</i> Karakter: ${escHtml(sub.karakter)}</span>`;
+        }
+        if (sub.status === 'avvist') {
+          return '<span class="exam-submitted-badge"><i class="material-icons">close</i> Avvist</span>';
+        }
+        const label = sub.status === 'under_vurdering' ? 'Under vurdering' : 'Venter på vurdering';
+        return `<span class="exam-submitted-badge"><i class="material-icons">hourglass_top</i> ${label}</span>`;
+      }
+
+      // Own submissions – used to block a second attempt per subject and to
+      // show the assessment status on the subject cards.
+      async function loadMySubmissions() {
+        submissionsByFag = {};
+        if (!(window.VHaccount && VHaccount.client)) return;
+        try {
+          await VHaccount.refreshAuth();
+          const user = VHaccount.getCurrentUser();
+          if (!user) return;
+          const { data, error } = await VHaccount.client
+            .from('eksamen_innleveringer')
+            .select('fag_id, status, karakter, kommentar, created_at')
+            .eq('user_id', user.id);
+          if (error) throw error;
+          (data || []).forEach((sub) => { submissionsByFag[sub.fag_id] = sub; });
+        } catch (e) {
+          // Best-effort – the unique index in the DB is the real enforcement
+        }
+      }
+
+      // The practice exam is a Plus feature: the user must be logged in AND
+      // have Videregående Hjelp+ active. Cards stay visible but are locked.
+      // The user check matters because the Plus flag persists in localStorage
+      // after logout – a stale flag alone must not open the gate.
+      function sjekkPlusAktiv() {
+        plusAktiv = !!(window.VHplus && VHplus.isActive() &&
+          window.VHaccount && VHaccount.getCurrentUser());
+        return plusAktiv;
+      }
+
+      // How many of the 50 reviewer slots are used, shown as how many are
+      // still available. RPC is security definer, so everyone can read the
+      // total even with RLS.
+      const MAKS_PLASSER = 50;
+      async function loadPlasserBrukt() {
+        const panel = $('plasserPanel');
+        const ledigEl = $('plasserLedig');
+        const etikettEl = $('plasserEtikett');
+        const fill = $('plasserFill');
+        const bar = $('plasserBar');
+        if (!panel || !ledigEl || !fill || !bar) return;
+        const sett = (ledig) => {
+          const prosent = Math.max(0, Math.min(100, Math.round((ledig / MAKS_PLASSER) * 100)));
+          ledigEl.textContent = String(ledig);
+          etikettEl.textContent = 'av 50 plasser igjen';
+          // Slideren viser hvor mange plasser som er IGJEN – den går ned etter hvert som plassene blir færre.
+          fill.style.width = prosent + '%';
+          fill.classList.toggle('lav', ledig <= 10);
+          bar.setAttribute('aria-valuenow', String(ledig));
+          panel.hidden = false;
+        };
+        if (!(window.VHaccount && VHaccount.client)) {
+          sett(MAKS_PLASSER);
+          return;
+        }
+        try {
+          const { data, error } = await VHaccount.client.rpc('eksamen_plasser_brukt');
+          if (error) throw error;
+          const brukt = typeof data === 'number' ? data : null;
+          if (brukt == null) {
+            sett(MAKS_PLASSER);
+            return;
+          }
+          sett(Math.max(0, MAKS_PLASSER - brukt));
+        } catch (e) {
+          sett(MAKS_PLASSER);
+        }
+      }
+
+      // '10. trinn' is the internal level id; '10. klasse' is the label shown to users
+      function nivaaLabel(nivaa) {
+        return nivaa === '10. trinn' ? '10. klasse' : nivaa;
+      }
+
+      // The trinn selector always shows the two planned levels. VG1 has no
+      // exams yet, so the grid shows a "coming soon" message for it.
+      function renderNivaaToggle() {
+        const toggle = $('nivaaToggle');
+        if (!toggle) return;
+        const nivåer = ['10. trinn', 'VG1'];
+        toggle.hidden = false;
+        if (!nivåer.includes(valgtNivaa)) valgtNivaa = nivåer[0];
+        toggle.innerHTML = nivåer.map((nivaa) => {
+          return `<button type="button" class="nivaa-btn ${nivaa === valgtNivaa ? 'active' : ''}" data-nivaa="${escHtml(nivaa)}" role="tab" aria-selected="${nivaa === valgtNivaa ? 'true' : 'false'}">${escHtml(nivaaLabel(nivaa))}</button>`;
+        }).join('');
+        toggle.querySelectorAll('.nivaa-btn').forEach((btn) => {
+          btn.addEventListener('click', () => {
+            valgtNivaa = btn.dataset.nivaa;
+            renderNivaaToggle();
+            renderExamGrid();
+          });
+        });
+      }
+
+      function renderExamGrid() {
+        const grid = $('examGrid');
+        sjekkPlusAktiv();
+        if (valgtNivaa === 'VG1') {
+          grid.innerHTML = `
+            <div class="kommer-snart">
+              <i class="material-icons">construction</i>
+              <strong>Vi jobber med en prøveeksamen for VG1</strong>
+              <p>Snart kan du øve til skriftlig eksamen på videregående her også.</p>
+            </div>`;
+          return;
+        }
+        const synlige = Object.values(EXAMS).filter((e) => !valgtNivaa || e.nivaa === valgtNivaa);
+        grid.innerHTML = synlige.map((exam) => {
+          const sub = submissionsByFag[exam.id];
+          const locked = !plusAktiv && !sub;
+          const badge = sub
+            ? submissionBadgeHtml(sub)
+            : locked
+              ? '<span class="exam-lock-badge"><i class="material-icons">lock</i> Krever Pluss</span>'
+              : '';
+          return `
+          <div class="exam-card accent-${exam.accent}${sub ? ' submitted' : ''}${locked ? ' locked' : ''}" role="button" tabindex="0" data-exam="${exam.id}" ${sub ? 'aria-label="Prøven er levert. Trykk for å se status."' : locked ? 'aria-label="Krever Videregående Hjelp+. Trykk for å se mer."' : ''}>
+            <div class="exam-card-top">
+              <span class="exam-icon"><i class="material-icons">${exam.icon}</i></span>
+              ${badge ? `<span class="exam-card-top-badges">${badge}</span>` : ''}
+            </div>
+            <h3>${escHtml(exam.title)}</h3>
+            <p>${escHtml(exam.description)}</p>
+            <span class="exam-submitted-note">${sub ? 'Allerede levert – trykk for å se status' : locked ? 'Krever Videregående Hjelp+ for å starte' : 'Trykk for å starte prøven'}</span>
+          </div>`;
+        }).join('');
+
+        grid.querySelectorAll('.exam-card').forEach((card) => {
+          const start = () => {
+            if (submissionsByFag[card.dataset.exam]) {
+              openSubmissionModal(card.dataset.exam);
+            } else if (!sjekkPlusAktiv()) {
+              openPlusGate();
+            } else {
+              startExam(card.dataset.exam);
+            }
+          };
+          card.addEventListener('click', start);
+          card.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter' || e.key === ' ') {
+              e.preventDefault();
+              start();
+            }
+          });
+        });
+      }
+
+      // Shows why an exam is locked: not logged in vs. missing Plus.
+      function openPlusGate() {
+        const user = (window.VHaccount && VHaccount.getCurrentUser) ? VHaccount.getCurrentUser() : null;
+        const body = $('plusGateBody');
+        if (!user) {
+          body.innerHTML = `
+            <p>Prøveeksamenen krever at du er logget inn på en konto hos Videregående Hjelp.</p>
+            <div class="modal-actions">
+              <a class="btn btn-primary" href="../profile.html"><i class="material-icons">login</i> Logg inn / lag profil</a>
+            </div>`;
+        } else {
+          body.innerHTML = `
+            <p>Prøveeksamenen er en Videregående Hjelp+-funksjon. Du er logget inn, men må aktivere Pluss på profilen din for å starte en prøve.</p>
+            <div class="modal-actions">
+              <a class="btn btn-primary" href="../profile.html"><i class="material-icons">workspace_premium</i> Aktiver Pluss</a>
+            </div>`;
+        }
+        $('plusGateModal').hidden = false;
+        $('plusGateCloseBtn').focus();
+      }
+
+      function closePlusGate() {
+        $('plusGateModal').hidden = true;
+      }
+
+      // ---------- Flyt ----------
+      function startExam(examId) {
+        const exam = EXAMS[examId];
+        if (!exam) return;
+        if (submissionsByFag[examId]) {
+          openSubmissionModal(examId);
+          return;
+        }
+        if (!sjekkPlusAktiv()) {
+          openPlusGate();
+          return;
+        }
+        state.examId = examId;
+        state.currentTask = 0;
+        state.answers = {};
+        state.document = '';
+        state.dokumentFil = null;
+        state.dokumentBekreftet = false;
+        state.svarModus = 'per-oppgave';
+        state.hendelser = {};
+        state.submissionId = null;
+        state.startTs = null;
+        state.durationMs = 0;
+        state.usedMs = 0;
+        state.finished = false;
+        clearSession();
+        renderInfo();
+        showScreen('info');
+      }
+
+      function delInfo(exam, task) {
+        if (!task.del) return null;
+        const info = (exam.deler || []).find((d) => d.nr === task.del);
+        return { nr: task.del, tittel: info && info.tittel ? info.tittel : '' };
+      }
+
+      function renderInfo() {
+        const exam = EXAMS[state.examId];
+        const started = !!state.startTs;
+        $('infoExamTitle').textContent = 'Eksamen i ' + exam.title;
+        const hours = MAKS_VARIGHET / 60;
+        let varighetTekst = 'Eksamen varer i ' +
+          (Number.isInteger(hours) ? hours + ' timer' : MAKS_VARIGHET + ' minutter') + '.';
+        if (exam.deler.length) {
+          varighetTekst += ' Prøven er todelt: ' + exam.deler
+            .map((d) => 'del ' + d.nr + ' (' + d.tittel + ')').join(' og ') + '.';
+          const medTid = exam.deler.filter((d) => Number(d.minutter) > 0);
+          if (medTid.length) {
+            const tid = medTid
+              .map((d) => 'del ' + d.nr + ' innen ' + (Number(d.minutter) % 60 === 0 ? Number(d.minutter) / 60 + ' timer' : Number(d.minutter) + ' minutter'))
+              .join(' og ');
+            varighetTekst += ' I en ekte eksamen leveres ' + tid +
+              '. Her går alt i ett, men du bør løse del 1 uten kalkulator for å øve realistisk.';
+          }
+        }
+        $('infoVarighet').textContent = varighetTekst;
+        let oppgaveHtml = '';
+        let forrigeDel = 0;
+        exam.tasks.forEach((t, i) => {
+          if (t.del && t.del !== forrigeDel) {
+            const d = (exam.deler || []).find((x) => x.nr === t.del);
+            oppgaveHtml += `<li class="info-del-head"><strong>Del ${t.del}${d && d.tittel ? ' – ' + escHtml(d.tittel) : ''}</strong></li>`;
+            forrigeDel = t.del;
+          }
+          oppgaveHtml += `<li>Oppgave ${i + 1}${t.title && t.title !== 'Oppgave' ? ' – ' + escHtml(t.title) : ''}</li>`;
+        });
+        $('infoOppgaveList').innerHTML = oppgaveHtml;
+        $('infoNettsteder').innerHTML = exam.tillatteNettsteder.length
+          ? exam.tillatteNettsteder.map((s) => `<li>${escHtml(s)}</li>`).join('')
+          : '<li>Ingen nettbaserte hjelpemidler er tillatt i denne prøven.</li>';
+        $('infoLevering').textContent = state.svarModus === 'dokument'
+          ? 'Du skal samle alle svarene dine i ett dokument som du laster opp i den siste oppgaven.'
+          : 'Du svarer i svarfeltet i hver oppgave. Svarene dine leveres når du trykker «Lever prøven».';
+        document.querySelectorAll('input[name="svarModus"]').forEach((r) => {
+          r.checked = r.value === state.svarModus;
+        });
+        // The exam can only be started after the student has promised not to
+        // cheat. Reset the promise state every time the info page is shown
+        // before the exam has started.
+        const promiseBtn = $('promiseBtn');
+        const startBtn = $('startExamBtn');
+        promiseBtn.hidden = started;
+        if (!started) {
+          promiseBtn.classList.remove('promised');
+          promiseBtn.disabled = false;
+          promiseBtn.innerHTML = '<i class="material-icons">handshake</i> Jeg lover jeg skal ikke jukse';
+          startBtn.disabled = true;
+        }
+        $('infoStartSection').hidden = started;
+        $('timerChip').hidden = !started;
+        $('breadcrumbText').textContent = exam.title + ' / Prøveeksamen 2026 / Informasjon om eksamenen';
+        updateNavButtons();
+        if (started) markSaved();
+      }
+
+      // Only start once the student has chosen an answer mode and clicked start
+      function beginExam() {
+        const exam = EXAMS[state.examId];
+        if (!exam) return;
+        const checked = document.querySelector('input[name="svarModus"]:checked');
+        state.svarModus = checked ? checked.value : 'per-oppgave';
+        state.startTs = Date.now();
+        state.durationMs = exam.durationMin * 60 * 1000;
+        saveSession();
+        enterExam();
+      }
+
+      function enterExam() {
+        const exam = EXAMS[state.examId];
+        // The exam flow always runs in light mode (handled by showScreen).
+        // Only the site header/footer are hidden while the exam runs.
+        $('timerChip').hidden = false;
+        renderTaskNav();
+        renderTask();
+        startTimer();
+        markSaved();
+        // If a resumed session has already expired, tick() finishes the exam
+        // and shows the result screen – don't override it.
+        if (!state.finished) {
+          showScreen('exam');
+        }
+      }
+
+      function isAnswered(index) {
+        const value = state.answers[index];
+        return typeof value === 'string' && value.trim().length > 0;
+      }
+
+      function renderTaskNav() {
+        const chips = $('taskChips');
+        chips.innerHTML = '';
+        const exam = EXAMS[state.examId];
+        exam.tasks.forEach((task, i) => {
+          const info = delInfo(exam, task);
+          if (info && (i === 0 || !exam.tasks[i - 1].del || exam.tasks[i - 1].del !== task.del)) {
+            const sep = document.createElement('span');
+            sep.className = 'task-del-sep';
+            sep.textContent = 'Del ' + info.nr;
+            sep.setAttribute('aria-hidden', 'true');
+            chips.appendChild(sep);
+          }
+          const btn = document.createElement('button');
+          btn.type = 'button';
+          btn.className = 'task-btn';
+          btn.textContent = i + 1;
+          btn.setAttribute('aria-label', 'Oppgave ' + (i + 1));
+          btn.disabled = !state.startTs;
+          btn.addEventListener('click', () => goToTask(i));
+          chips.appendChild(btn);
+        });
+        $('overviewCountLabel').textContent = '(' + exam.tasks.length + ')';
+        updateChipStates();
+        updateProgress();
+      }
+
+      function updateChipStates() {
+        const docMode = state.svarModus === 'dokument';
+        $('taskChips').querySelectorAll('.task-btn').forEach((btn, i) => {
+          btn.classList.toggle('active', i === state.currentTask);
+          btn.classList.toggle('done', !docMode && isAnswered(i));
+          if (i === state.currentTask) btn.setAttribute('aria-current', 'step');
+          else btn.removeAttribute('aria-current');
+        });
+      }
+
+      function updateProgress() {
+        const exam = EXAMS[state.examId];
+        const total = exam.tasks.length;
+        if (state.svarModus === 'dokument') {
+          const filLastet = !!(state.dokumentFil && state.dokumentFil.data);
+          $('answeredLabel').textContent = filLastet
+            ? 'Dokument lastet opp'
+            : 'Ingen dokument lastet opp ennå';
+          $('progressFill').style.width = filLastet ? '100%' : '0%';
+        } else {
+          const answered = exam.tasks.filter((_, i) => isAnswered(i)).length;
+          $('answeredLabel').textContent = 'Besvart ' + answered + ' av ' + total;
+          $('progressFill').style.width = (answered / total * 100) + '%';
+        }
+        updateNavButtons();
+      }
+
+      function goToTask(index) {
+        const exam = EXAMS[state.examId];
+        if (index < 0 || index >= exam.tasks.length) return;
+        state.currentTask = index;
+        saveSession();
+        renderTask();
+        updateChipStates();
+        updateProgress();
+
+        // Keep the active task visible in the chip row when the bar overflows
+        const chips = $('taskChips');
+        const active = chips.querySelector('.task-btn.active');
+        if (active) {
+          const left = active.offsetLeft - (chips.clientWidth - active.offsetWidth) / 2;
+          chips.scrollTo({ left, behavior: 'smooth' });
+        }
+
+        // Task numbers are also reachable from the info page
+        if (currentScreen === 'info') showScreen('exam');
+      }
+
+      function renderTask() {
+        const exam = EXAMS[state.examId];
+        const task = exam.tasks[state.currentTask];
+        const num = state.currentTask + 1;
+        const panel = $('taskPanel');
+
+        $('breadcrumbText').textContent = exam.title + ' / Prøveeksamen 2026 / Oppgave ' + num;
+
+        const del = delInfo(exam, task);
+        const delHtml = renderDeloppgaver(task, num);
+        const vurderingHtml = task.vurdering.length
+          ? `<div class="vurdering-box">
+               <h3>Vurdering</h3>
+               <p>Dette blir vurdert i svaret ditt:</p>
+               <ul>${task.vurdering.map((v) => `<li>${escHtml(v)}</li>`).join('')}</ul>
+             </div>`
+          : '';
+        const answerHtml = state.svarModus === 'dokument'
+          ? renderDocumentBlock(num)
+          : renderTaskAnswer(task, num);
+
+        panel.innerHTML = `
+          <div class="task-head">
+            ${del ? `<span class="del-badge">Del ${del.nr}${del.tittel ? ' · ' + escHtml(del.tittel) : ''}</span>` : ''}
+            <h2>Oppgave ${num}</h2>
+          </div>
+          ${delHtml}
+          ${vurderingHtml}
+          ${renderVedlegg(task)}
+          ${answerHtml}`;
+
+        if (window.initTaskCharts) initTaskCharts(panel);
+        bindAnswerEvents();
+        bindVedleggTabs();
+        updateNavButtons();
+      }
+
+      function renderDeloppgaver(task, num) {
+        if (!task.deloppgaver.length) {
+          return task.text ? `<div class="task-text">${task.text}</div>` : '';
+        }
+        const labels = task.deloppgaver.map((d) => 'oppgave ' + num + (d.bokstav || ''));
+        let autoText = '';
+        if (!task.text && labels.length > 1) {
+          autoText = labels.length === 2
+            ? 'Du skal svare på både ' + labels.join(' og ') + '.'
+            : 'Du skal svare på både ' + labels.slice(0, -1).join(', ') + ' og ' + labels[labels.length - 1] + '.';
+        }
+        const vedleggLead = task.vedlegg.length ? 'Du skal bruke disse vedleggene:' : '';
+        let introHtml = '';
+        if (autoText && vedleggLead) introHtml = `<p>${autoText} ${vedleggLead}</p>`;
+        else if (autoText) introHtml = `<p>${autoText}</p>`;
+        else if (vedleggLead) introHtml = `<p>${vedleggLead}</p>`;
+        const vedleggList = task.vedlegg.length
+          ? '<ul>' + task.vedlegg.map((v, i) =>
+              `<li>Vedlegg ${i + 1}${v.tittel ? ': ' + escHtml(v.tittel) : ''}</li>`).join('') + '</ul>'
+          : '';
+        const taskText = task.text ? `<div class="task-text">${task.text}</div>` : '';
+        const subs = task.deloppgaver.map((d) => `
+          <div class="deloppgave">
+            <h3>Oppgave ${num}${escHtml(d.bokstav)}</h3>
+            <p>${d.tekst}</p>
+            ${d.merknad ? `<p class="oppgave-merknad">${escHtml(d.merknad)}</p>` : ''}
+          </div>`).join('');
+        return taskText + introHtml + vedleggList + subs;
+      }
+
+      function renderTaskAnswer(task, num) {
+        const answerValue = escHtml(state.answers[state.currentTask] || '');
+        const inputHtml = task.input === 'short'
+          ? `<input type="text" class="answer-input" id="answerField" placeholder="Skriv svaret ditt her..." value="${answerValue}">`
+          : `<textarea class="answer-area" id="answerField" rows="12" placeholder="Skriv svaret ditt her...">${answerValue}</textarea>`;
+        return `
+          <div class="answer-block">
+            <label class="answer-label" for="answerField">Ditt svar</label>
+            ${inputHtml}
+            <p class="answer-hint"><i class="material-icons">save</i> Svarene lagres automatisk i nettleseren.</p>
+          </div>`;
+      }
+
+      function renderDocumentBlock(num) {
+        // I dokumentmodus svarer eleven i sitt eget dokument og laster det opp
+        // i den siste oppgaven – det er ingen svarfelt i de andre oppgavene.
+        const isLast = num === EXAMS[state.examId].tasks.length;
+        if (!isLast) return '';
+        return `
+          <div class="upload-box">
+            <h4>Last opp dokumentet ditt</h4>
+            <p>Last opp dokumentet med svarene dine. Dokumentet sendes med når du leverer, og blir lest av en sensor. Maks 5 MB.</p>
+            <label class="upload-field">
+              <input type="file" id="documentFile" accept=".pdf,.docx,.odt,.txt">
+              <span class="upload-label"><i class="material-icons">upload_file</i> ${state.dokumentFil ? escHtml(state.dokumentFil.navn) + ' (' + formatSize(state.dokumentFil.størrelse) + ')' : 'Velg fil…'}</span>
+            </label>
+            <p class="upload-hint" id="uploadHint" hidden></p>
+            <label class="confirm-box">
+              <input type="checkbox" id="docConfirm" ${state.dokumentBekreftet ? 'checked' : ''}>
+              <span>Jeg bekrefter at jeg svarer på hele prøven i dette dokumentet, som jeg laster opp her.</span>
+            </label>
+          </div>`;
+      }
+
+      function renderVedlegg(task) {
+        if (!task.vedlegg.length) return '';
+        const tabs = task.vedlegg.map((_, i) =>
+          `<button type="button" class="vedlegg-tab${i === 0 ? ' active' : ''}" data-tab="${i}" role="tab" aria-selected="${i === 0 ? 'true' : 'false'}">Vedlegg ${i + 1}</button>`).join('');
+        const first = task.vedlegg[0];
+        return `
+          <div class="vedlegg-section">
+            <div class="vedlegg-tabs" role="tablist" aria-label="Vedlegg">${tabs}</div>
+            <div class="vedlegg-box" id="vedleggBox">
+              ${first.tittel ? `<div class="vedlegg-tittel">${escHtml(first.tittel)}</div>` : ''}
+              <div class="vedlegg-innhold">${first.innhold}</div>
+            </div>
+          </div>`;
+      }
+
+      function bindAnswerEvents() {
+        const field = $('answerField');
+        if (field) {
+          field.addEventListener('input', () => {
+            state.answers[state.currentTask] = field.value;
+            saveSession();
+            markSaving();
+            updateChipStates();
+            updateProgress();
+          });
+        }
+        const fileInput = $('documentFile');
+        if (fileInput) {
+          fileInput.addEventListener('change', () => {
+            const file = fileInput.files && fileInput.files[0];
+            const label = fileInput.closest('.upload-field').querySelector('.upload-label');
+            const hint = $('uploadHint');
+            const resetLabel = () => {
+              label.innerHTML = '<i class="material-icons">upload_file</i> Velg fil…';
+              if (hint) { hint.hidden = true; hint.classList.remove('error'); }
+            };
+            if (!file) {
+              state.dokumentFil = null;
+              resetLabel();
+              saveSession();
+              markSaving();
+              return;
+            }
+            // Filinnholdet (base64) sendes med ved levering, så sensoren kan åpne dokumentet.
+            // Maks 5 MB – base64-en gjør innholdet omtrent 33 % større.
+            if (file.size > 5 * 1024 * 1024) {
+              state.dokumentFil = null;
+              fileInput.value = '';
+              resetLabel();
+              if (hint) {
+                hint.textContent = 'Filen er for stor – maks 5 MB.';
+                hint.hidden = false;
+                hint.classList.add('error');
+              }
+              saveSession();
+              markSaving();
+              return;
+            }
+            const reader = new FileReader();
+            reader.onload = () => {
+              state.dokumentFil = { navn: file.name, størrelse: file.size, data: String(reader.result) };
+              // Set the file name as text so it is never parsed as HTML
+              label.textContent = '';
+              const icon = document.createElement('i');
+              icon.className = 'material-icons';
+              icon.textContent = 'upload_file';
+              label.append(icon, document.createTextNode(' ' + file.name + ' (' + formatSize(file.size) + ')'));
+              if (hint) { hint.hidden = true; hint.classList.remove('error'); }
+              saveSession();
+              markSaving();
+            };
+            reader.onerror = () => {
+              state.dokumentFil = null;
+              fileInput.value = '';
+              resetLabel();
+              saveSession();
+              markSaving();
+            };
+            reader.readAsDataURL(file);
+          });
+        }
+        const confirm = $('docConfirm');
+        if (confirm) {
+          confirm.addEventListener('change', () => {
+            state.dokumentBekreftet = confirm.checked;
+            saveSession();
+            markSaving();
+          });
+        }
+      }
+
+      function bindVedleggTabs() {
+        const tabs = document.querySelectorAll('.vedlegg-tab');
+        const box = $('vedleggBox');
+        if (!box || !tabs.length) return;
+        const vedlegg = EXAMS[state.examId].tasks[state.currentTask].vedlegg;
+        tabs.forEach((tab) => {
+          tab.addEventListener('click', () => {
+            const idx = Number(tab.dataset.tab);
+            tabs.forEach((t) => {
+              t.classList.toggle('active', t === tab);
+              t.setAttribute('aria-selected', t === tab ? 'true' : 'false');
+            });
+            const v = vedlegg[idx];
+            box.innerHTML = (v.tittel ? `<div class="vedlegg-tittel">${escHtml(v.tittel)}</div>` : '') +
+              `<div class="vedlegg-innhold">${v.innhold}</div>`;
+          });
+        });
+      }
+
+      // Prev/next/overview live in the bottom bar; their disabled state and
+      // labels are updated here instead of being re-created per task render.
+      function updateNavButtons() {
+        const exam = EXAMS[state.examId];
+        if (!exam) return;
+        const started = !!state.startTs;
+        const onInfo = currentScreen === 'info';
+        const isLast = state.currentTask === exam.tasks.length - 1;
+        $('prevTaskBtn').disabled = !started || onInfo || state.currentTask === 0;
+        $('nextTaskBtn').disabled = !started || onInfo;
+        $('overviewBtn').disabled = !started;
+        $('taskChips').querySelectorAll('.task-btn').forEach((btn) => { btn.disabled = !started; });
+        $('nextTaskBtn').innerHTML = started && isLast && !onInfo
+          ? '<i class="material-icons">check_circle</i>'
+          : '<i class="material-icons">arrow_forward</i>';
+      }
+
+      // ---------- Tidtaker ----------
+      // Time is computed from the start timestamp (not by counting down), so
+      // the exam continues correctly even if the page is reloaded.
+      function remainingMs() {
+        return Math.max(0, (state.startTs + state.durationMs) - Date.now());
+      }
+
+      function formatClock(ms) {
+        const m = Math.ceil(ms / 60000);
+        return m + ' min';
+      }
+
+      function startTimer() {
+        stopTimer();
+        state.timerInterval = setInterval(tick, 1000);
+        tick();
+      }
+
+      function stopTimer() {
+        if (state.timerInterval) {
+          clearInterval(state.timerInterval);
+          state.timerInterval = null;
+        }
+      }
+
+      function tick() {
+        const rem = remainingMs();
+        $('timerText').textContent = formatClock(rem);
+        $('timerChip').classList.toggle('warning', rem <= WARNING_MS);
+        if (rem <= 0) {
+          finishExam();
+        }
+      }
+
+      // ---------- Fullskjerm og fanebytte ----------
+      function enterFullscreen() {
+        const el = document.documentElement;
+        const req = el.requestFullscreen || el.webkitRequestFullscreen;
+        if (typeof req === 'function') {
+          const p = req.call(el);
+          if (p && typeof p.catch === 'function') p.catch(() => {});
+        }
+      }
+
+      function exitFullscreen() {
+        const doc = document;
+        if (doc.fullscreenElement || doc.webkitFullscreenElement) {
+          const exit = doc.exitFullscreen || doc.webkitExitFullscreen;
+          if (typeof exit === 'function') exit.call(doc);
+        }
+      }
+
+      let warningTimeout = null;
+      function showExamWarning(message) {
+        $('examWarningText').textContent = message;
+        $('examWarning').hidden = false;
+        if (warningTimeout) clearTimeout(warningTimeout);
+        warningTimeout = setTimeout(() => { $('examWarning').hidden = true; }, 8000);
+      }
+
+      // ---------- Oversikt ----------
+      function openOverview() {
+        const exam = EXAMS[state.examId];
+        const docMode = state.svarModus === 'dokument';
+        $('overviewList').innerHTML = exam.tasks.map((t, i) => {
+          const done = docMode
+            ? (state.document || '').trim().length > 0
+            : isAnswered(i);
+          return `
+            <button type="button" class="overview-item" data-goto="${i}">
+              <span class="overview-num">${i + 1}</span>
+              <span class="overview-title">${escHtml(t.title)}</span>
+              <span class="overview-status ${done ? 'done' : ''}">
+                <i class="material-icons">${done ? 'check_circle' : 'radio_button_unchecked'}</i>
+                ${done ? 'Besvart' : 'Ikke besvart'}
+              </span>
+            </button>`;
+        }).join('');
+        $('overviewModal').hidden = false;
+        $('overviewCloseBtn').focus();
+      }
+
+      function closeOverview() {
+        $('overviewModal').hidden = true;
+        $('overviewBtn').focus();
+      }
+
+      // ---------- Avbryt eksamen ----------
+      function openAbortModal() {
+        if (!state.startTs || state.finished) return;
+        $('abortModal').hidden = false;
+        $('cancelAbortBtn').focus();
+      }
+
+      function closeAbortModal() {
+        $('abortModal').hidden = true;
+        $('abortExamBtn').focus();
+      }
+
+      // ---------- Avslutning ----------
+      function openEndModal() {
+        if (!state.startTs) return;
+
+        const minLeft = Math.ceil(remainingMs() / 60000);
+        const timeLeft = minLeft > 1
+          ? 'omtrent ' + minLeft + ' minutter'
+          : (minLeft === 1 ? 'omtrent 1 minutt' : 'under ett minutt');
+        $('endModalTimeLeft').textContent = timeLeft;
+        $('endModal').hidden = false;
+        $('cancelEndBtn').focus();
+      }
+
+      function closeEndModal() {
+        $('endModal').hidden = true;
+        // Return focus to the next button if the exam screen is still visible
+        if (!$('screenExam').hidden) {
+          $('nextTaskBtn').focus();
+        }
+      }
+
+      // ---------- Already submitted ----------
+      function submissionStatusHtml(sub) {
+        if (sub.status === 'vurdert' && sub.karakter) {
+          return `
+            <div class="submit-grade">${escHtml(sub.karakter)}</div>
+            <span class="submit-status done"><i class="material-icons">check_circle</i> Vurdert</span>
+            ${sub.kommentar ? `<p class="submit-comment">${escHtml(sub.kommentar)}</p>` : ''}
+            <p class="submit-meta">Levert ${formatDate(sub.created_at)}. Du kan bare levere én prøve per fag.</p>`;
+        }
+        if (sub.status === 'avvist') {
+          return `
+            <span class="submit-status rejected"><i class="material-icons">close</i> Avvist</span>
+            ${sub.kommentar ? `<p class="submit-comment">${escHtml(sub.kommentar)}</p>` : ''}
+            <p class="submit-meta">Levert ${formatDate(sub.created_at)}. Prøven ble ikke godkjent.</p>`;
+        }
+        const label = sub.status === 'under_vurdering' ? 'Under vurdering' : 'Venter på vurdering';
+        return `
+          <span class="submit-status pending"><i class="material-icons">hourglass_top</i> ${label}</span>
+          <p class="submit-meta">Levert ${formatDate(sub.created_at)}. Du kan bare levere én prøve per fag. Karakteren vises her når vurderingen er ferdig.</p>`;
+      }
+
+      function openSubmissionModal(examId) {
+        const sub = submissionsByFag[examId];
+        if (!sub) return;
+        $('submissionModalBody').innerHTML = submissionStatusHtml(sub);
+        $('submissionModal').hidden = false;
+        $('submissionModalCloseBtn').focus();
+      }
+
+      function closeSubmissionModal() {
+        $('submissionModal').hidden = true;
+        const first = $('examGrid').querySelector('.exam-card');
+        if (first) first.focus();
+      }
+
+      function finishExam() {
+        if (state.finished) return;
+        closeEndModal();
+        stopTimer();
+        state.finished = true;
+        state.usedMs = state.durationMs - remainingMs();
+        saveSession();
+        exitFullscreen();
+        renderResult();
+        showScreen('result');
+      }
+
+      // ---------- Resultat ----------
+      async function renderResult() {
+        const exam = EXAMS[state.examId];
+        const total = exam.tasks.length;
+        const answered = state.svarModus === 'dokument'
+          ? ((state.dokumentFil && state.dokumentFil.data && state.dokumentBekreftet) ? total : 0)
+          : exam.tasks.filter((_, i) => isAnswered(i)).length;
+        const usedMin = Math.round(state.usedMs / 60000);
+        const totalMin = Math.round(state.durationMs / 60000);
+
+        $('resultExamName').textContent = exam.title;
+        $('resultTime').textContent = usedMin + ' av ' + totalMin + ' min';
+        $('resultAnswered').textContent = state.svarModus === 'dokument'
+          ? (answered ? '1 av 1 dokument' : '0 av 1 dokument')
+          : answered + ' av ' + total;
+        $('resultTotal').textContent = total + ' oppgaver';
+
+        await renderSubmitSection();
+      }
+
+      // Sensors and admins see a shortcut to the review panel from the result screen
+      function adminPanelNote() {
+        const profile = (window.VHaccount && VHaccount.getCurrentProfile) ? VHaccount.getCurrentProfile() : null;
+        if (!profile || !['admin', 'sensor'].includes(profile.mod_role)) return '';
+        const rollenavn = profile.mod_role === 'sensor' ? 'sensor' : 'administrator';
+        return `<div class="admin-panel-note"><i class="material-icons">verified_user</i> Du er ${rollenavn}. <a href="eksamen-admin.html">Åpne vurderingspanelet</a></div>`;
+      }
+
+      async function renderSubmitSection() {
+        const section = $('submitSection');
+        const hasClient = !!(window.VHaccount && VHaccount.client);
+
+        if (!hasClient) {
+          section.innerHTML = '<div class="submit-panel"><h3>Få prøven vurdert</h3><p>Innlevering er ikke tilgjengelig akkurat nå. Svarene dine er lagret i nettleseren.</p></div>';
+          return;
+        }
+
+        let user = VHaccount.getCurrentUser();
+        if (!user) {
+          try {
+            await VHaccount.refreshAuth();
+            user = VHaccount.getCurrentUser();
+          } catch (e) {
+            // Not signed in – show the sign-in link
+          }
+        }
+
+        if (!user) {
+          section.innerHTML = `
+            <div class="submit-panel">
+              <h3>Få prøven vurdert</h3>
+              <p>Logg inn for å levere svarene dine til vurdering. Når en fra Videregående Hjelp har vurdert dem, får du karakteren din her.</p>
+              <a class="btn btn-primary" href="../profile.html"><i class="material-icons">login</i> Logg inn / lag profil</a>
+            </div>`;
+          return;
+        }
+
+        if (state.submissionId) {
+          await renderSubmissionStatus(section);
+          return;
+        }
+
+        section.innerHTML = `
+          <div class="submit-panel">
+            <h3>Få prøven vurdert</h3>
+            <p>Svarene dine sendes til Videregående Hjelp, hvor et menneske vurderer dem. Du får karakteren din her når vurderingen er ferdig.</p>
+            <button type="button" class="btn btn-primary" id="submitGradeBtn"><i class="material-icons">send</i> Send til en sensor for vurdering</button>
+            <p class="submit-meta">Logget inn som ${escHtml(user.email || user.id || '')}.</p>
+            ${adminPanelNote()}
+          </div>`;
+        $('submitGradeBtn').addEventListener('click', openSubmitModal);
+      }
+
+      async function renderSubmissionStatus(section) {
+        section.innerHTML = '<div class="submit-panel" id="submissionStatusPanel"><p>Laster status…</p></div>';
+        const panel = $('submissionStatusPanel');
+        try {
+          const { data, error } = await VHaccount.client
+            .from('eksamen_innleveringer')
+            .select('status, karakter, kommentar, created_at')
+            .eq('id', state.submissionId)
+            .maybeSingle();
+          if (error) throw error;
+          if (!data) {
+            panel.innerHTML = `
+              <h3>Fant ikke innleveringen</h3>
+              <p>Innleveringen ble ikke funnet. Lever på nytt med knappen under.</p>
+              <button type="button" class="btn btn-primary" id="submitGradeBtn"><i class="material-icons">send</i> Send til en sensor for vurdering</button>
+              ${adminPanelNote()}`;
+            $('submitGradeBtn').addEventListener('click', openSubmitModal);
+            return;
+          }
+          if (data.status === 'vurdert' && data.karakter) {
+            panel.innerHTML = `
+              <h3>Karakter</h3>
+              <div class="submit-grade">${escHtml(data.karakter)}</div>
+              <span class="submit-status done"><i class="material-icons">check_circle</i> Vurdert</span>
+              ${data.kommentar ? `<p class="submit-comment">${escHtml(data.kommentar)}</p>` : ''}
+              <p class="submit-meta">Levert ${formatDate(data.created_at)}.</p>
+              ${adminPanelNote()}`;
+          } else {
+            const label = data.status === 'under_vurdering' ? 'Under vurdering' : 'Venter på vurdering';
+            panel.innerHTML = `
+              <h3>Innlevering mottatt</h3>
+              <span class="submit-status pending"><i class="material-icons">hourglass_top</i> ${label}</span>
+              <p class="submit-meta">Levert ${formatDate(data.created_at)}. Karakteren vises her når vurderingen er ferdig.</p>
+              ${adminPanelNote()}`;
+          }
+        } catch (e) {
+          panel.innerHTML = '<p class="submit-error">Kunne ikke hente statusen til innleveringen. Prøv igjen senere.</p>';
+        }
+      }
+
+      async function submitExam() {
+        const exam = EXAMS[state.examId];
+        // I dokumentmodus må dokumentet være lastet opp og bekreftet før levering.
+        // Hvis ikke, sendes eleven tilbake til siste oppgave med en forklaring.
+        if (state.svarModus === 'dokument' && (!state.dokumentFil || !state.dokumentFil.data || !state.dokumentBekreftet)) {
+          closeSubmitModal();
+          state.finished = false;
+          goToTask(exam.tasks.length - 1);
+          showScreen('exam');
+          startTimer();
+          const hint = $('uploadHint');
+          if (hint) {
+            hint.textContent = !state.dokumentFil
+              ? 'Du må laste opp dokumentet her før du kan levere.'
+              : !state.dokumentFil.data
+                ? 'Siden ble lastet inn på nytt – velg dokumentet igjen før du leverer.'
+                : 'Du må bekrefte at du svarer i dokumentet før du leverer.';
+            hint.hidden = false;
+            hint.classList.add('error');
+          }
+          return;
+        }
+        const btn = $('confirmSubmitBtn');
+        btn.disabled = true;
+        try {
+          await VHaccount.refreshAuth();
+          const user = VHaccount.getCurrentUser();
+          if (!user) throw new Error('Du må være logget inn for å levere.');
+          // Maks 50 personer per sensor – sjekk plassene før vi legger til.
+          if (!sjekkPlusAktiv()) throw new Error('Du må ha Videregående Hjelp+ for å levere en prøve.');
+          const { data: plasserData, error: plasserError } = await VHaccount.client.rpc('eksamen_plasser_brukt');
+          if (!plasserError && typeof plasserData === 'number' && plasserData >= 50) {
+            throw new Error('Prøveeksamenen er full akkurat nå: maks 50 personer per sensor. Prøv igjen senere.');
+          }
+          const usedMin = Math.round(state.usedMs / 60000);
+          const svarPayload = state.svarModus === 'dokument'
+            ? {
+                modus: 'dokument',
+                dokument: state.document || '',
+                fil: state.dokumentFil || null,
+                bekreftet: !!state.dokumentBekreftet
+              }
+            : { modus: 'per-oppgave', svar: state.answers };
+          const { data, error } = await VHaccount.client
+            .from('eksamen_innleveringer')
+            .insert({
+              user_id: user.id,
+              fag_id: exam.id,
+              fag_tittel: exam.title,
+              svar: svarPayload,
+              tid_brukt_min: usedMin,
+              hendelser: state.hendelser
+            })
+            .select('id')
+            .single();
+          if (error) throw error;
+          state.submissionId = data.id;
+          submissionsByFag[exam.id] = {
+            status: 'til_vurdering',
+            karakter: null,
+            kommentar: null,
+            created_at: new Date().toISOString()
+          };
+          saveSession();
+          closeSubmitModal();
+          renderResult();
+        } catch (e) {
+          closeSubmitModal();
+          const missingTable = /does not exist|relation/i.test(String(e.message || ''));
+          const duplicate = /duplicate key|23505/i.test(String(e.message || ''));
+          const full = /full/i.test(String(e.message || ''));
+          const msg = full
+            ? 'Prøveeksamenen er full akkurat nå: maks 50 personer per sensor. Prøv igjen senere.'
+            : duplicate
+              ? 'Du har allerede levert denne prøven. Du kan bare levere én prøve per fag.'
+              : missingTable
+              ? 'Innleveringssystemet er ikke satt opp ennå. Kjør SQL-en i LogMD/eksamen-innleveringer.sql i Supabase-dashbordet, og prøv igjen.'
+              : (String(e.message || '') || 'Kunne ikke levere svarene. Prøv igjen senere.');
+          const section = $('submitSection');
+          section.innerHTML = `
+            <div class="submit-panel">
+              <p class="submit-error">${escHtml(msg)}</p>
+              <button type="button" class="btn btn-primary" id="retrySubmitBtn"><i class="material-icons">replay</i> Prøv igjen</button>
+            </div>`;
+          $('retrySubmitBtn').addEventListener('click', openSubmitModal);
+        } finally {
+          btn.disabled = false;
+        }
+      }
+
+      function openSubmitModal() {
+        $('submitModal').hidden = false;
+        $('cancelSubmitBtn').focus();
+      }
+
+      function closeSubmitModal() {
+        $('submitModal').hidden = true;
+        // The result section re-renders after a submission, so focus a
+        // persistent action instead of a button that may be removed.
+        $('retakeBtn').focus();
+      }
+
+      function backToIntro() {
+        clearSession();
+        resetState();
+        exitFullscreen();
+        showScreen('intro');
+        renderExamGrid();
+      }
+
+      // ---------- Events ----------
+      $('confirmEndBtn').addEventListener('click', finishExam);
+      $('cancelEndBtn').addEventListener('click', closeEndModal);
+      $('abortExamBtn').addEventListener('click', openAbortModal);
+      $('cancelAbortBtn').addEventListener('click', closeAbortModal);
+      $('confirmAbortBtn').addEventListener('click', () => {
+        closeAbortModal();
+        backToIntro();
+      });
+      $('abortModal').addEventListener('click', (e) => {
+        if (e.target === $('abortModal')) closeAbortModal();
+      });
+      $('prevTaskBtn').addEventListener('click', () => goToTask(state.currentTask - 1));
+      $('nextTaskBtn').addEventListener('click', () => {
+        const exam = EXAMS[state.examId];
+        const isLast = state.currentTask === exam.tasks.length - 1;
+        if (isLast) openEndModal();
+        else goToTask(state.currentTask + 1);
+      });
+      $('infoBtn').addEventListener('click', () => {
+        renderInfo();
+        showScreen('info');
+      });
+      $('overviewBtn').addEventListener('click', openOverview);
+      $('overviewCloseBtn').addEventListener('click', closeOverview);
+      $('overviewExitBtn').addEventListener('click', () => {
+        closeOverview();
+        openEndModal();
+      });
+      $('overviewList').addEventListener('click', (e) => {
+        const item = e.target.closest('.overview-item');
+        if (!item) return;
+        goToTask(Number(item.dataset.goto));
+        closeOverview();
+      });
+      $('retakeBtn').addEventListener('click', backToIntro);
+      $('chooseAnotherBtn').addEventListener('click', backToIntro);
+      $('infoBackBtn').addEventListener('click', backToIntro);
+      $('promiseBtn').addEventListener('click', () => {
+        $('promiseBtn').classList.add('promised');
+        $('promiseBtn').disabled = true;
+        $('promiseBtn').innerHTML = '<i class="material-icons">verified</i> Lovet!';
+        $('startExamBtn').disabled = false;
+        $('startExamBtn').focus();
+      });
+      $('startExamBtn').addEventListener('click', () => {
+        enterFullscreen();
+        beginExam();
+      });
+      $('confirmSubmitBtn').addEventListener('click', submitExam);
+      $('cancelSubmitBtn').addEventListener('click', closeSubmitModal);
+
+      document.addEventListener('keydown', (e) => {
+        if (e.key !== 'Escape') return;
+        if (!$('abortModal').hidden) closeAbortModal();
+        if (!$('endModal').hidden) closeEndModal();
+        if (!$('submitModal').hidden) closeSubmitModal();
+        if (!$('overviewModal').hidden) closeOverview();
+        if (!$('submissionModal').hidden) closeSubmissionModal();
+      });
+
+      $('endModal').addEventListener('click', (e) => {
+        if (e.target === $('endModal')) closeEndModal();
+      });
+      $('submitModal').addEventListener('click', (e) => {
+        if (e.target === $('submitModal')) closeSubmitModal();
+      });
+      $('overviewModal').addEventListener('click', (e) => {
+        if (e.target === $('overviewModal')) closeOverview();
+      });
+      $('submissionModalCloseBtn').addEventListener('click', closeSubmissionModal);
+      $('submissionModal').addEventListener('click', (e) => {
+        if (e.target === $('submissionModal')) closeSubmissionModal();
+      });
+      $('plusGateCloseBtn').addEventListener('click', closePlusGate);
+      $('plusGateModal').addEventListener('click', (e) => {
+        if (e.target === $('plusGateModal')) closePlusGate();
+      });
+      document.addEventListener('vhjelp:plus-changed', () => {
+        if (!state.examId) renderExamGrid();
+      });
+
+      document.addEventListener('visibilitychange', () => {
+        if (document.hidden && state.examId && !state.finished && state.startTs) {
+          state.hendelser.tabBytter = (state.hendelser.tabBytter || 0) + 1;
+          saveSession();
+          showExamWarning('Ikke bytt fane under eksamen. Hendelsen er logget.');
+        }
+      });
+
+      // ---------- Init ----------
+      async function init() {
+        if (document.documentElement.classList.contains('device-blocked')) return;
+        await loadExams();
+        if (!examsLoaded) return;
+        await loadMySubmissions();
+        loadPlasserBrukt();
+        renderNivaaToggle();
+        renderExamGrid();
+
+
+
+        if (loadSession()) {
+          if (state.finished) {
+            renderResult();
+            showScreen('result');
+          } else {
+            enterExam();
+          }
+        } else {
+          showScreen('intro');
+        }
+      }
+
+      init();
+    }());
+  </script>
+</body>
+</html>
