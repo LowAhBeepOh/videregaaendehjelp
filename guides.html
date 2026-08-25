@@ -1,913 +1,1139 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="no">
-<head>
-  <script defer src="https://cloud.umami.is/script.js" data-website-id="24f80a75-a09f-4f80-94e0-d9103f0d734d"></script>
-<meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Utforsker guider om videregående skole. Emner inkluderer karakterer, eksamen, studievalg, elevrettigheter, og mer praktisk informasjon for elever.">
-  <meta name="keywords" content="guide, videregående, VGS, karakterer, eksamen, studievalg, elevrettigheter, skole">
-  <meta name="robots" content="index, follow">
-  <meta name="author" content="Videregående Hjelp">
-  <meta name="language" content="Norwegian">
-  <meta property="og:title" content="Guider - Videregående Hjelp">
-  <meta property="og:description" content="Guider om videregående skole; karakterer, eksamen, studievalg, og elevrettigheter.">
-  <meta property="og:type" content="website">
-  <meta property="og:url" content="https://lowahbeepoh.github.io/videregaaendehjelp/guides.html">
-  <meta property="og:image" content="https://lowahbeepoh.github.io/videregaaendehjelp/vgshjelp-logo.png">
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Guider - Videregående Hjelp">
-  <meta name="twitter:description" content="Guider om videregående skole.">
-  <link rel="canonical" href="https://lowahbeepoh.github.io/videregaaendehjelp/guides.html">
-  <title>Guider - Videregående Hjelp</title>
-  <link rel="shortcut icon" href="vgshjelp-logo.png" type="image/x-icon">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200;300;400;500;600;700;800&display=swap" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-  <link rel="stylesheet" href="Assets/css/plus.css">
-  <link rel="stylesheet" href="Assets/css/profile.css">
-  <style>
-    :root {
-      /* Bold Palette */
-      --bg: #050505;
-      --text: #ffffff;
-      --text-muted: #888;
-      
-      --card-red: #d40b00;
-      --card-lime: #D0F54E;
-      --card-blue: #5865F2;
-      --card-orange: #FF9F0A;
-      --card-green: #30D158;
-      --card-pale: #F2F2F7;
-      
-      --surface: #1c1c1e;
-      --border: #2c2c2e;
-      
-      /* Typography */
-      --font-display: 'Inter Tight', sans-serif;
-      --font-body: 'Manrope', sans-serif;
-    }
+  <head>
+    <script
+      defer
+      src="https://cloud.umami.is/script.js"
+      data-website-id="24f80a75-a09f-4f80-94e0-d9103f0d734d"
+    ></script>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Utforsker guider om videregående skole. Emner inkluderer karakterer, eksamen, studievalg, elevrettigheter, og mer praktisk informasjon for elever."
+    />
+    <meta
+      name="keywords"
+      content="guide, videregående, VGS, karakterer, eksamen, studievalg, elevrettigheter, skole"
+    />
+    <meta name="robots" content="index, follow" />
+    <meta name="author" content="Videregående Hjelp" />
+    <meta name="language" content="Norwegian" />
+    <meta property="og:title" content="Guider - Videregående Hjelp" />
+    <meta
+      property="og:description"
+      content="Guider om videregående skole; karakterer, eksamen, studievalg, og elevrettigheter."
+    />
+    <meta property="og:type" content="website" />
+    <meta
+      property="og:url"
+      content="https://lowahbeepoh.github.io/videregaaendehjelp/guides.html"
+    />
+    <meta
+      property="og:image"
+      content="https://lowahbeepoh.github.io/videregaaendehjelp/vgshjelp-logo.png"
+    />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Guider - Videregående Hjelp" />
+    <meta name="twitter:description" content="Guider om videregående skole." />
+    <link
+      rel="canonical"
+      href="https://lowahbeepoh.github.io/videregaaendehjelp/guides.html"
+    />
+    <title>Guider - Videregående Hjelp</title>
+    <link rel="shortcut icon" href="vgshjelp-logo.png" type="image/x-icon" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter+Tight:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Manrope:wght@200;300;400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/icon?family=Material+Icons"
+    />
+    <link rel="stylesheet" href="Assets/css/plus.css" />
+    <link rel="stylesheet" href="Assets/css/profile.css" />
+    <style>
+      :root {
+        /* Bold Palette */
+        --bg: #050505;
+        --text: #ffffff;
+        --text-muted: #888;
 
-    [data-theme="light"] {
-      --bg: #ffffff;
-      --text: #000000;
-      --text-muted: #555;
-      --surface: #f2f2f7;
-      --border: #e5e5ea;
-    }
+        --card-red: #d40b00;
+        --card-lime: #d0f54e;
+        --card-blue: #5865f2;
+        --card-orange: #ff9f0a;
+        --card-green: #30d158;
+        --card-pale: #f2f2f7;
 
-    *, *::before, *::after {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
+        --surface: #1c1c1e;
+        --border: #2c2c2e;
 
-    body {
-      font-family: var(--font-body);
-      background: var(--bg);
-      color: var(--text);
-      line-height: 1.4;
-      min-height: 100vh;
-      overflow-x: hidden;
-    }
-
-    main {
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 0 20px;
-    }
-
-    header {
-      padding: 20px 0;
-      margin-bottom: 40px;
-      border-bottom: 1px solid var(--border);
-    }
-
-    .header-content {
-      max-width: 1400px;
-      width: 100%;
-      margin: 0 auto;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 0 16px;
-    }
-
-    .logo {
-      font-family: var(--font-display);
-      font-size: 24px;
-      font-weight: 700;
-      color: var(--text);
-      text-decoration: none;
-    }
-
-    .header-controls {
-      display: flex;
-      gap: 20px;
-      align-items: center;
-    }
-
-    .header-right {
-      display: flex;
-      align-items: center;
-      gap: 14px;
-      margin-left: auto;
-    }
-
-    .nav-links {
-      display: flex;
-      gap: 30px;
-      align-items: center;
-      list-style: none;
-    }
-
-    .nav-links a {
-      text-decoration: none;
-      color: var(--text-muted);
-      font-weight: 600;
-      font-size: 13px;
-      transition: color 0.2s;
-    }
-
-    .nav-links a:hover {
-      color: var(--text);
-    }
-
-    .nav-links a.active {
-      color: var(--text);
-      font-weight: 600;
-    }
-
-    
-
-    .material-icons {
-      font-size: 24px;
-    }
-
-    /* Page Title */
-    .page-header {
-      margin-bottom: 40px;
-    }
-
-    .page-header h1 {
-      font-family: var(--font-display);
-      font-size: 40px;
-      font-weight: 700;
-      margin-bottom: 8px;
-      letter-spacing: -0.02em;
-    }
-
-    .page-header p {
-      font-size: 16px;
-      color: var(--text-muted);
-    }
-
-    .rewrite-notice {
-      margin: -16px 0 32px;
-      padding: 18px 20px;
-      border: 2px solid var(--card-red);
-      border-left-width: 8px;
-      background: color-mix(in srgb, var(--card-red) 20%, var(--surface));
-      color: var(--text);
-    }
-
-    .rewrite-notice h2 {
-      font-family: var(--font-display);
-      font-size: 20px;
-      margin-bottom: 6px;
-    }
-
-    .rewrite-notice p {
-      color: var(--text);
-      font-size: 14px;
-    }
-
-    /* Content Grid */
-    .guides-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-      gap: 24px;
-      margin-bottom: 80px;
-    }
-
-    .guide-card {
-      background: var(--surface);
-      border: 2px solid var(--border);
-      border-radius: 16px;
-      padding: 28px 24px;
-      transition: all 0.3s;
-      cursor: pointer;
-      text-decoration: none;
-      color: var(--text);
-      display: flex;
-      flex-direction: column;
-      gap: 16px;
-      position: relative;
-    }
-
-    .guide-card:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 8px 32px rgba(0,0,0,0.3);
-    }
-
-    .bookmark-btn {
-      position: absolute;
-      top: 12px;
-      right: 12px;
-      background: rgba(0,0,0,0.15);
-      border: none;
-      border-radius: 50%;
-      width: 36px;
-      height: 36px;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      transition: all 0.2s;
-      z-index: 5;
-      color: inherit;
-      opacity: 0;
-    }
-
-    .guide-card:hover .bookmark-btn {
-      opacity: 1;
-    }
-
-    .bookmark-btn.bookmarked {
-      opacity: 1;
-      background: rgba(0,0,0,0.25);
-    }
-
-    .bookmark-btn .material-icons {
-      font-size: 20px;
-    }
-
-    .guide-icon {
-      font-size: 40px;
-      color: var(--text);
-    }
-
-    /* Guide card type styling - Lime for before VGS */
-    a[href*="new-students"].guide-card,
-    a[href*="program-choice"].guide-card,
-    a[href*="vgs-application-process"].guide-card,
-    a[href*="privatist"].guide-card,
-    a[href*="waitlist"].guide-card,
-    a[href*="exams-in-teen"].guide-card,
-    a[href*="grades-system"].guide-card,
-    a[href*="absence-rules"].guide-card,
-    a[href*="study-better"].guide-card,
-    a[href*="p-eller-t-matte"].guide-card {
-      background: var(--card-lime);
-      border-color: var(--card-lime);
-      color: #000000;
-    }
-
-    a[href*="new-students"].guide-card .guide-icon,
-    a[href*="program-choice"].guide-card .guide-icon,
-    a[href*="vgs-application-process"].guide-card .guide-icon,
-    a[href*="privatist"].guide-card .guide-icon,
-    a[href*="waitlist"].guide-card .guide-icon,
-    a[href*="exams-in-teen"].guide-card .guide-icon,
-    a[href*="grades-system"].guide-card .guide-icon,
-    a[href*="absence-rules"].guide-card .guide-icon,
-    a[href*="study-better"].guide-card .guide-icon,
-    a[href*="p-eller-t-matte"].guide-card .guide-icon {
-      color: #000000;
-    }
-
-    a[href*="new-students"].guide-card .guide-meta,
-    a[href*="program-choice"].guide-card .guide-meta,
-    a[href*="vgs-application-process"].guide-card .guide-meta,
-    a[href*="privatist"].guide-card .guide-meta,
-    a[href*="waitlist"].guide-card .guide-meta,
-    a[href*="exams-in-teen"].guide-card .guide-meta,
-    a[href*="grades-system"].guide-card .guide-meta,
-    a[href*="absence-rules"].guide-card .guide-meta,
-    a[href*="study-better"].guide-card .guide-meta,
-    a[href*="p-eller-t-matte"].guide-card .guide-meta {
-      color: rgba(0,0,0,0.7);
-    }
-
-    /* Guide card type styling - Orange for after VGS */
-    a[href*="finished-students"].guide-card {
-      background: var(--card-orange);
-      border-color: var(--card-orange);
-      color: #000000;
-    }
-
-    a[href*="finished-students"].guide-card .guide-icon {
-      color: #000000;
-    }
-
-    a[href*="finished-students"].guide-card .guide-meta {
-      color: rgba(0,0,0,0.7);
-    }
-
-    /* Guide card type styling - Blue for current VGS students */
-    a[href*="current-students"].guide-card,
-    a[href*="motivation"].guide-card,
-    a[href*="apprenticeships"].guide-card,
-    a[href*="change-school"].guide-card,
-    a[href*="exams-in-vgs"].guide-card,
-    a[href*="student-finances"].guide-card,
-    a[href*="student-rights"].guide-card,
-    a[href*="failing-grades"].guide-card,
-    a[href*="first-time-diploma"].guide-card,
-    a[href*="russ-celebration"].guide-card,
-    a[href*="part-time-job"].guide-card,
-    a[href*="mental-health"].guide-card,
-    a[href*="rule-violations"].guide-card {
-      background: var(--card-blue);
-      border-color: var(--card-blue);
-      color: #ffffff;
-    }
-
-    a[href*="current-students"].guide-card .guide-icon,
-    a[href*="motivation"].guide-card .guide-icon,
-    a[href*="apprenticeships"].guide-card .guide-icon,
-    a[href*="change-school"].guide-card .guide-icon,
-    a[href*="exams-in-vgs"].guide-card .guide-icon,
-    a[href*="student-finances"].guide-card .guide-icon,
-    a[href*="student-rights"].guide-card .guide-icon,
-    a[href*="failing-grades"].guide-card .guide-icon,
-    a[href*="first-time-diploma"].guide-card .guide-icon,
-    a[href*="russ-celebration"].guide-card .guide-icon,
-    a[href*="part-time-job"].guide-card .guide-icon,
-    a[href*="mental-health"].guide-card .guide-icon,
-    a[href*="rule-violations"].guide-card .guide-icon {
-      color: #ffffff;
-    }
-
-    a[href*="current-students"].guide-card .guide-meta,
-    a[href*="motivation"].guide-card .guide-meta,
-    a[href*="apprenticeships"].guide-card .guide-meta,
-    a[href*="change-school"].guide-card .guide-meta,
-    a[href*="exams-in-vgs"].guide-card .guide-meta,
-    a[href*="student-finances"].guide-card .guide-meta,
-    a[href*="student-rights"].guide-card .guide-meta,
-    a[href*="failing-grades"].guide-card .guide-meta,
-    a[href*="first-time-diploma"].guide-card .guide-meta,
-    a[href*="russ-celebration"].guide-card .guide-meta,
-    a[href*="part-time-job"].guide-card .guide-meta,
-    a[href*="mental-health"].guide-card .guide-meta,
-    a[href*="rule-violations"].guide-card .guide-meta {
-      color: rgba(255,255,255,0.8);
-    }
-
-    .guide-card h2 {
-      font-family: var(--font-display);
-      font-size: 20px;
-      font-weight: 700;
-      margin: 0;
-    }
-
-    .guide-card p {
-      color: inherit;
-      font-size: 14px;
-      margin: 0;
-      flex-grow: 1;
-    }
-
-    .guide-meta {
-      display: flex;
-      gap: 8px;
-      align-items: center;
-      font-size: 12px;
-      color: var(--text-muted);
-    }
-
-    /* Settings UI lives on profile.html (theme picker).
-       The pill in the header takes the user there. */
-
-    footer {
-      border-top: 1px solid var(--border);
-      padding: 40px 0;
-      text-align: center;
-      color: var(--text-muted);
-      font-size: 14px;
-    }
-
-    /* Filter Buttons */
-    .filter-section {
-      display: flex;
-      gap: 12px;
-      margin-bottom: 32px;
-      flex-wrap: wrap;
-    }
-
-    .filter-btn {
-      padding: 10px 18px;
-      border: 2px solid var(--border);
-      border-radius: 8px;
-      background: transparent;
-      cursor: pointer;
-      font-family: 'Manrope', sans-serif;
-      font-size: 14px;
-      font-weight: 600;
-      color: var(--text-muted);
-      transition: all 0.2s;
-    }
-
-    .filter-btn:hover {
-      border-color: var(--text);
-      color: var(--text);
-    }
-
-    .filter-btn.active {
-      background: var(--text);
-      color: var(--bg);
-      border-color: var(--text);
-    }
-
-    /* Category-specific button colors */
-    .filter-btn[data-filter="før-vgs"] {
-      border-color: var(--card-lime);
-      color: var(--card-lime);
-    }
-
-    .filter-btn[data-filter="før-vgs"]:hover:not(.active) {
-      border-color: var(--card-lime);
-      color: var(--card-lime);
-    }
-
-    .filter-btn[data-filter="før-vgs"].active {
-      background: var(--card-lime);
-      border-color: var(--card-lime);
-      color: #000000;
-    }
-
-    .filter-btn[data-filter="i-vgs"] {
-      border-color: var(--card-blue);
-      color: var(--card-blue);
-    }
-
-    .filter-btn[data-filter="i-vgs"]:hover:not(.active) {
-      border-color: var(--card-blue);
-      color: var(--card-blue);
-    }
-
-    .filter-btn[data-filter="i-vgs"].active {
-      background: var(--card-blue);
-      border-color: var(--card-blue);
-      color: #ffffff;
-    }
-
-    .filter-btn[data-filter="etter-vgs"] {
-      border-color: var(--card-orange);
-      color: var(--card-orange);
-    }
-
-    .filter-btn[data-filter="etter-vgs"]:hover:not(.active) {
-      border-color: var(--card-orange);
-      color: var(--card-orange);
-    }
-
-    .filter-btn[data-filter="etter-vgs"].active {
-      background: var(--card-orange);
-      border-color: var(--card-orange);
-      color: #000000;
-    }
-
-    /* Light mode adjustments for category buttons */
-    [data-theme="light"] .filter-btn[data-filter="før-vgs"],
-    [data-theme="light"] .filter-btn[data-filter="i-vgs"],
-    [data-theme="light"] .filter-btn[data-filter="etter-vgs"] {
-      color: #000000;
-    }
-
-    [data-theme="light"] .filter-btn[data-filter="i-vgs"].active {
-      color: #000000;
-    }
-
-    @media (max-width: 768px) {
-      .page-header h1 {
-        font-size: 28px;
+        /* Typography */
+        --font-display: "Inter Tight", sans-serif;
+        --font-body: "Manrope", sans-serif;
       }
 
-      .guides-grid {
-        grid-template-columns: 1fr;
+      [data-theme="light"] {
+        --bg: #ffffff;
+        --text: #000000;
+        --text-muted: #555;
+        --surface: #f2f2f7;
+        --border: #e5e5ea;
+      }
+
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      body {
+        font-family: var(--font-body);
+        background: var(--bg);
+        color: var(--text);
+        line-height: 1.4;
+        min-height: 100vh;
+        overflow-x: hidden;
+      }
+
+      main {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 20px;
       }
 
       header {
-        flex-direction: column;
-        gap: 20px;
+        padding: 20px 0;
+        margin-bottom: 40px;
+        border-bottom: 1px solid var(--border);
       }
-    }
-  </style>
-  <link rel="stylesheet" href="Assets/css/shared-header.css">
-  <script defer src="Assets/js/shared-header.js"></script>
-</head>
-<body>
-  <main>
-    <header>
-    <div class="header-content">
-      <a href="index.html" class="logo">
-        <span class="logo-text">Videregående Hjelp</span>
-        <img class="logo-image" src="vgshjelp-logo.png" alt="Videregående Hjelp">
-      </a>
-      <div class="header-right">
-        <div class="nav-container">
-          <a href="guides.html" class="nav-link">
-            <i class="material-icons">book</i>
-            <span>Guider</span>
+
+      .header-content {
+        max-width: 1400px;
+        width: 100%;
+        margin: 0 auto;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0 16px;
+      }
+
+      .logo {
+        font-family: var(--font-display);
+        font-size: 24px;
+        font-weight: 700;
+        color: var(--text);
+        text-decoration: none;
+      }
+
+      .header-controls {
+        display: flex;
+        gap: 20px;
+        align-items: center;
+      }
+
+      .header-right {
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        margin-left: auto;
+      }
+
+      .nav-links {
+        display: flex;
+        gap: 30px;
+        align-items: center;
+        list-style: none;
+      }
+
+      .nav-links a {
+        text-decoration: none;
+        color: var(--text-muted);
+        font-weight: 600;
+        font-size: 13px;
+        transition: color 0.2s;
+      }
+
+      .nav-links a:hover {
+        color: var(--text);
+      }
+
+      .nav-links a.active {
+        color: var(--text);
+        font-weight: 600;
+      }
+
+      .material-icons {
+        font-size: 24px;
+      }
+
+      /* Page Title */
+      .page-header {
+        margin-bottom: 40px;
+      }
+
+      .page-header h1 {
+        font-family: var(--font-display);
+        font-size: 40px;
+        font-weight: 700;
+        margin-bottom: 8px;
+        letter-spacing: -0.02em;
+      }
+
+      .page-header p {
+        font-size: 16px;
+        color: var(--text-muted);
+      }
+
+      .rewrite-notice {
+        margin: -16px 0 32px;
+        padding: 18px 20px;
+        border: 2px solid var(--card-red);
+        border-left-width: 8px;
+        background: color-mix(in srgb, var(--card-red) 20%, var(--surface));
+        color: var(--text);
+      }
+
+      .rewrite-notice h2 {
+        font-family: var(--font-display);
+        font-size: 20px;
+        margin-bottom: 6px;
+      }
+
+      .rewrite-notice p {
+        color: var(--text);
+        font-size: 14px;
+      }
+
+      /* Content Grid */
+      .guides-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+        gap: 24px;
+        margin-bottom: 80px;
+      }
+
+      .guide-card {
+        background: var(--surface);
+        border: 2px solid var(--border);
+        border-radius: 16px;
+        padding: 28px 24px;
+        transition: all 0.3s;
+        cursor: pointer;
+        text-decoration: none;
+        color: var(--text);
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+        position: relative;
+      }
+
+      .guide-card:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+      }
+
+      .bookmark-btn {
+        position: absolute;
+        top: 12px;
+        right: 12px;
+        background: rgba(0, 0, 0, 0.15);
+        border: none;
+        border-radius: 50%;
+        width: 36px;
+        height: 36px;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: all 0.2s;
+        z-index: 5;
+        color: inherit;
+        opacity: 0;
+      }
+
+      .guide-card:hover .bookmark-btn {
+        opacity: 1;
+      }
+
+      .bookmark-btn.bookmarked {
+        opacity: 1;
+        background: rgba(0, 0, 0, 0.25);
+      }
+
+      .bookmark-btn .material-icons {
+        font-size: 20px;
+      }
+
+      .guide-icon {
+        font-size: 40px;
+        color: var(--text);
+      }
+
+      /* Guide card type styling - Lime for before VGS */
+      a[href*="new-students"].guide-card,
+      a[href*="program-choice"].guide-card,
+      a[href*="vgs-application-process"].guide-card,
+      a[href*="privatist"].guide-card,
+      a[href*="waitlist"].guide-card,
+      a[href*="exams-in-teen"].guide-card,
+      a[href*="grades-system"].guide-card,
+      a[href*="absence-rules"].guide-card,
+      a[href*="study-better"].guide-card,
+      a[href*="p-eller-t-matte"].guide-card {
+        background: var(--card-lime);
+        border-color: var(--card-lime);
+        color: #000000;
+      }
+
+      a[href*="new-students"].guide-card .guide-icon,
+      a[href*="program-choice"].guide-card .guide-icon,
+      a[href*="vgs-application-process"].guide-card .guide-icon,
+      a[href*="privatist"].guide-card .guide-icon,
+      a[href*="waitlist"].guide-card .guide-icon,
+      a[href*="exams-in-teen"].guide-card .guide-icon,
+      a[href*="grades-system"].guide-card .guide-icon,
+      a[href*="absence-rules"].guide-card .guide-icon,
+      a[href*="study-better"].guide-card .guide-icon,
+      a[href*="p-eller-t-matte"].guide-card .guide-icon {
+        color: #000000;
+      }
+
+      a[href*="new-students"].guide-card .guide-meta,
+      a[href*="program-choice"].guide-card .guide-meta,
+      a[href*="vgs-application-process"].guide-card .guide-meta,
+      a[href*="privatist"].guide-card .guide-meta,
+      a[href*="waitlist"].guide-card .guide-meta,
+      a[href*="exams-in-teen"].guide-card .guide-meta,
+      a[href*="grades-system"].guide-card .guide-meta,
+      a[href*="absence-rules"].guide-card .guide-meta,
+      a[href*="study-better"].guide-card .guide-meta,
+      a[href*="p-eller-t-matte"].guide-card .guide-meta {
+        color: rgba(0, 0, 0, 0.7);
+      }
+
+      /* Guide card type styling - Orange for after VGS */
+      a[href*="finished-students"].guide-card {
+        background: var(--card-orange);
+        border-color: var(--card-orange);
+        color: #000000;
+      }
+
+      a[href*="finished-students"].guide-card .guide-icon {
+        color: #000000;
+      }
+
+      a[href*="finished-students"].guide-card .guide-meta {
+        color: rgba(0, 0, 0, 0.7);
+      }
+
+      /* Guide card type styling - Blue for current VGS students */
+      a[href*="current-students"].guide-card,
+      a[href*="motivation"].guide-card,
+      a[href*="apprenticeships"].guide-card,
+      a[href*="change-school"].guide-card,
+      a[href*="exams-in-vgs"].guide-card,
+      a[href*="student-finances"].guide-card,
+      a[href*="student-rights"].guide-card,
+      a[href*="failing-grades"].guide-card,
+      a[href*="first-time-diploma"].guide-card,
+      a[href*="russ-celebration"].guide-card,
+      a[href*="part-time-job"].guide-card,
+      a[href*="mental-health"].guide-card,
+      a[href*="rule-violations"].guide-card {
+        background: var(--card-blue);
+        border-color: var(--card-blue);
+        color: #ffffff;
+      }
+
+      a[href*="current-students"].guide-card .guide-icon,
+      a[href*="motivation"].guide-card .guide-icon,
+      a[href*="apprenticeships"].guide-card .guide-icon,
+      a[href*="change-school"].guide-card .guide-icon,
+      a[href*="exams-in-vgs"].guide-card .guide-icon,
+      a[href*="student-finances"].guide-card .guide-icon,
+      a[href*="student-rights"].guide-card .guide-icon,
+      a[href*="failing-grades"].guide-card .guide-icon,
+      a[href*="first-time-diploma"].guide-card .guide-icon,
+      a[href*="russ-celebration"].guide-card .guide-icon,
+      a[href*="part-time-job"].guide-card .guide-icon,
+      a[href*="mental-health"].guide-card .guide-icon,
+      a[href*="rule-violations"].guide-card .guide-icon {
+        color: #ffffff;
+      }
+
+      a[href*="current-students"].guide-card .guide-meta,
+      a[href*="motivation"].guide-card .guide-meta,
+      a[href*="apprenticeships"].guide-card .guide-meta,
+      a[href*="change-school"].guide-card .guide-meta,
+      a[href*="exams-in-vgs"].guide-card .guide-meta,
+      a[href*="student-finances"].guide-card .guide-meta,
+      a[href*="student-rights"].guide-card .guide-meta,
+      a[href*="failing-grades"].guide-card .guide-meta,
+      a[href*="first-time-diploma"].guide-card .guide-meta,
+      a[href*="russ-celebration"].guide-card .guide-meta,
+      a[href*="part-time-job"].guide-card .guide-meta,
+      a[href*="mental-health"].guide-card .guide-meta,
+      a[href*="rule-violations"].guide-card .guide-meta {
+        color: rgba(255, 255, 255, 0.8);
+      }
+
+      .guide-card h2 {
+        font-family: var(--font-display);
+        font-size: 20px;
+        font-weight: 700;
+        margin: 0;
+      }
+
+      .guide-card p {
+        color: inherit;
+        font-size: 14px;
+        margin: 0;
+        flex-grow: 1;
+      }
+
+      .guide-meta {
+        display: flex;
+        gap: 8px;
+        align-items: center;
+        font-size: 12px;
+        color: var(--text-muted);
+      }
+
+      /* Settings UI lives on profile.html (theme picker).
+       The pill in the header takes the user there. */
+
+      footer {
+        border-top: 1px solid var(--border);
+        padding: 40px 0;
+        text-align: center;
+        color: var(--text-muted);
+        font-size: 14px;
+      }
+
+      /* Filter Buttons */
+      .filter-section {
+        display: flex;
+        gap: 12px;
+        margin-bottom: 32px;
+        flex-wrap: wrap;
+      }
+
+      .filter-btn {
+        padding: 10px 18px;
+        border: 2px solid var(--border);
+        border-radius: 8px;
+        background: transparent;
+        cursor: pointer;
+        font-family: "Manrope", sans-serif;
+        font-size: 14px;
+        font-weight: 600;
+        color: var(--text-muted);
+        transition: all 0.2s;
+      }
+
+      .filter-btn:hover {
+        border-color: var(--text);
+        color: var(--text);
+      }
+
+      .filter-btn.active {
+        background: var(--text);
+        color: var(--bg);
+        border-color: var(--text);
+      }
+
+      /* Category-specific button colors */
+      .filter-btn[data-filter="før-vgs"] {
+        border-color: var(--card-lime);
+        color: var(--card-lime);
+      }
+
+      .filter-btn[data-filter="før-vgs"]:hover:not(.active) {
+        border-color: var(--card-lime);
+        color: var(--card-lime);
+      }
+
+      .filter-btn[data-filter="før-vgs"].active {
+        background: var(--card-lime);
+        border-color: var(--card-lime);
+        color: #000000;
+      }
+
+      .filter-btn[data-filter="i-vgs"] {
+        border-color: var(--card-blue);
+        color: var(--card-blue);
+      }
+
+      .filter-btn[data-filter="i-vgs"]:hover:not(.active) {
+        border-color: var(--card-blue);
+        color: var(--card-blue);
+      }
+
+      .filter-btn[data-filter="i-vgs"].active {
+        background: var(--card-blue);
+        border-color: var(--card-blue);
+        color: #ffffff;
+      }
+
+      .filter-btn[data-filter="etter-vgs"] {
+        border-color: var(--card-orange);
+        color: var(--card-orange);
+      }
+
+      .filter-btn[data-filter="etter-vgs"]:hover:not(.active) {
+        border-color: var(--card-orange);
+        color: var(--card-orange);
+      }
+
+      .filter-btn[data-filter="etter-vgs"].active {
+        background: var(--card-orange);
+        border-color: var(--card-orange);
+        color: #000000;
+      }
+
+      /* Light mode adjustments for category buttons */
+      [data-theme="light"] .filter-btn[data-filter="før-vgs"],
+      [data-theme="light"] .filter-btn[data-filter="i-vgs"],
+      [data-theme="light"] .filter-btn[data-filter="etter-vgs"] {
+        color: #000000;
+      }
+
+      [data-theme="light"] .filter-btn[data-filter="i-vgs"].active {
+        color: #000000;
+      }
+
+      @media (max-width: 768px) {
+        .page-header h1 {
+          font-size: 28px;
+        }
+
+        .guides-grid {
+          grid-template-columns: 1fr;
+        }
+
+        header {
+          flex-direction: column;
+          gap: 20px;
+        }
+      }
+    </style>
+    <link rel="stylesheet" href="Assets/css/shared-header.css" />
+    <script defer src="Assets/js/shared-header.js"></script>
+  </head>
+  <body>
+    <main>
+      <header>
+        <div class="header-content">
+          <a href="index.html" class="logo">
+            <span class="logo-text">Videregående Hjelp</span>
+            <img
+              class="logo-image"
+              src="vgshjelp-logo.png"
+              alt="Videregående Hjelp"
+            />
           </a>
-          <a href="tools.html" class="nav-link">
-            <i class="material-icons">quiz</i>
-            <span>Verktøy</span>
-          </a>
-          <button class="burger-btn" id="burgerBtn" aria-label="Meny">
-            <i class="material-icons">menu</i>
-          </button>
-          <div class="nav-dropdown" id="navDropdown">
-            <a href="resources.html" class="dropdown-item">
-              <i class="material-icons">folder</i>
-              Ressurser
-            </a>
-            <a href="news.html" class="dropdown-item nav-news-mobile">
-              <i class="material-icons">newspaper</i>
-              Nyheter
-            </a>
+          <div class="header-right">
+            <div class="nav-container">
+              <a href="guides.html" class="nav-link">
+                <i class="material-icons">book</i>
+                <span>Guider</span>
+              </a>
+              <a href="tools.html" class="nav-link">
+                <i class="material-icons">quiz</i>
+                <span>Verktøy</span>
+              </a>
+              <button class="burger-btn" id="burgerBtn" aria-label="Meny">
+                <i class="material-icons">menu</i>
+              </button>
+              <div class="nav-dropdown" id="navDropdown">
+                <a href="resources.html" class="dropdown-item">
+                  <i class="material-icons">folder</i>
+                  Ressurser
+                </a>
+                <a href="news.html" class="dropdown-item nav-news-mobile">
+                  <i class="material-icons">newspaper</i>
+                  Nyheter
+                </a>
+              </div>
+            </div>
+            <a
+              href="profile.html"
+              class="profile-pill"
+              aria-label="Min profil"
+            ></a>
           </div>
         </div>
-        <a href="profile.html" class="profile-pill" aria-label="Min profil"></a>
-      </div>
-    </div>
-</header>
+      </header>
 
-    <section class="page-header">
-      <h1>Guider</h1>
-      <p>Lær alt du trenger å vite om videregående skole. Fra hvordan det fungerer til tips for å lykkes.</p>
-    </section>
+      <section class="page-header">
+        <h1>Guider</h1>
+        <p>
+          Lær alt du trenger å vite om videregående skole. Fra hvordan det
+          fungerer til tips for å lykkes.
+        </p>
+      </section>
 
-    <aside class="rewrite-notice" aria-labelledby="rewrite-notice-title">
-      <h2 id="rewrite-notice-title">Alle guider skal skrives om</h2>
-      <p>Guidene på Videregående Hjelp vil bli gjennomgått, skrevet om og endret fordi nettstedet innfører en ny <strong>Kildesjekk-regel</strong> og en ny <strong>Kvalitetsregel</strong>. Innholdet kan derfor endres mens arbeidet pågår.</p>
-    </aside>
+      <aside class="rewrite-notice" aria-labelledby="rewrite-notice-title">
+        <h2 id="rewrite-notice-title">Alle guider skal skrives om</h2>
+        <p>
+          Guidene på Videregående Hjelp vil bli gjennomgått, skrevet om og
+          endret fordi nettstedet innfører en ny
+          <strong>Kildesjekk-regel</strong> og en ny
+          <strong>Kvalitetsregel</strong>. Innholdet kan derfor endres mens
+          arbeidet pågår.
+        </p>
+      </aside>
 
-    <section class="filter-section">
-      <button class="filter-btn active" data-filter="all">Alle</button>
-      <button class="filter-btn" data-filter="bokmerker">⭐ Bokmerker</button>
-      <button class="filter-btn" data-filter="før-vgs">Før VGS</button>
-      <button class="filter-btn" data-filter="i-vgs">I VGS</button>
-      <button class="filter-btn" data-filter="etter-vgs">Etter VGS</button>
-    </section>
+      <section class="filter-section">
+        <button class="filter-btn active" data-filter="all">Alle</button>
+        <button class="filter-btn" data-filter="bokmerker">⭐ Bokmerker</button>
+        <button class="filter-btn" data-filter="før-vgs">Før VGS</button>
+        <button class="filter-btn" data-filter="i-vgs">I VGS</button>
+        <button class="filter-btn" data-filter="etter-vgs">Etter VGS</button>
+      </section>
 
-    <section class="guides-grid">
-      <a href="Guides/new-students.html" class="guide-card" data-category="før-vgs">
-        <span class="material-icons guide-icon">school</span>
-        <h2>Jeg starter på VGS snart</h2>
-        <p>Hva du trenger å vite før du begynner, hvordan søke, og hva som venter deg.</p>
-        <div class="guide-meta">
-          <span class="material-icons" style="font-size: 16px;">info</span>
-          <span>8 minutter lesning</span>
-        </div>
-      </a>
-      <a href="Guides/current-students.html" class="guide-card" data-category="i-vgs">
-        <span class="material-icons guide-icon">assignment</span>
-        <h2>Jeg er i videregående nå</h2>
-        <p>Praktisk hjelp, tips for studier, og hvordan håndtere utfordringer.</p>
-        <div class="guide-meta">
-          <span class="material-icons" style="font-size: 16px;">info</span>
-          <span>12 minutter lesning</span>
-        </div>
-      </a>
-      <a href="Guides/finished-students.html" class="guide-card" data-category="etter-vgs">
-        <span class="material-icons guide-icon">trending_up</span>
-        <h2>Jeg er ferdig på VGS</h2>
-        <p>Hva kommer videre? Universitet, jobb, eller noe tredje? Alternativer og mulig.</p>
-        <div class="guide-meta">
-          <span class="material-icons" style="font-size: 16px;">info</span>
-          <span>10 minutter lesning</span>
-        </div>
-      </a>
-      <a href="Guides/program-choice.html" class="guide-card" data-category="før-vgs">
-        <span class="material-icons guide-icon">menu_book</span>
-        <h2>Hvordan velge program</h2>
-        <p>Oversikt over de forskjellige programmene og hvordan finne det som passer deg best.</p>
-        <div class="guide-meta">
-          <span class="material-icons" style="font-size: 16px;">info</span>
-          <span>7 minutter lesning</span>
-        </div>
-      </a>
-      <a href="Guides/grades-system.html" class="guide-card" data-category="før-vgs">
-        <span class="material-icons guide-icon">assessment</span>
-        <h2>Master karaktersystemet</h2>
-        <p>Forstå hvordan karakterer beregnes og hva som skal til for å få gode karakterer.</p>
-        <div class="guide-meta">
-          <span class="material-icons" style="font-size: 16px;">info</span>
-          <span>6 minutter lesning</span>
-        </div>
-      </a>
-      <a href="Guides/motivation.html" class="guide-card" data-category="i-vgs">
-        <span class="material-icons guide-icon">psychology</span>
-        <h2>Motivasjon og velvære</h2>
-        <p>Tips for å holde motivasjonen oppe og ta vare på din mentale helse.</p>
-        <div class="guide-meta">
-          <span class="material-icons" style="font-size: 16px;">info</span>
-          <span>9 minutter lesning</span>
-        </div>
-      </a>
-      <a href="Guides/absence-rules.html" class="guide-card" data-category="før-vgs">
-        <span class="material-icons guide-icon">event_busy</span>
-        <h2>Fravær og fraværsgrense</h2>
-        <p>Forstå reglene for fravær i videregående skole og hvordan unngå problemer.</p>
-        <div class="guide-meta">
-          <span class="material-icons" style="font-size: 16px;">info</span>
-          <span>5 minutter lesning</span>
-        </div>
-      </a>
-      <a href="Guides/apprenticeships-and-vocational.html" class="guide-card" data-category="i-vgs">
-        <span class="material-icons guide-icon">engineering</span>
-        <h2>Lærlinger og yrkesfag</h2>
-        <p>Alt om 2+2-modellen, fagbrev og hvordan bli lærling i bedrift.</p>
-        <div class="guide-meta">
-          <span class="material-icons" style="font-size: 16px;">info</span>
-          <span>7 minutter lesning</span>
-        </div>
-      </a>
-      <a href="Guides/change-school-or-program.html" class="guide-card" data-category="i-vgs">
-        <span class="material-icons guide-icon">swap_horiz</span>
-        <h2>Bytte skole eller program</h2>
-        <p>Hvordan og når du kan bytte, og hva du må tenke på før du tar valget.</p>
-        <div class="guide-meta">
-          <span class="material-icons" style="font-size: 16px;">info</span>
-          <span>4 minutter lesning</span>
-        </div>
-      </a>
-      <a href="Guides/exams-in-teen.html" class="guide-card" data-category="før-vgs">
-        <span class="material-icons guide-icon">quiz</span>
-        <h2>Eksamen i Ungdomsskolen</h2>
-        <p>Hvordan eksamen fungerer, typer eksamen og tips til forberedelser.</p>
-        <div class="guide-meta">
-          <span class="material-icons" style="font-size: 16px;">info</span>
-          <span>8 minutter lesning</span>
-        </div>
-      </a>
-      <a href="Guides/exams-in-vgs.html" class="guide-card" data-category="i-vgs">
-        <span class="material-icons guide-icon">quiz</span>
-        <h2>Eksamen i videregående</h2>
-        <p>Hvordan eksamen fungerer, typer eksamen og tips til forberedelser.</p>
-        <div class="guide-meta">
-          <span class="material-icons" style="font-size: 16px;">info</span>
-          <span>8 minutter lesning</span>
-        </div>
-      </a>
-      <a href="Guides/student-finances.html" class="guide-card" data-category="i-vgs">
-        <span class="material-icons guide-icon">account_balance_wallet</span>
-        <h2>Stipend og økonomi</h2>
-        <p>Alt om stipend fra Lånekassen, utstyrsstipend og borteboerstipend.</p>
-        <div class="guide-meta">
-          <span class="material-icons" style="font-size: 16px;">info</span>
-          <span>6 minutter lesning</span>
-        </div>
-      </a>
-      <a href="Guides/student-rights-and-school-life.html" class="guide-card" data-category="i-vgs">
-        <span class="material-icons guide-icon">gavel</span>
-        <h2>Rettigheter og skolehverdag</h2>
-        <p>Dine rettigheter som elev, rådgivning og hvordan påvirke skolemiljøet.</p>
-        <div class="guide-meta">
-          <span class="material-icons" style="font-size: 16px;">info</span>
-          <span>5 minutter lesning</span>
-        </div>
-      </a>
-      <a href="Guides/study-better-and-grades.html" class="guide-card" data-category="før-vgs">
-        <span class="material-icons guide-icon">trending_up</span>
-        <h2>Få bedre karakterer</h2>
-        <p>Effektive studieteknikker og tips for å forbedre karakterene dine.</p>
-        <div class="guide-meta">
-          <span class="material-icons" style="font-size: 16px;">info</span>
-          <span>6 minutter lesning</span>
-        </div>
-      </a>
-      <a href="Guides/vgs-application-process.html" class="guide-card" data-category="før-vgs">
-        <span class="material-icons guide-icon">how_to_reg</span>
-        <h2>Søknadsprosessen til VGS</h2>
-        <p>Steg-for-steg guide til hvordan søke videregående skole via Vigo.</p>
-        <div class="guide-meta">
-          <span class="material-icons" style="font-size: 16px;">info</span>
-          <span>8 minutter lesning</span>
-        </div>
-      </a>
-      <a href="Guides/p-eller-t-matte.html" class="guide-card" data-category="før-vgs">
-        <span class="material-icons guide-icon">calculate</span>
-        <h2>P- eller T-matte?</h2>
-        <p>Valg mellom praktisk og teoretisk matematikk i vg1 – hva passer deg best?</p>
-        <div class="guide-meta">
-          <span class="material-icons" style="font-size: 16px;">info</span>
-          <span>6 minutter lesning</span>
-        </div>
-      </a>
-      <a href="Guides/privatist.html" class="guide-card" data-category="før-vgs">
-        <span class="material-icons guide-icon">grade</span>
-        <h2>Privatist - ta eksamen uten skole</h2>
-        <p>Alt om hvordan ta eksamen uten å gå på skole, påmelding og forberedelse.</p>
-        <div class="guide-meta">
-          <span class="material-icons" style="font-size: 16px;">info</span>
-          <span>7 minutter lesning</span>
-        </div>
-      </a>
-      <a href="Guides/waitlist.html" class="guide-card" data-category="før-vgs">
-        <span class="material-icons guide-icon">schedule</span>
-        <h2>Standby-plasser og ventelister</h2>
-        <p>Hva det betydde å være på ventelisten og hvordan ansettelser fungerer.</p>
-        <div class="guide-meta">
-          <span class="material-icons" style="font-size: 16px;">info</span>
-          <span>5 minutter lesning</span>
-        </div>
-      </a>
-      <a href="Guides/failing-grades.html" class="guide-card" data-category="i-vgs">
-        <span class="material-icons guide-icon">warning</span>
-        <h2>Stryk og ikke bestått</h2>
-        <p>Hva du bør vite om strykkarakterier og hva du kan gjøre videre.</p>
-        <div class="guide-meta">
-          <span class="material-icons" style="font-size: 16px;">info</span>
-          <span>6 minutter lesning</span>
-        </div>
-      </a>
-      <a href="Guides/first-time-diploma.html" class="guide-card" data-category="i-vgs">
-        <span class="material-icons guide-icon">school</span>
-        <h2>Førstegangsvitnemål</h2>
-        <p>Hva det er og hva det betyr for opptak.</p>
-        <div class="guide-meta">
-          <span class="material-icons" style="font-size: 16px;">info</span>
-          <span>8 minutter lesning</span>
-        </div>
-      </a>
-      <a href="Guides/russ-celebration.html" class="guide-card" data-category="i-vgs">
-        <span class="material-icons guide-icon">celebration</span>
-        <h2>Russefeiringen</h2>
-        <p>Alt om russetiden – historie, farger, russeknuter, kostnader og tips for en trygg feiring.</p>
-        <div class="guide-meta">
-          <span class="material-icons" style="font-size: 16px;">info</span>
-          <span>10 minutter lesning</span>
-        </div>
-      </a>
-      <a href="Guides/part-time-job.html" class="guide-card" data-category="i-vgs">
-        <span class="material-icons guide-icon">work</span>
-        <h2>Deltidsjobb under VGS</h2>
-        <p>Regler for arbeidstid, rettigheter, skatt og tips for å balansere jobb og skole.</p>
-        <div class="guide-meta">
-          <span class="material-icons" style="font-size: 16px;">info</span>
-          <span>8 minutter lesning</span>
-        </div>
-      </a>
-      <a href="Guides/mental-health.html" class="guide-card" data-category="i-vgs">
-        <span class="material-icons guide-icon">favorite</span>
-        <h2>Mental helse og helse</h2>
-        <p>Ta vare på deg selv – vanlige utfordringer, gode vaner, og hvor du kan få hjelp.</p>
-        <div class="guide-meta">
-          <span class="material-icons" style="font-size: 16px;">info</span>
-          <span>9 minutter lesning</span>
-        </div>
-      </a>
-      <a href="Guides/rule-violations.html" class="guide-card" data-category="i-vgs">
-        <span class="material-icons guide-icon">report_problem</span>
-        <h2>Regelbrudd og konsekvenser</h2>
-        <p>Ordensreglement, fusk, bortvisning, og hvordan klage – kjenn rettighetene dine.</p>
-        <div class="guide-meta">
-          <span class="material-icons" style="font-size: 16px;">info</span>
-          <span>8 minutter lesning</span>
-        </div>
-      </a>
-    </section>
-  </main>
+      <section class="guides-grid">
+        <a
+          href="Guides/new-students.html"
+          class="guide-card"
+          data-category="før-vgs"
+        >
+          <span class="material-icons guide-icon">school</span>
+          <h2>Jeg starter på VGS snart</h2>
+          <p>
+            Hva du trenger å vite før du begynner, hvordan søke, og hva som
+            venter deg.
+          </p>
+          <div class="guide-meta">
+            <span class="material-icons" style="font-size: 16px">info</span>
+            <span>8 minutter lesning</span>
+          </div>
+        </a>
+        <a
+          href="Guides/current-students.html"
+          class="guide-card"
+          data-category="i-vgs"
+        >
+          <span class="material-icons guide-icon">assignment</span>
+          <h2>Jeg er i videregående nå</h2>
+          <p>
+            Praktisk hjelp, tips for studier, og hvordan håndtere utfordringer.
+          </p>
+          <div class="guide-meta">
+            <span class="material-icons" style="font-size: 16px">info</span>
+            <span>12 minutter lesning</span>
+          </div>
+        </a>
+        <a
+          href="Guides/finished-students.html"
+          class="guide-card"
+          data-category="etter-vgs"
+        >
+          <span class="material-icons guide-icon">trending_up</span>
+          <h2>Jeg er ferdig på VGS</h2>
+          <p>
+            Hva kommer videre? Universitet, jobb, eller noe tredje? Alternativer
+            og mulig.
+          </p>
+          <div class="guide-meta">
+            <span class="material-icons" style="font-size: 16px">info</span>
+            <span>10 minutter lesning</span>
+          </div>
+        </a>
+        <a
+          href="Guides/program-choice.html"
+          class="guide-card"
+          data-category="før-vgs"
+        >
+          <span class="material-icons guide-icon">menu_book</span>
+          <h2>Hvordan velge program</h2>
+          <p>
+            Oversikt over de forskjellige programmene og hvordan finne det som
+            passer deg best.
+          </p>
+          <div class="guide-meta">
+            <span class="material-icons" style="font-size: 16px">info</span>
+            <span>7 minutter lesning</span>
+          </div>
+        </a>
+        <a
+          href="Guides/grades-system.html"
+          class="guide-card"
+          data-category="før-vgs"
+        >
+          <span class="material-icons guide-icon">assessment</span>
+          <h2>Master karaktersystemet</h2>
+          <p>
+            Forstå hvordan karakterer beregnes og hva som skal til for å få gode
+            karakterer.
+          </p>
+          <div class="guide-meta">
+            <span class="material-icons" style="font-size: 16px">info</span>
+            <span>6 minutter lesning</span>
+          </div>
+        </a>
+        <a
+          href="Guides/motivation.html"
+          class="guide-card"
+          data-category="i-vgs"
+        >
+          <span class="material-icons guide-icon">psychology</span>
+          <h2>Motivasjon og velvære</h2>
+          <p>
+            Tips for å holde motivasjonen oppe og ta vare på din mentale helse.
+          </p>
+          <div class="guide-meta">
+            <span class="material-icons" style="font-size: 16px">info</span>
+            <span>9 minutter lesning</span>
+          </div>
+        </a>
+        <a
+          href="Guides/absence-rules.html"
+          class="guide-card"
+          data-category="før-vgs"
+        >
+          <span class="material-icons guide-icon">event_busy</span>
+          <h2>Fravær og fraværsgrense</h2>
+          <p>
+            Forstå reglene for fravær i videregående skole og hvordan unngå
+            problemer.
+          </p>
+          <div class="guide-meta">
+            <span class="material-icons" style="font-size: 16px">info</span>
+            <span>5 minutter lesning</span>
+          </div>
+        </a>
+        <a
+          href="Guides/apprenticeships-and-vocational.html"
+          class="guide-card"
+          data-category="i-vgs"
+        >
+          <span class="material-icons guide-icon">engineering</span>
+          <h2>Lærlinger og yrkesfag</h2>
+          <p>Alt om 2+2-modellen, fagbrev og hvordan bli lærling i bedrift.</p>
+          <div class="guide-meta">
+            <span class="material-icons" style="font-size: 16px">info</span>
+            <span>7 minutter lesning</span>
+          </div>
+        </a>
+        <a
+          href="Guides/change-school-or-program.html"
+          class="guide-card"
+          data-category="i-vgs"
+        >
+          <span class="material-icons guide-icon">swap_horiz</span>
+          <h2>Bytte skole eller program</h2>
+          <p>
+            Hvordan og når du kan bytte, og hva du må tenke på før du tar
+            valget.
+          </p>
+          <div class="guide-meta">
+            <span class="material-icons" style="font-size: 16px">info</span>
+            <span>4 minutter lesning</span>
+          </div>
+        </a>
+        <a
+          href="Guides/exams-in-teen.html"
+          class="guide-card"
+          data-category="før-vgs"
+        >
+          <span class="material-icons guide-icon">quiz</span>
+          <h2>Eksamen i Ungdomsskolen</h2>
+          <p>
+            Hvordan eksamen fungerer, typer eksamen og tips til forberedelser.
+          </p>
+          <div class="guide-meta">
+            <span class="material-icons" style="font-size: 16px">info</span>
+            <span>8 minutter lesning</span>
+          </div>
+        </a>
+        <a
+          href="Guides/exams-in-vgs.html"
+          class="guide-card"
+          data-category="i-vgs"
+        >
+          <span class="material-icons guide-icon">quiz</span>
+          <h2>Eksamen i videregående</h2>
+          <p>
+            Hvordan eksamen fungerer, typer eksamen og tips til forberedelser.
+          </p>
+          <div class="guide-meta">
+            <span class="material-icons" style="font-size: 16px">info</span>
+            <span>8 minutter lesning</span>
+          </div>
+        </a>
+        <a
+          href="Guides/student-finances.html"
+          class="guide-card"
+          data-category="i-vgs"
+        >
+          <span class="material-icons guide-icon">account_balance_wallet</span>
+          <h2>Stipend og økonomi</h2>
+          <p>
+            Alt om stipend fra Lånekassen, utstyrsstipend og borteboerstipend.
+          </p>
+          <div class="guide-meta">
+            <span class="material-icons" style="font-size: 16px">info</span>
+            <span>6 minutter lesning</span>
+          </div>
+        </a>
+        <a
+          href="Guides/student-rights-and-school-life.html"
+          class="guide-card"
+          data-category="i-vgs"
+        >
+          <span class="material-icons guide-icon">gavel</span>
+          <h2>Rettigheter og skolehverdag</h2>
+          <p>
+            Dine rettigheter som elev, rådgivning og hvordan påvirke
+            skolemiljøet.
+          </p>
+          <div class="guide-meta">
+            <span class="material-icons" style="font-size: 16px">info</span>
+            <span>5 minutter lesning</span>
+          </div>
+        </a>
+        <a
+          href="Guides/study-better-and-grades.html"
+          class="guide-card"
+          data-category="før-vgs"
+        >
+          <span class="material-icons guide-icon">trending_up</span>
+          <h2>Få bedre karakterer</h2>
+          <p>
+            Effektive studieteknikker og tips for å forbedre karakterene dine.
+          </p>
+          <div class="guide-meta">
+            <span class="material-icons" style="font-size: 16px">info</span>
+            <span>6 minutter lesning</span>
+          </div>
+        </a>
+        <a
+          href="Guides/vgs-application-process.html"
+          class="guide-card"
+          data-category="før-vgs"
+        >
+          <span class="material-icons guide-icon">how_to_reg</span>
+          <h2>Søknadsprosessen til VGS</h2>
+          <p>
+            Steg-for-steg guide til hvordan søke videregående skole via Vigo.
+          </p>
+          <div class="guide-meta">
+            <span class="material-icons" style="font-size: 16px">info</span>
+            <span>8 minutter lesning</span>
+          </div>
+        </a>
+        <a
+          href="Guides/p-eller-t-matte.html"
+          class="guide-card"
+          data-category="før-vgs"
+        >
+          <span class="material-icons guide-icon">calculate</span>
+          <h2>P- eller T-matte?</h2>
+          <p>
+            Valg mellom praktisk og teoretisk matematikk i vg1 – hva passer deg
+            best?
+          </p>
+          <div class="guide-meta">
+            <span class="material-icons" style="font-size: 16px">info</span>
+            <span>6 minutter lesning</span>
+          </div>
+        </a>
+        <a
+          href="Guides/privatist.html"
+          class="guide-card"
+          data-category="før-vgs"
+        >
+          <span class="material-icons guide-icon">grade</span>
+          <h2>Privatist - ta eksamen uten skole</h2>
+          <p>
+            Alt om hvordan ta eksamen uten å gå på skole, påmelding og
+            forberedelse.
+          </p>
+          <div class="guide-meta">
+            <span class="material-icons" style="font-size: 16px">info</span>
+            <span>7 minutter lesning</span>
+          </div>
+        </a>
+        <a
+          href="Guides/waitlist.html"
+          class="guide-card"
+          data-category="før-vgs"
+        >
+          <span class="material-icons guide-icon">schedule</span>
+          <h2>Standby-plasser og ventelister</h2>
+          <p>
+            Hva det betydde å være på ventelisten og hvordan ansettelser
+            fungerer.
+          </p>
+          <div class="guide-meta">
+            <span class="material-icons" style="font-size: 16px">info</span>
+            <span>5 minutter lesning</span>
+          </div>
+        </a>
+        <a
+          href="Guides/failing-grades.html"
+          class="guide-card"
+          data-category="i-vgs"
+        >
+          <span class="material-icons guide-icon">warning</span>
+          <h2>Stryk og ikke bestått</h2>
+          <p>Hva du bør vite om strykkarakterier og hva du kan gjøre videre.</p>
+          <div class="guide-meta">
+            <span class="material-icons" style="font-size: 16px">info</span>
+            <span>6 minutter lesning</span>
+          </div>
+        </a>
+        <a
+          href="Guides/first-time-diploma.html"
+          class="guide-card"
+          data-category="i-vgs"
+        >
+          <span class="material-icons guide-icon">school</span>
+          <h2>Førstegangsvitnemål</h2>
+          <p>Hva det er og hva det betyr for opptak.</p>
+          <div class="guide-meta">
+            <span class="material-icons" style="font-size: 16px">info</span>
+            <span>8 minutter lesning</span>
+          </div>
+        </a>
+        <a
+          href="Guides/russ-celebration.html"
+          class="guide-card"
+          data-category="i-vgs"
+        >
+          <span class="material-icons guide-icon">celebration</span>
+          <h2>Russefeiringen</h2>
+          <p>
+            Alt om russetiden – historie, farger, russeknuter, kostnader og tips
+            for en trygg feiring.
+          </p>
+          <div class="guide-meta">
+            <span class="material-icons" style="font-size: 16px">info</span>
+            <span>10 minutter lesning</span>
+          </div>
+        </a>
+        <a
+          href="Guides/part-time-job.html"
+          class="guide-card"
+          data-category="i-vgs"
+        >
+          <span class="material-icons guide-icon">work</span>
+          <h2>Deltidsjobb under VGS</h2>
+          <p>
+            Regler for arbeidstid, rettigheter, skatt og tips for å balansere
+            jobb og skole.
+          </p>
+          <div class="guide-meta">
+            <span class="material-icons" style="font-size: 16px">info</span>
+            <span>8 minutter lesning</span>
+          </div>
+        </a>
+        <a
+          href="Guides/mental-health.html"
+          class="guide-card"
+          data-category="i-vgs"
+        >
+          <span class="material-icons guide-icon">favorite</span>
+          <h2>Mental helse og helse</h2>
+          <p>
+            Ta vare på deg selv – vanlige utfordringer, gode vaner, og hvor du
+            kan få hjelp.
+          </p>
+          <div class="guide-meta">
+            <span class="material-icons" style="font-size: 16px">info</span>
+            <span>9 minutter lesning</span>
+          </div>
+        </a>
+        <a
+          href="Guides/rule-violations.html"
+          class="guide-card"
+          data-category="i-vgs"
+        >
+          <span class="material-icons guide-icon">report_problem</span>
+          <h2>Regelbrudd og konsekvenser</h2>
+          <p>
+            Ordensreglement, fusk, bortvisning, og hvordan klage – kjenn
+            rettighetene dine.
+          </p>
+          <div class="guide-meta">
+            <span class="material-icons" style="font-size: 16px">info</span>
+            <span>8 minutter lesning</span>
+          </div>
+        </a>
+      </section>
+    </main>
 
-  <footer>
-    <p>&copy; 2026 Videregående Hjelp. Et åpent prosjekt for alle.</p>
-  </footer>
+    <footer>
+      <p>&copy; 2026 Videregående Hjelp. Et åpent prosjekt for alle.</p>
+    </footer>
 
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-  <script src="Assets/js/account.js"></script>
-  <script>
-    // Theme Management
-    function initTheme() {
-      const saved = localStorage.getItem('theme') || 'system';
-      setTheme(saved);
-    }
-
-    function setTheme(theme) {
-      localStorage.setItem('theme', theme);
-      
-      let finalTheme = theme;
-      if (theme === 'system') {
-        finalTheme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="Assets/js/account.js"></script>
+    <script>
+      // Theme Management
+      function initTheme() {
+        const saved = localStorage.getItem("theme") || "system";
+        setTheme(saved);
       }
 
-      document.documentElement.setAttribute('data-theme', finalTheme);
-    }
+      function setTheme(theme) {
+        localStorage.setItem("theme", theme);
 
-    // Theme UI lives on profile.html. VHprofile.applyTheme() runs at end of
-    // body (Assets/js/profile.js) and re-applies when the OS preference flips.
-    window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', () => {
-      if ((localStorage.getItem('theme') || 'system') === 'system') {
-        initTheme();
-      }
-    });
-
-    // Bookmark System
-    function getBookmarks() {
-      if (window.VHaccount && VHaccount.getLocalBookmarks) {
-        return VHaccount.getLocalBookmarks();
-      }
-      try { return JSON.parse(localStorage.getItem('bookmarks') || '[]'); } catch { return []; }
-    }
-    async function saveBookmarks(arr) {
-      if (window.VHaccount && VHaccount.setLocalBookmarks) {
-        VHaccount.setLocalBookmarks(arr, true);
-      } else {
-        localStorage.setItem('bookmarks', JSON.stringify(arr));
-      }
-      if (window.VHaccount && VHaccount.getCurrentUser && VHaccount.getCurrentUser()) {
-        await VHaccount.syncBookmarksToAccount(arr).catch(() => {});
-      }
-    }
-
-    function initBookmarks() {
-      const bookmarks = getBookmarks();
-      document.querySelectorAll('.guide-card').forEach(card => {
-        const url = card.getAttribute('href');
-        const btn = document.createElement('button');
-        btn.className = 'bookmark-btn' + (bookmarks.includes(url) ? ' bookmarked' : '');
-        btn.innerHTML = `<span class="material-icons">${bookmarks.includes(url) ? 'bookmark' : 'bookmark_border'}</span>`;
-        btn.title = bookmarks.includes(url) ? 'Fjern bokmerke' : 'Legg til bokmerke';
-        btn.addEventListener('click', async (e) => {
-          e.preventDefault();
-          e.stopPropagation();
-          const bm = getBookmarks();
-          const idx = bm.indexOf(url);
-          if (idx > -1) {
-            bm.splice(idx, 1);
-            btn.classList.remove('bookmarked');
-            btn.innerHTML = '<span class="material-icons">bookmark_border</span>';
-            btn.title = 'Legg til bokmerke';
-          } else {
-            bm.push(url);
-            btn.classList.add('bookmarked');
-            btn.innerHTML = '<span class="material-icons">bookmark</span>';
-            btn.title = 'Fjern bokmerke';
-          }
-          await saveBookmarks(bm);
-        });
-        card.appendChild(btn);
-      });
-    }
-
-    // Filter Functionality
-    const filterButtons = document.querySelectorAll('.filter-btn');
-    const guideCards = document.querySelectorAll('.guide-card');
-
-    filterButtons.forEach(button => {
-      button.addEventListener('click', () => {
-        const filter = button.dataset.filter;
-        
-        // Update active button
-        filterButtons.forEach(btn => btn.classList.remove('active'));
-        button.classList.add('active');
-        
-        // Filter cards
-        if (filter === 'bokmerker') {
-          const bm = getBookmarks();
-          guideCards.forEach(card => {
-            card.style.display = bm.includes(card.getAttribute('href')) ? 'flex' : 'none';
-          });
-        } else {
-          guideCards.forEach(card => {
-            if (filter === 'all' || card.dataset.category === filter) {
-              card.style.display = 'flex';
-            } else {
-              card.style.display = 'none';
-            }
-          });
+        let finalTheme = theme;
+        if (theme === "system") {
+          finalTheme = window.matchMedia("(prefers-color-scheme: dark)").matches
+            ? "dark"
+            : "light";
         }
-      });
-    });
 
-    function rerenderBookmarkIcons() {
-      const bookmarks = getBookmarks();
-      document.querySelectorAll('.guide-card').forEach((card) => {
-        const url = card.getAttribute('href');
-        const btn = card.querySelector('.bookmark-btn');
-        if (!btn) return;
-        const active = bookmarks.includes(url);
-        btn.className = 'bookmark-btn' + (active ? ' bookmarked' : '');
-        btn.innerHTML = `<span class="material-icons">${active ? 'bookmark' : 'bookmark_border'}</span>`;
-        btn.title = active ? 'Fjern bokmerke' : 'Legg til bokmerke';
-      });
-    }
+        document.documentElement.setAttribute("data-theme", finalTheme);
+      }
 
-    // Initialize
-    initTheme();
-    initBookmarks();
-    if (window.VHaccount) {
-      VHaccount.refreshAuth().then(() => {
-        rerenderBookmarkIcons();
-      }).catch(() => {});
-      document.addEventListener('vhjelp:bookmarks-updated', rerenderBookmarkIcons);
-    }
-  </script>
-  <script src="Assets/js/plus.js"></script>
-  <script src="Assets/js/profile.js"></script>
-</body>
+      // Theme UI lives on profile.html. VHprofile.applyTheme() runs at end of
+      // body (Assets/js/profile.js) and re-applies when the OS preference flips.
+      window
+        .matchMedia("(prefers-color-scheme: dark)")
+        .addEventListener("change", () => {
+          if ((localStorage.getItem("theme") || "system") === "system") {
+            initTheme();
+          }
+        });
+
+      // Bookmark System
+      function getBookmarks() {
+        if (window.VHaccount && VHaccount.getLocalBookmarks) {
+          return VHaccount.getLocalBookmarks();
+        }
+        try {
+          return JSON.parse(localStorage.getItem("bookmarks") || "[]");
+        } catch {
+          return [];
+        }
+      }
+      async function saveBookmarks(arr) {
+        if (window.VHaccount && VHaccount.setLocalBookmarks) {
+          VHaccount.setLocalBookmarks(arr, true);
+        } else {
+          localStorage.setItem("bookmarks", JSON.stringify(arr));
+        }
+        if (
+          window.VHaccount &&
+          VHaccount.getCurrentUser &&
+          VHaccount.getCurrentUser()
+        ) {
+          await VHaccount.syncBookmarksToAccount(arr).catch(() => {});
+        }
+      }
+
+      function initBookmarks() {
+        const bookmarks = getBookmarks();
+        document.querySelectorAll(".guide-card").forEach((card) => {
+          const url = card.getAttribute("href");
+          const btn = document.createElement("button");
+          btn.className =
+            "bookmark-btn" + (bookmarks.includes(url) ? " bookmarked" : "");
+          btn.innerHTML = `<span class="material-icons">${bookmarks.includes(url) ? "bookmark" : "bookmark_border"}</span>`;
+          btn.title = bookmarks.includes(url)
+            ? "Fjern bokmerke"
+            : "Legg til bokmerke";
+          btn.addEventListener("click", async (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            const bm = getBookmarks();
+            const idx = bm.indexOf(url);
+            if (idx > -1) {
+              bm.splice(idx, 1);
+              btn.classList.remove("bookmarked");
+              btn.innerHTML =
+                '<span class="material-icons">bookmark_border</span>';
+              btn.title = "Legg til bokmerke";
+            } else {
+              bm.push(url);
+              btn.classList.add("bookmarked");
+              btn.innerHTML = '<span class="material-icons">bookmark</span>';
+              btn.title = "Fjern bokmerke";
+            }
+            await saveBookmarks(bm);
+          });
+          card.appendChild(btn);
+        });
+      }
+
+      // Filter Functionality
+      const filterButtons = document.querySelectorAll(".filter-btn");
+      const guideCards = document.querySelectorAll(".guide-card");
+
+      filterButtons.forEach((button) => {
+        button.addEventListener("click", () => {
+          const filter = button.dataset.filter;
+
+          // Update active button
+          filterButtons.forEach((btn) => btn.classList.remove("active"));
+          button.classList.add("active");
+
+          // Filter cards
+          if (filter === "bokmerker") {
+            const bm = getBookmarks();
+            guideCards.forEach((card) => {
+              card.style.display = bm.includes(card.getAttribute("href"))
+                ? "flex"
+                : "none";
+            });
+          } else {
+            guideCards.forEach((card) => {
+              if (filter === "all" || card.dataset.category === filter) {
+                card.style.display = "flex";
+              } else {
+                card.style.display = "none";
+              }
+            });
+          }
+        });
+      });
+
+      function rerenderBookmarkIcons() {
+        const bookmarks = getBookmarks();
+        document.querySelectorAll(".guide-card").forEach((card) => {
+          const url = card.getAttribute("href");
+          const btn = card.querySelector(".bookmark-btn");
+          if (!btn) return;
+          const active = bookmarks.includes(url);
+          btn.className = "bookmark-btn" + (active ? " bookmarked" : "");
+          btn.innerHTML = `<span class="material-icons">${active ? "bookmark" : "bookmark_border"}</span>`;
+          btn.title = active ? "Fjern bokmerke" : "Legg til bokmerke";
+        });
+      }
+
+      // Initialize
+      initTheme();
+      initBookmarks();
+      if (window.VHaccount) {
+        VHaccount.refreshAuth()
+          .then(() => {
+            rerenderBookmarkIcons();
+          })
+          .catch(() => {});
+        document.addEventListener(
+          "vhjelp:bookmarks-updated",
+          rerenderBookmarkIcons,
+        );
+      }
+    </script>
+    <script src="Assets/js/plus.js"></script>
+    <script src="Assets/js/profile.js"></script>
+  </body>
 </html>

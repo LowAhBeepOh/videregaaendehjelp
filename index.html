@@ -1,1207 +1,1722 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="no">
-<head>
-  <script defer src="https://cloud.umami.is/script.js" data-website-id="24f80a75-a09f-4f80-94e0-d9103f0d734d"></script>
-<meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Videregående Hjelp - Ressurs for elever. Finn guider, verktøy, og svar på spørsmål om skole, karakterer, eksamen og mer.">
-  <meta name="keywords" content="videregående, VGS, skole, guider, karakterer, eksamen, verktøy, hjelp, elev">
-  <meta name="robots" content="index, follow">
-  <meta name="author" content="Videregående Hjelp">
-  <meta name="language" content="Norwegian">
-  <meta property="og:title" content="Videregående Hjelp">
-  <meta property="og:description" content="Ressurs for elever. Finn guider, verktøy, og svar på spørsmål om skole, karakterer, eksamen og mer.">
-  <meta property="og:type" content="website">
-  <meta property="og:url" content="https://lowahbeepoh.github.io/videregaaendehjelp/">
-  <meta property="og:image" content="https://lowahbeepoh.github.io/videregaaendehjelp/vgshjelp-logo.png">
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Videregående Hjelp">
-  <meta name="twitter:description" content="Videregående Hjelp - Ressurs for elever. Finn guider, verktøy, og svar på spørsmål om skole, karakterer, eksamen og mer.">
-  <link rel="canonical" href="https://lowahbeepoh.github.io/videregaaendehjelp/">
-  <title>Videregående Hjelp</title>
-  <link rel="shortcut icon" href="vgshjelp-logo.png" type="image/x-icon">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200;300;400;500;600;700;800&display=swap" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-  <link rel="stylesheet" href="Assets/css/plus.css">
-  <link rel="stylesheet" href="Assets/css/profile.css">
-  <meta name="google-site-verification" content="Y7XlvpaXywMWF1nyDWMvVBPMhRLdXPOGewGGlMqAwtc" />
-  <style>
-    :root {
-      /* Bold Palette */
-      --bg: #050505; 
-      --text: #ffffff;
-      --text-muted: #888;
-      
-      --card-red: #d40b00;
-      --card-lime: #D0F54E;
-      --card-blue: #5865F2;
-      --card-cyan: #67E8F9;
-      --card-orange: #FF9F0A;
-      --card-deeporange: #f35811;
-      --card-green: #30D158;
-      --card-pale: #F2F2F7;
-      --surface: #1c1c1e;
-      --border: #2c2c2e;
-      
-      /* Typography */
-      --font-display: 'Inter Tight', sans-serif;
-      --font-body: 'Manrope', sans-serif;
-      --font-serif: 'Instrument Serif', serif;
-      
-      --ls-tight: -0.015em;
-      --ls-normal: -0.01em;
-    }
+  <head>
+    <script
+      defer
+      src="https://cloud.umami.is/script.js"
+      data-website-id="24f80a75-a09f-4f80-94e0-d9103f0d734d"
+    ></script>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Videregående Hjelp - Ressurs for elever. Finn guider, verktøy, og svar på spørsmål om skole, karakterer, eksamen og mer."
+    />
+    <meta
+      name="keywords"
+      content="videregående, VGS, skole, guider, karakterer, eksamen, verktøy, hjelp, elev"
+    />
+    <meta name="robots" content="index, follow" />
+    <meta name="author" content="Videregående Hjelp" />
+    <meta name="language" content="Norwegian" />
+    <meta property="og:title" content="Videregående Hjelp" />
+    <meta
+      property="og:description"
+      content="Ressurs for elever. Finn guider, verktøy, og svar på spørsmål om skole, karakterer, eksamen og mer."
+    />
+    <meta property="og:type" content="website" />
+    <meta
+      property="og:url"
+      content="https://lowahbeepoh.github.io/videregaaendehjelp/"
+    />
+    <meta
+      property="og:image"
+      content="https://lowahbeepoh.github.io/videregaaendehjelp/vgshjelp-logo.png"
+    />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Videregående Hjelp" />
+    <meta
+      name="twitter:description"
+      content="Videregående Hjelp - Ressurs for elever. Finn guider, verktøy, og svar på spørsmål om skole, karakterer, eksamen og mer."
+    />
+    <link
+      rel="canonical"
+      href="https://lowahbeepoh.github.io/videregaaendehjelp/"
+    />
+    <title>Videregående Hjelp</title>
+    <link rel="shortcut icon" href="vgshjelp-logo.png" type="image/x-icon" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter+Tight:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Manrope:wght@200;300;400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/icon?family=Material+Icons"
+    />
+    <link rel="stylesheet" href="Assets/css/plus.css" />
+    <link rel="stylesheet" href="Assets/css/profile.css" />
+    <meta
+      name="google-site-verification"
+      content="Y7XlvpaXywMWF1nyDWMvVBPMhRLdXPOGewGGlMqAwtc"
+    />
+    <style>
+      :root {
+        /* Bold Palette */
+        --bg: #050505;
+        --text: #ffffff;
+        --text-muted: #888;
 
-    [data-theme="light"] {
-      --bg: #ffffff;
-      --text: #000000;
-      --text-muted: #555;
-      --surface: #f2f2f7;
-      --border: #e5e5ea;
-    }
+        --card-red: #d40b00;
+        --card-lime: #d0f54e;
+        --card-blue: #5865f2;
+        --card-cyan: #67e8f9;
+        --card-orange: #ff9f0a;
+        --card-deeporange: #f35811;
+        --card-green: #30d158;
+        --card-pale: #f2f2f7;
+        --surface: #1c1c1e;
+        --border: #2c2c2e;
 
-    *, *::before, *::after {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
+        /* Typography */
+        --font-display: "Inter Tight", sans-serif;
+        --font-body: "Manrope", sans-serif;
+        --font-serif: "Instrument Serif", serif;
 
-    body {
-      font-family: var(--font-body);
-      background: var(--bg);
-      color: var(--text);
-      line-height: 1.5;
-      min-height: 100vh;
-      overflow-x: hidden;
-      letter-spacing: var(--ls-normal);
-    }
+        --ls-tight: -0.015em;
+        --ls-normal: -0.01em;
+      }
 
-    /* Layout */
-    main {
-      max-width: 1400px;
-      margin: 0 auto;
-      padding: 0 16px 40px 16px;
-    }
+      [data-theme="light"] {
+        --bg: #ffffff;
+        --text: #000000;
+        --text-muted: #555;
+        --surface: #f2f2f7;
+        --border: #e5e5ea;
+      }
 
-    @media (min-width: 480px) {
-      main { padding: 0 20px 60px 20px; }
-    }
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
 
-    /* Header */
-    header {
-      padding: 20px 0;
-      margin-bottom: 32px;
-      border-bottom: 1px solid var(--border);
-      position: sticky;
-      top: 0;
-      background: var(--bg);
-      z-index: 1000;
-    }
+      body {
+        font-family: var(--font-body);
+        background: var(--bg);
+        color: var(--text);
+        line-height: 1.5;
+        min-height: 100vh;
+        overflow-x: hidden;
+        letter-spacing: var(--ls-normal);
+      }
 
-    /* Boot Animation */
-    .boot-overlay {
-      position: absolute;
-      inset: 0;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background: var(--bg);
-      z-index: 10;
-      opacity: 1;
-      transition: opacity 0.5s ease;
-      pointer-events: none;
-    }
+      /* Layout */
+      main {
+        max-width: 1400px;
+        margin: 0 auto;
+        padding: 0 16px 40px 16px;
+      }
 
-    .boot-overlay.boot-done {
-      opacity: 0;
-    }
+      @media (min-width: 480px) {
+        main {
+          padding: 0 20px 60px 20px;
+        }
+      }
 
-    .boot-logo {
-      font-family: var(--font-display);
-      font-size: 24px;
-      font-weight: 800;
-      color: var(--text);
-      letter-spacing: -0.04em;
-    }
+      /* Header */
+      header {
+        padding: 20px 0;
+        margin-bottom: 32px;
+        border-bottom: 1px solid var(--border);
+        position: sticky;
+        top: 0;
+        background: var(--bg);
+        z-index: 1000;
+      }
 
-    /* Header content starts hidden, fades in after boot */
-    #headerContent {
-      opacity: 0;
-      transition: opacity 0.5s ease;
-      pointer-events: none;
-    }
+      /* Boot Animation */
+      .boot-overlay {
+        position: absolute;
+        inset: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: var(--bg);
+        z-index: 10;
+        opacity: 1;
+        transition: opacity 0.5s ease;
+        pointer-events: none;
+      }
 
-    #headerContent.visible {
-      opacity: 1;
-      pointer-events: auto;
-    }
+      .boot-overlay.boot-done {
+        opacity: 0;
+      }
 
-    /* Logo image for mobile */
-    .logo-image {
-      display: none;
-      height: 28px;
-      width: auto;
-      vertical-align: middle;
-    }
+      .boot-logo {
+        font-family: var(--font-display);
+        font-size: 24px;
+        font-weight: 800;
+        color: var(--text);
+        letter-spacing: -0.04em;
+      }
 
-    @media (max-width: 650px) {
-      .logo-text { display: none; }
-      .logo-image { display: inline-block; }
-    }
-    
-    .header-content {
-      max-width: 1400px;
-      margin: 0 auto;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 0 16px;
-    }
+      /* Header content starts hidden, fades in after boot */
+      #headerContent {
+        opacity: 0;
+        transition: opacity 0.5s ease;
+        pointer-events: none;
+      }
 
-    .logo {
-      font-family: var(--font-display);
-      font-size: 24px;
-      font-weight: 800;
-      color: var(--text);
-      text-decoration: none;
-      letter-spacing: -0.04em;
-      transition: opacity 0.2s;
-    }
+      #headerContent.visible {
+        opacity: 1;
+        pointer-events: auto;
+      }
 
-    .logo:hover { opacity: 0.8; }
+      /* Logo image for mobile */
+      .logo-image {
+        display: none;
+        height: 28px;
+        width: auto;
+        vertical-align: middle;
+      }
 
-    .nav-container {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-    }
+      @media (max-width: 650px) {
+        .logo-text {
+          display: none;
+        }
+        .logo-image {
+          display: inline-block;
+        }
+      }
 
-    .nav-link {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      color: var(--text-muted);
-      text-decoration: none;
-      font-weight: 600;
-      font-size: 14px;
-      padding: 8px 12px;
-      border-radius: 10px;
-      transition: all 0.2s;
-    }
+      .header-content {
+        max-width: 1400px;
+        margin: 0 auto;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0 16px;
+      }
 
-    .nav-link:hover {
-      background: rgba(255, 255, 255, 0.05);
-      color: var(--text);
-    }
+      .logo {
+        font-family: var(--font-display);
+        font-size: 24px;
+        font-weight: 800;
+        color: var(--text);
+        text-decoration: none;
+        letter-spacing: -0.04em;
+        transition: opacity 0.2s;
+      }
 
-    .nav-link .material-icons { 
-      font-size: 20px; 
-    }
+      .logo:hover {
+        opacity: 0.8;
+      }
 
-    .nav-link span { display: none; }
-    @media (min-width: 850px) { .nav-link span { display: inline; } }
+      .nav-container {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+      }
 
-    /* Header-right wrapper — keeps nav-container and profile-pill aligned */
-    .header-right {
-      display: flex;
-      align-items: center;
-      gap: 14px;
-    }
+      .nav-link {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        color: var(--text-muted);
+        text-decoration: none;
+        font-weight: 600;
+        font-size: 14px;
+        padding: 8px 12px;
+        border-radius: 10px;
+        transition: all 0.2s;
+      }
 
-    /* Responsive Nav */
-    .burger-btn {
-      background: none;
-      border: none;
-      color: var(--text);
-      cursor: pointer;
-      padding: 8px;
-      border-radius: 10px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      transition: background 0.2s;
-    }
+      .nav-link:hover {
+        background: rgba(255, 255, 255, 0.05);
+        color: var(--text);
+      }
 
-    .burger-btn:hover { background: rgba(255, 255, 255, 0.05); }
+      .nav-link .material-icons {
+        font-size: 20px;
+      }
 
-    /* Custom Dropdown */
-    .nav-dropdown {
-      position: absolute;
-      top: 100%;
-      right: 16px;
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 14px;
-      padding: 8px;
-      min-width: 220px;
-      box-shadow: 0 15px 40px rgba(0,0,0,0.6);
-      display: none;
-      flex-direction: column;
-      gap: 4px;
-      z-index: 1001;
-      margin-top: 12px;
-    }
+      .nav-link span {
+        display: none;
+      }
+      @media (min-width: 850px) {
+        .nav-link span {
+          display: inline;
+        }
+      }
 
-    .nav-dropdown.active { display: flex; }
+      /* Header-right wrapper — keeps nav-container and profile-pill aligned */
+      .header-right {
+        display: flex;
+        align-items: center;
+        gap: 14px;
+      }
 
-    .dropdown-item {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      padding: 12px 16px;
-      color: var(--text);
-      text-decoration: none;
-      font-weight: 500;
-      font-size: 14px;
-      border-radius: 10px;
-      transition: background 0.2s;
-    }
+      /* Responsive Nav */
+      .burger-btn {
+        background: none;
+        border: none;
+        color: var(--text);
+        cursor: pointer;
+        padding: 8px;
+        border-radius: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: background 0.2s;
+      }
 
-    .dropdown-item:hover { background: rgba(255, 255, 255, 0.08); }
-    .dropdown-item .material-icons { font-size: 18px; color: var(--text-muted); }
+      .burger-btn:hover {
+        background: rgba(255, 255, 255, 0.05);
+      }
 
-    /* Search Section */
-    .search-container {
-      margin-bottom: 32px;
-      position: relative;
-    }
+      /* Custom Dropdown */
+      .nav-dropdown {
+        position: absolute;
+        top: 100%;
+        right: 16px;
+        background: var(--surface);
+        border: 1px solid var(--border);
+        border-radius: 14px;
+        padding: 8px;
+        min-width: 220px;
+        box-shadow: 0 15px 40px rgba(0, 0, 0, 0.6);
+        display: none;
+        flex-direction: column;
+        gap: 4px;
+        z-index: 1001;
+        margin-top: 12px;
+      }
 
-    .user-heading {
-      font-family: var(--font-display);
-      font-size: 36px;
-      font-weight: 800;
-      line-height: 1.1;
-      letter-spacing: -0.04em;
-      margin-bottom: 12px;
-      color: var(--text);
-    }
+      .nav-dropdown.active {
+        display: flex;
+      }
 
-    @media (min-width: 768px) {
-      .user-heading { font-size: 48px; }
-    }
+      .dropdown-item {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        padding: 12px 16px;
+        color: var(--text);
+        text-decoration: none;
+        font-weight: 500;
+        font-size: 14px;
+        border-radius: 10px;
+        transition: background 0.2s;
+      }
 
-    .user-heading-row {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 16px;
-      flex-wrap: wrap;
-      margin-bottom: 32px;
-    }
+      .dropdown-item:hover {
+        background: rgba(255, 255, 255, 0.08);
+      }
+      .dropdown-item .material-icons {
+        font-size: 18px;
+        color: var(--text-muted);
+      }
 
-    .user-heading-row .user-heading { margin-bottom: 0; }
+      /* Search Section */
+      .search-container {
+        margin-bottom: 32px;
+        position: relative;
+      }
 
-    .profile-cta {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      width: fit-content;
-      margin: 0;
-      padding: 8px 14px;
-      background: var(--card-blue);
-      color: #fff;
-      border-radius: 999px;
-      font-family: var(--font-display);
-      font-weight: 700;
-      font-size: 14px;
-      text-decoration: none;
-      transition: filter 0.2s ease, transform 0.2s ease;
-    }
-    .profile-cta:hover {
-      filter: brightness(1.08);
-      transform: translateY(-1px);
-    }
-    .profile-cta[hidden] { display: none; }
-    .profile-cta .material-icons { font-size: 18px; }
+      .user-heading {
+        font-family: var(--font-display);
+        font-size: 36px;
+        font-weight: 800;
+        line-height: 1.1;
+        letter-spacing: -0.04em;
+        margin-bottom: 12px;
+        color: var(--text);
+      }
 
-    .search-input {
-      width: 100%;
-      background: var(--surface);
-      border: 1px solid var(--border);
-      padding: 16px 20px;
-      border-radius: 14px;
-      color: var(--text);
-      font-family: var(--font-body);
-      font-size: 16px;
-      outline: none;
-      transition: all 0.2s;
-      letter-spacing: var(--ls-tight);
-    }
-    
-    @media (min-width: 480px) {
-      .search-input { padding: 22px 28px; font-size: 18px; }
-    }
+      @media (min-width: 768px) {
+        .user-heading {
+          font-size: 48px;
+        }
+      }
 
-    .search-input:focus {
-      background: rgba(255, 255, 255, 0.1);
-      border-color: rgba(255, 255, 255, 0.25);
-    }
+      .user-heading-row {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 16px;
+        flex-wrap: wrap;
+        margin-bottom: 32px;
+      }
 
-    .search-results {
-      position: absolute;
-      top: 100%;
-      left: 0;
-      right: 0;
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 14px;
-      margin-top: 10px;
-      max-height: 400px;
-      overflow-y: auto;
-      z-index: 100;
-      display: none;
-      box-shadow: 0 15px 40px rgba(0,0,0,0.6);
-    }
+      .user-heading-row .user-heading {
+        margin-bottom: 0;
+      }
 
-    .search-result-item {
-      padding: 16px 24px;
-      display: block;
-      color: var(--text);
-      text-decoration: none;
-      border-bottom: 1px solid var(--border);
-      transition: background 0.2s;
-    }
+      .profile-cta {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        width: fit-content;
+        margin: 0;
+        padding: 8px 14px;
+        background: var(--card-blue);
+        color: #fff;
+        border-radius: 999px;
+        font-family: var(--font-display);
+        font-weight: 700;
+        font-size: 14px;
+        text-decoration: none;
+        transition:
+          filter 0.2s ease,
+          transform 0.2s ease;
+      }
+      .profile-cta:hover {
+        filter: brightness(1.08);
+        transform: translateY(-1px);
+      }
+      .profile-cta[hidden] {
+        display: none;
+      }
+      .profile-cta .material-icons {
+        font-size: 18px;
+      }
 
-    .search-result-item:hover { background: rgba(255, 255, 255, 0.05); }
-    .search-result-title { font-weight: 700; font-size: 15px; display: block; }
-    .search-result-meta { font-size: 12px; color: var(--text-muted); margin-top: 4px; }
+      .search-input {
+        width: 100%;
+        background: var(--surface);
+        border: 1px solid var(--border);
+        padding: 16px 20px;
+        border-radius: 14px;
+        color: var(--text);
+        font-family: var(--font-body);
+        font-size: 16px;
+        outline: none;
+        transition: all 0.2s;
+        letter-spacing: var(--ls-tight);
+      }
 
-    /* No Results Styling */
-    .search-no-results {
-      padding: 32px 24px;
-      text-align: center;
-      display: flex;
-      flex-direction: column;
-      gap: 20px;
-      align-items: center;
-    }
+      @media (min-width: 480px) {
+        .search-input {
+          padding: 22px 28px;
+          font-size: 18px;
+        }
+      }
 
-    .search-no-results-label {
-      font-weight: 600;
-      font-size: 16px;
-      color: var(--text);
-    }
+      .search-input:focus {
+        background: rgba(255, 255, 255, 0.1);
+        border-color: rgba(255, 255, 255, 0.25);
+      }
 
-    .search-external-links {
-      display: flex;
-      gap: 12px;
-      justify-content: center;
-      flex-wrap: wrap;
-    }
+      .search-results {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        background: var(--surface);
+        border: 1px solid var(--border);
+        border-radius: 14px;
+        margin-top: 10px;
+        max-height: 400px;
+        overflow-y: auto;
+        z-index: 100;
+        display: none;
+        box-shadow: 0 15px 40px rgba(0, 0, 0, 0.6);
+      }
 
-    .search-external-btn {
-      padding: 10px 20px;
-      border-radius: 10px;
-      text-decoration: none;
-      font-weight: 700;
-      font-size: 14px;
-      border: none;
-      cursor: pointer;
-      transition: all 0.2s;
-      display: inline-block;
-    }
+      .search-result-item {
+        padding: 16px 24px;
+        display: block;
+        color: var(--text);
+        text-decoration: none;
+        border-bottom: 1px solid var(--border);
+        transition: background 0.2s;
+      }
 
-    .search-external-btn:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
-    }
+      .search-result-item:hover {
+        background: rgba(255, 255, 255, 0.05);
+      }
+      .search-result-title {
+        font-weight: 700;
+        font-size: 15px;
+        display: block;
+      }
+      .search-result-meta {
+        font-size: 12px;
+        color: var(--text-muted);
+        margin-top: 4px;
+      }
 
-    .search-external-ung {
-      background: #30D158;
-      color: #000;
-    }
+      /* No Results Styling */
+      .search-no-results {
+        padding: 32px 24px;
+        text-align: center;
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+        align-items: center;
+      }
 
-    .search-external-ung:hover {
-      background: #27c14a;
-    }
+      .search-no-results-label {
+        font-weight: 600;
+        font-size: 16px;
+        color: var(--text);
+      }
 
-    .search-external-vilbli {
-      background: #5865F2;
-      color: #fff;
-    }
+      .search-external-links {
+        display: flex;
+        gap: 12px;
+        justify-content: center;
+        flex-wrap: wrap;
+      }
 
-    .search-external-vilbli:hover {
-      background: #4752d4;
-    }
+      .search-external-btn {
+        padding: 10px 20px;
+        border-radius: 10px;
+        text-decoration: none;
+        font-weight: 700;
+        font-size: 14px;
+        border: none;
+        cursor: pointer;
+        transition: all 0.2s;
+        display: inline-block;
+      }
 
-    .search-external-utd {
-      background: #FF9F0A;
-      color: #000;
-    }
+      .search-external-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+      }
 
-    .search-external-utd:hover {
-      background: #e68a00;
-    }
+      .search-external-ung {
+        background: #30d158;
+        color: #000;
+      }
 
-    /* Quick Start CTA row removed — guides are reached via the bento grid below. */
+      .search-external-ung:hover {
+        background: #27c14a;
+      }
 
-    /* Bento Grid */
-    .bento-grid {
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 16px;
-    }
+      .search-external-vilbli {
+        background: #5865f2;
+        color: #fff;
+      }
 
-    @media (min-width: 768px) { .bento-grid { grid-template-columns: repeat(2, 1fr); } }
-    @media (min-width: 1024px) { .bento-grid { grid-template-columns: repeat(4, 1fr); } }
+      .search-external-vilbli:hover {
+        background: #4752d4;
+      }
 
-    .grid-item-featured { grid-column: 1 / -1; }
-    @media (min-width: 1024px) { .grid-item-featured { grid-column: span 2; } }
-    .grid-item-news-featured { grid-column: 1 / -1; }
+      .search-external-utd {
+        background: #ff9f0a;
+        color: #000;
+      }
 
-    /* Card Styles */
-    .bento-card {
-      padding: 24px;
-      border-radius: 16px;
-      text-decoration: none;
-      color: #000;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      transition: all 0.3s cubic-bezier(0.2, 0, 0, 1);
-      position: relative;
-      overflow: hidden;
-      min-height: 180px;
-      isolation: isolate;
-    }
+      .search-external-utd:hover {
+        background: #e68a00;
+      }
 
-    @media (min-width: 768px) { .bento-card { padding: 32px; min-height: 220px; } }
+      /* Quick Start CTA row removed — guides are reached via the bento grid below. */
 
-    /* On hover the cards no longer lift up; a top-to-bottom gradient fades in
+      /* Bento Grid */
+      .bento-grid {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 16px;
+      }
+
+      @media (min-width: 768px) {
+        .bento-grid {
+          grid-template-columns: repeat(2, 1fr);
+        }
+      }
+      @media (min-width: 1024px) {
+        .bento-grid {
+          grid-template-columns: repeat(4, 1fr);
+        }
+      }
+
+      .grid-item-featured {
+        grid-column: 1 / -1;
+      }
+      @media (min-width: 1024px) {
+        .grid-item-featured {
+          grid-column: span 2;
+        }
+      }
+      .grid-item-news-featured {
+        grid-column: 1 / -1;
+      }
+
+      /* Card Styles */
+      .bento-card {
+        padding: 24px;
+        border-radius: 16px;
+        text-decoration: none;
+        color: #000;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        transition: all 0.3s cubic-bezier(0.2, 0, 0, 1);
+        position: relative;
+        overflow: hidden;
+        min-height: 180px;
+        isolation: isolate;
+      }
+
+      @media (min-width: 768px) {
+        .bento-card {
+          padding: 32px;
+          min-height: 220px;
+        }
+      }
+
+      /* On hover the cards no longer lift up; a top-to-bottom gradient fades in
        instead. The overlay sits behind the text (z-index: -1 inside the
        isolated stacking context), so it only recolors the card background. */
-    .bento-card::after {
-      content: '';
-      position: absolute;
-      inset: 0;
-      z-index: -1;
-      opacity: 0;
-      transition: opacity 0.3s ease;
-      pointer-events: none;
-    }
+      .bento-card::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        z-index: -1;
+        opacity: 0;
+        transition: opacity 0.3s ease;
+        pointer-events: none;
+      }
 
-    .bento-card:hover::after { opacity: 1; }
+      .bento-card:hover::after {
+        opacity: 1;
+      }
 
-    .card-guides::after { background: linear-gradient(to bottom, var(--card-lime), var(--card-green)); }
-    .card-tools::after { background: linear-gradient(to bottom, var(--card-orange), var(--card-deeporange)); }
-    .card-opinions::after { background: linear-gradient(to bottom, var(--card-blue), var(--card-cyan)); }
+      .card-guides::after {
+        background: linear-gradient(
+          to bottom,
+          var(--card-lime),
+          var(--card-green)
+        );
+      }
+      .card-tools::after {
+        background: linear-gradient(
+          to bottom,
+          var(--card-orange),
+          var(--card-deeporange)
+        );
+      }
+      .card-opinions::after {
+        background: linear-gradient(
+          to bottom,
+          var(--card-blue),
+          var(--card-cyan)
+        );
+      }
 
-    .card-title {
-      font-family: var(--font-serif);
-      font-size: 32px;
-      font-weight: 400;
-      font-style: italic;
-      line-height: 1.0;
-      letter-spacing: -0.03em;
-    }
+      .card-title {
+        font-family: var(--font-serif);
+        font-size: 32px;
+        font-weight: 400;
+        font-style: italic;
+        line-height: 1;
+        letter-spacing: -0.03em;
+      }
 
-    @media (min-width: 768px) { .card-title { font-size: 42px; } }
+      @media (min-width: 768px) {
+        .card-title {
+          font-size: 42px;
+        }
+      }
 
-    /* Guide Blocks */
-    .card-guides {
-      background: var(--card-lime);
-      color: #000;
-    }
+      /* Guide Blocks */
+      .card-guides {
+        background: var(--card-lime);
+        color: #000;
+      }
 
-    .guide-arrow {
-      position: absolute;
-      top: 24px;
-      right: 24px;
-      font-size: 24px;
-      opacity: 0.15;
-      transition: all 0.3s;
-    }
+      .guide-arrow {
+        position: absolute;
+        top: 24px;
+        right: 24px;
+        font-size: 24px;
+        opacity: 0.15;
+        transition: all 0.3s;
+      }
 
-    .card-guides:hover .guide-arrow {
-      opacity: 0.5;
-      transform: translate(4px, -4px);
-    }
+      .card-guides:hover .guide-arrow {
+        opacity: 0.5;
+        transform: translate(4px, -4px);
+      }
 
-    /* Mobile: half-height lime guide card, title + arrow on the same row,
+      /* Mobile: half-height lime guide card, title + arrow on the same row,
        long titles truncate with '...'. Arrow opacity bumped (no hover on
        touch) and absolute positioning overridden so it sits inline right. */
-    @media (max-width: 767px) {
-      .bento-card.card-guides {
-        flex-direction: row;
-        align-items: center;
-        min-height: 90px;
-        padding: 12px 20px;
+      @media (max-width: 767px) {
+        .bento-card.card-guides {
+          flex-direction: row;
+          align-items: center;
+          min-height: 90px;
+          padding: 12px 20px;
+        }
+        .bento-card.card-guides .card-title {
+          flex: 1;
+          min-width: 0;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          white-space: nowrap;
+        }
+        .bento-card.card-guides .guide-arrow {
+          position: static;
+          flex: 0 0 auto;
+          margin-left: 14px;
+          opacity: 0.5;
+        }
       }
-      .bento-card.card-guides .card-title {
-        flex: 1;
-        min-width: 0;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        white-space: nowrap;
-      }
-      .bento-card.card-guides .guide-arrow {
-        position: static;
-        flex: 0 0 auto;
-        margin-left: 14px;
-        opacity: 0.5;
-      }
-    }
 
-    /* Tools & Interactives */
-    .card-tools { background: var(--card-orange); }
-    .card-tools .card-title { font-family: var(--font-display); font-weight: 800; font-style: normal; font-size: 26px; letter-spacing: -0.04em; }
+      /* Tools & Interactives */
+      .card-tools {
+        background: var(--card-orange);
+      }
+      .card-tools .card-title {
+        font-family: var(--font-display);
+        font-weight: 800;
+        font-style: normal;
+        font-size: 26px;
+        letter-spacing: -0.04em;
+      }
 
-    /* Mobile: half-height orange tool card, title + icon on the same row,
+      /* Mobile: half-height orange tool card, title + icon on the same row,
        long titles truncate with '...'. Applies only to .card-tools; the red
        .card-interactive card is intentionally untouched. */
-    @media (max-width: 767px) {
-      .bento-card.card-tools {
-        flex-direction: row;
+      @media (max-width: 767px) {
+        .bento-card.card-tools {
+          flex-direction: row;
+          align-items: center;
+          min-height: 90px;
+          padding: 12px 20px;
+        }
+        .bento-card.card-tools .card-title {
+          flex: 1;
+          min-width: 0;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          white-space: nowrap;
+        }
+        .bento-card.card-tools .card-icon {
+          flex: 0 0 auto;
+          margin-top: 0;
+          margin-left: 14px;
+        }
+      }
+
+      .card-interactive {
+        background: var(--card-red);
+        color: #fff;
+      }
+      .card-interactive .card-title {
+        color: #fff;
+        font-family: var(--font-display);
+        font-weight: 800;
+        font-style: normal;
+        font-size: 26px;
+        letter-spacing: -0.04em;
+      }
+
+      .card-fun-fact {
+        background: var(--card-green);
+      }
+      .card-fun-fact .card-title {
+        font-family: var(--font-body);
+        font-weight: 700;
+        font-style: normal;
+        font-size: 22px;
+        letter-spacing: -0.02em;
+        line-height: 1.3;
+      }
+      .fun-fact-label-icon {
+        font-size: 16px;
+      }
+
+      .fun-fact-label,
+      .opinions-label {
+        font-size: 12px;
+        font-weight: 800;
+        opacity: 0.6;
+        margin-bottom: 16px;
+        display: flex;
         align-items: center;
-        min-height: 90px;
-        padding: 12px 20px;
+        gap: 8px;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
       }
-      .bento-card.card-tools .card-title {
-        flex: 1;
-        min-width: 0;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        white-space: nowrap;
+
+      .card-opinions {
+        background: var(--card-blue);
+        color: #fff;
       }
-      .bento-card.card-tools .card-icon {
-        flex: 0 0 auto;
-        margin-top: 0;
-        margin-left: 14px;
+      .card-opinions .card-title {
+        font-family: var(--font-serif);
+        font-style: italic;
+        font-size: 24px;
+        color: #fff;
+        line-height: 1.25;
       }
-    }
-    
-    .card-interactive { background: var(--card-red); color: #fff; }
-    .card-interactive .card-title { color: #fff; font-family: var(--font-display); font-weight: 800; font-style: normal; font-size: 26px; letter-spacing: -0.04em; }
 
-    .card-fun-fact { background: var(--card-green); }
-    .card-fun-fact .card-title { font-family: var(--font-body); font-weight: 700; font-style: normal; font-size: 22px; letter-spacing: -0.02em; line-height: 1.3; }
-    .fun-fact-label-icon { font-size: 16px; }
-
-    .fun-fact-label, .opinions-label {
-      font-size: 12px;
-      font-weight: 800;
-      opacity: 0.6;
-      margin-bottom: 16px;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-    }
-
-    .card-opinions { background: var(--card-blue); color: #fff; }
-    .card-opinions .card-title { font-family: var(--font-serif); font-style: italic; font-size: 24px; color: #fff; line-height: 1.25; }
-
-    /* Inboks: shows the user's submitted practice exams. Hidden entirely when
+      /* Inboks: shows the user's submitted practice exams. Hidden entirely when
        the user has no submissions. Graded entries use a simple click-to-reveal
        for the grade (no gift box). */
-    .card-inbox { background: var(--card-pale); }
-    .card-inbox[hidden] { display: none; }
-    .card-inbox .fun-fact-label { color: #000; }
-    .inbox-content { display: flex; flex-direction: column; gap: 10px; font-size: 14px; }
-    .inbox-item {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 12px;
-      padding: 14px 16px;
-      background: rgba(0, 0, 0, 0.05);
-      border-radius: 12px;
-    }
-    .inbox-fag { font-weight: 800; font-size: 15px; }
-    .inbox-status { font-weight: 600; font-size: 13px; opacity: 0.7; }
-    .inbox-reveal {
-      width: 100%;
-      border: none;
-      background: rgba(0, 0, 0, 0.05);
-      border-radius: 12px;
-      padding: 14px 16px;
-      display: flex;
-      flex-direction: column;
-      align-items: flex-start;
-      gap: 4px;
-      cursor: pointer;
-      font-family: var(--font-body);
-      font-size: 14px;
-      text-align: left;
-      color: #000;
-    }
-    .inbox-reveal:hover { background: rgba(0, 0, 0, 0.09); }
-    .inbox-reveal:focus-visible { outline: 2px solid #000; outline-offset: 2px; }
-    .inbox-reveal-hint { font-weight: 700; font-size: 13px; opacity: 0.75; }
-    .inbox-reveal-grade { display: none; font-weight: 800; font-size: 17px; color: #1e7a34; }
-    .inbox-reveal.open .inbox-reveal-hint { display: none; }
-    .inbox-reveal.open .inbox-reveal-grade { display: block; }
-    /* Simple pop-in animation when the grade is revealed */
-    .inbox-reveal.open .inbox-reveal-grade { animation: inbox-pop 0.35s cubic-bezier(0.2, 0, 0, 1); }
-    @keyframes inbox-pop {
-      0% { opacity: 0; transform: translateY(6px) scale(0.96); }
-      100% { opacity: 1; transform: translateY(0) scale(1); }
-    }
-
-    .card-icon {
-      background: rgba(0,0,0,0.1);
-      color: #000;
-      width: 48px;
-      height: 48px;
-      border-radius: 14px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 24px;
-      margin-top: auto;
-    }
-
-    .card-interactive .card-icon { background: rgba(255,255,255,0.15); color: #fff; }
-
-    /* News Featured Card */
-    .news-featured-card {
-      display: grid;
-      grid-template-columns: 1fr;
-      border-radius: 20px;
-      overflow: hidden;
-      text-decoration: none;
-      color: inherit;
-      min-height: 420px;
-      transition: all 0.4s cubic-bezier(0.2, 0, 0, 1);
-    }
-
-    @media (min-width: 768px) { .news-featured-card { grid-template-columns: 1.3fr 1fr; } }
-
-    .news-featured-left { padding: 40px; display: flex; flex-direction: column; justify-content: space-between; }
-    .news-featured-date { font-size: 13px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 20px; opacity: 0.6; }
-    .news-featured-title { font-family: var(--font-display); font-size: 36px; font-weight: 800; line-height: 1.1; margin-bottom: 20px; letter-spacing: -0.05em; }
-    .news-featured-desc { font-size: 17px; line-height: 1.6; margin-bottom: 32px; opacity: 0.9; }
-    .news-featured-link { display: inline-flex; align-items: center; gap: 10px; font-weight: 800; font-size: 15px; margin-top: auto; }
-    .news-featured-right { overflow: hidden; position: relative; }
-    .news-featured-image { width: 100%; height: 100%; object-fit: cover; transition: transform 0.6s; }
-    .news-featured-card:hover .news-featured-image { transform: scale(1.08); }
-
-    /* Bookmarks */
-    .bookmarks-section { margin-bottom: 48px; }
-    .bookmarks-title { font-family: var(--font-display); font-size: 18px; font-weight: 800; margin-bottom: 20px; color: var(--text-muted); display: flex; align-items: center; gap: 10px; letter-spacing: -0.02em; }
-    .bookmarks-list { display: flex; gap: 14px; flex-wrap: wrap; }
-    .bookmark-item { display: inline-flex; align-items: center; gap: 10px; padding: 12px 20px; background: var(--surface); border: 1px solid var(--border); color: var(--text); border-radius: 14px; text-decoration: none; font-size: 14px; font-weight: 700; transition: all 0.2s; }
-    .bookmark-item:hover { background: rgba(255,255,255,0.1); transform: translateY(-3px); }
-
-    /* Footer */
-    footer { margin-top: 100px; text-align: center; color: var(--text-muted); font-size: 14px; padding: 80px 0; border-top: 1px solid var(--border); }
-  </style>
-</head>
-<body>
-  <main>
-    <header>
-      <div class="boot-overlay" id="bootOverlay">
-        <span class="boot-logo">Videregående Hjelp</span>
-      </div>
-      <div class="header-content" id="headerContent">
-        <a href="index.html" class="logo">
-          <span class="logo-text">Videregående Hjelp</span>
-          <img class="logo-image" src="vgshjelp-logo.png" alt="Videregående Hjelp">
-        </a>
-        <div class="header-right">
-          <div class="nav-container">
-            <a href="guides.html" class="nav-link">
-              <i class="material-icons">book</i>
-              <span>Guider</span>
-            </a>
-            <a href="tools.html" class="nav-link">
-              <i class="material-icons">quiz</i>
-              <span>Verktøy</span>
-            </a>
-            <button class="burger-btn" id="burgerBtn" aria-label="Meny">
-              <i class="material-icons">menu</i>
-            </button>
-            <div class="nav-dropdown" id="navDropdown">
-              <a href="resources.html" class="dropdown-item">
-                <i class="material-icons">folder</i>
-                Ressurser
-              </a>
-              <a href="news.html" class="dropdown-item nav-news-mobile">
-                <i class="material-icons">newspaper</i>
-                Nyheter
-              </a>
-            </div>
-          </div>
-          <a href="profile.html" class="profile-pill" aria-label="Min profil"></a>
-        </div>
-      </div>
-    </header>
-
-    <div class="search-container">
-      <div class="user-heading-row">
-        <div class="user-heading" id="userHeading" hidden></div>
-        <a id="profileCta" class="profile-cta" href="profile.html" hidden>
-          <span class="material-icons">person_add</span>
-          <span>Lag profil</span>
-        </a>
-      </div>
-      <input type="text" id="searchInput" class="search-input" placeholder="Søk etter guider, verktøy, ressurser..." autocomplete="off">
-      <div id="searchResults" class="search-results"></div>
-    </div>
-
-    <div id="bookmarksSection" class="bookmarks-section" style="display:none;">
-      <h2 class="bookmarks-title"><i class="material-icons" style="color:var(--card-blue);">bookmark</i> Dine bokmerker</h2>
-      <div id="bookmarksList" class="bookmarks-list"></div>
-    </div>
-
-    <div class="bento-grid" id="bentoGrid">
-      <!-- Populated by JS -->
-    </div>
-
-    <!-- Pluss skolestart-modal -->
-    <div class="plus-modal-backdrop" id="plusSkolestartModal" hidden aria-hidden="true">
-      <div class="plus-skolestart-dialog" role="dialog" aria-modal="true" aria-labelledby="plusSkolestartTitle">
-        <div class="plus-skolestart-header">
-          <div>
-            <span class="plus-skolestart-icon">+</span>
-            <h2 class="plus-skolestart-title" id="plusSkolestartTitle">Skolestart 2026 – Har du husket alt?</h2>
-          </div>
-          <button type="button" class="plus-skolestart-close" id="plusSkolestartClose" aria-label="Lukk">
-            <span class="material-icons">close</span>
-          </button>
-        </div>
-        <p class="plus-skolestart-sub">Første skoledag i Møre og Romsdal er <strong>mandag 17. august 2026</strong>. Her er en huskeliste over hva du bør ha gjort før skolestart.</p>
-
-        <div class="plus-skolestart-checklist">
-          <div class="plus-sjekkpunkt">
-            <div class="plus-sjekkpunkt-icon"><span class="material-icons">assignment</span></div>
-            <div class="plus-sjekkpunkt-content">
-              <div class="plus-sjekkpunkt-title">Sjekk skoleplassen din på VIGO</div>
-              <div class="plus-sjekkpunkt-desc">Logg inn på <a href="https://vigo.no" target="_blank" rel="noopener">vigo.no</a> for å se inntakstilbudet ditt og svare innen fristen. Du kan også stå på venteliste for andre skoler eller program.</div>
-            </div>
-          </div>
-          <div class="plus-sjekkpunkt">
-            <div class="plus-sjekkpunkt-icon"><span class="material-icons">calendar_month</span></div>
-            <div class="plus-sjekkpunkt-content">
-              <div class="plus-sjekkpunkt-title">Sjekk skoleruta for MR</div>
-              <div class="plus-sjekkpunkt-desc">Se hele skoleruta for 2026–2027 på <a href="https://mrfylke.no/tenester/skole-og-opplaring/opplaring-i-skole/skoleruta/" target="_blank" rel="noopener">mrfylke.no</a>. Viktige datoer: høstferie uke 41, juleferie 18. des–4. jan, vinterferie uke 8, påske 22.–29. mar, siste skoledag 18. juni 2027.</div>
-            </div>
-          </div>
-          <div class="plus-sjekkpunkt">
-            <div class="plus-sjekkpunkt-icon"><span class="material-icons">directions_bus</span></div>
-            <div class="plus-sjekkpunkt-content">
-              <div class="plus-sjekkpunkt-title">Søk skoleskyss (hvis du har over 6 km)</div>
-              <div class="plus-sjekkpunkt-desc">Bor du mer enn 6 km fra skolen? Da har du rett på gratis skoleskyss. Du må søke <strong>hvert år</strong> via <a href="https://skoleskyss.mrfylke.no" target="_blank" rel="noopener">skoleskyss.mrfylke.no</a>. FRAM administrerer skyssen i MR – du får skoleskysskort og reisebevis derfra.</div>
-            </div>
-          </div>
-          <div class="plus-sjekkpunkt">
-            <div class="plus-sjekkpunkt-icon"><span class="material-icons">computer</span></div>
-            <div class="plus-sjekkpunkt-content">
-              <div class="plus-sjekkpunkt-title">Bestill skole-PC</div>
-              <div class="plus-sjekkpunkt-desc">Alle elever i MR trenger en bærbar PC til skolebruk. Bestill via <a href="https://skolestart.mrfylke.no" target="_blank" rel="noopener">skolestart.mrfylke.no</a>. Er du under 18 må foresatte logge inn og bekrefte valget.</div>
-            </div>
-          </div>
-          <div class="plus-sjekkpunkt">
-            <div class="plus-sjekkpunkt-icon"><span class="material-icons">account_balance</span></div>
-            <div class="plus-sjekkpunkt-content">
-              <div class="plus-sjekkpunkt-title">Søk utstyrsstipend fra Lånekassen</div>
-              <div class="plus-sjekkpunkt-desc">Du kan få mellom 1 427 kr og 7 353 kr i utstyrsstipend, avhengig av utdanningsprogrammet ditt. Søk via <a href="https://lanekassen.no" target="_blank" rel="noopener">lanekassen.no</a> innen 15. november for høstsemesteret. Du må ha fått skoleplass før du søker.</div>
-            </div>
-          </div>
-          <div class="plus-sjekkpunkt">
-            <div class="plus-sjekkpunkt-icon"><span class="material-icons">search</span></div>
-            <div class="plus-sjekkpunkt-content">
-              <div class="plus-sjekkpunkt-title">Sjekk utdanningsprogrammet på Vilbli.no</div>
-              <div class="plus-sjekkpunkt-desc"><a href="https://vilbli.no" target="_blank" rel="noopener">Vilbli.no</a> er fylkenes informasjonstjeneste for søkere til videregående. Her finner du oversikt over alle utdanningsprogrammer, skoler i MR og yrkesmuligheter.</div>
-            </div>
-          </div>
-        </div>
-
-        <div class="plus-skolestart-links">
-          <a href="https://skolestart.mrfylke.no/" target="_blank" class="plus-quick-link" rel="noopener">
-            <span class="material-icons">school</span> MR skolestart
-          </a>
-          <a href="https://vigo.no/" target="_blank" class="plus-quick-link" rel="noopener">
-            <span class="material-icons">assignment</span> VIGO
-          </a>
-          <a href="https://vilbli.no/" target="_blank" class="plus-quick-link" rel="noopener">
-            <span class="material-icons">info</span> Vilbli.no
-          </a>
-          <a href="https://udir.no/" target="_blank" class="plus-quick-link" rel="noopener">
-            <span class="material-icons">menu_book</span> Udir
-          </a>
-          <a href="https://mrfylke.no" target="_blank" class="plus-quick-link" rel="noopener">
-            <span class="material-icons">apartment</span> MR fylke
-          </a>
-          <a href="https://lanekassen.no" target="_blank" class="plus-quick-link" rel="noopener">
-            <span class="material-icons">account_balance</span> Lånekassen
-          </a>
-        </div>
-      </div>
-    </div>
-
-    <footer>
-      <p>&copy; 2026 Videregående Hjelp. Alle rettigheter forbeholdt.</p>
-    </footer>
-  </main>
-
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-  <script>
-    const contentData = {
-      guides: [
-        { title: "Fraværsgrensen?", url: "Guides/absence-rules.html" },
-        { title: "Søk til VGS", url: "Guides/vgs-application-process.html" },
-        { title: "Få stipend", url: "Guides/student-finances.html" },
-        { title: "Eksamenstips", url: "Guides/exams-in-vgs.html" },
-        { title: "Hvordan få bedre karakterer?", url: "Guides/grades-system.html" },
-        { title: "Karaktersystem", url: "Guides/grades-system.html" },
-        { title: "Motivasjon", url: "Guides/motivation.html" },
-        { title: "Studier bedre", url: "Guides/study-better-and-grades.html" },
-        { title: "Fagvalg", url: "Guides/program-choice.html" },
-        { title: "Starte på VGS", url: "Guides/new-students.html" },
-        { title: "Nåværende elev", url: "Guides/current-students.html" },
-        { title: "Forhold og skole", url: "Guides/student-rights-and-school-life.html" },
-        { title: "Dårlige karakterer", url: "Guides/failing-grades.html" },
-        { title: "Privat eksamen", url: "Guides/privatist.html" },
-        { title: "Bytte skole", url: "Guides/change-school-or-program.html" },
-        { title: "Lærlingeplasser", url: "Guides/apprenticeships-and-vocational.html" },
-        { title: "Venteliste", url: "Guides/waitlist.html" },
-        { title: "Ferdig på VGS", url: "Guides/finished-students.html" },
-        { title: "Russefeiringen", url: "Guides/russ-celebration.html" },
-        { title: "Deltidsjobb", url: "Guides/part-time-job.html" },
-        { title: "Mental helse", url: "Guides/mental-health.html" },
-        { title: "Regelbrudd", url: "Guides/rule-violations.html" },
-        { title: "Eksamen i Ungdomsskolen", url: "Guides/exams-in-teen.html" },
-        { title: "Førstegangsvitnemål", url: "Guides/first-time-diploma.html" }
-      ],
-      tools: [
-        { title: "Inntakskalkulator", url: "Tools/inntakskalkulator.html", icon: "arrow_forward" },
-        { title: "Best program for meg", url: "Tools/program-finder.html", icon: "arrow_forward" },
-        { title: "Karaktertracker", url: "Tools/grade-tracker.html", icon: "arrow_forward" },
-        { title: "Poenggrense", url: "Tools/point-limit.html", icon: "arrow_forward" }
-      ],
-      resources: [
-        { title: "Mattesett", url: "https://docs.google.com/spreadsheets/d/1mbJ_Bu6cKbzZH_C79JtD9lM2PLXPUrJaCA78bCRMc-0/edit?usp=sharing", resourceType: "Regneark", icon: "table_chart" },
-        { title: "Hva sensor ser etter", url: "https://docs.google.com/document/d/1PRPltPVveNC9cMQhppMaeO0FSF6VuELzbgGkO-SAgxY/edit?usp=sharing", resourceType: "Dokument", icon: "description" }
-      ]
-    };
-
-    const SUPABASE_URL = 'https://wqmkwcrlvgfczbueseip.supabase.co';
-    const SUPABASE_ANON = 'sb_publishable_XCDS-VsKHGbOXaaiUWaHIg_sH3sCfLJ';
-    const sb = supabase.createClient(SUPABASE_URL, SUPABASE_ANON);
-
-    function escHtml(str) {
-      return String(str ?? '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
-    }
-
-    async function loadLatestOpinionHome() {
-      const el = document.getElementById('opinionBoxContent');
-      if (!el) return;
-      try {
-        const { data, error } = await sb.from('meninger').select('quote').order('created_at', { ascending: false }).limit(1);
-        if (error) throw error;
-        const q = data && data[0]?.quote ? String(data[0].quote).trim() : 'Ingen meninger enda.';
-        el.innerHTML = `«${escHtml(q)}»`;
-      } catch (e) {
-        console.error('loadLatestOpinionHome:', e);
-        el.textContent = 'Kunne ikke laste siste mening.';
+      .card-inbox {
+        background: var(--card-pale);
       }
-    }
+      .card-inbox[hidden] {
+        display: none;
+      }
+      .card-inbox .fun-fact-label {
+        color: #000;
+      }
+      .inbox-content {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        font-size: 14px;
+      }
+      .inbox-item {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+        padding: 14px 16px;
+        background: rgba(0, 0, 0, 0.05);
+        border-radius: 12px;
+      }
+      .inbox-fag {
+        font-weight: 800;
+        font-size: 15px;
+      }
+      .inbox-status {
+        font-weight: 600;
+        font-size: 13px;
+        opacity: 0.7;
+      }
+      .inbox-reveal {
+        width: 100%;
+        border: none;
+        background: rgba(0, 0, 0, 0.05);
+        border-radius: 12px;
+        padding: 14px 16px;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 4px;
+        cursor: pointer;
+        font-family: var(--font-body);
+        font-size: 14px;
+        text-align: left;
+        color: #000;
+      }
+      .inbox-reveal:hover {
+        background: rgba(0, 0, 0, 0.09);
+      }
+      .inbox-reveal:focus-visible {
+        outline: 2px solid #000;
+        outline-offset: 2px;
+      }
+      .inbox-reveal-hint {
+        font-weight: 700;
+        font-size: 13px;
+        opacity: 0.75;
+      }
+      .inbox-reveal-grade {
+        display: none;
+        font-weight: 800;
+        font-size: 17px;
+        color: #1e7a34;
+      }
+      .inbox-reveal.open .inbox-reveal-hint {
+        display: none;
+      }
+      .inbox-reveal.open .inbox-reveal-grade {
+        display: block;
+      }
+      /* Simple pop-in animation when the grade is revealed */
+      .inbox-reveal.open .inbox-reveal-grade {
+        animation: inbox-pop 0.35s cubic-bezier(0.2, 0, 0, 1);
+      }
+      @keyframes inbox-pop {
+        0% {
+          opacity: 0;
+          transform: translateY(6px) scale(0.96);
+        }
+        100% {
+          opacity: 1;
+          transform: translateY(0) scale(1);
+        }
+      }
 
-    function subscribeOpinionHome() {
-      sb.channel('home-meninger-preview')
-        .on('postgres_changes', { event: 'INSERT', schema: 'public', table: 'meninger' }, () => loadLatestOpinionHome())
-        .on('postgres_changes', { event: 'DELETE', schema: 'public', table: 'meninger' }, () => loadLatestOpinionHome())
-        .subscribe();
-    }
+      .card-icon {
+        background: rgba(0, 0, 0, 0.1);
+        color: #000;
+        width: 48px;
+        height: 48px;
+        border-radius: 14px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 24px;
+        margin-top: auto;
+      }
 
-    function inboxStatusText(status) {
-      if (status === 'under_vurdering') return 'Under vurdering';
-      if (status === 'avvist') return 'Avvist';
-      return 'Venter på vurdering';
-    }
+      .card-interactive .card-icon {
+        background: rgba(255, 255, 255, 0.15);
+        color: #fff;
+      }
 
-    // One inbox entry. Graded exams become a click-to-reveal row: the first
-    // click reveals the grade with a small animation, the second click opens
-    // the exam simulator for the full details. The rest are plain fag+status.
-    function inboxItemHtml(s) {
-      const fag = escHtml(s.fag_tittel || 'Prøveeksamen');
-      if (s.status === 'vurdert' && s.karakter) {
-        return `
+      /* News Featured Card */
+      .news-featured-card {
+        display: grid;
+        grid-template-columns: 1fr;
+        border-radius: 20px;
+        overflow: hidden;
+        text-decoration: none;
+        color: inherit;
+        min-height: 420px;
+        transition: all 0.4s cubic-bezier(0.2, 0, 0, 1);
+      }
+
+      @media (min-width: 768px) {
+        .news-featured-card {
+          grid-template-columns: 1.3fr 1fr;
+        }
+      }
+
+      .news-featured-left {
+        padding: 40px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+      }
+      .news-featured-date {
+        font-size: 13px;
+        font-weight: 800;
+        text-transform: uppercase;
+        letter-spacing: 0.06em;
+        margin-bottom: 20px;
+        opacity: 0.6;
+      }
+      .news-featured-title {
+        font-family: var(--font-display);
+        font-size: 36px;
+        font-weight: 800;
+        line-height: 1.1;
+        margin-bottom: 20px;
+        letter-spacing: -0.05em;
+      }
+      .news-featured-desc {
+        font-size: 17px;
+        line-height: 1.6;
+        margin-bottom: 32px;
+        opacity: 0.9;
+      }
+      .news-featured-link {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        font-weight: 800;
+        font-size: 15px;
+        margin-top: auto;
+      }
+      .news-featured-right {
+        overflow: hidden;
+        position: relative;
+      }
+      .news-featured-image {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 0.6s;
+      }
+      .news-featured-card:hover .news-featured-image {
+        transform: scale(1.08);
+      }
+
+      /* Bookmarks */
+      .bookmarks-section {
+        margin-bottom: 48px;
+      }
+      .bookmarks-title {
+        font-family: var(--font-display);
+        font-size: 18px;
+        font-weight: 800;
+        margin-bottom: 20px;
+        color: var(--text-muted);
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        letter-spacing: -0.02em;
+      }
+      .bookmarks-list {
+        display: flex;
+        gap: 14px;
+        flex-wrap: wrap;
+      }
+      .bookmark-item {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        padding: 12px 20px;
+        background: var(--surface);
+        border: 1px solid var(--border);
+        color: var(--text);
+        border-radius: 14px;
+        text-decoration: none;
+        font-size: 14px;
+        font-weight: 700;
+        transition: all 0.2s;
+      }
+      .bookmark-item:hover {
+        background: rgba(255, 255, 255, 0.1);
+        transform: translateY(-3px);
+      }
+
+      /* Footer */
+      footer {
+        margin-top: 100px;
+        text-align: center;
+        color: var(--text-muted);
+        font-size: 14px;
+        padding: 80px 0;
+        border-top: 1px solid var(--border);
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <header>
+        <div class="boot-overlay" id="bootOverlay">
+          <span class="boot-logo">Videregående Hjelp</span>
+        </div>
+        <div class="header-content" id="headerContent">
+          <a href="index.html" class="logo">
+            <span class="logo-text">Videregående Hjelp</span>
+            <img
+              class="logo-image"
+              src="vgshjelp-logo.png"
+              alt="Videregående Hjelp"
+            />
+          </a>
+          <div class="header-right">
+            <div class="nav-container">
+              <a href="guides.html" class="nav-link">
+                <i class="material-icons">book</i>
+                <span>Guider</span>
+              </a>
+              <a href="tools.html" class="nav-link">
+                <i class="material-icons">quiz</i>
+                <span>Verktøy</span>
+              </a>
+              <button class="burger-btn" id="burgerBtn" aria-label="Meny">
+                <i class="material-icons">menu</i>
+              </button>
+              <div class="nav-dropdown" id="navDropdown">
+                <a href="resources.html" class="dropdown-item">
+                  <i class="material-icons">folder</i>
+                  Ressurser
+                </a>
+                <a href="news.html" class="dropdown-item nav-news-mobile">
+                  <i class="material-icons">newspaper</i>
+                  Nyheter
+                </a>
+              </div>
+            </div>
+            <a
+              href="profile.html"
+              class="profile-pill"
+              aria-label="Min profil"
+            ></a>
+          </div>
+        </div>
+      </header>
+
+      <div class="search-container">
+        <div class="user-heading-row">
+          <div class="user-heading" id="userHeading" hidden></div>
+          <a id="profileCta" class="profile-cta" href="profile.html" hidden>
+            <span class="material-icons">person_add</span>
+            <span>Lag profil</span>
+          </a>
+        </div>
+        <input
+          type="text"
+          id="searchInput"
+          class="search-input"
+          placeholder="Søk etter guider, verktøy, ressurser..."
+          autocomplete="off"
+        />
+        <div id="searchResults" class="search-results"></div>
+      </div>
+
+      <div
+        id="bookmarksSection"
+        class="bookmarks-section"
+        style="display: none"
+      >
+        <h2 class="bookmarks-title">
+          <i class="material-icons" style="color: var(--card-blue)">bookmark</i>
+          Dine bokmerker
+        </h2>
+        <div id="bookmarksList" class="bookmarks-list"></div>
+      </div>
+
+      <div class="bento-grid" id="bentoGrid">
+        <!-- Populated by JS -->
+      </div>
+
+      <!-- Pluss skolestart-modal -->
+      <div
+        class="plus-modal-backdrop"
+        id="plusSkolestartModal"
+        hidden
+        aria-hidden="true"
+      >
+        <div
+          class="plus-skolestart-dialog"
+          role="dialog"
+          aria-modal="true"
+          aria-labelledby="plusSkolestartTitle"
+        >
+          <div class="plus-skolestart-header">
+            <div>
+              <span class="plus-skolestart-icon">+</span>
+              <h2 class="plus-skolestart-title" id="plusSkolestartTitle">
+                Skolestart 2026 – Har du husket alt?
+              </h2>
+            </div>
+            <button
+              type="button"
+              class="plus-skolestart-close"
+              id="plusSkolestartClose"
+              aria-label="Lukk"
+            >
+              <span class="material-icons">close</span>
+            </button>
+          </div>
+          <p class="plus-skolestart-sub">
+            Første skoledag i Møre og Romsdal er
+            <strong>mandag 17. august 2026</strong>. Her er en huskeliste over
+            hva du bør ha gjort før skolestart.
+          </p>
+
+          <div class="plus-skolestart-checklist">
+            <div class="plus-sjekkpunkt">
+              <div class="plus-sjekkpunkt-icon">
+                <span class="material-icons">assignment</span>
+              </div>
+              <div class="plus-sjekkpunkt-content">
+                <div class="plus-sjekkpunkt-title">
+                  Sjekk skoleplassen din på VIGO
+                </div>
+                <div class="plus-sjekkpunkt-desc">
+                  Logg inn på
+                  <a href="https://vigo.no" target="_blank" rel="noopener"
+                    >vigo.no</a
+                  >
+                  for å se inntakstilbudet ditt og svare innen fristen. Du kan
+                  også stå på venteliste for andre skoler eller program.
+                </div>
+              </div>
+            </div>
+            <div class="plus-sjekkpunkt">
+              <div class="plus-sjekkpunkt-icon">
+                <span class="material-icons">calendar_month</span>
+              </div>
+              <div class="plus-sjekkpunkt-content">
+                <div class="plus-sjekkpunkt-title">Sjekk skoleruta for MR</div>
+                <div class="plus-sjekkpunkt-desc">
+                  Se hele skoleruta for 2026–2027 på
+                  <a
+                    href="https://mrfylke.no/tenester/skole-og-opplaring/opplaring-i-skole/skoleruta/"
+                    target="_blank"
+                    rel="noopener"
+                    >mrfylke.no</a
+                  >. Viktige datoer: høstferie uke 41, juleferie 18. des–4. jan,
+                  vinterferie uke 8, påske 22.–29. mar, siste skoledag 18. juni
+                  2027.
+                </div>
+              </div>
+            </div>
+            <div class="plus-sjekkpunkt">
+              <div class="plus-sjekkpunkt-icon">
+                <span class="material-icons">directions_bus</span>
+              </div>
+              <div class="plus-sjekkpunkt-content">
+                <div class="plus-sjekkpunkt-title">
+                  Søk skoleskyss (hvis du har over 6 km)
+                </div>
+                <div class="plus-sjekkpunkt-desc">
+                  Bor du mer enn 6 km fra skolen? Da har du rett på gratis
+                  skoleskyss. Du må søke <strong>hvert år</strong> via
+                  <a
+                    href="https://skoleskyss.mrfylke.no"
+                    target="_blank"
+                    rel="noopener"
+                    >skoleskyss.mrfylke.no</a
+                  >. FRAM administrerer skyssen i MR – du får skoleskysskort og
+                  reisebevis derfra.
+                </div>
+              </div>
+            </div>
+            <div class="plus-sjekkpunkt">
+              <div class="plus-sjekkpunkt-icon">
+                <span class="material-icons">computer</span>
+              </div>
+              <div class="plus-sjekkpunkt-content">
+                <div class="plus-sjekkpunkt-title">Bestill skole-PC</div>
+                <div class="plus-sjekkpunkt-desc">
+                  Alle elever i MR trenger en bærbar PC til skolebruk. Bestill
+                  via
+                  <a
+                    href="https://skolestart.mrfylke.no"
+                    target="_blank"
+                    rel="noopener"
+                    >skolestart.mrfylke.no</a
+                  >. Er du under 18 må foresatte logge inn og bekrefte valget.
+                </div>
+              </div>
+            </div>
+            <div class="plus-sjekkpunkt">
+              <div class="plus-sjekkpunkt-icon">
+                <span class="material-icons">account_balance</span>
+              </div>
+              <div class="plus-sjekkpunkt-content">
+                <div class="plus-sjekkpunkt-title">
+                  Søk utstyrsstipend fra Lånekassen
+                </div>
+                <div class="plus-sjekkpunkt-desc">
+                  Du kan få mellom 1 427 kr og 7 353 kr i utstyrsstipend,
+                  avhengig av utdanningsprogrammet ditt. Søk via
+                  <a href="https://lanekassen.no" target="_blank" rel="noopener"
+                    >lanekassen.no</a
+                  >
+                  innen 15. november for høstsemesteret. Du må ha fått
+                  skoleplass før du søker.
+                </div>
+              </div>
+            </div>
+            <div class="plus-sjekkpunkt">
+              <div class="plus-sjekkpunkt-icon">
+                <span class="material-icons">search</span>
+              </div>
+              <div class="plus-sjekkpunkt-content">
+                <div class="plus-sjekkpunkt-title">
+                  Sjekk utdanningsprogrammet på Vilbli.no
+                </div>
+                <div class="plus-sjekkpunkt-desc">
+                  <a href="https://vilbli.no" target="_blank" rel="noopener"
+                    >Vilbli.no</a
+                  >
+                  er fylkenes informasjonstjeneste for søkere til videregående.
+                  Her finner du oversikt over alle utdanningsprogrammer, skoler
+                  i MR og yrkesmuligheter.
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="plus-skolestart-links">
+            <a
+              href="https://skolestart.mrfylke.no/"
+              target="_blank"
+              class="plus-quick-link"
+              rel="noopener"
+            >
+              <span class="material-icons">school</span> MR skolestart
+            </a>
+            <a
+              href="https://vigo.no/"
+              target="_blank"
+              class="plus-quick-link"
+              rel="noopener"
+            >
+              <span class="material-icons">assignment</span> VIGO
+            </a>
+            <a
+              href="https://vilbli.no/"
+              target="_blank"
+              class="plus-quick-link"
+              rel="noopener"
+            >
+              <span class="material-icons">info</span> Vilbli.no
+            </a>
+            <a
+              href="https://udir.no/"
+              target="_blank"
+              class="plus-quick-link"
+              rel="noopener"
+            >
+              <span class="material-icons">menu_book</span> Udir
+            </a>
+            <a
+              href="https://mrfylke.no"
+              target="_blank"
+              class="plus-quick-link"
+              rel="noopener"
+            >
+              <span class="material-icons">apartment</span> MR fylke
+            </a>
+            <a
+              href="https://lanekassen.no"
+              target="_blank"
+              class="plus-quick-link"
+              rel="noopener"
+            >
+              <span class="material-icons">account_balance</span> Lånekassen
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <p>&copy; 2026 Videregående Hjelp. Alle rettigheter forbeholdt.</p>
+      </footer>
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script>
+      const contentData = {
+        guides: [
+          { title: "Fraværsgrensen?", url: "Guides/absence-rules.html" },
+          { title: "Søk til VGS", url: "Guides/vgs-application-process.html" },
+          { title: "Få stipend", url: "Guides/student-finances.html" },
+          { title: "Eksamenstips", url: "Guides/exams-in-vgs.html" },
+          {
+            title: "Hvordan få bedre karakterer?",
+            url: "Guides/grades-system.html",
+          },
+          { title: "Karaktersystem", url: "Guides/grades-system.html" },
+          { title: "Motivasjon", url: "Guides/motivation.html" },
+          {
+            title: "Studier bedre",
+            url: "Guides/study-better-and-grades.html",
+          },
+          { title: "Fagvalg", url: "Guides/program-choice.html" },
+          { title: "Starte på VGS", url: "Guides/new-students.html" },
+          { title: "Nåværende elev", url: "Guides/current-students.html" },
+          {
+            title: "Forhold og skole",
+            url: "Guides/student-rights-and-school-life.html",
+          },
+          { title: "Dårlige karakterer", url: "Guides/failing-grades.html" },
+          { title: "Privat eksamen", url: "Guides/privatist.html" },
+          { title: "Bytte skole", url: "Guides/change-school-or-program.html" },
+          {
+            title: "Lærlingeplasser",
+            url: "Guides/apprenticeships-and-vocational.html",
+          },
+          { title: "Venteliste", url: "Guides/waitlist.html" },
+          { title: "Ferdig på VGS", url: "Guides/finished-students.html" },
+          { title: "Russefeiringen", url: "Guides/russ-celebration.html" },
+          { title: "Deltidsjobb", url: "Guides/part-time-job.html" },
+          { title: "Mental helse", url: "Guides/mental-health.html" },
+          { title: "Regelbrudd", url: "Guides/rule-violations.html" },
+          {
+            title: "Eksamen i Ungdomsskolen",
+            url: "Guides/exams-in-teen.html",
+          },
+          {
+            title: "Førstegangsvitnemål",
+            url: "Guides/first-time-diploma.html",
+          },
+        ],
+        tools: [
+          {
+            title: "Inntakskalkulator",
+            url: "Tools/inntakskalkulator.html",
+            icon: "arrow_forward",
+          },
+          {
+            title: "Best program for meg",
+            url: "Tools/program-finder.html",
+            icon: "arrow_forward",
+          },
+          {
+            title: "Karaktertracker",
+            url: "Tools/grade-tracker.html",
+            icon: "arrow_forward",
+          },
+          {
+            title: "Poenggrense",
+            url: "Tools/point-limit.html",
+            icon: "arrow_forward",
+          },
+        ],
+        resources: [
+          {
+            title: "Mattesett",
+            url: "https://docs.google.com/spreadsheets/d/1mbJ_Bu6cKbzZH_C79JtD9lM2PLXPUrJaCA78bCRMc-0/edit?usp=sharing",
+            resourceType: "Regneark",
+            icon: "table_chart",
+          },
+          {
+            title: "Hva sensor ser etter",
+            url: "https://docs.google.com/document/d/1PRPltPVveNC9cMQhppMaeO0FSF6VuELzbgGkO-SAgxY/edit?usp=sharing",
+            resourceType: "Dokument",
+            icon: "description",
+          },
+        ],
+      };
+
+      const SUPABASE_URL = "https://wqmkwcrlvgfczbueseip.supabase.co";
+      const SUPABASE_ANON = "sb_publishable_XCDS-VsKHGbOXaaiUWaHIg_sH3sCfLJ";
+      const sb = supabase.createClient(SUPABASE_URL, SUPABASE_ANON);
+
+      function escHtml(str) {
+        return String(str ?? "")
+          .replace(/&/g, "&amp;")
+          .replace(/</g, "&lt;")
+          .replace(/>/g, "&gt;")
+          .replace(/"/g, "&quot;");
+      }
+
+      async function loadLatestOpinionHome() {
+        const el = document.getElementById("opinionBoxContent");
+        if (!el) return;
+        try {
+          const { data, error } = await sb
+            .from("meninger")
+            .select("quote")
+            .order("created_at", { ascending: false })
+            .limit(1);
+          if (error) throw error;
+          const q =
+            data && data[0]?.quote
+              ? String(data[0].quote).trim()
+              : "Ingen meninger enda.";
+          el.innerHTML = `«${escHtml(q)}»`;
+        } catch (e) {
+          console.error("loadLatestOpinionHome:", e);
+          el.textContent = "Kunne ikke laste siste mening.";
+        }
+      }
+
+      function subscribeOpinionHome() {
+        sb.channel("home-meninger-preview")
+          .on(
+            "postgres_changes",
+            { event: "INSERT", schema: "public", table: "meninger" },
+            () => loadLatestOpinionHome(),
+          )
+          .on(
+            "postgres_changes",
+            { event: "DELETE", schema: "public", table: "meninger" },
+            () => loadLatestOpinionHome(),
+          )
+          .subscribe();
+      }
+
+      function inboxStatusText(status) {
+        if (status === "under_vurdering") return "Under vurdering";
+        if (status === "avvist") return "Avvist";
+        return "Venter på vurdering";
+      }
+
+      // One inbox entry. Graded exams become a click-to-reveal row: the first
+      // click reveals the grade with a small animation, the second click opens
+      // the exam simulator for the full details. The rest are plain fag+status.
+      function inboxItemHtml(s) {
+        const fag = escHtml(s.fag_tittel || "Prøveeksamen");
+        if (s.status === "vurdert" && s.karakter) {
+          return `
           <button type="button" class="inbox-reveal" aria-expanded="false" aria-label="Vis karakteren i ${fag}">
             <span class="inbox-fag">${fag}</span>
             <span class="inbox-reveal-hint">Karakteren er klar – trykk for å se</span>
             <span class="inbox-reveal-grade">Karakter: ${escHtml(s.karakter)}</span>
           </button>`;
-      }
-      return `
+        }
+        return `
         <div class="inbox-item">
           <span class="inbox-fag">${fag}</span>
           <span class="inbox-status">${inboxStatusText(s.status)}</span>
         </div>`;
-    }
+      }
 
-    function bindInboxReveals(container) {
-      container.querySelectorAll('.inbox-reveal').forEach((btn) => {
-        let revealed = false;
-        btn.addEventListener('click', () => {
-          if (!revealed) {
-            revealed = true;
-            btn.classList.add('open');
-            btn.setAttribute('aria-expanded', 'true');
-            btn.setAttribute('aria-label', 'Åpne detaljene i prøveeksamenen');
-          } else {
-            window.location.href = 'Tools/exam-simulator.html';
-          }
+      function bindInboxReveals(container) {
+        container.querySelectorAll(".inbox-reveal").forEach((btn) => {
+          let revealed = false;
+          btn.addEventListener("click", () => {
+            if (!revealed) {
+              revealed = true;
+              btn.classList.add("open");
+              btn.setAttribute("aria-expanded", "true");
+              btn.setAttribute("aria-label", "Åpne detaljene i prøveeksamenen");
+            } else {
+              window.location.href = "Tools/exam-simulator.html";
+            }
+          });
         });
-      });
-    }
+      }
 
-    // The inbox card is hidden entirely when the user is logged out or has no
-    // submissions. When present it lists every submitted exam with its status.
-    async function loadInbox() {
-      const card = document.getElementById('inboxCard');
-      const el = document.getElementById('inboxContent');
-      if (!card || !el) return;
-      try {
-        const { data: sessionData } = await sb.auth.getSession();
-        const user = sessionData && sessionData.session ? sessionData.session.user : null;
-        if (!user) {
+      // The inbox card is hidden entirely when the user is logged out or has no
+      // submissions. When present it lists every submitted exam with its status.
+      async function loadInbox() {
+        const card = document.getElementById("inboxCard");
+        const el = document.getElementById("inboxContent");
+        if (!card || !el) return;
+        try {
+          const { data: sessionData } = await sb.auth.getSession();
+          const user =
+            sessionData && sessionData.session
+              ? sessionData.session.user
+              : null;
+          if (!user) {
+            card.hidden = true;
+            return;
+          }
+          const { data, error } = await sb
+            .from("eksamen_innleveringer")
+            .select("fag_tittel, status, karakter")
+            .eq("user_id", user.id)
+            .order("created_at", { ascending: false });
+          if (error) throw error;
+          if (!data || !data.length) {
+            card.hidden = true;
+            return;
+          }
+          card.hidden = false;
+          const items = data.map(inboxItemHtml).join("");
+          el.innerHTML = items;
+          bindInboxReveals(el);
+        } catch (e) {
           card.hidden = true;
-          return;
         }
-        const { data, error } = await sb.from('eksamen_innleveringer')
-          .select('fag_tittel, status, karakter')
-          .eq('user_id', user.id)
-          .order('created_at', { ascending: false });
-        if (error) throw error;
-        if (!data || !data.length) {
-          card.hidden = true;
-          return;
+      }
+
+      // Keep the inbox card in sync when the user signs in or out
+      if (sb) {
+        sb.auth.onAuthStateChange(() => {
+          loadInbox();
+        });
+      }
+
+      const funFacts = [
+        // --- Rettigheter og regler ---
+        {
+          text: "Du kan klage på en skriftlig eksamenskarakter innen 10 dager. En ny sensor vurderer da besvarelsen din på nytt. Karakteren kan gå opp, ned eller bli stående.",
+        },
+        {
+          text: "Standpunktkarakteren er ikke et matematisk snitt av prøver og innleveringer. Læreren skal vurdere den helhetlige kompetansen din ved slutten av opplæringen.",
+        },
+        {
+          text: "Du kan be læreren om en muntlig eller skriftlig begrunnelse for standpunktkarakteren din. Læreren er pliktig til å gi deg det.",
+        },
+        {
+          text: "Du har rett til å bytte utdanningsprogram i videregående. Har du ikke brukt retten innen du fyller 19, kan du likevel ta ett omvalg etterpå.",
+        },
+        {
+          text: "Fra 2024 gir opplæringsloven deg rett til å fullføre videregående, ikke bare et visst antall år. Fullføringsretten gjelder til og med skoleåret du fyller 24 år.",
+        },
+        {
+          text: "Gratisprinsippet betyr at skolen ikke kan kreve at du betaler for obligatoriske turer, ekskursjoner eller undervisningsmateriell.",
+        },
+        {
+          text: "Du kan ha inntil 10 prosent udokumentert fravær i et fag før du risikerer å miste karakteren.",
+        },
+        {
+          text: "Hvis læreren mangler vurderingsgrunnlag fordi du har for mye fravær eller ikke har levert oppgaver, kan du få 'Ikke vurdert' (IV) i faget istedenfor en karakter.",
+        },
+        {
+          text: "Det finnes ingen generell regel om at elever kan gå hjem hvis læreren er 15 minutter forsinket.",
+        },
+        // --- Eksamen ---
+        {
+          text: "Du kan melde deg opp som privatist og ta eksamen i videregående fag uten å gå på skole. Du studerer på egenhånd og avlegger eksamen på lik linje med vanlige elever.",
+        },
+        {
+          text: "Er du syk på eksamensdagen og leverer legeerklæring til skolen innen fristen, har du rett til å ta utsatt eksamen, uten ekstra kostnad.",
+        },
+        {
+          text: "Stryker du på eksamen (karakter 1), har du rett til å gå opp til ny eksamen gratis ved første mulige anledning. (Gjelder VGS)",
+        },
+        {
+          text: "Elever med dysleksi eller andre dokumenterte vansker kan søke skolen om tilrettelagte eksamensforhold. For eksempel lengre tid, opplesing av oppgaveteksten eller bruk av PC med stavekontroll.",
+        },
+        {
+          text: "På muntlig-praktisk eksamen kan du bruke varierte hjelpemidler som musikk, video eller fysiske modeller som del av presentasjonen din.",
+        },
+        // --- Stipend og økonomi ---
+        {
+          text: "Du kan få borteboerstipend hvis det er minst 40 kilometer mellom hjem og skole, eller hvis du bruker tre timer eller mer tur-retur på reisen.",
+        },
+        {
+          text: "Du kan få maksimalt 4 tilleggspoeng totalt for en kombinasjon av realfag og fremmedspråk når du søker høyere utdanning.",
+        },
+        // --- Utdanningsprogram og muligheter ---
+        {
+          text: 'Yrkesfagelever kan ta et ekstra år; "Vg3 påbygg til generell studiekompetanse", for å åpne dørene til universiteter og høyskoler.',
+        },
+        {
+          text: "Gjennom kryssløp kan du bytte fra ett yrkesfaglig utdanningsprogram på Vg1 til et annet på Vg2. For eksempel fra Elektro og datateknologi til Informasjonsteknologi og medieproduksjon.",
+        },
+        {
+          text: "Det er ingen øvre aldersgrense for å ta fagbrev som praksiskandidat. En 60-åring med lang nok arbeidserfaring kan møte til fagprøven uten én dag i videregående.",
+        },
+        {
+          text: "På utdanningsprogrammet Naturbruk kan du ha jakt, fiske eller hundekjøring som en del av de praktiske fagene.",
+        },
+        {
+          text: "Det finnes 10 yrkesfaglige utdanningsprogrammer i videregående opplæring som fører frem til yrkeskompetanse.",
+        },
+        {
+          text: "Mange skoler tilbyr e-sport eller spilldesign som valgfag eller som del av utdanningsprogrammet Medier og kommunikasjon.",
+        },
+        {
+          text: "Du kan ta Vg2 i utlandet gjennom godkjente utvekslingsorganisasjoner og få skoleåret godkjent som en del av din norske videregående opplæring.",
+        },
+        {
+          text: "I faget Entreprenørskap og bedriftsutvikling kan du starte din egen ungdomsbedrift (UB) med støtte fra Ungt Entreprenørskap.",
+        },
+        {
+          text: "Det finnes landsdekkende linjer for spesielle interesser, for eksempel toppidrett, fjellklatring og musikk, dans og drama, der du kan kombinere skole med satsingen din.",
+        },
+        {
+          text: "Du kan ta morsmålseksamen i over 40 ulike språk for å erstatte kravet om fremmedspråk på vitnemålet.",
+        },
+        // --- Lærlingelønn ---
+        {
+          text: "Lærlinger tjener i snitt en full årslønn for en fagarbeider fordelt over de to årene de er i lære. Lønnen øker gradvis fra første til siste år.",
+        },
+        // --- Statistikk ---
+        {
+          text: "Nesten tre av ti elever (28 %) fullfører ikke videregående på normert tid. På yrkesfag er utfordringen størst, nesten halvparten fullfører ikke innen normert tid.",
+        },
+        {
+          text: "I 2023 fullførte 86,5 prosent av jentene videregående skole, mot 78,1 prosent av guttene.",
+        },
+        {
+          text: "Tall viser at 88 prosent fullfører videregående når foreldrene har høyere utdanning, mot 46 prosent når foreldrene bare har grunnskole.",
+        },
+        {
+          text: "Forskning viser at å slutte på videregående sjelden er en plutselig beslutning, signalene viser seg gjerne allerede i barneskolen.",
+        },
+        // --- Russebuss ---
+        {
+          text: "Mange russebussgrupper begynner å planlegge og betale inn penger allerede i 1. klasse på videregående, altså to hele år før selve russetiden starter.",
+        },
+        {
+          text: "En fullrig russebuss kan fort koste over én million kroner når man regner inn buss, innredning, lyd- og lysanlegg, graffiti, forsikring og sjåfør.",
+        },
+        {
+          text: "Fra 2026 er det forbudt å ha sidevendte seter i russebusser under kjøring. Noen grupper hadde allerede brukt årevis på å bygge nettopp det.",
+        },
+        // --- Atferd og skolekultur ---
+        {
+          text: "Forskning viser at mange elever bruker fraværsgrensen som et «klippekort». De sparer opp de tillatte 10 prosentene og tar dem ut som fridager mot slutten av skoleåret.",
+        },
+        {
+          text: "Etter at fraværsgrensen ble innført, økte antallet elever som møtte på skolen selv om de var syke, fordi de ikke hadde råd til å miste fraværstimer.",
+        },
+        {
+          text: "Nesten halvparten av norske videregående elever får lavere karakter til skriftlig eksamen enn de har i standpunkt.",
+        },
+        // --- Historisk kuriosa ---
+        {
+          text: "Oslo katedralskole er Norges eldste skole og ble grunnlagt allerede i 1153.",
+        },
+        {
+          text: "På utdanningsprogrammet Naturbruk er det ikke uvanlig at parkeringsplassen domineres av traktorer og andre landbrukskjøretøy.",
+        },
+        // --- Mer idk --- //
+        {
+          text: "Norge var et av de første landene i verden med kvinnelig stemmerett, i 1913.",
+        },
+        {
+          text: "Katter kan ikke smake sødme, de mangler reseptoren helt.",
+        },
+        {
+          text: 'Ordet "eksamen" kommer fra latin og betyr "å veie nøyaktig".',
+        },
+        {
+          text: "Katter kan ikke bevege kjeven sidelengs, så de river i biter i stedet for å tygge.",
+        },
+        {
+          text: '"Du bruker bare 10% av hjernen" er en myte, hjerneskanninger viser aktivitet overalt.',
+        },
+        {
+          text: "Learning styles (visuell/auditiv/kinestetisk) har ingen god forskningsstøtte.",
+        },
+        {
+          text: "Mer lekser gir ikke nødvendigvis bedre resultater, viser flere studier.",
+        },
+        {
+          text: "Spredt repetisjon slår cramming for langtidshukommelse.",
+        },
+        {
+          text: "Å teste deg selv fungerer bedre enn å lese pensum om igjen.",
+        },
+        {
+          text: "Søvn før eksamen hjelper hjernen konsolidere minner bedre enn en ekstra time pugging.",
+        },
+        {
+          text: "Norge bannlyste filmen Life of Brian i 1980. Sverige reklamerte da med at filmen var så morsom at den var forbudt i Norge.",
+        },
+        {
+          text: "Under andre verdenskrig ble binders brukt som et hemmelig symbol på motstand og samhold blant nordmenn.",
+        },
+        {
+          text: "I Japan har de fleste skoler ikke vaktmestere. Elevene vasker klasserom og toaletter selv for å lære ansvar.",
+        },
+        {
+          text: "Verdens eldste universitet som fortsatt er i drift ligger i Marokko, og ble grunnlagt av en kvinne i år 859.",
+        },
+        {
+          text: "Katter har 32 muskler i hvert øre, noe som gjør at de kan snu dem 180 grader for å høre alt du gjør.",
+        },
+        {
+          text: "Forskning viser at hjernen din husker ting bedre hvis du leser teksten høyt med en rar eller morsom stemme.",
+        },
+        {
+          text: "Myte: Gullfisker har tre sekunders hukommelse. De kan faktisk huske ting i flere måneder og lære triks.",
+        },
+        {
+          text: "Sliter du med å konsentrere deg? Jobb intenst i 25 minutter og ta 5 minutter pause. Det kalles Pomodoro-teknikken.",
+        },
+        {
+          text: "Ta bilde av timeplanen og romnummeret ditt første skoledag, så slipper du panikk når du skal finne frem.",
+        },
+      ];
+
+      function getTodaysFunFact() {
+        const today = new Date();
+        const startDate = new Date("2026-07-03");
+        const hoursDiff = Math.floor((today - startDate) / (1000 * 60 * 60));
+        const rotationIndex = Math.floor(Math.max(0, hoursDiff) / 12);
+        return funFacts[rotationIndex % funFacts.length];
+      }
+
+      function shuffleArray(array) {
+        const arr = [...array];
+        for (let i = arr.length - 1; i > 0; i--) {
+          const j = Math.floor(Math.random() * (i + 1));
+          [arr[i], arr[j]] = [arr[j], arr[i]];
         }
-        card.hidden = false;
-        const items = data.map(inboxItemHtml).join('');
-        el.innerHTML = items;
-        bindInboxReveals(el);
-      } catch (e) {
-        card.hidden = true;
+        return arr;
       }
-    }
 
-    // Keep the inbox card in sync when the user signs in or out
-    if (sb) {
-      sb.auth.onAuthStateChange(() => { loadInbox(); });
-    }
+      function generateGrid() {
+        const grid = document.getElementById("bentoGrid");
+        const shuffledGuides = shuffleArray(contentData.guides).slice(0, 8);
+        const shuffledTools = shuffleArray(contentData.tools).slice(0, 4);
 
-    const funFacts = [
-      // --- Rettigheter og regler ---
-      {
-        text: "Du kan klage på en skriftlig eksamenskarakter innen 10 dager. En ny sensor vurderer da besvarelsen din på nytt. Karakteren kan gå opp, ned eller bli stående.",
-      },
-      {
-        text: "Standpunktkarakteren er ikke et matematisk snitt av prøver og innleveringer. Læreren skal vurdere den helhetlige kompetansen din ved slutten av opplæringen.",
-      },
-      {
-        text: "Du kan be læreren om en muntlig eller skriftlig begrunnelse for standpunktkarakteren din. Læreren er pliktig til å gi deg det.",
-      },
-      {
-        text: "Du har rett til å bytte utdanningsprogram i videregående. Har du ikke brukt retten innen du fyller 19, kan du likevel ta ett omvalg etterpå.",
-      },
-      {
-        text: "Fra 2024 gir opplæringsloven deg rett til å fullføre videregående, ikke bare et visst antall år. Fullføringsretten gjelder til og med skoleåret du fyller 24 år.",
-      },
-      {
-        text: "Gratisprinsippet betyr at skolen ikke kan kreve at du betaler for obligatoriske turer, ekskursjoner eller undervisningsmateriell.",
-      },
-      {
-        text: "Du kan ha inntil 10 prosent udokumentert fravær i et fag før du risikerer å miste karakteren.",
-      },
-      {
-        text: "Hvis læreren mangler vurderingsgrunnlag fordi du har for mye fravær eller ikke har levert oppgaver, kan du få 'Ikke vurdert' (IV) i faget istedenfor en karakter.",
-      },
-      {
-        text: "Det finnes ingen generell regel om at elever kan gå hjem hvis læreren er 15 minutter forsinket.",
-      },
-      // --- Eksamen ---
-      {
-        text: "Du kan melde deg opp som privatist og ta eksamen i videregående fag uten å gå på skole. Du studerer på egenhånd og avlegger eksamen på lik linje med vanlige elever.",
-      },
-      {
-        text: "Er du syk på eksamensdagen og leverer legeerklæring til skolen innen fristen, har du rett til å ta utsatt eksamen, uten ekstra kostnad.",
-      },
-      {
-        text: "Stryker du på eksamen (karakter 1), har du rett til å gå opp til ny eksamen gratis ved første mulige anledning. (Gjelder VGS)",
-      },
-      {
-        text: "Elever med dysleksi eller andre dokumenterte vansker kan søke skolen om tilrettelagte eksamensforhold. For eksempel lengre tid, opplesing av oppgaveteksten eller bruk av PC med stavekontroll.",
-      },
-      {
-        text: "På muntlig-praktisk eksamen kan du bruke varierte hjelpemidler som musikk, video eller fysiske modeller som del av presentasjonen din.",
-      },
-      // --- Stipend og økonomi ---
-      {
-        text: "Du kan få borteboerstipend hvis det er minst 40 kilometer mellom hjem og skole, eller hvis du bruker tre timer eller mer tur-retur på reisen.",
-      },
-      {
-        text: "Du kan få maksimalt 4 tilleggspoeng totalt for en kombinasjon av realfag og fremmedspråk når du søker høyere utdanning.",
-      },
-      // --- Utdanningsprogram og muligheter ---
-      {
-        text: "Yrkesfagelever kan ta et ekstra år; \"Vg3 påbygg til generell studiekompetanse\", for å åpne dørene til universiteter og høyskoler.",
-      },
-      {
-        text: "Gjennom kryssløp kan du bytte fra ett yrkesfaglig utdanningsprogram på Vg1 til et annet på Vg2. For eksempel fra Elektro og datateknologi til Informasjonsteknologi og medieproduksjon.",
-      },
-      {
-        text: "Det er ingen øvre aldersgrense for å ta fagbrev som praksiskandidat. En 60-åring med lang nok arbeidserfaring kan møte til fagprøven uten én dag i videregående.",
-      },
-      {
-        text: "På utdanningsprogrammet Naturbruk kan du ha jakt, fiske eller hundekjøring som en del av de praktiske fagene.",
-      },
-      {
-        text: "Det finnes 10 yrkesfaglige utdanningsprogrammer i videregående opplæring som fører frem til yrkeskompetanse.",
-      },
-      {
-        text: "Mange skoler tilbyr e-sport eller spilldesign som valgfag eller som del av utdanningsprogrammet Medier og kommunikasjon.",
-      },
-      {
-        text: "Du kan ta Vg2 i utlandet gjennom godkjente utvekslingsorganisasjoner og få skoleåret godkjent som en del av din norske videregående opplæring.",
-      },
-      {
-        text: "I faget Entreprenørskap og bedriftsutvikling kan du starte din egen ungdomsbedrift (UB) med støtte fra Ungt Entreprenørskap.",
-      },
-      {
-        text: "Det finnes landsdekkende linjer for spesielle interesser, for eksempel toppidrett, fjellklatring og musikk, dans og drama, der du kan kombinere skole med satsingen din.",
-      },
-      {
-        text: "Du kan ta morsmålseksamen i over 40 ulike språk for å erstatte kravet om fremmedspråk på vitnemålet.",
-      },
-      // --- Lærlingelønn ---
-      {
-        text: "Lærlinger tjener i snitt en full årslønn for en fagarbeider fordelt over de to årene de er i lære. Lønnen øker gradvis fra første til siste år.",
-      },
-      // --- Statistikk ---
-      {
-        text: "Nesten tre av ti elever (28 %) fullfører ikke videregående på normert tid. På yrkesfag er utfordringen størst, nesten halvparten fullfører ikke innen normert tid.",
-      },
-      {
-        text: "I 2023 fullførte 86,5 prosent av jentene videregående skole, mot 78,1 prosent av guttene.",
-      },
-      {
-        text: "Tall viser at 88 prosent fullfører videregående når foreldrene har høyere utdanning, mot 46 prosent når foreldrene bare har grunnskole.",
-      },
-      {
-        text: "Forskning viser at å slutte på videregående sjelden er en plutselig beslutning, signalene viser seg gjerne allerede i barneskolen.",
-      },
-      // --- Russebuss ---
-      {
-        text: "Mange russebussgrupper begynner å planlegge og betale inn penger allerede i 1. klasse på videregående, altså to hele år før selve russetiden starter.",
-      },
-      {
-        text: "En fullrig russebuss kan fort koste over én million kroner når man regner inn buss, innredning, lyd- og lysanlegg, graffiti, forsikring og sjåfør.",
-      },
-      {
-        text: "Fra 2026 er det forbudt å ha sidevendte seter i russebusser under kjøring. Noen grupper hadde allerede brukt årevis på å bygge nettopp det.",
-      },
-      // --- Atferd og skolekultur ---
-      {
-        text: "Forskning viser at mange elever bruker fraværsgrensen som et «klippekort». De sparer opp de tillatte 10 prosentene og tar dem ut som fridager mot slutten av skoleåret.",
-      },
-      {
-        text: "Etter at fraværsgrensen ble innført, økte antallet elever som møtte på skolen selv om de var syke, fordi de ikke hadde råd til å miste fraværstimer.",
-      },
-      {
-        text: "Nesten halvparten av norske videregående elever får lavere karakter til skriftlig eksamen enn de har i standpunkt.",
-      },
-      // --- Historisk kuriosa ---
-      {
-        text: "Oslo katedralskole er Norges eldste skole og ble grunnlagt allerede i 1153.",
-      },
-      {
-        text: "På utdanningsprogrammet Naturbruk er det ikke uvanlig at parkeringsplassen domineres av traktorer og andre landbrukskjøretøy.",
-      },
-      // --- Mer idk --- //
-      {
-        text: "Norge var et av de første landene i verden med kvinnelig stemmerett, i 1913.",
-      },
-      {
-        text: "Katter kan ikke smake sødme, de mangler reseptoren helt.",
-      },
-      {
-        text: "Ordet \"eksamen\" kommer fra latin og betyr \"å veie nøyaktig\".",
-      },
-      {
-        text: "Katter kan ikke bevege kjeven sidelengs, så de river i biter i stedet for å tygge.",
-      },
-      {
-        text: "\"Du bruker bare 10% av hjernen\" er en myte, hjerneskanninger viser aktivitet overalt.",
-      },
-      {
-        text: "Learning styles (visuell/auditiv/kinestetisk) har ingen god forskningsstøtte.",
-      },
-      {
-        text: "Mer lekser gir ikke nødvendigvis bedre resultater, viser flere studier.",
-      },
-      {
-        text: "Spredt repetisjon slår cramming for langtidshukommelse.",
-      },
-      {
-        text: "Å teste deg selv fungerer bedre enn å lese pensum om igjen.",
-      },
-      {
-        text: "Søvn før eksamen hjelper hjernen konsolidere minner bedre enn en ekstra time pugging.",
-      },
-      {
-        text: "Norge bannlyste filmen Life of Brian i 1980. Sverige reklamerte da med at filmen var så morsom at den var forbudt i Norge.",
-      },
-      {
-        text: "Under andre verdenskrig ble binders brukt som et hemmelig symbol på motstand og samhold blant nordmenn.",
-      },
-      {
-        text: "I Japan har de fleste skoler ikke vaktmestere. Elevene vasker klasserom og toaletter selv for å lære ansvar.",
-      },
-      {
-        text: "Verdens eldste universitet som fortsatt er i drift ligger i Marokko, og ble grunnlagt av en kvinne i år 859.",
-      },
-      {
-        text: "Katter har 32 muskler i hvert øre, noe som gjør at de kan snu dem 180 grader for å høre alt du gjør.",
-      },
-      {
-        text: "Forskning viser at hjernen din husker ting bedre hvis du leser teksten høyt med en rar eller morsom stemme.",
-      },
-      {
-        text: "Myte: Gullfisker har tre sekunders hukommelse. De kan faktisk huske ting i flere måneder og lære triks.",
-      },
-      {
-        text: "Sliter du med å konsentrere deg? Jobb intenst i 25 minutter og ta 5 minutter pause. Det kalles Pomodoro-teknikken.",
-      },
-      {
-        text: "Ta bilde av timeplanen og romnummeret ditt første skoledag, så slipper du panikk når du skal finne frem.",
-      }
-    ];
+        let html = "";
+        const funFact = getTodaysFunFact();
 
-    function getTodaysFunFact() {
-      const today = new Date();
-      const startDate = new Date('2026-07-03');
-      const hoursDiff = Math.floor((today - startDate) / (1000 * 60 * 60));
-      const rotationIndex = Math.floor(Math.max(0, hoursDiff) / 12);
-      return funFacts[rotationIndex % funFacts.length];
-    }
-
-    function shuffleArray(array) {
-      const arr = [...array];
-      for (let i = arr.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
-        [arr[i], arr[j]] = [arr[j], arr[i]];
-      }
-      return arr;
-    }
-
-    function generateGrid() {
-      const grid = document.getElementById('bentoGrid');
-      const shuffledGuides = shuffleArray(contentData.guides).slice(0, 8);
-      const shuffledTools = shuffleArray(contentData.tools).slice(0, 4);
-
-      let html = '';
-      const funFact = getTodaysFunFact();
-
-      // Fun fact featured
-      html += `
+        // Fun fact featured
+        html += `
         <div class="bento-card card-fun-fact grid-item-featured">
           <div>
             <div class="fun-fact-label"><i class="material-icons fun-fact-label-icon">lightbulb</i> Visste du at?</div>
@@ -1210,8 +1725,8 @@
         </div>
       `;
 
-      // Opinions featured
-      html += `
+        // Opinions featured
+        html += `
         <a href="opinions.html" class="bento-card card-opinions grid-item-featured">
           <div>
             <div class="fun-fact-label"><i class="material-icons" style="font-size:16px;">forum</i> Meninger</div>
@@ -1220,11 +1735,11 @@
         </a>
       `;
 
-      // News container
-      html += `<div class="grid-item-news-featured" id="newsFeaturedContainer"></div>`;
+        // News container
+        html += `<div class="grid-item-news-featured" id="newsFeaturedContainer"></div>`;
 
-      // Inboks (hidden until the user has at least one submitted exam; filled by loadInbox)
-      html += `
+        // Inboks (hidden until the user has at least one submitted exam; filled by loadInbox)
+        html += `
         <div class="bento-card card-inbox grid-item-featured" id="inboxCard" hidden>
           <div>
             <div class="fun-fact-label"><i class="material-icons fun-fact-label-icon">mail</i> Inboks</div>
@@ -1233,8 +1748,8 @@
         </div>
       `;
 
-      // Plus skolestart-bento (vises kun for Pluss-brukere, styres av JS)
-      html += `<div class="bento-grid-item-plus" id="plusSkolestartBento" style="display:none;">
+        // Plus skolestart-bento (vises kun for Pluss-brukere, styres av JS)
+        html += `<div class="bento-grid-item-plus" id="plusSkolestartBento" style="display:none;">
         <div class="bento-card card-plus-progress" id="plusSkolestartTrigger" tabindex="0" role="button" aria-label="Åpne skolestart-huskeliste">
           <div class="plus-progress-fill" id="plusProgressFill"></div>
           <div class="plus-progress-content">
@@ -1250,88 +1765,118 @@
         </div>
       </div>`;
 
-      // Guides
-      shuffledGuides.forEach(item => {
-        html += `<a href="${item.url}" class="bento-card card-guides"><div class="card-title">${item.title}</div><i class="material-icons guide-arrow">arrow_outward</i></a>`;
-      });
+        // Guides
+        shuffledGuides.forEach((item) => {
+          html += `<a href="${item.url}" class="bento-card card-guides"><div class="card-title">${item.title}</div><i class="material-icons guide-arrow">arrow_outward</i></a>`;
+        });
 
-      // Tools
-      shuffledTools.forEach(item => {
-        html += `<a href="${item.url}" class="bento-card card-tools"><div class="card-title">${item.title}</div><div class="card-icon"><i class="material-icons">${item.icon}</i></div></a>`;
-      });
+        // Tools
+        shuffledTools.forEach((item) => {
+          html += `<a href="${item.url}" class="bento-card card-tools"><div class="card-title">${item.title}</div><div class="card-icon"><i class="material-icons">${item.icon}</i></div></a>`;
+        });
 
-      grid.innerHTML = html;
-    }
-
-    // News logic
-    function formatNewsDate(dateString) {
-      const date = new Date(dateString);
-      return isNaN(date.getTime()) ? dateString : date.toLocaleDateString('no-NO', { day: '2-digit', month: 'long', year: 'numeric' });
-    }
-
-    function getDominantColor(imgElement) {
-      return new Promise((resolve) => {
-        const canvas = document.createElement('canvas');
-        const ctx = canvas.getContext('2d');
-        const img = new Image();
-        img.crossOrigin = 'anonymous';
-        img.onload = () => {
-          canvas.width = img.width; canvas.height = img.height;
-          ctx.drawImage(img, 0, 0);
-          const data = ctx.getImageData(0, 0, canvas.width, canvas.height).data;
-          let r = 0, g = 0, b = 0, count = 0;
-          for (let i = 0; i < data.length; i += 16) { 
-            const red = data[i], green = data[i+1], blue = data[i+2];
-            const max = Math.max(red, green, blue), min = Math.min(red, green, blue);
-            const saturation = max === 0 ? 0 : (max - min) / max;
-            if (saturation > 0.3 && max > 40 && max < 220) {
-              r += red; g += green; b += blue; count++;
-            }
-          }
-          if (count === 0) {
-            for (let i = 0; i < data.length; i += 16) { r += data[i]; g += data[i+1]; b += data[i+2]; count++; }
-          }
-          resolve({ r: Math.round(r/count), g: Math.round(g/count), b: Math.round(b/count) });
-        };
-        img.onerror = () => resolve({ r: 48, g: 62, b: 80 });
-        img.src = imgElement.src;
-      });
-    }
-
-    function getContrastColor(r, g, b) {
-      const luminance = (0.299 * r + 0.587 * g + 0.114 * b) / 255;
-      return luminance > 0.5 ? '#000000' : '#ffffff';
-    }
-
-    let featuredNewsItems = [];
-    let currentFeaturedIndex = 0;
-    // News older than this are hidden from the home page card so the bento
-    // grid only surfaces fresh content. If nothing qualifies, the whole card
-    // is removed from the layout (not just left empty).
-    const NEWS_FRESHNESS_DAYS = 30;
-    function renderFeaturedNews(rawNews) {
-      const container = document.getElementById('newsFeaturedContainer');
-      if (!container) return;
-      const cutoff = Date.now() - NEWS_FRESHNESS_DAYS * 24 * 60 * 60 * 1000;
-      // Filter out Plus-news for non-Plus users
-      const isPlus = window.VHplus && VHplus.isActive();
-      const sorted = (Array.isArray(rawNews) ? rawNews : (rawNews.news || []))
-        .filter(n => {
-          if (n.plus && !isPlus) return false;
-          const d = new Date(n.date);
-          return !isNaN(d.getTime()) && d.getTime() >= cutoff;
-        })
-        .sort((a, b) => new Date(b.date) - new Date(a.date));
-      if (!sorted.length) {
-        container.style.display = 'none';
-        featuredNewsItems = [];
-        return;
+        grid.innerHTML = html;
       }
-      container.style.display = '';
-      featuredNewsItems = sorted.slice(0, 3);
-      const render = () => {
-        const item = featuredNewsItems[currentFeaturedIndex];
-        container.innerHTML = `
+
+      // News logic
+      function formatNewsDate(dateString) {
+        const date = new Date(dateString);
+        return isNaN(date.getTime())
+          ? dateString
+          : date.toLocaleDateString("no-NO", {
+              day: "2-digit",
+              month: "long",
+              year: "numeric",
+            });
+      }
+
+      function getDominantColor(imgElement) {
+        return new Promise((resolve) => {
+          const canvas = document.createElement("canvas");
+          const ctx = canvas.getContext("2d");
+          const img = new Image();
+          img.crossOrigin = "anonymous";
+          img.onload = () => {
+            canvas.width = img.width;
+            canvas.height = img.height;
+            ctx.drawImage(img, 0, 0);
+            const data = ctx.getImageData(
+              0,
+              0,
+              canvas.width,
+              canvas.height,
+            ).data;
+            let r = 0,
+              g = 0,
+              b = 0,
+              count = 0;
+            for (let i = 0; i < data.length; i += 16) {
+              const red = data[i],
+                green = data[i + 1],
+                blue = data[i + 2];
+              const max = Math.max(red, green, blue),
+                min = Math.min(red, green, blue);
+              const saturation = max === 0 ? 0 : (max - min) / max;
+              if (saturation > 0.3 && max > 40 && max < 220) {
+                r += red;
+                g += green;
+                b += blue;
+                count++;
+              }
+            }
+            if (count === 0) {
+              for (let i = 0; i < data.length; i += 16) {
+                r += data[i];
+                g += data[i + 1];
+                b += data[i + 2];
+                count++;
+              }
+            }
+            resolve({
+              r: Math.round(r / count),
+              g: Math.round(g / count),
+              b: Math.round(b / count),
+            });
+          };
+          img.onerror = () => resolve({ r: 48, g: 62, b: 80 });
+          img.src = imgElement.src;
+        });
+      }
+
+      function getContrastColor(r, g, b) {
+        const luminance = (0.299 * r + 0.587 * g + 0.114 * b) / 255;
+        return luminance > 0.5 ? "#000000" : "#ffffff";
+      }
+
+      let featuredNewsItems = [];
+      let currentFeaturedIndex = 0;
+      // News older than this are hidden from the home page card so the bento
+      // grid only surfaces fresh content. If nothing qualifies, the whole card
+      // is removed from the layout (not just left empty).
+      const NEWS_FRESHNESS_DAYS = 30;
+      function renderFeaturedNews(rawNews) {
+        const container = document.getElementById("newsFeaturedContainer");
+        if (!container) return;
+        const cutoff = Date.now() - NEWS_FRESHNESS_DAYS * 24 * 60 * 60 * 1000;
+        // Filter out Plus-news for non-Plus users
+        const isPlus = window.VHplus && VHplus.isActive();
+        const sorted = (Array.isArray(rawNews) ? rawNews : rawNews.news || [])
+          .filter((n) => {
+            if (n.plus && !isPlus) return false;
+            const d = new Date(n.date);
+            return !isNaN(d.getTime()) && d.getTime() >= cutoff;
+          })
+          .sort((a, b) => new Date(b.date) - new Date(a.date));
+        if (!sorted.length) {
+          container.style.display = "none";
+          featuredNewsItems = [];
+          return;
+        }
+        container.style.display = "";
+        featuredNewsItems = sorted.slice(0, 3);
+        const render = () => {
+          const item = featuredNewsItems[currentFeaturedIndex];
+          container.innerHTML = `
           <a href="${item.link}" class="news-featured-card">
             <div class="news-featured-left" id="featuredLeft">
               <div>
@@ -1344,284 +1889,420 @@
             <div class="news-featured-right"><img src="${item.thumb}" class="news-featured-image" id="featuredImg"></div>
           </a>
         `;
-        const img = document.getElementById('featuredImg');
-        getDominantColor(img).then(color => {
-          const left = document.getElementById('featuredLeft');
-          const contrast = getContrastColor(color.r, color.g, color.b);
-          left.style.backgroundColor = `rgb(${color.r},${color.g},${color.b})`;
-          left.style.color = contrast;
-          document.getElementById('featuredTitle').style.color = contrast;
-          document.getElementById('featuredLink').style.color = contrast;
-          document.getElementById('featuredDate').style.color = contrast === '#000000' ? 'rgba(0,0,0,0.5)' : 'rgba(255,255,255,0.6)';
-          document.getElementById('featuredDesc').style.color = contrast === '#000000' ? 'rgba(0,0,0,0.8)' : 'rgba(255,255,255,0.85)';
-        });
-      };
-      render();
-      if (featuredNewsItems.length > 1) setInterval(() => { currentFeaturedIndex = (currentFeaturedIndex + 1) % featuredNewsItems.length; render(); }, 15000);
-    }
+          const img = document.getElementById("featuredImg");
+          getDominantColor(img).then((color) => {
+            const left = document.getElementById("featuredLeft");
+            const contrast = getContrastColor(color.r, color.g, color.b);
+            left.style.backgroundColor = `rgb(${color.r},${color.g},${color.b})`;
+            left.style.color = contrast;
+            document.getElementById("featuredTitle").style.color = contrast;
+            document.getElementById("featuredLink").style.color = contrast;
+            document.getElementById("featuredDate").style.color =
+              contrast === "#000000"
+                ? "rgba(0,0,0,0.5)"
+                : "rgba(255,255,255,0.6)";
+            document.getElementById("featuredDesc").style.color =
+              contrast === "#000000"
+                ? "rgba(0,0,0,0.8)"
+                : "rgba(255,255,255,0.85)";
+          });
+        };
+        render();
+        if (featuredNewsItems.length > 1)
+          setInterval(() => {
+            currentFeaturedIndex =
+              (currentFeaturedIndex + 1) % featuredNewsItems.length;
+            render();
+          }, 15000);
+      }
 
-    // Header & Dropdown
-    const burgerBtn = document.getElementById('burgerBtn');
-    const navDropdown = document.getElementById('navDropdown');
-    burgerBtn.addEventListener('click', (e) => {
-      e.stopPropagation();
-      navDropdown.classList.toggle('active');
-    });
-    document.addEventListener('click', () => navDropdown.classList.remove('active'));
-
-    // Search logic
-    let searchData = [], vocab = {}, idf = {}, vocabSize = 0;
-    fetch('search-data.json').then(r => r.json()).then(data => {
-      searchData = data.items || data;
-      vocabSize = data.vocab_size || 0;
-      idf = data.idf || {};
-      Object.keys(idf).forEach((t, i) => vocab[t] = i);
-    }).catch(e => console.error('Error loading search data:', e));
-
-    function tokenize(t) { return (t.toLowerCase().match(/\b[a-zæøå0-9]+\b/gi) || []).filter(s => s.length > 2); }
-    function cosineSimilarity(v1, v2) {
-      let dot = 0, m1 = 0, m2 = 0;
-      for (const i in v1) { m1 += v1[i]**2; if (i in v2) dot += v1[i]*v2[i]; }
-      for (const i in v2) m2 += v2[i]**2;
-      return (m1 && m2) ? dot / (Math.sqrt(m1) * Math.sqrt(m2)) : 0;
-    }
-    function createQueryVector(tokens) {
-      const v = {};
-      tokens.forEach(t => {
-        const idx = vocab[t];
-        if (idx !== undefined) v[idx] = (v[idx] || 0) + (idf[t] || 1.0) / tokens.length;
+      // Header & Dropdown
+      const burgerBtn = document.getElementById("burgerBtn");
+      const navDropdown = document.getElementById("navDropdown");
+      burgerBtn.addEventListener("click", (e) => {
+        e.stopPropagation();
+        navDropdown.classList.toggle("active");
       });
-      return v;
-    }
+      document.addEventListener("click", () =>
+        navDropdown.classList.remove("active"),
+      );
 
-    const searchInput = document.getElementById('searchInput');
-    const searchResults = document.getElementById('searchResults');
-    searchInput.addEventListener('input', (e) => {
-      const query = e.target.value.toLowerCase();
-      if (query.length < 2) { searchResults.style.display = 'none'; return; }
-      const tokens = tokenize(query), qVec = createQueryVector(tokens);
-      const scored = searchData.map(item => {
-        let s = 0;
-        if (item.title.toLowerCase() === query) s += 100;
-        else if (item.title.toLowerCase().includes(query)) s += 50;
-        else if (item.keywords && item.keywords.some(k => k.includes(query))) s += 30;
-        if (item.vector && vocabSize > 0) s += cosineSimilarity(qVec, item.vector) * 40;
-        return { item, s };
-      }).filter(x => x.s > 0).sort((a,b) => b.s - a.s).slice(0, 8);
+      // Search logic
+      let searchData = [],
+        vocab = {},
+        idf = {},
+        vocabSize = 0;
+      fetch("search-data.json")
+        .then((r) => r.json())
+        .then((data) => {
+          searchData = data.items || data;
+          vocabSize = data.vocab_size || 0;
+          idf = data.idf || {};
+          Object.keys(idf).forEach((t, i) => (vocab[t] = i));
+        })
+        .catch((e) => console.error("Error loading search data:", e));
 
-      if (scored.length) {
-        searchResults.style.display = 'block';
-        searchResults.innerHTML = scored.map(x => `<a href="${x.item.url}" class="search-result-item"><span class="search-result-title">${x.item.title}</span><span class="search-result-meta">${x.item.keywords?.slice(0,3).join(', ') || ''}</span></a>`).join('');
-      } else {
-        searchResults.style.display = 'block';
-        searchResults.innerHTML = `<div class="search-no-results"><span class="search-no-results-label">Ingen resultater. Søk eksternt?</span><div class="search-external-links">
+      function tokenize(t) {
+        return (t.toLowerCase().match(/\b[a-zæøå0-9]+\b/gi) || []).filter(
+          (s) => s.length > 2,
+        );
+      }
+      function cosineSimilarity(v1, v2) {
+        let dot = 0,
+          m1 = 0,
+          m2 = 0;
+        for (const i in v1) {
+          m1 += v1[i] ** 2;
+          if (i in v2) dot += v1[i] * v2[i];
+        }
+        for (const i in v2) m2 += v2[i] ** 2;
+        return m1 && m2 ? dot / (Math.sqrt(m1) * Math.sqrt(m2)) : 0;
+      }
+      function createQueryVector(tokens) {
+        const v = {};
+        tokens.forEach((t) => {
+          const idx = vocab[t];
+          if (idx !== undefined)
+            v[idx] = (v[idx] || 0) + (idf[t] || 1.0) / tokens.length;
+        });
+        return v;
+      }
+
+      const searchInput = document.getElementById("searchInput");
+      const searchResults = document.getElementById("searchResults");
+      searchInput.addEventListener("input", (e) => {
+        const query = e.target.value.toLowerCase();
+        if (query.length < 2) {
+          searchResults.style.display = "none";
+          return;
+        }
+        const tokens = tokenize(query),
+          qVec = createQueryVector(tokens);
+        const scored = searchData
+          .map((item) => {
+            let s = 0;
+            if (item.title.toLowerCase() === query) s += 100;
+            else if (item.title.toLowerCase().includes(query)) s += 50;
+            else if (
+              item.keywords &&
+              item.keywords.some((k) => k.includes(query))
+            )
+              s += 30;
+            if (item.vector && vocabSize > 0)
+              s += cosineSimilarity(qVec, item.vector) * 40;
+            return { item, s };
+          })
+          .filter((x) => x.s > 0)
+          .sort((a, b) => b.s - a.s)
+          .slice(0, 8);
+
+        if (scored.length) {
+          searchResults.style.display = "block";
+          searchResults.innerHTML = scored
+            .map(
+              (x) =>
+                `<a href="${x.item.url}" class="search-result-item"><span class="search-result-title">${x.item.title}</span><span class="search-result-meta">${x.item.keywords?.slice(0, 3).join(", ") || ""}</span></a>`,
+            )
+            .join("");
+        } else {
+          searchResults.style.display = "block";
+          searchResults.innerHTML = `<div class="search-no-results"><span class="search-no-results-label">Ingen resultater. Søk eksternt?</span><div class="search-external-links">
           <a href="https://www.ung.no/sok?query=${encodeURIComponent(query)}" target="_blank" class="search-external-btn search-external-ung">ung.no</a>
           <a href="https://utdanning.no/sok/#query_value=${encodeURIComponent(query)}" target="_blank" class="search-external-btn search-external-utd">utdanning.no</a>
           <a href="https://www.vilbli.no/nb/no/sok?elastic=search&q=${encodeURIComponent(query)}" target="_blank" class="search-external-btn search-external-vilbli">vilbli.no</a>
         </div></div>`;
+        }
+      });
+
+      function renderBookmarks() {
+        const section = document.getElementById("bookmarksSection"),
+          list = document.getElementById("bookmarksList");
+        let bm = JSON.parse(localStorage.getItem("bookmarks") || "[]");
+        if (!bm.length) {
+          section.style.display = "none";
+          return;
+        }
+        section.style.display = "block";
+        const all = [
+          ...contentData.guides,
+          ...contentData.tools,
+          ...contentData.resources,
+        ];
+        list.innerHTML = bm
+          .map((url) => {
+            const item = all.find((i) => i.url === url);
+            return `<a href="${url}" class="bookmark-item"><i class="material-icons" style="font-size:16px;color:var(--card-blue);">bookmark</i>${item ? item.title : url}</a>`;
+          })
+          .join("");
       }
-    });
 
-    function renderBookmarks() {
-      const section = document.getElementById('bookmarksSection'), list = document.getElementById('bookmarksList');
-      let bm = JSON.parse(localStorage.getItem('bookmarks') || '[]');
-      if (!bm.length) { section.style.display = 'none'; return; }
-      section.style.display = 'block';
-      const all = [...contentData.guides, ...contentData.tools, ...contentData.resources];
-      list.innerHTML = bm.map(url => {
-        const item = all.find(i => i.url === url);
-        return `<a href="${url}" class="bookmark-item"><i class="material-icons" style="font-size:16px;color:var(--card-blue);">bookmark</i>${item ? item.title : url}</a>`;
-      }).join('');
-    }
+      const DEFAULT_GREETINGS = [
+        "Hei",
+        "Heia",
+        "Yo",
+        "Skjer\u2019a",
+        "Velkommen",
+        "Velkommen tilbake",
+        "Godt \u00e5 se deg",
+        "Hallais",
+        "Hallaien",
+        "Halla",
+        "Yo gang",
+        "G\u2019day mate",
+        "Heisann",
+        "Hallo",
+        "Salut",
+        "Hva skjer\u2019a",
+        "Halla p\u00e5 deg",
+        "Hei igjen",
+        "St\u00e5 p\u00e5",
+        "Hyggelig \u00e5 se deg",
+        "Velkommen inn",
+        "Hei og h\u00e5",
+        "Hei du",
+        "Tjommen",
+        "Tjohei",
+        "Hei p\u00e5 deg",
+        "God dag",
+        "Hyggelig",
+        "Lenge siden sist",
+        "Koselig",
+        "Bra \u00e5 ha deg her",
+        "Hei venn",
+        "H\u00e6",
+        "H\u00e6i",
+        "Topp \u00e5 se deg",
+        "Glad \u00e5 se deg",
+        "Sprett opp",
+        "Aloha",
+      ];
 
-    const DEFAULT_GREETINGS = [
-      'Hei', 'Heia', 'Yo', 'Skjer\u2019a', 'Velkommen',
-      'Velkommen tilbake', 'Godt \u00e5 se deg', 'Hallais',
-      'Hallaien', 'Halla', 'Yo gang', 'G\u2019day mate',
-      'Heisann', 'Hallo', 'Salut', 'Hva skjer\u2019a',
-      'Halla p\u00e5 deg', 'Hei igjen', 'St\u00e5 p\u00e5',
-      'Hyggelig \u00e5 se deg', 'Velkommen inn', 'Hei og h\u00e5',
-      'Hei du', 'Tjommen', 'Tjohei',
-      'Hei p\u00e5 deg', 'God dag', 'Hyggelig',
-      'Lenge siden sist', 'Koselig', 'Bra \u00e5 ha deg her',
-      'Hei venn', 'H\u00e6', 'H\u00e6i',
-      'Topp \u00e5 se deg', 'Glad \u00e5 se deg',
-      'Sprett opp', 'Aloha',
-    ];
+      const TIME_GREETINGS = {
+        tidlig: [
+          "St\u00e5 opp!",
+          "Tidlig ute",
+          "Er du v\u00e5ken?",
+          "P\u00e5 vei ut?",
+          "Du er lys v\u00e5ken",
+          "Er du klar?",
+          "Frokost?",
+        ],
+        morgen: [
+          "God morgen",
+          "God morgen!",
+          "Morn",
+          "Morn til deg",
+          "Ha en fin morgen",
+          "Koselig morgen",
+          "Lykke til med dagen",
+          "St\u00e5 p\u00e5 med skolen",
+        ],
+        ettermiddag: [
+          "God ettermiddag",
+          "Ha en fin ettermiddag",
+          "Velkommen tilbake",
+          "Koselig ettermiddag",
+          "St\u00e5 p\u00e5 videre",
+          "Frisk pust",
+        ],
+        kveld: [
+          "God kveld",
+          "God kveld!",
+          "Ha en fin kveld",
+          "Koselig kveld",
+          "Kvelden er din",
+          "Hyggelig kveld",
+          "Slapp av",
+        ],
+        midnatt: [
+          "zzz",
+          "Skal du ikke sove?",
+          "Legg deg",
+          "G\u00e5 og legg deg",
+          "Sov godt",
+          "God natt",
+          "Skulle du ikke sove for lengst?",
+          "Det er natt",
+          "N\u00e5 er det natt",
+          "Du burde sove",
+        ],
+      };
 
-    const TIME_GREETINGS = {
-      tidlig: [
-        'St\u00e5 opp!', 'Tidlig ute', 'Er du v\u00e5ken?',
-        'P\u00e5 vei ut?', 'Du er lys v\u00e5ken', 'Er du klar?',
-        'Frokost?',
-      ],
-      morgen: [
-        'God morgen', 'God morgen!', 'Morn', 'Morn til deg',
-        'Ha en fin morgen', 'Koselig morgen', 'Lykke til med dagen',
-        'St\u00e5 p\u00e5 med skolen',
-      ],
-      ettermiddag: [
-        'God ettermiddag', 'Ha en fin ettermiddag',
-        'Velkommen tilbake', 'Koselig ettermiddag',
-        'St\u00e5 p\u00e5 videre', 'Frisk pust',
-      ],
-      kveld: [
-        'God kveld', 'God kveld!', 'Ha en fin kveld',
-        'Koselig kveld', 'Kvelden er din', 'Hyggelig kveld',
-        'Slapp av',
-      ],
-      midnatt: [
-        'zzz', 'Skal du ikke sove?', 'Legg deg',
-        'G\u00e5 og legg deg', 'Sov godt', 'God natt',
-        'Skulle du ikke sove for lengst?', 'Det er natt',
-        'N\u00e5 er det natt', 'Du burde sove',
-      ],
-    };
-
-    function getTimeBucket() {
-      const hour = new Date().getHours();
-      if (hour < 5) return 'midnatt';
-      if (hour < 6) return 'tidlig';
-      if (hour < 10) return 'morgen';
-      if (hour >= 15 && hour < 19) return 'ettermiddag';
-      if (hour >= 19) return 'kveld';
-      return null;
-    }
-
-    function paintGreeting() {
-      if (!window.VHprofile) return;
-      const heading = document.getElementById('userHeading');
-      const cta = document.getElementById('profileCta');
-      if (!heading || !cta) return;
-      const DEFAULT_NAME = 'Bruker';
-      const name = VHprofile.get().name;
-      // No profile yet: fixed welcoming greeting + clear CTA to set one up.
-      // Has profile: random greeting + name. Pool is time-of-day aware.
-      if (!name || name === DEFAULT_NAME) {
-        heading.textContent = 'Velkommen, Elev';
-        cta.hidden = false;
-      } else {
-        const bucket = getTimeBucket();
-        // Morgen + ettermiddag blend with the default pool for variety; the
-        // other buckets stay strictly time-themed (tidlig / kveld / midnatt).
-        const pool = bucket === 'morgen' || bucket === 'ettermiddag'
-          ? [...TIME_GREETINGS[bucket], ...DEFAULT_GREETINGS]
-          : (bucket ? TIME_GREETINGS[bucket] : DEFAULT_GREETINGS);
-        const greeting = pool[Math.floor(Math.random() * pool.length)];
-        // Move trailing . ! ? to after the name so 'Greeting?, Name' becomes 'Greeting, Name?'.
-        const trailing = greeting.match(/[.!?]+$/);
-        const mark = trailing ? trailing[0] : '';
-        const stem = trailing ? greeting.slice(0, -mark.length).trimEnd() : greeting;
-        heading.textContent = `${stem}, ${name}${mark}`;
-        cta.hidden = true;
+      function getTimeBucket() {
+        const hour = new Date().getHours();
+        if (hour < 5) return "midnatt";
+        if (hour < 6) return "tidlig";
+        if (hour < 10) return "morgen";
+        if (hour >= 15 && hour < 19) return "ettermiddag";
+        if (hour >= 19) return "kveld";
+        return null;
       }
-      heading.hidden = false;
-    }
 
-    // Boot animation: show centered logo, then transition to full header
-    (function() {
-      var overlay = document.getElementById('bootOverlay');
-      var headerContent = document.getElementById('headerContent');
-      if (overlay && headerContent) {
-        setTimeout(function() {
-          overlay.classList.add('boot-done');
-          headerContent.classList.add('visible');
-        }, 1200);
+      function paintGreeting() {
+        if (!window.VHprofile) return;
+        const heading = document.getElementById("userHeading");
+        const cta = document.getElementById("profileCta");
+        if (!heading || !cta) return;
+        const DEFAULT_NAME = "Bruker";
+        const name = VHprofile.get().name;
+        // No profile yet: fixed welcoming greeting + clear CTA to set one up.
+        // Has profile: random greeting + name. Pool is time-of-day aware.
+        if (!name || name === DEFAULT_NAME) {
+          heading.textContent = "Velkommen, Elev";
+          cta.hidden = false;
+        } else {
+          const bucket = getTimeBucket();
+          // Morgen + ettermiddag blend with the default pool for variety; the
+          // other buckets stay strictly time-themed (tidlig / kveld / midnatt).
+          const pool =
+            bucket === "morgen" || bucket === "ettermiddag"
+              ? [...TIME_GREETINGS[bucket], ...DEFAULT_GREETINGS]
+              : bucket
+                ? TIME_GREETINGS[bucket]
+                : DEFAULT_GREETINGS;
+          const greeting = pool[Math.floor(Math.random() * pool.length)];
+          // Move trailing . ! ? to after the name so 'Greeting?, Name' becomes 'Greeting, Name?'.
+          const trailing = greeting.match(/[.!?]+$/);
+          const mark = trailing ? trailing[0] : "";
+          const stem = trailing
+            ? greeting.slice(0, -mark.length).trimEnd()
+            : greeting;
+          heading.textContent = `${stem}, ${name}${mark}`;
+          cta.hidden = true;
+        }
+        heading.hidden = false;
       }
-    })();
 
-    function getSkolestartCountdown() {
-      var schoolStart = new Date('2026-08-17T08:00:00');
-      var now = new Date();
-      var diff = schoolStart.getTime() - now.getTime();
-      if (diff > 0) {
-        var days = Math.floor(diff / (1000 * 60 * 60 * 24));
-        return { days: days, text: days + ' dager igjen til skolestart' };
+      // Boot animation: show centered logo, then transition to full header
+      (function () {
+        var overlay = document.getElementById("bootOverlay");
+        var headerContent = document.getElementById("headerContent");
+        if (overlay && headerContent) {
+          setTimeout(function () {
+            overlay.classList.add("boot-done");
+            headerContent.classList.add("visible");
+          }, 1200);
+        }
+      })();
+
+      function getSkolestartCountdown() {
+        var schoolStart = new Date("2026-08-17T08:00:00");
+        var now = new Date();
+        var diff = schoolStart.getTime() - now.getTime();
+        if (diff > 0) {
+          var days = Math.floor(diff / (1000 * 60 * 60 * 24));
+          return { days: days, text: days + " dager igjen til skolestart" };
+        }
+        return { days: 0, text: "Skoleåret er i gang!" };
       }
-      return { days: 0, text: 'Skoleåret er i gang!' };
-    }
 
-    function renderPlusBento() {
-      var el = document.getElementById('plusSkolestartBento');
-      if (!el) return;
-      var isPlus = window.VHplus && VHplus.isActive();
-      el.style.display = isPlus ? '' : 'none';
-      if (!isPlus) return;
-      var countdown = getSkolestartCountdown();
-      var daysEl = document.getElementById('plusProgressDays');
-      var fillEl = document.getElementById('plusProgressFill');
-      if (daysEl) daysEl.textContent = countdown.days;
-      // Progress fill: more days left = more fill (urgency indicator)
-      var totalDays = 60; // reference period
-      var remaining = Math.max(0, countdown.days);
-      var pct = Math.min(100, (remaining / totalDays) * 100);
-      if (fillEl) fillEl.style.width = pct + '%';
-    }
-
-    function openSkolestartModal() {
-      var modal = document.getElementById('plusSkolestartModal');
-      if (!modal) return;
-      modal.hidden = false;
-      modal.setAttribute('aria-hidden', 'false');
-      var closeBtn = document.getElementById('plusSkolestartClose');
-      if (!closeBtn) return;
-
-      var previousFocus = document.activeElement;
-      var removeTrap = window.VHplus && VHplus.trapFocus ? VHplus.trapFocus(modal) : function(){};
-      closeBtn.focus();
-
-      function close() {
-        modal.hidden = true;
-        modal.setAttribute('aria-hidden', 'true');
-        closeBtn.removeEventListener('click', close);
-        document.removeEventListener('keydown', onKey);
-        modal.removeEventListener('click', onBackdrop);
-        removeTrap();
-        var trigger = document.getElementById('plusSkolestartTrigger');
-        if (trigger) trigger.focus();
-        else if (previousFocus) previousFocus.focus();
+      function renderPlusBento() {
+        var el = document.getElementById("plusSkolestartBento");
+        if (!el) return;
+        var isPlus = window.VHplus && VHplus.isActive();
+        el.style.display = isPlus ? "" : "none";
+        if (!isPlus) return;
+        var countdown = getSkolestartCountdown();
+        var daysEl = document.getElementById("plusProgressDays");
+        var fillEl = document.getElementById("plusProgressFill");
+        if (daysEl) daysEl.textContent = countdown.days;
+        // Progress fill: more days left = more fill (urgency indicator)
+        var totalDays = 60; // reference period
+        var remaining = Math.max(0, countdown.days);
+        var pct = Math.min(100, (remaining / totalDays) * 100);
+        if (fillEl) fillEl.style.width = pct + "%";
       }
-      function onKey(e) { if (e.key === 'Escape') close(); }
-      function onBackdrop(e) { if (e.target === modal) close(); }
-      closeBtn.addEventListener('click', close);
-      document.addEventListener('keydown', onKey);
-      modal.addEventListener('click', onBackdrop);
-    }
 
-    document.addEventListener('DOMContentLoaded', () => {
-      generateGrid(); loadLatestOpinionHome(); subscribeOpinionHome(); renderBookmarks(); loadInbox();
-      fetch('News/news-data.json').then(r => r.json()).then(d => renderFeaturedNews(d)).catch(e => console.error(e));
-      renderPlusBento();
-      // Wire up the skolestart bento card
-      var trigger = document.getElementById('plusSkolestartTrigger');
-      if (trigger) {
-        trigger.addEventListener('click', openSkolestartModal);
-        trigger.addEventListener('keydown', function (e) { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openSkolestartModal(); } });
+      function openSkolestartModal() {
+        var modal = document.getElementById("plusSkolestartModal");
+        if (!modal) return;
+        modal.hidden = false;
+        modal.setAttribute("aria-hidden", "false");
+        var closeBtn = document.getElementById("plusSkolestartClose");
+        if (!closeBtn) return;
+
+        var previousFocus = document.activeElement;
+        var removeTrap =
+          window.VHplus && VHplus.trapFocus
+            ? VHplus.trapFocus(modal)
+            : function () {};
+        closeBtn.focus();
+
+        function close() {
+          modal.hidden = true;
+          modal.setAttribute("aria-hidden", "true");
+          closeBtn.removeEventListener("click", close);
+          document.removeEventListener("keydown", onKey);
+          modal.removeEventListener("click", onBackdrop);
+          removeTrap();
+          var trigger = document.getElementById("plusSkolestartTrigger");
+          if (trigger) trigger.focus();
+          else if (previousFocus) previousFocus.focus();
+        }
+        function onKey(e) {
+          if (e.key === "Escape") close();
+        }
+        function onBackdrop(e) {
+          if (e.target === modal) close();
+        }
+        closeBtn.addEventListener("click", close);
+        document.addEventListener("keydown", onKey);
+        modal.addEventListener("click", onBackdrop);
       }
-    });
-    document.addEventListener('vhjelp:plus-changed', renderPlusBento);
-    // Resolve stored 'system'|'light'|'dark' before first paint.
-    // Pairs with VHprofile.applyTheme() which re-runs at end of body.
-    (function () {
-      var stored = localStorage.getItem('theme') || 'dark';
-      var prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
-      var resolved = stored === 'system' ? (prefersDark ? 'dark' : 'light') : stored;
-      document.documentElement.setAttribute('data-theme', resolved);
-    })();
-  </script>
-  <script src="Assets/js/plus.js"></script>
-  <script src="Assets/js/profile.js"></script>
-  <script>
-    // Paint greeting on first load + re-paint after any profile change so the
-    // name stays in sync if the user updates it on profile.html in another tab.
-    (function () {
-      function run() { try { paintGreeting(); } catch (e) {} }
-      if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', run);
-      } else {
-        run();
-      }
-    })();
-  </script>
-</body>
+
+      document.addEventListener("DOMContentLoaded", () => {
+        generateGrid();
+        loadLatestOpinionHome();
+        subscribeOpinionHome();
+        renderBookmarks();
+        loadInbox();
+        fetch("News/news-data.json")
+          .then((r) => r.json())
+          .then((d) => renderFeaturedNews(d))
+          .catch((e) => console.error(e));
+        renderPlusBento();
+        // Wire up the skolestart bento card
+        var trigger = document.getElementById("plusSkolestartTrigger");
+        if (trigger) {
+          trigger.addEventListener("click", openSkolestartModal);
+          trigger.addEventListener("keydown", function (e) {
+            if (e.key === "Enter" || e.key === " ") {
+              e.preventDefault();
+              openSkolestartModal();
+            }
+          });
+        }
+      });
+      document.addEventListener("vhjelp:plus-changed", renderPlusBento);
+      // Resolve stored 'system'|'light'|'dark' before first paint.
+      // Pairs with VHprofile.applyTheme() which re-runs at end of body.
+      (function () {
+        var stored = localStorage.getItem("theme") || "dark";
+        var prefersDark =
+          window.matchMedia &&
+          window.matchMedia("(prefers-color-scheme: dark)").matches;
+        var resolved =
+          stored === "system" ? (prefersDark ? "dark" : "light") : stored;
+        document.documentElement.setAttribute("data-theme", resolved);
+      })();
+    </script>
+    <script src="Assets/js/plus.js"></script>
+    <script src="Assets/js/profile.js"></script>
+    <script>
+      // Paint greeting on first load + re-paint after any profile change so the
+      // name stays in sync if the user updates it on profile.html in another tab.
+      (function () {
+        function run() {
+          try {
+            paintGreeting();
+          } catch (e) {}
+        }
+        if (document.readyState === "loading") {
+          document.addEventListener("DOMContentLoaded", run);
+        } else {
+          run();
+        }
+      })();
+    </script>
+  </body>
 </html>

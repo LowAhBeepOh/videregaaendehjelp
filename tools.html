@@ -1,342 +1,420 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="no">
-<head>
-  <script defer src="https://cloud.umami.is/script.js" data-website-id="24f80a75-a09f-4f80-94e0-d9103f0d734d"></script>
-<meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Verktøy og interaktive ressurser for videregående elever, som inntakskalkulator, poenggrenser, kalender og mer.">
-  <meta name="keywords" content="verktøy, interaktivt, karakterer, inntakskalkulator, poenggrenser, eksamen, videregående">
-  <meta name="robots" content="index, follow">
-  <meta name="author" content="Videregående Hjelp">
-  <meta name="language" content="Norwegian">
-  <meta property="og:title" content="Verktøy - Videregående Hjelp">
-  <meta property="og:description" content="Bruk verktøy og interaktive ressurser for å spore karakterer, beregne inntak, øve til eksamen og mer.">
-  <meta property="og:type" content="website">
-  <meta property="og:url" content="https://lowahbeepoh.github.io/videregaaendehjelp/tools.html">
-  <meta property="og:image" content="https://lowahbeepoh.github.io/videregaaendehjelp/vgshjelp-logo.png">
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Verktøy - Videregående Hjelp">
-  <meta name="twitter:description" content="Verktøy og interaktive ressurser for videregående elever.">
-  <link rel="canonical" href="https://lowahbeepoh.github.io/videregaaendehjelp/tools.html">
-  <title>Verktøy - Videregående Hjelp</title>
-  <link rel="shortcut icon" href="vgshjelp-logo.png" type="image/x-icon">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200;300;400;500;600;700;800&display=swap" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-  <link rel="stylesheet" href="Assets/css/plus.css">
-  <link rel="stylesheet" href="Assets/css/profile.css">
-  <link rel="stylesheet" href="Assets/css/shared-header.css">
-  <script defer src="Assets/js/shared-header.js"></script>
-  <style>
-    :root {
-      /* Bold Palette */
-      --bg: #050505;
-      --text: #ffffff;
-      --text-muted: #888;
-      
-      --card-red: #d40b00;
-      --card-lime: #D0F54E;
-      --card-blue: #5865F2;
-      --card-orange: #FF9F0A;
-      --card-green: #30D158;
-      --card-pale: #F2F2F7;
-      
-      --surface: #1c1c1e;
-      --border: #2c2c2e;
-      
-      /* Typography */
-      --font-display: 'Inter Tight', sans-serif;
-      --font-body: 'Manrope', sans-serif;
-    }
+  <head>
+    <script
+      defer
+      src="https://cloud.umami.is/script.js"
+      data-website-id="24f80a75-a09f-4f80-94e0-d9103f0d734d"
+    ></script>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Verktøy og interaktive ressurser for videregående elever, som inntakskalkulator, poenggrenser, kalender og mer."
+    />
+    <meta
+      name="keywords"
+      content="verktøy, interaktivt, karakterer, inntakskalkulator, poenggrenser, eksamen, videregående"
+    />
+    <meta name="robots" content="index, follow" />
+    <meta name="author" content="Videregående Hjelp" />
+    <meta name="language" content="Norwegian" />
+    <meta property="og:title" content="Verktøy - Videregående Hjelp" />
+    <meta
+      property="og:description"
+      content="Bruk verktøy og interaktive ressurser for å spore karakterer, beregne inntak, øve til eksamen og mer."
+    />
+    <meta property="og:type" content="website" />
+    <meta
+      property="og:url"
+      content="https://lowahbeepoh.github.io/videregaaendehjelp/tools.html"
+    />
+    <meta
+      property="og:image"
+      content="https://lowahbeepoh.github.io/videregaaendehjelp/vgshjelp-logo.png"
+    />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Verktøy - Videregående Hjelp" />
+    <meta
+      name="twitter:description"
+      content="Verktøy og interaktive ressurser for videregående elever."
+    />
+    <link
+      rel="canonical"
+      href="https://lowahbeepoh.github.io/videregaaendehjelp/tools.html"
+    />
+    <title>Verktøy - Videregående Hjelp</title>
+    <link rel="shortcut icon" href="vgshjelp-logo.png" type="image/x-icon" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter+Tight:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Manrope:wght@200;300;400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/icon?family=Material+Icons"
+    />
+    <link rel="stylesheet" href="Assets/css/plus.css" />
+    <link rel="stylesheet" href="Assets/css/profile.css" />
+    <link rel="stylesheet" href="Assets/css/shared-header.css" />
+    <script defer src="Assets/js/shared-header.js"></script>
+    <style>
+      :root {
+        /* Bold Palette */
+        --bg: #050505;
+        --text: #ffffff;
+        --text-muted: #888;
 
-    [data-theme="light"] {
-      --bg: #ffffff;
-      --text: #000000;
-      --text-muted: #555;
-      --surface: #f2f2f7;
-      --border: #e5e5ea;
-    }
+        --card-red: #d40b00;
+        --card-lime: #d0f54e;
+        --card-blue: #5865f2;
+        --card-orange: #ff9f0a;
+        --card-green: #30d158;
+        --card-pale: #f2f2f7;
 
-    *, *::before, *::after {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
+        --surface: #1c1c1e;
+        --border: #2c2c2e;
 
-    body {
-      font-family: var(--font-body);
-      background: var(--bg);
-      color: var(--text);
-      line-height: 1.4;
-      min-height: 100vh;
-      overflow-x: hidden;
-    }
+        /* Typography */
+        --font-display: "Inter Tight", sans-serif;
+        --font-body: "Manrope", sans-serif;
+      }
 
-    main {
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 0 20px;
-    }
+      [data-theme="light"] {
+        --bg: #ffffff;
+        --text: #000000;
+        --text-muted: #555;
+        --surface: #f2f2f7;
+        --border: #e5e5ea;
+      }
 
-    .material-icons {
-      font-size: 24px;
-    }
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
 
-    /* Page Title */
-    .page-header {
-      margin-bottom: 40px;
-    }
+      body {
+        font-family: var(--font-body);
+        background: var(--bg);
+        color: var(--text);
+        line-height: 1.4;
+        min-height: 100vh;
+        overflow-x: hidden;
+      }
 
-    .page-header h1 {
-      font-family: var(--font-display);
-      font-size: 40px;
-      font-weight: 700;
-      margin-bottom: 8px;
-      letter-spacing: -0.02em;
-    }
+      main {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 20px;
+      }
 
-    .page-header p {
-      font-size: 16px;
-      color: var(--text-muted);
-    }
+      .material-icons {
+        font-size: 24px;
+      }
 
-    /* Content Grid */
-    .tools-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-      gap: 24px;
-      margin-bottom: 48px;
-    }
+      /* Page Title */
+      .page-header {
+        margin-bottom: 40px;
+      }
 
-    .section-title {
-      font-family: var(--font-display);
-      font-size: 24px;
-      font-weight: 700;
-      margin: 56px 0 20px;
-      letter-spacing: -0.02em;
-    }
+      .page-header h1 {
+        font-family: var(--font-display);
+        font-size: 40px;
+        font-weight: 700;
+        margin-bottom: 8px;
+        letter-spacing: -0.02em;
+      }
 
-    .tool-card {
-      background: var(--surface);
-      border: 2px solid var(--border);
-      border-radius: 16px;
-      padding: 28px 24px;
-      transition: all 0.3s;
-      cursor: pointer;
-      text-decoration: none;
-      color: var(--text);
-      display: flex;
-      flex-direction: column;
-      gap: 16px;
-    }
+      .page-header p {
+        font-size: 16px;
+        color: var(--text-muted);
+      }
 
-    .tool-card:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 8px 32px rgba(0,0,0,0.3);
-    }
+      /* Content Grid */
+      .tools-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+        gap: 24px;
+        margin-bottom: 48px;
+      }
 
-    .tool-card.disabled {
-      cursor: not-allowed;
-      opacity: 0.45;
-      filter: grayscale(1);
-      pointer-events: none;
-    }
+      .section-title {
+        font-family: var(--font-display);
+        font-size: 24px;
+        font-weight: 700;
+        margin: 56px 0 20px;
+        letter-spacing: -0.02em;
+      }
 
-    .tool-card.disabled:hover {
-      transform: none;
-      box-shadow: none;
-    }
+      .tool-card {
+        background: var(--surface);
+        border: 2px solid var(--border);
+        border-radius: 16px;
+        padding: 28px 24px;
+        transition: all 0.3s;
+        cursor: pointer;
+        text-decoration: none;
+        color: var(--text);
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+      }
 
-    .tool-icon {
-      font-size: 40px;
-      color: var(--text);
-    }
+      .tool-card:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+      }
 
-    .tool-card h2 {
-      font-family: var(--font-display);
-      font-size: 20px;
-      font-weight: 700;
-      margin: 0;
-    }
+      .tool-card.disabled {
+        cursor: not-allowed;
+        opacity: 0.45;
+        filter: grayscale(1);
+        pointer-events: none;
+      }
 
-    .tool-card p {
-      color: inherit;
-      font-size: 14px;
-      margin: 0;
-      flex-grow: 1;
-    }
+      .tool-card.disabled:hover {
+        transform: none;
+        box-shadow: none;
+      }
 
-    .tool-meta {
-      display: flex;
-      gap: 8px;
-      align-items: center;
-      font-size: 12px;
-      color: var(--text-muted);
-    }
+      .tool-icon {
+        font-size: 40px;
+        color: var(--text);
+      }
 
-    /* Settings UI lives on profile.html (theme picker).
+      .tool-card h2 {
+        font-family: var(--font-display);
+        font-size: 20px;
+        font-weight: 700;
+        margin: 0;
+      }
+
+      .tool-card p {
+        color: inherit;
+        font-size: 14px;
+        margin: 0;
+        flex-grow: 1;
+      }
+
+      .tool-meta {
+        display: flex;
+        gap: 8px;
+        align-items: center;
+        font-size: 12px;
+        color: var(--text-muted);
+      }
+
+      /* Settings UI lives on profile.html (theme picker).
        The pill in the header takes the user there. */
 
-    footer {
-      border-top: 1px solid var(--border);
-      padding: 40px 0;
-      text-align: center;
-      color: var(--text-muted);
-      font-size: 14px;
-    }
-
-    @media (max-width: 768px) {
-      .page-header h1 {
-        font-size: 28px;
+      footer {
+        border-top: 1px solid var(--border);
+        padding: 40px 0;
+        text-align: center;
+        color: var(--text-muted);
+        font-size: 14px;
       }
 
-      .tools-grid {
-        grid-template-columns: 1fr;
-      }
+      @media (max-width: 768px) {
+        .page-header h1 {
+          font-size: 28px;
+        }
 
-      header {
-        flex-direction: column;
-        gap: 20px;
+        .tools-grid {
+          grid-template-columns: 1fr;
+        }
+
+        header {
+          flex-direction: column;
+          gap: 20px;
+        }
       }
-    }
-  </style>
-</head>
-<body>
-  <main>
-    <header>
-    <div class="header-content">
-      <a href="index.html" class="logo">
-        <span class="logo-text">Videregående Hjelp</span>
-        <img class="logo-image" src="vgshjelp-logo.png" alt="Videregående Hjelp">
-      </a>
-      <div class="header-right">
-        <div class="nav-container">
-          <a href="guides.html" class="nav-link">
-            <i class="material-icons">book</i>
-            <span>Guider</span>
+    </style>
+  </head>
+  <body>
+    <main>
+      <header>
+        <div class="header-content">
+          <a href="index.html" class="logo">
+            <span class="logo-text">Videregående Hjelp</span>
+            <img
+              class="logo-image"
+              src="vgshjelp-logo.png"
+              alt="Videregående Hjelp"
+            />
           </a>
-          <a href="tools.html" class="nav-link">
-            <i class="material-icons">quiz</i>
-            <span>Verktøy</span>
-          </a>
-          <button class="burger-btn" id="burgerBtn" aria-label="Meny">
-            <i class="material-icons">menu</i>
-          </button>
-          <div class="nav-dropdown" id="navDropdown">
-            <a href="resources.html" class="dropdown-item">
-              <i class="material-icons">folder</i>
-              Ressurser
-            </a>
-            <a href="news.html" class="dropdown-item nav-news-mobile">
-              <i class="material-icons">newspaper</i>
-              Nyheter
-            </a>
+          <div class="header-right">
+            <div class="nav-container">
+              <a href="guides.html" class="nav-link">
+                <i class="material-icons">book</i>
+                <span>Guider</span>
+              </a>
+              <a href="tools.html" class="nav-link">
+                <i class="material-icons">quiz</i>
+                <span>Verktøy</span>
+              </a>
+              <button class="burger-btn" id="burgerBtn" aria-label="Meny">
+                <i class="material-icons">menu</i>
+              </button>
+              <div class="nav-dropdown" id="navDropdown">
+                <a href="resources.html" class="dropdown-item">
+                  <i class="material-icons">folder</i>
+                  Ressurser
+                </a>
+                <a href="news.html" class="dropdown-item nav-news-mobile">
+                  <i class="material-icons">newspaper</i>
+                  Nyheter
+                </a>
+              </div>
+            </div>
+            <a
+              href="profile.html"
+              class="profile-pill"
+              aria-label="Min profil"
+            ></a>
           </div>
         </div>
-        <a href="profile.html" class="profile-pill" aria-label="Min profil"></a>
-      </div>
-    </div>
-  </header>
+      </header>
 
-    <section class="page-header">
-      <h1>Verktøy</h1>
-      <p>Praktiske kalkulatorer, planleggere og interaktive øvinger som gjør skolehverdagen enklere.</p>
-    </section>
+      <section class="page-header">
+        <h1>Verktøy</h1>
+        <p>
+          Praktiske kalkulatorer, planleggere og interaktive øvinger som gjør
+          skolehverdagen enklere.
+        </p>
+      </section>
 
-    <section class="tools-grid">
-      <a href="Tools/inntakskalkulator.html" class="tool-card">
-        <span class="material-icons tool-icon">calculate</span>
-        <h2>Inntakskalkulator</h2>
-        <p>Beregn dine sjanser for opptaking basert på karakterer. Støtter flere fylker.</p>
-        <div class="tool-meta">
-          <span class="material-icons" style="font-size: 16px;">star</span>
-          <span>Populært verktøy</span>
-        </div>
-      </a>
-      <a href="Tools/point-limit.html" class="tool-card">
-        <span class="material-icons tool-icon">calculate</span>
-        <h2>Poenggrense Søk</h2>
-        <p>Søk etter fag, fylke og program til å finne ut cirka hvor mye poeng du trenger til å komme inn.</p>
-        <div class="tool-meta">
-          <span class="material-icons" style="font-size: 16px;">new_releases</span>
-          <span>Nytt verktøy</span>
-        </div>
-      </a>
-      <a href="Tools/grade-tracker.html" class="tool-card">
-        <span class="material-icons tool-icon">trending_up</span>
-        <h2>Karaktertrakker</h2>
-        <p>Følg dine karakterer og se hvordan de påvirker ditt gjennomsnitt over tid.</p>
-      </a>
-      <a href="Tools/program-finder.html" class="tool-card">
-        <span class="material-icons tool-icon">subject</span>
-        <h2>Fagvelger</h2>
-        <p>Velg fag som passer ditt program og karrieremål. Få anbefalinger basert på dine interesser.</p>
-        <div class="tool-meta">
-          <span class="material-icons" style="font-size: 16px;">cake</span>
-          <span>Forbedret</span>
-        </div>
-      </a>
-      <a href="calendar.html" class="tool-card">
-        <span class="material-icons tool-icon">calendar_month</span>
-        <h2>Skolekalender</h2>
-        <p>Planlegg skoledager, eksamen og frister. Se varmekart over hvor mye du har å gjøre.</p>
-        <div class="tool-meta">
-          <span class="material-icons" style="font-size: 16px;">new_releases</span>
-          <span>Nytt verktøy</span>
-        </div>
-      </a>
-    </section>
+      <section class="tools-grid">
+        <a href="Tools/inntakskalkulator.html" class="tool-card">
+          <span class="material-icons tool-icon">calculate</span>
+          <h2>Inntakskalkulator</h2>
+          <p>
+            Beregn dine sjanser for opptaking basert på karakterer. Støtter
+            flere fylker.
+          </p>
+          <div class="tool-meta">
+            <span class="material-icons" style="font-size: 16px">star</span>
+            <span>Populært verktøy</span>
+          </div>
+        </a>
+        <a href="Tools/point-limit.html" class="tool-card">
+          <span class="material-icons tool-icon">calculate</span>
+          <h2>Poenggrense Søk</h2>
+          <p>
+            Søk etter fag, fylke og program til å finne ut cirka hvor mye poeng
+            du trenger til å komme inn.
+          </p>
+          <div class="tool-meta">
+            <span class="material-icons" style="font-size: 16px"
+              >new_releases</span
+            >
+            <span>Nytt verktøy</span>
+          </div>
+        </a>
+        <a href="Tools/grade-tracker.html" class="tool-card">
+          <span class="material-icons tool-icon">trending_up</span>
+          <h2>Karaktertrakker</h2>
+          <p>
+            Følg dine karakterer og se hvordan de påvirker ditt gjennomsnitt
+            over tid.
+          </p>
+        </a>
+        <a href="Tools/program-finder.html" class="tool-card">
+          <span class="material-icons tool-icon">subject</span>
+          <h2>Fagvelger</h2>
+          <p>
+            Velg fag som passer ditt program og karrieremål. Få anbefalinger
+            basert på dine interesser.
+          </p>
+          <div class="tool-meta">
+            <span class="material-icons" style="font-size: 16px">cake</span>
+            <span>Forbedret</span>
+          </div>
+        </a>
+        <a href="calendar.html" class="tool-card">
+          <span class="material-icons tool-icon">calendar_month</span>
+          <h2>Skolekalender</h2>
+          <p>
+            Planlegg skoledager, eksamen og frister. Se varmekart over hvor mye
+            du har å gjøre.
+          </p>
+          <div class="tool-meta">
+            <span class="material-icons" style="font-size: 16px"
+              >new_releases</span
+            >
+            <span>Nytt verktøy</span>
+          </div>
+        </a>
+      </section>
 
-    <h2 class="section-title">Interaktive verktøy</h2>
-    <section class="tools-grid">
-      <a href="Tools/exam-simulator.html" class="tool-card">
-        <span class="material-icons tool-icon">assignment_turned_in</span>
-        <h2>VGS-Hjelp sin eksamen</h2>
-        <p>Ta en realistisk prøveeksamen i matte eller norsk med tidspress, fullskjerm og vurdering fra en sensor.</p>
-        <div class="tool-meta">
-          <span class="material-icons" style="font-size: 16px;">workspace_premium</span>
-          <span>Pluss-funksjon</span>
-        </div>
-      </a>
-    </section>
-  </main>
+      <h2 class="section-title">Interaktive verktøy</h2>
+      <section class="tools-grid">
+        <a href="Tools/exam-simulator.html" class="tool-card">
+          <span class="material-icons tool-icon">assignment_turned_in</span>
+          <h2>VGS-Hjelp sin eksamen</h2>
+          <p>
+            Ta en realistisk prøveeksamen i matte eller norsk med tidspress,
+            fullskjerm og vurdering fra en sensor.
+          </p>
+          <div class="tool-meta">
+            <span class="material-icons" style="font-size: 16px"
+              >workspace_premium</span
+            >
+            <span>Pluss-funksjon</span>
+          </div>
+        </a>
+      </section>
+    </main>
 
-  <footer>
-    <p>&copy; 2026 Videregående Hjelp. Et åpent prosjekt for alle.</p>
-  </footer>
+    <footer>
+      <p>&copy; 2026 Videregående Hjelp. Et åpent prosjekt for alle.</p>
+    </footer>
 
-  <script>
-    // Theme Management
-    function initTheme() {
-      const saved = localStorage.getItem('theme') || 'system';
-      setTheme(saved);
-    }
-
-    function setTheme(theme) {
-      localStorage.setItem('theme', theme);
-      
-      let finalTheme = theme;
-      if (theme === 'system') {
-        finalTheme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+    <script>
+      // Theme Management
+      function initTheme() {
+        const saved = localStorage.getItem("theme") || "system";
+        setTheme(saved);
       }
 
-      document.documentElement.setAttribute('data-theme', finalTheme);
-    }
+      function setTheme(theme) {
+        localStorage.setItem("theme", theme);
 
-    // Theme UI lives on profile.html. VHprofile.applyTheme() runs at end of
-    // body (Assets/js/profile.js) and re-applies when the OS preference flips.
-    window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', () => {
-      if ((localStorage.getItem('theme') || 'system') === 'system') {
-        initTheme();
+        let finalTheme = theme;
+        if (theme === "system") {
+          finalTheme = window.matchMedia("(prefers-color-scheme: dark)").matches
+            ? "dark"
+            : "light";
+        }
+
+        document.documentElement.setAttribute("data-theme", finalTheme);
       }
-    });
 
-    // Initialize
-    initTheme();
-  </script>
-  <script src="Assets/js/plus.js"></script>
-  <script src="Assets/js/profile.js"></script>
-</body>
+      // Theme UI lives on profile.html. VHprofile.applyTheme() runs at end of
+      // body (Assets/js/profile.js) and re-applies when the OS preference flips.
+      window
+        .matchMedia("(prefers-color-scheme: dark)")
+        .addEventListener("change", () => {
+          if ((localStorage.getItem("theme") || "system") === "system") {
+            initTheme();
+          }
+        });
+
+      // Initialize
+      initTheme();
+    </script>
+    <script src="Assets/js/plus.js"></script>
+    <script src="Assets/js/profile.js"></script>
+  </body>
 </html>

@@ -1,2465 +1,2979 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="no">
-<head>
-  <script defer src="https://cloud.umami.is/script.js" data-website-id="24f80a75-a09f-4f80-94e0-d9103f0d734d"></script>
-<meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Rediger din profil på Videregående Hjelp. Alt lagres lokalt i nettleseren din.">
-  <title>Min profil | Videregående Hjelp</title>
-  <link rel="shortcut icon" href="vgshjelp-logo.png" type="image/x-icon">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200;300;400;500;600;700;800&display=swap" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-  <link rel="stylesheet" href="Assets/css/profile.css">
-  <style>
-    :root {
-      --bg: #050505;
-      --text: #ffffff;
-      --text-muted: #888;
+  <head>
+    <script
+      defer
+      src="https://cloud.umami.is/script.js"
+      data-website-id="24f80a75-a09f-4f80-94e0-d9103f0d734d"
+    ></script>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Rediger din profil på Videregående Hjelp. Alt lagres lokalt i nettleseren din."
+    />
+    <title>Min profil | Videregående Hjelp</title>
+    <link rel="shortcut icon" href="vgshjelp-logo.png" type="image/x-icon" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter+Tight:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Manrope:wght@200;300;400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="Assets/css/profile.css" />
+    <style>
+      :root {
+        --bg: #050505;
+        --text: #ffffff;
+        --text-muted: #888;
 
-      --card-red: #d40b00;
-      --card-lime: #D0F54E;
-      --card-blue: #5865F2;
-      --card-orange: #FF9F0A;
-      --card-yellow: #FFD60A;
-      --card-green: #30D158;
-      --card-teal: #004737;
-      --card-purple: #3a225d;
+        --card-red: #d40b00;
+        --card-lime: #d0f54e;
+        --card-blue: #5865f2;
+        --card-orange: #ff9f0a;
+        --card-yellow: #ffd60a;
+        --card-green: #30d158;
+        --card-teal: #004737;
+        --card-purple: #3a225d;
 
-      --surface: #1c1c1e;
-      --border: #2c2c2e;
+        --surface: #1c1c1e;
+        --border: #2c2c2e;
 
-      --font-display: 'Inter Tight', sans-serif;
-      --font-body: 'Manrope', sans-serif;
-      --font-serif: 'Instrument Serif', serif;
+        --font-display: "Inter Tight", sans-serif;
+        --font-body: "Manrope", sans-serif;
+        --font-serif: "Instrument Serif", serif;
 
-      --ls-tight: -0.015em;
-      --ls-normal: -0.01em;
-    }
-
-    [data-theme="light"] {
-      --bg: #ffffff;
-      --text: #000000;
-      --text-muted: #555;
-      --surface: #f2f2f7;
-      --border: #e5e5ea;
-    }
-
-    *, *::before, *::after {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-
-    body {
-      font-family: var(--font-body);
-      background: var(--bg);
-      color: var(--text);
-      line-height: 1.5;
-      min-height: 100vh;
-      overflow-x: hidden;
-      letter-spacing: var(--ls-normal);
-    }
-
-    main {
-      max-width: 1400px;
-      margin: 0 auto;
-      padding: 0 16px 40px 16px;
-    }
-
-    @media (min-width: 480px) {
-      main { padding: 0 20px 60px 20px; }
-    }
-
-    /* Header — samme som learn.html */
-    header {
-      padding: 20px 0;
-      margin-bottom: 32px;
-      border-bottom: 1px solid var(--border);
-      position: sticky;
-      top: 0;
-      background: var(--bg);
-      z-index: 1000;
-    }
-
-    .header-content {
-      max-width: 1400px;
-      width: 100%;
-      margin: 0 auto;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 0 16px;
-    }
-
-    .logo {
-      font-family: var(--font-display);
-      font-size: 24px;
-      font-weight: 800;
-      color: var(--text);
-      text-decoration: none;
-      letter-spacing: -0.04em;
-      transition: opacity 0.2s;
-    }
-
-    .logo:hover { opacity: 0.8; }
-
-    .header-right {
-      display: flex;
-      align-items: center;
-      gap: 14px;
-      margin-left: auto;
-    }
-
-    .nav-container {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-    }
-
-    .nav-link {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      color: var(--text-muted);
-      text-decoration: none;
-      font-weight: 600;
-      font-size: 14px;
-      padding: 8px 12px;
-      border-radius: 10px;
-      transition: all 0.2s;
-    }
-
-    .nav-link:hover, .nav-link.active {
-      background: rgba(255, 255, 255, 0.05);
-      color: var(--text);
-    }
-
-    [data-theme="light"] .nav-link:hover,
-    [data-theme="light"] .nav-link.active {
-      background: rgba(0, 0, 0, 0.05);
-    }
-
-    .nav-link .material-icons { font-size: 20px; }
-    .nav-link span { display: none; }
-    @media (min-width: 850px) { .nav-link span { display: inline; } }
-
-    .burger-btn {
-      background: none;
-      border: none;
-      color: var(--text);
-      cursor: pointer;
-      padding: 8px;
-      border-radius: 10px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    /* Profile pill styles live in Assets/css/profile.css. */
-
-    /* Profil-side layout */
-    .profile-page {
-      max-width: 860px;
-      margin: 0 auto;
-      display: flex;
-      flex-direction: column;
-      gap: 18px;
-    }
-
-    .profile-heading {
-      font-family: var(--font-display);
-      font-size: 36px;
-      font-weight: 800;
-      line-height: 1.1;
-      letter-spacing: -0.04em;
-      margin-bottom: 8px;
-    }
-
-    @media (min-width: 768px) {
-      .profile-heading { font-size: 48px; }
-    }
-
-    .profile-subtitle {
-      font-family: var(--font-body);
-      color: var(--text-muted);
-      font-size: 15px;
-      margin-bottom: 8px;
-      line-height: 1.65;
-    }
-
-    .profile-card {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 20px;
-      padding: 36px;
-      display: flex;
-      flex-direction: column;
-      gap: 30px;
-    }
-
-    @media (max-width: 640px) {
-      .profile-card,
-      .account-card {
-        padding: 22px;
+        --ls-tight: -0.015em;
+        --ls-normal: -0.01em;
       }
-    }
 
-    .field {
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-    }
+      [data-theme="light"] {
+        --bg: #ffffff;
+        --text: #000000;
+        --text-muted: #555;
+        --surface: #f2f2f7;
+        --border: #e5e5ea;
+      }
 
-    .field-label {
-      font-family: var(--font-body);
-      font-size: 13px;
-      font-weight: 800;
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
-      color: var(--text-muted);
-    }
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
 
-    .field-input {
-      font-family: var(--font-display);
-      font-size: 17px;
-      font-weight: 600;
-      background: transparent;
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      color: var(--text);
-      padding: 14px 16px;
-      transition: border-color 0.2s;
-      width: 100%;
-    }
+      body {
+        font-family: var(--font-body);
+        background: var(--bg);
+        color: var(--text);
+        line-height: 1.5;
+        min-height: 100vh;
+        overflow-x: hidden;
+        letter-spacing: var(--ls-normal);
+      }
 
-    /* Select elements need an explicit background so the dropdown options
+      main {
+        max-width: 1400px;
+        margin: 0 auto;
+        padding: 0 16px 40px 16px;
+      }
+
+      @media (min-width: 480px) {
+        main {
+          padding: 0 20px 60px 20px;
+        }
+      }
+
+      /* Header — samme som learn.html */
+      header {
+        padding: 20px 0;
+        margin-bottom: 32px;
+        border-bottom: 1px solid var(--border);
+        position: sticky;
+        top: 0;
+        background: var(--bg);
+        z-index: 1000;
+      }
+
+      .header-content {
+        max-width: 1400px;
+        width: 100%;
+        margin: 0 auto;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0 16px;
+      }
+
+      .logo {
+        font-family: var(--font-display);
+        font-size: 24px;
+        font-weight: 800;
+        color: var(--text);
+        text-decoration: none;
+        letter-spacing: -0.04em;
+        transition: opacity 0.2s;
+      }
+
+      .logo:hover {
+        opacity: 0.8;
+      }
+
+      .header-right {
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        margin-left: auto;
+      }
+
+      .nav-container {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+      }
+
+      .nav-link {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        color: var(--text-muted);
+        text-decoration: none;
+        font-weight: 600;
+        font-size: 14px;
+        padding: 8px 12px;
+        border-radius: 10px;
+        transition: all 0.2s;
+      }
+
+      .nav-link:hover,
+      .nav-link.active {
+        background: rgba(255, 255, 255, 0.05);
+        color: var(--text);
+      }
+
+      [data-theme="light"] .nav-link:hover,
+      [data-theme="light"] .nav-link.active {
+        background: rgba(0, 0, 0, 0.05);
+      }
+
+      .nav-link .material-icons {
+        font-size: 20px;
+      }
+      .nav-link span {
+        display: none;
+      }
+      @media (min-width: 850px) {
+        .nav-link span {
+          display: inline;
+        }
+      }
+
+      .burger-btn {
+        background: none;
+        border: none;
+        color: var(--text);
+        cursor: pointer;
+        padding: 8px;
+        border-radius: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      /* Profile pill styles live in Assets/css/profile.css. */
+
+      /* Profil-side layout */
+      .profile-page {
+        max-width: 860px;
+        margin: 0 auto;
+        display: flex;
+        flex-direction: column;
+        gap: 18px;
+      }
+
+      .profile-heading {
+        font-family: var(--font-display);
+        font-size: 36px;
+        font-weight: 800;
+        line-height: 1.1;
+        letter-spacing: -0.04em;
+        margin-bottom: 8px;
+      }
+
+      @media (min-width: 768px) {
+        .profile-heading {
+          font-size: 48px;
+        }
+      }
+
+      .profile-subtitle {
+        font-family: var(--font-body);
+        color: var(--text-muted);
+        font-size: 15px;
+        margin-bottom: 8px;
+        line-height: 1.65;
+      }
+
+      .profile-card {
+        background: var(--surface);
+        border: 1px solid var(--border);
+        border-radius: 20px;
+        padding: 36px;
+        display: flex;
+        flex-direction: column;
+        gap: 30px;
+      }
+
+      @media (max-width: 640px) {
+        .profile-card,
+        .account-card {
+          padding: 22px;
+        }
+      }
+
+      .field {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+      }
+
+      .field-label {
+        font-family: var(--font-body);
+        font-size: 13px;
+        font-weight: 800;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        color: var(--text-muted);
+      }
+
+      .field-input {
+        font-family: var(--font-display);
+        font-size: 17px;
+        font-weight: 600;
+        background: transparent;
+        border: 1px solid var(--border);
+        border-radius: 12px;
+        color: var(--text);
+        padding: 14px 16px;
+        transition: border-color 0.2s;
+        width: 100%;
+      }
+
+      /* Select elements need an explicit background so the dropdown options
        are readable in dark mode — 'transparent' inherits the page bg in
        the open popup on most browsers, but some render it as white. */
-    select.field-input {
-      background: var(--surface);
-    }
+      select.field-input {
+        background: var(--surface);
+      }
 
-    select.field-input option {
-      background: var(--surface);
-      color: var(--text);
-    }
+      select.field-input option {
+        background: var(--surface);
+        color: var(--text);
+      }
 
-    .field-input::placeholder {
-      color: var(--text-muted);
-      opacity: 0.6;
-    }
+      .field-input::placeholder {
+        color: var(--text-muted);
+        opacity: 0.6;
+      }
 
-    .field-input:focus {
-      border-color: var(--card-blue);
-      outline: none;
-    }
+      .field-input:focus {
+        border-color: var(--card-blue);
+        outline: none;
+      }
 
-    .grade-row {
-      display: flex;
-      gap: 8px;
-      flex-wrap: wrap;
-    }
+      .grade-row {
+        display: flex;
+        gap: 8px;
+        flex-wrap: wrap;
+      }
 
-    .grade-option {
-      flex: 1;
-      min-width: 84px;
-      text-align: center;
-      cursor: pointer;
-      padding: 14px 12px;
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      font-family: var(--font-display);
-      font-weight: 700;
-      font-size: 15px;
-      transition: all 0.2s ease;
-      user-select: none;
-    }
+      .grade-option {
+        flex: 1;
+        min-width: 84px;
+        text-align: center;
+        cursor: pointer;
+        padding: 14px 12px;
+        border: 1px solid var(--border);
+        border-radius: 12px;
+        font-family: var(--font-display);
+        font-weight: 700;
+        font-size: 15px;
+        transition: all 0.2s ease;
+        user-select: none;
+      }
 
-    .grade-option[data-color="lime"]:has(input:checked) {
-      background: var(--card-lime);
-      color: #000;
-      border-color: var(--card-lime);
-    }
-    .grade-option[data-color="blue"]:has(input:checked) {
-      background: var(--card-blue);
-      color: #fff;
-      border-color: var(--card-blue);
-    }
-    .grade-option[data-color="orange"]:has(input:checked) {
-      background: var(--card-orange);
-      color: #000;
-      border-color: var(--card-orange);
-    }
-    .grade-option[data-color="red"]:has(input:checked) {
-      background: var(--card-red);
-      color: #fff;
-      border-color: var(--card-red);
-    }
+      .grade-option[data-color="lime"]:has(input:checked) {
+        background: var(--card-lime);
+        color: #000;
+        border-color: var(--card-lime);
+      }
+      .grade-option[data-color="blue"]:has(input:checked) {
+        background: var(--card-blue);
+        color: #fff;
+        border-color: var(--card-blue);
+      }
+      .grade-option[data-color="orange"]:has(input:checked) {
+        background: var(--card-orange);
+        color: #000;
+        border-color: var(--card-orange);
+      }
+      .grade-option[data-color="red"]:has(input:checked) {
+        background: var(--card-red);
+        color: #fff;
+        border-color: var(--card-red);
+      }
 
-    .grade-option input {
-      position: absolute;
-      opacity: 0;
-      pointer-events: none;
-    }
+      .grade-option input {
+        position: absolute;
+        opacity: 0;
+        pointer-events: none;
+      }
 
-    .avatar-row {
-      display: flex;
-      align-items: center;
-      gap: 18px;
-    }
+      .avatar-row {
+        display: flex;
+        align-items: center;
+        gap: 18px;
+      }
 
-    /* Base .avatar-preview has transparent bg by default — the grade-tinted
+      /* Base .avatar-preview has transparent bg by default — the grade-tinted
        color comes from the .profile-card[data-grade="…"] cascade below, so
        the circular avatar and the upload pill right next to it stay in
        lock-step. */
-    .avatar-preview {
-      width: 72px;
-      height: 72px;
-      border-radius: 50%;
-      background: transparent;
-      color: #fff;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-family: var(--font-display);
-      font-size: 26px;
-      font-weight: 800;
-      letter-spacing: -0.02em;
-      overflow: hidden;
-      flex-shrink: 0;
-    }
+      .avatar-preview {
+        width: 72px;
+        height: 72px;
+        border-radius: 50%;
+        background: transparent;
+        color: #fff;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-family: var(--font-display);
+        font-size: 26px;
+        font-weight: 800;
+        letter-spacing: -0.02em;
+        overflow: hidden;
+        flex-shrink: 0;
+      }
 
-    .avatar-preview img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      border-radius: 50%;
-      display: block;
-    }
+      .avatar-preview img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        border-radius: 50%;
+        display: block;
+      }
 
-    .avatar-controls {
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-    }
+      .avatar-controls {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+      }
 
-    .avatar-file-label {
-      display: inline-block;
-      cursor: pointer;
-      background: var(--card-blue);
-      color: #fff;
-      padding: 10px 18px;
-      border-radius: 999px;
-      font-family: var(--font-display);
-      font-weight: 700;
-      font-size: 14px;
-      text-align: center;
-      transition: filter 0.2s ease;
-      width: fit-content;
-    }
+      .avatar-file-label {
+        display: inline-block;
+        cursor: pointer;
+        background: var(--card-blue);
+        color: #fff;
+        padding: 10px 18px;
+        border-radius: 999px;
+        font-family: var(--font-display);
+        font-weight: 700;
+        font-size: 14px;
+        text-align: center;
+        transition: filter 0.2s ease;
+        width: fit-content;
+      }
 
-    .avatar-file-label:hover { filter: brightness(1.08); }
+      .avatar-file-label:hover {
+        filter: brightness(1.08);
+      }
 
-    .avatar-file-label input {
-      position: absolute;
-      opacity: 0;
-      pointer-events: none;
-      width: 0;
-      height: 0;
-    }
+      .avatar-file-label input {
+        position: absolute;
+        opacity: 0;
+        pointer-events: none;
+        width: 0;
+        height: 0;
+      }
 
-    .avatar-clear {
-      background: transparent;
-      border: 1px solid var(--border);
-      color: var(--text-muted);
-      padding: 9px 16px;
-      border-radius: 999px;
-      cursor: pointer;
-      font-family: var(--font-body);
-      font-weight: 600;
-      font-size: 13px;
-      transition: all 0.2s ease;
-      width: fit-content;
-    }
+      .avatar-clear {
+        background: transparent;
+        border: 1px solid var(--border);
+        color: var(--text-muted);
+        padding: 9px 16px;
+        border-radius: 999px;
+        cursor: pointer;
+        font-family: var(--font-body);
+        font-weight: 600;
+        font-size: 13px;
+        transition: all 0.2s ease;
+        width: fit-content;
+      }
 
-    .avatar-clear:hover {
-      color: var(--text);
-      border-color: var(--text-muted);
-    }
+      .avatar-clear:hover {
+        color: var(--text);
+        border-color: var(--text-muted);
+      }
 
-    .status-message {
-      font-family: var(--font-body);
-      font-size: 14px;
-      color: var(--card-green);
-      font-weight: 600;
-      min-height: 20px;
-      margin-top: -4px;
-    }
+      .status-message {
+        font-family: var(--font-body);
+        font-size: 14px;
+        color: var(--card-green);
+        font-weight: 600;
+        min-height: 20px;
+        margin-top: -4px;
+      }
 
-    .button-row {
-      display: flex;
-      gap: 12px;
-      flex-wrap: wrap;
-    }
+      .button-row {
+        display: flex;
+        gap: 12px;
+        flex-wrap: wrap;
+      }
 
-    .btn-save {
-      background: var(--card-blue);
-      color: #fff;
-      border: none;
-      padding: 14px 28px;
-      border-radius: 999px;
-      font-family: var(--font-display);
-      font-weight: 700;
-      font-size: 15px;
-      cursor: pointer;
-      transition: filter 0.2s ease, transform 0.2s ease;
-      flex: 1;
-      min-width: 140px;
-    }
+      .btn-save {
+        background: var(--card-blue);
+        color: #fff;
+        border: none;
+        padding: 14px 28px;
+        border-radius: 999px;
+        font-family: var(--font-display);
+        font-weight: 700;
+        font-size: 15px;
+        cursor: pointer;
+        transition:
+          filter 0.2s ease,
+          transform 0.2s ease;
+        flex: 1;
+        min-width: 140px;
+      }
 
-    .btn-save:hover {
-      filter: brightness(1.1);
-      transform: translateY(-2px);
-    }
+      .btn-save:hover {
+        filter: brightness(1.1);
+        transform: translateY(-2px);
+      }
 
-    .btn-clear {
-      background: transparent;
-      border: 1px solid var(--border);
-      color: var(--text-muted);
-      padding: 14px 24px;
-      border-radius: 999px;
-      cursor: pointer;
-      font-family: var(--font-display);
-      font-weight: 700;
-      font-size: 15px;
-      transition: all 0.2s ease;
-    }
+      .btn-clear {
+        background: transparent;
+        border: 1px solid var(--border);
+        color: var(--text-muted);
+        padding: 14px 24px;
+        border-radius: 999px;
+        cursor: pointer;
+        font-family: var(--font-display);
+        font-weight: 700;
+        font-size: 15px;
+        transition: all 0.2s ease;
+      }
 
-    .btn-clear:hover {
-      color: var(--text);
-      border-color: var(--text-muted);
-    }
+      .btn-clear:hover {
+        color: var(--text);
+        border-color: var(--text-muted);
+      }
 
-    .privacy-note {
-      font-family: var(--font-body);
-      font-size: 13px;
-      color: var(--text-muted);
-      line-height: 1.55;
-      border-left: 2px solid var(--border);
-      padding: 4px 0 4px 14px;
-      margin-top: 16px;
-    }
+      .privacy-note {
+        font-family: var(--font-body);
+        font-size: 13px;
+        color: var(--text-muted);
+        line-height: 1.55;
+        border-left: 2px solid var(--border);
+        padding: 4px 0 4px 14px;
+        margin-top: 16px;
+      }
 
-    /* Theme picker — segmented buttons. The active button picks up the
+      /* Theme picker — segmented buttons. The active button picks up the
        user's profile.grade color via [data-grade="…"]; inactive buttons
        stay neutral so they read the same in dark and light mode. */
-  .theme-segment {
-    display: flex;
-    gap: 6px;
-    flex-wrap: wrap;
-  }
+      .theme-segment {
+        display: flex;
+        gap: 6px;
+        flex-wrap: wrap;
+      }
 
-  .theme-segment-btn {
-    flex: 1;
-    min-width: 84px;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    gap: 6px;
-    cursor: pointer;
-    padding: 12px 14px;
-    border: 1px solid rgba(255, 255, 255, 0.18);
-    border-radius: 12px;
-    font-family: var(--font-display);
-    font-weight: 700;
-    font-size: 14px;
-    color: #fff;
-    background: rgba(255, 255, 255, 0.06);
-    transition: all 0.2s ease;
-    user-select: none;
-  }
+      .theme-segment-btn {
+        flex: 1;
+        min-width: 84px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 6px;
+        cursor: pointer;
+        padding: 12px 14px;
+        border: 1px solid rgba(255, 255, 255, 0.18);
+        border-radius: 12px;
+        font-family: var(--font-display);
+        font-weight: 700;
+        font-size: 14px;
+        color: #fff;
+        background: rgba(255, 255, 255, 0.06);
+        transition: all 0.2s ease;
+        user-select: none;
+      }
 
-  .theme-segment-btn:hover {
-    border-color: rgba(255, 255, 255, 0.32);
-    background: rgba(255, 255, 255, 0.10);
-  }
+      .theme-segment-btn:hover {
+        border-color: rgba(255, 255, 255, 0.32);
+        background: rgba(255, 255, 255, 0.1);
+      }
 
-  /* Light-mode inactive keeps the clean, transparent UX instead of a
+      /* Light-mode inactive keeps the clean, transparent UX instead of a
      dark pill — there the surrounding card is light so white text on
      a dark inset would look jarring. */
-  [data-theme="light"] .theme-segment-btn {
-    border: 1px solid var(--text-muted);
-    color: var(--text);
-    background: transparent;
-  }
-  [data-theme="light"] .theme-segment-btn:hover {
-    border-color: var(--text);
-    background: rgba(0, 0, 0, 0.04);
-  }
+      [data-theme="light"] .theme-segment-btn {
+        border: 1px solid var(--text-muted);
+        color: var(--text);
+        background: transparent;
+      }
+      [data-theme="light"] .theme-segment-btn:hover {
+        border-color: var(--text);
+        background: rgba(0, 0, 0, 0.04);
+      }
 
-  .theme-segment-btn:focus-visible {
-    outline: 2px solid var(--card-blue);
-    outline-offset: 2px;
-  }
+      .theme-segment-btn:focus-visible {
+        outline: 2px solid var(--card-blue);
+        outline-offset: 2px;
+      }
 
-  .theme-segment-btn .seg-icon {
-    font-size: 18px;
-    line-height: 1;
-  }
+      .theme-segment-btn .seg-icon {
+        font-size: 18px;
+        line-height: 1;
+      }
 
-  /* Active button uses the user's grade color. Grade maps:
+      /* Active button uses the user's grade color. Grade maps:
        8-10 → lime, VG1-VG2 → blue, Alumni → orange, Lærer → red.
        No grade → purple fallback. */
-  .theme-segment-btn.active[data-grade="lime"] {
-    background: var(--card-lime);
-    color: #000;
-    border-color: var(--card-lime);
-  }
-  .theme-segment-btn.active[data-grade="blue"] {
-    background: var(--card-blue);
-    color: #fff;
-    border-color: var(--card-blue);
-  }
-  .theme-segment-btn.active[data-grade="orange"] {
-    background: var(--card-orange);
-    color: #000;
-    border-color: var(--card-orange);
-  }
-  .theme-segment-btn.active[data-grade="red"] {
-    background: var(--card-red);
-    color: #fff;
-    border-color: var(--card-red);
-  }
-  .theme-segment-btn.active[data-grade="default"] {
-    background: var(--card-blue);
-    color: #fff;
-    border-color: var(--card-blue);
-  }
+      .theme-segment-btn.active[data-grade="lime"] {
+        background: var(--card-lime);
+        color: #000;
+        border-color: var(--card-lime);
+      }
+      .theme-segment-btn.active[data-grade="blue"] {
+        background: var(--card-blue);
+        color: #fff;
+        border-color: var(--card-blue);
+      }
+      .theme-segment-btn.active[data-grade="orange"] {
+        background: var(--card-orange);
+        color: #000;
+        border-color: var(--card-orange);
+      }
+      .theme-segment-btn.active[data-grade="red"] {
+        background: var(--card-red);
+        color: #fff;
+        border-color: var(--card-red);
+      }
+      .theme-segment-btn.active[data-grade="default"] {
+        background: var(--card-blue);
+        color: #fff;
+        border-color: var(--card-blue);
+      }
 
-  /* Avatar circle + save button + avatar-upload pill all follow the same
+      /* Avatar circle + save button + avatar-upload pill all follow the same
      grade color as the selected theme button, via [data-grade="…"] on
      .profile-card set by paintThemePicker(). */
-  .profile-card[data-grade="lime"] .avatar-preview,
-  .profile-card[data-grade="lime"] .avatar-file-label,
-  .profile-card[data-grade="lime"] .btn-save {
-    background: var(--card-lime);
-    color: #000;
-  }
-  .profile-card[data-grade="blue"] .avatar-preview,
-  .profile-card[data-grade="blue"] .avatar-file-label,
-  .profile-card[data-grade="blue"] .btn-save {
-    background: var(--card-blue);
-    color: #fff;
-  }
-  .profile-card[data-grade="orange"] .avatar-preview,
-  .profile-card[data-grade="orange"] .avatar-file-label,
-  .profile-card[data-grade="orange"] .btn-save {
-    background: var(--card-orange);
-    color: #000;
-  }
-  .profile-card[data-grade="red"] .avatar-preview,
-  .profile-card[data-grade="red"] .avatar-file-label,
-  .profile-card[data-grade="red"] .btn-save {
-    background: var(--card-red);
-    color: #fff;
-  }
-  .profile-card[data-grade="default"] .avatar-preview,
-  .profile-card[data-grade="default"] .avatar-file-label,
-  .profile-card[data-grade="default"] .btn-save {
-    background: var(--card-blue);
-    color: #fff;
-  }
+      .profile-card[data-grade="lime"] .avatar-preview,
+      .profile-card[data-grade="lime"] .avatar-file-label,
+      .profile-card[data-grade="lime"] .btn-save {
+        background: var(--card-lime);
+        color: #000;
+      }
+      .profile-card[data-grade="blue"] .avatar-preview,
+      .profile-card[data-grade="blue"] .avatar-file-label,
+      .profile-card[data-grade="blue"] .btn-save {
+        background: var(--card-blue);
+        color: #fff;
+      }
+      .profile-card[data-grade="orange"] .avatar-preview,
+      .profile-card[data-grade="orange"] .avatar-file-label,
+      .profile-card[data-grade="orange"] .btn-save {
+        background: var(--card-orange);
+        color: #000;
+      }
+      .profile-card[data-grade="red"] .avatar-preview,
+      .profile-card[data-grade="red"] .avatar-file-label,
+      .profile-card[data-grade="red"] .btn-save {
+        background: var(--card-red);
+        color: #fff;
+      }
+      .profile-card[data-grade="default"] .avatar-preview,
+      .profile-card[data-grade="default"] .avatar-file-label,
+      .profile-card[data-grade="default"] .btn-save {
+        background: var(--card-blue);
+        color: #fff;
+      }
 
-  /* Tint Settings — a collapsible <details> holding 3 preset buttons (Av /
+      /* Tint Settings — a collapsible <details> holding 3 preset buttons (Av /
      Svak / Sterk) and a "Tint alt" scope checkbox. The active preset button
      picks up the same grade color as the theme picker + save/avatar block
      above, so the whole form retints with grade. The <details> stays closed
      on first paint by default — users open it when they want to adjust. */
-  .tint-settings {
-    background: transparent;
-    border: 1px solid var(--border);
-    border-radius: 14px;
-    padding: 0;
-    overflow: hidden;
-  }
-
-  .tint-settings > summary {
-    list-style: none;
-    cursor: pointer;
-    padding: 14px 18px;
-    font-family: var(--font-display);
-    font-weight: 700;
-    font-size: 15px;
-    color: var(--text-muted);
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    user-select: none;
-    transition: background 0.15s ease, color 0.15s ease;
-  }
-
-  .tint-settings > summary::-webkit-details-marker { display: none; }
-
-  .tint-settings > summary::before {
-    content: 'palette';
-    font-family: 'Material Icons';
-    font-size: 20px;
-    color: var(--text-muted);
-  }
-
-  .tint-settings > summary::after {
-    content: 'expand_more';
-    font-family: 'Material Icons';
-    font-size: 22px;
-    margin-left: auto;
-    color: var(--text-muted);
-    transition: transform 0.2s ease;
-  }
-
-  .tint-settings[open] > summary::after { transform: rotate(180deg); }
-
-  .tint-settings > summary:hover {
-    background: rgba(255, 255, 255, 0.04);
-    color: var(--text);
-  }
-
-  [data-theme="light"] .tint-settings > summary:hover {
-    background: rgba(0, 0, 0, 0.03);
-  }
-
-  .tint-settings > summary:focus-visible {
-    outline: 2px solid var(--card-blue);
-    outline-offset: 2px;
-  }
-
-  .tint-settings-body {
-    padding: 4px 18px 18px 18px;
-    display: flex;
-    flex-direction: column;
-    gap: 0;
-  }
-
-  .tint-settings-hint {
-    font-family: var(--font-body);
-    font-size: 13px;
-    color: var(--text-muted);
-    line-height: 1.5;
-    margin-bottom: 14px;
-  }
-
-  .tint-presets {
-    display: flex;
-    gap: 6px;
-    flex-wrap: wrap;
-  }
-
-  .tint-preset-btn {
-    flex: 1;
-    min-width: 64px;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    padding: 10px 12px;
-    border: 1px solid rgba(255, 255, 255, 0.18);
-    border-radius: 12px;
-    background: rgba(255, 255, 255, 0.06);
-    color: #fff;
-    font-family: var(--font-display);
-    font-weight: 700;
-    font-size: 13px;
-    cursor: pointer;
-    transition: all 0.18s ease;
-    user-select: none;
-  }
-
-  .tint-preset-btn:hover {
-    border-color: rgba(255, 255, 255, 0.32);
-    background: rgba(255, 255, 255, 0.10);
-  }
-
-  [data-theme="light"] .tint-preset-btn {
-    border: 1px solid var(--text-muted);
-    color: var(--text);
-    background: transparent;
-  }
-
-  [data-theme="light"] .tint-preset-btn:hover {
-    border-color: var(--text);
-    background: rgba(0, 0, 0, 0.04);
-  }
-
-  .tint-preset-btn:focus-visible {
-    outline: 2px solid var(--card-blue);
-    outline-offset: 2px;
-  }
-
-  /* Active preset takes the grade color, same pattern as theme-segment-btn. */
-  .tint-preset-btn.active[data-grade="lime"] {
-    background: var(--card-lime);
-    color: #000;
-    border-color: var(--card-lime);
-  }
-  .tint-preset-btn.active[data-grade="blue"] {
-    background: var(--card-blue);
-    color: #fff;
-    border-color: var(--card-blue);
-  }
-  .tint-preset-btn.active[data-grade="orange"] {
-    background: var(--card-orange);
-    color: #000;
-    border-color: var(--card-orange);
-  }
-  .tint-preset-btn.active[data-grade="red"] {
-    background: var(--card-red);
-    color: #fff;
-    border-color: var(--card-red);
-  }
-  .tint-preset-btn.active[data-grade="default"] {
-    background: var(--card-blue);
-    color: #fff;
-    border-color: var(--card-blue);
-  }
-
-  .tint-scope-row {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    font-family: var(--font-body);
-    font-size: 14px;
-    color: var(--text);
-    cursor: pointer;
-    user-select: none;
-  }
-
-  .tint-scope-row input[type="checkbox"] {
-    width: 18px;
-    height: 18px;
-    accent-color: var(--card-blue);
-    cursor: pointer;
-  }
-
-  .tint-section {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    border-top: 1px solid var(--border);
-    padding-top: 14px;
-  }
-
-  .tint-section-label {
-    font-family: var(--font-display);
-    font-size: 12px;
-    font-weight: 800;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-    color: var(--text-muted);
-    display: flex;
-    align-items: center;
-    gap: 8px;
-  }
-
-  .tint-color-row {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    border: 1px solid rgba(255, 214, 10, 0.28);
-    border-radius: 12px;
-    padding: 14px;
-    margin-bottom: 14px;
-    background: rgba(255, 214, 10, 0.05);
-  }
-
-  .tint-color-row[hidden] {
-    display: none;
-  }
-
-  .tint-plus-badge {
-    font-size: 10px;
-    font-weight: 700;
-    color: var(--plus-gold);
-    border: 1px solid var(--plus-gold);
-    border-radius: 6px;
-    padding: 1px 6px;
-    letter-spacing: 0.05em;
-    text-transform: uppercase;
-  }
-
-  .tint-color-swatches {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(104px, 1fr));
-    gap: 8px;
-  }
-
-  .tint-color-btn {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    padding: 8px 12px;
-    border-radius: 10px;
-    font-family: var(--font-body);
-    font-size: 13px;
-    font-weight: 600;
-    cursor: pointer;
-    transition: all 0.15s ease;
-    border: 1.5px solid var(--border);
-    background: transparent;
-    color: var(--text);
-  }
-
-  .tint-color-btn:hover {
-    border-color: var(--text-muted);
-    background: rgba(255, 255, 255, 0.05);
-  }
-
-  [data-theme="light"] .tint-color-btn:hover {
-    background: rgba(0, 0, 0, 0.04);
-  }
-
-  .tint-color-btn[aria-checked="true"] {
-    border-color: var(--text);
-    background: rgba(255, 255, 255, 0.06);
-  }
-
-  [data-theme="light"] .tint-color-btn[aria-checked="true"] {
-    background: rgba(0, 0, 0, 0.05);
-  }
-
-  .tint-color-btn[data-tint-color="#D0F54E"][aria-checked="true"] {
-    border-color: #D0F54E;
-    background: rgba(208, 245, 78, 0.16);
-  }
-  .tint-color-btn[data-tint-color="#5865F2"][aria-checked="true"] {
-    border-color: #5865F2;
-    background: rgba(88, 101, 242, 0.18);
-  }
-  .tint-color-btn[data-tint-color="#FF9F0A"][aria-checked="true"] {
-    border-color: #FF9F0A;
-    background: rgba(255, 159, 10, 0.16);
-  }
-  .tint-color-btn[data-tint-color="#d40b00"][aria-checked="true"] {
-    border-color: #d40b00;
-    background: rgba(212, 11, 0, 0.18);
-  }
-  .tint-color-btn[data-tint-color="#FFD60A"][aria-checked="true"] {
-    border-color: #FFD60A;
-    background: rgba(255, 214, 10, 0.16);
-  }
-  .tint-color-btn[data-tint-color="#00C2E0"][aria-checked="true"] {
-    border-color: #00C2E0;
-    background: rgba(0, 194, 224, 0.16);
-  }
-  .tint-color-btn[data-tint-color="#FF6EB4"][aria-checked="true"] {
-    border-color: #FF6EB4;
-    background: rgba(255, 110, 180, 0.16);
-  }
-  .tint-color-btn[data-tint-color="#30D158"][aria-checked="true"] {
-    border-color: #30D158;
-    background: rgba(48, 209, 88, 0.16);
-  }
-
-  .tint-color-btn:focus-visible {
-    outline: 2px solid var(--card-blue);
-    outline-offset: 2px;
-  }
-
-  .tint-swatch {
-    display: inline-block;
-    width: 16px;
-    height: 16px;
-    border-radius: 50%;
-    flex-shrink: 0;
-    border: 1px solid rgba(128, 128, 128, 0.35);
-  }
-
-  .tint-swatch-auto {
-    background: conic-gradient(
-      #D0F54E 0deg 90deg,
-      #5865F2 90deg 180deg,
-      #FF9F0A 180deg 270deg,
-      #d40b00 270deg 360deg
-    );
-  }
-
-  .tint-color-btn[data-tint-color="#D0F54E"] .tint-swatch { background: #D0F54E; }
-  .tint-color-btn[data-tint-color="#5865F2"] .tint-swatch { background: #5865F2; }
-  .tint-color-btn[data-tint-color="#FF9F0A"] .tint-swatch { background: #FF9F0A; }
-  .tint-color-btn[data-tint-color="#d40b00"] .tint-swatch { background: #d40b00; }
-  .tint-color-btn[data-tint-color="#FFD60A"] .tint-swatch { background: #FFD60A; }
-  .tint-color-btn[data-tint-color="#00C2E0"] .tint-swatch { background: #00C2E0; }
-  .tint-color-btn[data-tint-color="#FF6EB4"] .tint-swatch { background: #FF6EB4; }
-  .tint-color-btn[data-tint-color="#30D158"] .tint-swatch { background: #30D158; }
-
-  .account-card {
-    margin-top: 4px;
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 20px;
-    padding: 30px;
-    display: flex;
-    flex-direction: column;
-    gap: 18px;
-  }
-
-  .account-title {
-    font-family: var(--font-display);
-    font-size: 22px;
-    font-weight: 800;
-    line-height: 1.15;
-    letter-spacing: -0.02em;
-  }
-
-  .account-subtitle {
-    color: var(--text-muted);
-    font-size: 14px;
-    line-height: 1.6;
-  }
-
-  #accountLinked,
-  #accountUnlinked {
-    display: flex;
-    flex-direction: column;
-    gap: 14px;
-  }
-
-  #accountLinked {
-    display: none;
-  }
-
-  #accountLinked.active {
-    display: flex;
-  }
-
-  .account-tabs {
-    display: flex;
-    gap: 8px;
-    flex-wrap: wrap;
-  }
-
-  .account-tab {
-    background: transparent;
-    border: 1px solid var(--border);
-    color: var(--text-muted);
-    padding: 10px 14px;
-    border-radius: 12px;
-    font-family: var(--font-display);
-    font-weight: 700;
-    font-size: 13px;
-    cursor: pointer;
-    transition: all 0.2s ease;
-  }
-
-  .account-tab.active,
-  .account-tab:hover {
-    color: var(--text);
-    border-color: var(--card-blue);
-  }
-
-  .account-panel {
-    display: none;
-    flex-direction: column;
-    gap: 14px;
-    margin-top: 6px;
-    padding-top: 14px;
-    border-top: 1px dashed var(--border);
-  }
-
-  .account-panel.active {
-    display: flex;
-  }
-
-  .account-actions {
-    display: flex;
-    gap: 10px;
-    flex-wrap: wrap;
-  }
-
-  .account-btn {
-    background: var(--card-blue);
-    color: #fff;
-    border: none;
-    padding: 12px 18px;
-    border-radius: 999px;
-    font-family: var(--font-display);
-    font-weight: 700;
-    font-size: 14px;
-    cursor: pointer;
-    transition: filter 0.2s ease;
-  }
-
-  .account-btn:hover { filter: brightness(1.08); }
-
-  .account-btn.ghost {
-    background: transparent;
-    color: var(--text);
-    border: 1px solid var(--border);
-  }
-
-  .profile-card[data-grade="lime"] + .account-card #accountSaveBtn {
-    background: var(--card-lime);
-    color: #000;
-  }
-  .profile-card[data-grade="blue"] + .account-card #accountSaveBtn {
-    background: var(--card-blue);
-    color: #fff;
-  }
-  .profile-card[data-grade="orange"] + .account-card #accountSaveBtn {
-    background: var(--card-orange);
-    color: #000;
-  }
-  .profile-card[data-grade="red"] + .account-card #accountSaveBtn {
-    background: var(--card-red);
-    color: #fff;
-  }
-  .profile-card[data-grade="default"] + .account-card #accountSaveBtn {
-    background: var(--card-blue);
-    color: #fff;
-  }
-
-  .sync-theme-row {
-    margin-top: 10px;
-    display: none;
-    align-items: center;
-    gap: 10px;
-    font-size: 13px;
-    color: var(--text-muted);
-    font-weight: 700;
-  }
-
-  .sync-theme-row input {
-    width: 16px;
-    height: 16px;
-    accent-color: var(--card-blue);
-  }
-
-  .avatar-crop-backdrop {
-    position: fixed;
-    inset: 0;
-    z-index: 2000;
-    background: rgba(0, 0, 0, 0.66);
-    display: none;
-    align-items: center;
-    justify-content: center;
-    padding: 18px;
-  }
-
-  .avatar-crop-backdrop.open {
-    display: flex;
-  }
-
-  .avatar-crop-modal {
-    width: min(760px, 100%);
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 18px;
-    padding: 18px;
-    display: flex;
-    flex-direction: column;
-    gap: 14px;
-  }
-
-  .avatar-crop-title {
-    font-family: var(--font-display);
-    font-size: 22px;
-    font-weight: 800;
-    letter-spacing: -0.02em;
-  }
-
-  .avatar-crop-hint {
-    color: var(--text-muted);
-    font-size: 13px;
-  }
-
-  .avatar-crop-stage {
-    width: 100%;
-    max-width: 100%;
-    overflow: hidden;
-    border-radius: 0;
-    border: 1px solid var(--border);
-    background: #111;
-    position: relative;
-    align-self: center;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    min-height: 280px;
-  }
-
-  .avatar-crop-stage img,
-  .avatar-crop-stage canvas {
-    display: block;
-    position: absolute;
-    max-width: none;
-    max-height: none;
-    will-change: transform;
-  }
-
-  .avatar-crop-stage canvas {
-    image-rendering: auto;
-  }
-
-  .avatar-crop-overlay {
-    position: absolute;
-    inset: 0;
-    pointer-events: none;
-  }
-
-  .avatar-crop-mask {
-    position: absolute;
-    background: rgba(0, 0, 0, 0.25);
-    transition: all 0.08s linear;
-  }
-
-  .avatar-crop-box {
-    position: absolute;
-    border: 2px solid #fff;
-    box-shadow:
-      0 0 0 9999px rgba(0, 0, 0, 0.25),
-      inset 0 0 0 1px rgba(255, 255, 255, 0.22);
-    cursor: grab;
-    touch-action: none;
-    pointer-events: auto;
-    background: transparent;
-  }
-
-  .avatar-crop-box:active {
-    cursor: grabbing;
-  }
-
-  .avatar-crop-box::after {
-    content: '';
-    position: absolute;
-    inset: 12px;
-    border: 1px dashed rgba(255, 255, 255, 0.34);
-  }
-
-  .avatar-crop-controls {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-  }
-
-  .avatar-crop-zoom {
-    width: 100%;
-    accent-color: var(--card-blue);
-  }
-
-  .avatar-crop-actions {
-    display: flex;
-    gap: 8px;
-    flex-wrap: wrap;
-  }
-
-  .account-note {
-    color: var(--text-muted);
-    font-size: 13px;
-  }
-
-  .account-error,
-  .account-success {
-    min-height: 18px;
-    font-size: 13px;
-    font-weight: 600;
-  }
-
-  .account-error { color: var(--card-red); }
-  .account-success { color: var(--card-green); }
-
-  .readonly-value {
-    border: 1px solid var(--border);
-    border-radius: 12px;
-    padding: 12px 14px;
-    font-size: 14px;
-    color: var(--text-muted);
-  }
-
-
-  footer {
-      margin-top: 80px;
-      text-align: center;
-      color: var(--text-muted);
-      font-size: 14px;
-      padding: 60px 0;
-      border-top: 1px solid var(--border);
-    }
-  </style>
-  <link rel="stylesheet" href="Assets/css/plus.css">
-  <link rel="stylesheet" href="Assets/css/shared-header.css">
-  <script defer src="Assets/js/shared-header.js"></script>
-</head>
-<body>
-  <main>
-    <header>
-    <div class="header-content">
-      <a href="index.html" class="logo">
-        <span class="logo-text">Videregående Hjelp</span>
-        <img class="logo-image" src="vgshjelp-logo.png" alt="Videregående Hjelp">
-      </a>
-      <div class="header-right">
-        <div class="nav-container">
-          <a href="guides.html" class="nav-link">
-            <i class="material-icons">book</i>
-            <span>Guider</span>
+      .tint-settings {
+        background: transparent;
+        border: 1px solid var(--border);
+        border-radius: 14px;
+        padding: 0;
+        overflow: hidden;
+      }
+
+      .tint-settings > summary {
+        list-style: none;
+        cursor: pointer;
+        padding: 14px 18px;
+        font-family: var(--font-display);
+        font-weight: 700;
+        font-size: 15px;
+        color: var(--text-muted);
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        user-select: none;
+        transition:
+          background 0.15s ease,
+          color 0.15s ease;
+      }
+
+      .tint-settings > summary::-webkit-details-marker {
+        display: none;
+      }
+
+      .tint-settings > summary::before {
+        content: "palette";
+        font-family: "Material Icons";
+        font-size: 20px;
+        color: var(--text-muted);
+      }
+
+      .tint-settings > summary::after {
+        content: "expand_more";
+        font-family: "Material Icons";
+        font-size: 22px;
+        margin-left: auto;
+        color: var(--text-muted);
+        transition: transform 0.2s ease;
+      }
+
+      .tint-settings[open] > summary::after {
+        transform: rotate(180deg);
+      }
+
+      .tint-settings > summary:hover {
+        background: rgba(255, 255, 255, 0.04);
+        color: var(--text);
+      }
+
+      [data-theme="light"] .tint-settings > summary:hover {
+        background: rgba(0, 0, 0, 0.03);
+      }
+
+      .tint-settings > summary:focus-visible {
+        outline: 2px solid var(--card-blue);
+        outline-offset: 2px;
+      }
+
+      .tint-settings-body {
+        padding: 4px 18px 18px 18px;
+        display: flex;
+        flex-direction: column;
+        gap: 0;
+      }
+
+      .tint-settings-hint {
+        font-family: var(--font-body);
+        font-size: 13px;
+        color: var(--text-muted);
+        line-height: 1.5;
+        margin-bottom: 14px;
+      }
+
+      .tint-presets {
+        display: flex;
+        gap: 6px;
+        flex-wrap: wrap;
+      }
+
+      .tint-preset-btn {
+        flex: 1;
+        min-width: 64px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        padding: 10px 12px;
+        border: 1px solid rgba(255, 255, 255, 0.18);
+        border-radius: 12px;
+        background: rgba(255, 255, 255, 0.06);
+        color: #fff;
+        font-family: var(--font-display);
+        font-weight: 700;
+        font-size: 13px;
+        cursor: pointer;
+        transition: all 0.18s ease;
+        user-select: none;
+      }
+
+      .tint-preset-btn:hover {
+        border-color: rgba(255, 255, 255, 0.32);
+        background: rgba(255, 255, 255, 0.1);
+      }
+
+      [data-theme="light"] .tint-preset-btn {
+        border: 1px solid var(--text-muted);
+        color: var(--text);
+        background: transparent;
+      }
+
+      [data-theme="light"] .tint-preset-btn:hover {
+        border-color: var(--text);
+        background: rgba(0, 0, 0, 0.04);
+      }
+
+      .tint-preset-btn:focus-visible {
+        outline: 2px solid var(--card-blue);
+        outline-offset: 2px;
+      }
+
+      /* Active preset takes the grade color, same pattern as theme-segment-btn. */
+      .tint-preset-btn.active[data-grade="lime"] {
+        background: var(--card-lime);
+        color: #000;
+        border-color: var(--card-lime);
+      }
+      .tint-preset-btn.active[data-grade="blue"] {
+        background: var(--card-blue);
+        color: #fff;
+        border-color: var(--card-blue);
+      }
+      .tint-preset-btn.active[data-grade="orange"] {
+        background: var(--card-orange);
+        color: #000;
+        border-color: var(--card-orange);
+      }
+      .tint-preset-btn.active[data-grade="red"] {
+        background: var(--card-red);
+        color: #fff;
+        border-color: var(--card-red);
+      }
+      .tint-preset-btn.active[data-grade="default"] {
+        background: var(--card-blue);
+        color: #fff;
+        border-color: var(--card-blue);
+      }
+
+      .tint-scope-row {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        font-family: var(--font-body);
+        font-size: 14px;
+        color: var(--text);
+        cursor: pointer;
+        user-select: none;
+      }
+
+      .tint-scope-row input[type="checkbox"] {
+        width: 18px;
+        height: 18px;
+        accent-color: var(--card-blue);
+        cursor: pointer;
+      }
+
+      .tint-section {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        border-top: 1px solid var(--border);
+        padding-top: 14px;
+      }
+
+      .tint-section-label {
+        font-family: var(--font-display);
+        font-size: 12px;
+        font-weight: 800;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        color: var(--text-muted);
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+
+      .tint-color-row {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        border: 1px solid rgba(255, 214, 10, 0.28);
+        border-radius: 12px;
+        padding: 14px;
+        margin-bottom: 14px;
+        background: rgba(255, 214, 10, 0.05);
+      }
+
+      .tint-color-row[hidden] {
+        display: none;
+      }
+
+      .tint-plus-badge {
+        font-size: 10px;
+        font-weight: 700;
+        color: var(--plus-gold);
+        border: 1px solid var(--plus-gold);
+        border-radius: 6px;
+        padding: 1px 6px;
+        letter-spacing: 0.05em;
+        text-transform: uppercase;
+      }
+
+      .tint-color-swatches {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(104px, 1fr));
+        gap: 8px;
+      }
+
+      .tint-color-btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 8px 12px;
+        border-radius: 10px;
+        font-family: var(--font-body);
+        font-size: 13px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.15s ease;
+        border: 1.5px solid var(--border);
+        background: transparent;
+        color: var(--text);
+      }
+
+      .tint-color-btn:hover {
+        border-color: var(--text-muted);
+        background: rgba(255, 255, 255, 0.05);
+      }
+
+      [data-theme="light"] .tint-color-btn:hover {
+        background: rgba(0, 0, 0, 0.04);
+      }
+
+      .tint-color-btn[aria-checked="true"] {
+        border-color: var(--text);
+        background: rgba(255, 255, 255, 0.06);
+      }
+
+      [data-theme="light"] .tint-color-btn[aria-checked="true"] {
+        background: rgba(0, 0, 0, 0.05);
+      }
+
+      .tint-color-btn[data-tint-color="#D0F54E"][aria-checked="true"] {
+        border-color: #d0f54e;
+        background: rgba(208, 245, 78, 0.16);
+      }
+      .tint-color-btn[data-tint-color="#5865F2"][aria-checked="true"] {
+        border-color: #5865f2;
+        background: rgba(88, 101, 242, 0.18);
+      }
+      .tint-color-btn[data-tint-color="#FF9F0A"][aria-checked="true"] {
+        border-color: #ff9f0a;
+        background: rgba(255, 159, 10, 0.16);
+      }
+      .tint-color-btn[data-tint-color="#d40b00"][aria-checked="true"] {
+        border-color: #d40b00;
+        background: rgba(212, 11, 0, 0.18);
+      }
+      .tint-color-btn[data-tint-color="#FFD60A"][aria-checked="true"] {
+        border-color: #ffd60a;
+        background: rgba(255, 214, 10, 0.16);
+      }
+      .tint-color-btn[data-tint-color="#00C2E0"][aria-checked="true"] {
+        border-color: #00c2e0;
+        background: rgba(0, 194, 224, 0.16);
+      }
+      .tint-color-btn[data-tint-color="#FF6EB4"][aria-checked="true"] {
+        border-color: #ff6eb4;
+        background: rgba(255, 110, 180, 0.16);
+      }
+      .tint-color-btn[data-tint-color="#30D158"][aria-checked="true"] {
+        border-color: #30d158;
+        background: rgba(48, 209, 88, 0.16);
+      }
+
+      .tint-color-btn:focus-visible {
+        outline: 2px solid var(--card-blue);
+        outline-offset: 2px;
+      }
+
+      .tint-swatch {
+        display: inline-block;
+        width: 16px;
+        height: 16px;
+        border-radius: 50%;
+        flex-shrink: 0;
+        border: 1px solid rgba(128, 128, 128, 0.35);
+      }
+
+      .tint-swatch-auto {
+        background: conic-gradient(
+          #d0f54e 0deg 90deg,
+          #5865f2 90deg 180deg,
+          #ff9f0a 180deg 270deg,
+          #d40b00 270deg 360deg
+        );
+      }
+
+      .tint-color-btn[data-tint-color="#D0F54E"] .tint-swatch {
+        background: #d0f54e;
+      }
+      .tint-color-btn[data-tint-color="#5865F2"] .tint-swatch {
+        background: #5865f2;
+      }
+      .tint-color-btn[data-tint-color="#FF9F0A"] .tint-swatch {
+        background: #ff9f0a;
+      }
+      .tint-color-btn[data-tint-color="#d40b00"] .tint-swatch {
+        background: #d40b00;
+      }
+      .tint-color-btn[data-tint-color="#FFD60A"] .tint-swatch {
+        background: #ffd60a;
+      }
+      .tint-color-btn[data-tint-color="#00C2E0"] .tint-swatch {
+        background: #00c2e0;
+      }
+      .tint-color-btn[data-tint-color="#FF6EB4"] .tint-swatch {
+        background: #ff6eb4;
+      }
+      .tint-color-btn[data-tint-color="#30D158"] .tint-swatch {
+        background: #30d158;
+      }
+
+      .account-card {
+        margin-top: 4px;
+        background: var(--surface);
+        border: 1px solid var(--border);
+        border-radius: 20px;
+        padding: 30px;
+        display: flex;
+        flex-direction: column;
+        gap: 18px;
+      }
+
+      .account-title {
+        font-family: var(--font-display);
+        font-size: 22px;
+        font-weight: 800;
+        line-height: 1.15;
+        letter-spacing: -0.02em;
+      }
+
+      .account-subtitle {
+        color: var(--text-muted);
+        font-size: 14px;
+        line-height: 1.6;
+      }
+
+      #accountLinked,
+      #accountUnlinked {
+        display: flex;
+        flex-direction: column;
+        gap: 14px;
+      }
+
+      #accountLinked {
+        display: none;
+      }
+
+      #accountLinked.active {
+        display: flex;
+      }
+
+      .account-tabs {
+        display: flex;
+        gap: 8px;
+        flex-wrap: wrap;
+      }
+
+      .account-tab {
+        background: transparent;
+        border: 1px solid var(--border);
+        color: var(--text-muted);
+        padding: 10px 14px;
+        border-radius: 12px;
+        font-family: var(--font-display);
+        font-weight: 700;
+        font-size: 13px;
+        cursor: pointer;
+        transition: all 0.2s ease;
+      }
+
+      .account-tab.active,
+      .account-tab:hover {
+        color: var(--text);
+        border-color: var(--card-blue);
+      }
+
+      .account-panel {
+        display: none;
+        flex-direction: column;
+        gap: 14px;
+        margin-top: 6px;
+        padding-top: 14px;
+        border-top: 1px dashed var(--border);
+      }
+
+      .account-panel.active {
+        display: flex;
+      }
+
+      .account-actions {
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+      }
+
+      .account-btn {
+        background: var(--card-blue);
+        color: #fff;
+        border: none;
+        padding: 12px 18px;
+        border-radius: 999px;
+        font-family: var(--font-display);
+        font-weight: 700;
+        font-size: 14px;
+        cursor: pointer;
+        transition: filter 0.2s ease;
+      }
+
+      .account-btn:hover {
+        filter: brightness(1.08);
+      }
+
+      .account-btn.ghost {
+        background: transparent;
+        color: var(--text);
+        border: 1px solid var(--border);
+      }
+
+      .profile-card[data-grade="lime"] + .account-card #accountSaveBtn {
+        background: var(--card-lime);
+        color: #000;
+      }
+      .profile-card[data-grade="blue"] + .account-card #accountSaveBtn {
+        background: var(--card-blue);
+        color: #fff;
+      }
+      .profile-card[data-grade="orange"] + .account-card #accountSaveBtn {
+        background: var(--card-orange);
+        color: #000;
+      }
+      .profile-card[data-grade="red"] + .account-card #accountSaveBtn {
+        background: var(--card-red);
+        color: #fff;
+      }
+      .profile-card[data-grade="default"] + .account-card #accountSaveBtn {
+        background: var(--card-blue);
+        color: #fff;
+      }
+
+      .sync-theme-row {
+        margin-top: 10px;
+        display: none;
+        align-items: center;
+        gap: 10px;
+        font-size: 13px;
+        color: var(--text-muted);
+        font-weight: 700;
+      }
+
+      .sync-theme-row input {
+        width: 16px;
+        height: 16px;
+        accent-color: var(--card-blue);
+      }
+
+      .avatar-crop-backdrop {
+        position: fixed;
+        inset: 0;
+        z-index: 2000;
+        background: rgba(0, 0, 0, 0.66);
+        display: none;
+        align-items: center;
+        justify-content: center;
+        padding: 18px;
+      }
+
+      .avatar-crop-backdrop.open {
+        display: flex;
+      }
+
+      .avatar-crop-modal {
+        width: min(760px, 100%);
+        background: var(--surface);
+        border: 1px solid var(--border);
+        border-radius: 18px;
+        padding: 18px;
+        display: flex;
+        flex-direction: column;
+        gap: 14px;
+      }
+
+      .avatar-crop-title {
+        font-family: var(--font-display);
+        font-size: 22px;
+        font-weight: 800;
+        letter-spacing: -0.02em;
+      }
+
+      .avatar-crop-hint {
+        color: var(--text-muted);
+        font-size: 13px;
+      }
+
+      .avatar-crop-stage {
+        width: 100%;
+        max-width: 100%;
+        overflow: hidden;
+        border-radius: 0;
+        border: 1px solid var(--border);
+        background: #111;
+        position: relative;
+        align-self: center;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 280px;
+      }
+
+      .avatar-crop-stage img,
+      .avatar-crop-stage canvas {
+        display: block;
+        position: absolute;
+        max-width: none;
+        max-height: none;
+        will-change: transform;
+      }
+
+      .avatar-crop-stage canvas {
+        image-rendering: auto;
+      }
+
+      .avatar-crop-overlay {
+        position: absolute;
+        inset: 0;
+        pointer-events: none;
+      }
+
+      .avatar-crop-mask {
+        position: absolute;
+        background: rgba(0, 0, 0, 0.25);
+        transition: all 0.08s linear;
+      }
+
+      .avatar-crop-box {
+        position: absolute;
+        border: 2px solid #fff;
+        box-shadow:
+          0 0 0 9999px rgba(0, 0, 0, 0.25),
+          inset 0 0 0 1px rgba(255, 255, 255, 0.22);
+        cursor: grab;
+        touch-action: none;
+        pointer-events: auto;
+        background: transparent;
+      }
+
+      .avatar-crop-box:active {
+        cursor: grabbing;
+      }
+
+      .avatar-crop-box::after {
+        content: "";
+        position: absolute;
+        inset: 12px;
+        border: 1px dashed rgba(255, 255, 255, 0.34);
+      }
+
+      .avatar-crop-controls {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+      }
+
+      .avatar-crop-zoom {
+        width: 100%;
+        accent-color: var(--card-blue);
+      }
+
+      .avatar-crop-actions {
+        display: flex;
+        gap: 8px;
+        flex-wrap: wrap;
+      }
+
+      .account-note {
+        color: var(--text-muted);
+        font-size: 13px;
+      }
+
+      .account-error,
+      .account-success {
+        min-height: 18px;
+        font-size: 13px;
+        font-weight: 600;
+      }
+
+      .account-error {
+        color: var(--card-red);
+      }
+      .account-success {
+        color: var(--card-green);
+      }
+
+      .readonly-value {
+        border: 1px solid var(--border);
+        border-radius: 12px;
+        padding: 12px 14px;
+        font-size: 14px;
+        color: var(--text-muted);
+      }
+
+      footer {
+        margin-top: 80px;
+        text-align: center;
+        color: var(--text-muted);
+        font-size: 14px;
+        padding: 60px 0;
+        border-top: 1px solid var(--border);
+      }
+    </style>
+    <link rel="stylesheet" href="Assets/css/plus.css" />
+    <link rel="stylesheet" href="Assets/css/shared-header.css" />
+    <script defer src="Assets/js/shared-header.js"></script>
+  </head>
+  <body>
+    <main>
+      <header>
+        <div class="header-content">
+          <a href="index.html" class="logo">
+            <span class="logo-text">Videregående Hjelp</span>
+            <img
+              class="logo-image"
+              src="vgshjelp-logo.png"
+              alt="Videregående Hjelp"
+            />
           </a>
-          <a href="tools.html" class="nav-link">
-            <i class="material-icons">quiz</i>
-            <span>Verktøy</span>
-          </a>
-          <button class="burger-btn" id="burgerBtn" aria-label="Meny">
-            <i class="material-icons">menu</i>
+          <div class="header-right">
+            <div class="nav-container">
+              <a href="guides.html" class="nav-link">
+                <i class="material-icons">book</i>
+                <span>Guider</span>
+              </a>
+              <a href="tools.html" class="nav-link">
+                <i class="material-icons">quiz</i>
+                <span>Verktøy</span>
+              </a>
+              <button class="burger-btn" id="burgerBtn" aria-label="Meny">
+                <i class="material-icons">menu</i>
+              </button>
+              <div class="nav-dropdown" id="navDropdown">
+                <a href="resources.html" class="dropdown-item">
+                  <i class="material-icons">folder</i>
+                  Ressurser
+                </a>
+                <a href="news.html" class="dropdown-item nav-news-mobile">
+                  <i class="material-icons">newspaper</i>
+                  Nyheter
+                </a>
+              </div>
+            </div>
+            <a
+              href="profile.html"
+              class="profile-pill"
+              aria-label="Min profil"
+            ></a>
+          </div>
+        </div>
+      </header>
+
+      <div class="profile-page">
+        <h1 class="profile-heading">Min profil</h1>
+        <p class="profile-subtitle">Lag en profil på Videregående Hjelp!</p>
+
+        <form class="profile-card" id="profileForm" novalidate>
+          <div class="field">
+            <label class="field-label" for="nameInput">Navn</label>
+            <input
+              class="field-input"
+              type="text"
+              id="nameInput"
+              maxlength="40"
+              autocomplete="off"
+              placeholder="F.eks. Eplesaus"
+            />
+          </div>
+
+          <div class="field">
+            <span class="field-label">Trinn</span>
+            <div class="grade-row" role="radiogroup" aria-label="Velg trinn">
+              <label class="grade-option" data-color="lime">
+                <input type="radio" name="grade" value="8-10" /> 8-10. klasse
+              </label>
+              <label class="grade-option" data-color="blue">
+                <input type="radio" name="grade" value="VG1-VG2" /> VG1-VG2
+              </label>
+              <label class="grade-option" data-color="orange">
+                <input type="radio" name="grade" value="Alumni" /> Alumni
+              </label>
+              <label class="grade-option" data-color="red">
+                <input type="radio" name="grade" value="Lærer" /> Lærer
+              </label>
+            </div>
+          </div>
+
+          <div class="field">
+            <label class="field-label" for="countyInput">Fylke</label>
+            <select class="field-input" id="countyInput"></select>
+          </div>
+
+          <div class="field">
+            <span class="field-label">Profilbilde</span>
+            <div class="avatar-row">
+              <div class="avatar-preview" id="avatarPreview"></div>
+              <div class="avatar-controls">
+                <label class="avatar-file-label">
+                  <input type="file" id="avatarInput" accept="image/*" />
+                  Last opp bilde
+                </label>
+                <button type="button" class="avatar-clear" id="avatarClear">
+                  Fjern bilde
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <div class="field">
+            <span class="field-label">Tema</span>
+            <div class="theme-segment" role="radiogroup" aria-label="Velg tema">
+              <button
+                type="button"
+                class="theme-segment-btn"
+                data-theme="system"
+                role="radio"
+                aria-checked="false"
+              >
+                <span class="material-icons seg-icon">desktop_windows</span
+                >System
+              </button>
+              <button
+                type="button"
+                class="theme-segment-btn"
+                data-theme="light"
+                role="radio"
+                aria-checked="false"
+              >
+                <span class="material-icons seg-icon">light_mode</span>Lys
+              </button>
+              <button
+                type="button"
+                class="theme-segment-btn"
+                data-theme="dark"
+                role="radio"
+                aria-checked="false"
+              >
+                <span class="material-icons seg-icon">dark_mode</span>Mørk
+              </button>
+            </div>
+            <label class="sync-theme-row" id="syncThemeRow">
+              <input type="checkbox" id="syncThemeDevices" />
+              <span>Synkroniser tema med enhetene mine</span>
+            </label>
+          </div>
+
+          <details class="tint-settings" id="tintSettings">
+            <summary>Farge og Tint-innstillinger</summary>
+            <div class="tint-settings-body">
+              <p class="tint-settings-hint">
+                Bakgrunnen får et svakt preg av valgt farge. Ingen trinn valgt =
+                ingen tint.
+              </p>
+
+              <!-- Plus-only color picker (shown only when Plus is active) -->
+              <div class="tint-color-row" id="plusColorRow" hidden>
+                <span class="tint-section-label"
+                  >Farge <span class="tint-plus-badge">Pluss</span></span
+                >
+                <div
+                  class="tint-color-swatches"
+                  role="radiogroup"
+                  aria-label="Velg tint-farge"
+                >
+                  <button
+                    type="button"
+                    class="tint-color-btn"
+                    data-tint-color=""
+                    aria-checked="true"
+                    title="Standard (basert på trinn)"
+                  >
+                    <span class="tint-swatch tint-swatch-auto"></span>Standard
+                  </button>
+                  <button
+                    type="button"
+                    class="tint-color-btn"
+                    data-tint-color="#D0F54E"
+                    aria-checked="false"
+                    title="Lime (8-10)"
+                  >
+                    <span class="tint-swatch"></span>Lime
+                  </button>
+                  <button
+                    type="button"
+                    class="tint-color-btn"
+                    data-tint-color="#5865F2"
+                    aria-checked="false"
+                    title="Blå (VG1-VG2)"
+                  >
+                    <span class="tint-swatch"></span>Blå
+                  </button>
+                  <button
+                    type="button"
+                    class="tint-color-btn"
+                    data-tint-color="#FF9F0A"
+                    aria-checked="false"
+                    title="Oransje (Alumni)"
+                  >
+                    <span class="tint-swatch"></span>Oransje
+                  </button>
+                  <button
+                    type="button"
+                    class="tint-color-btn"
+                    data-tint-color="#d40b00"
+                    aria-checked="false"
+                    title="Rød (Lærer)"
+                  >
+                    <span class="tint-swatch"></span>Rød
+                  </button>
+                  <button
+                    type="button"
+                    class="tint-color-btn"
+                    data-tint-color="#FFD60A"
+                    aria-checked="false"
+                    title="Gul/gull"
+                  >
+                    <span class="tint-swatch"></span>Gull
+                  </button>
+                  <button
+                    type="button"
+                    class="tint-color-btn"
+                    data-tint-color="#00C2E0"
+                    aria-checked="false"
+                    title="Cyan"
+                  >
+                    <span class="tint-swatch"></span>Cyan
+                  </button>
+                  <button
+                    type="button"
+                    class="tint-color-btn"
+                    data-tint-color="#FF6EB4"
+                    aria-checked="false"
+                    title="Rosa"
+                  >
+                    <span class="tint-swatch"></span>Rosa
+                  </button>
+                  <button
+                    type="button"
+                    class="tint-color-btn"
+                    data-tint-color="#30D158"
+                    aria-checked="false"
+                    title="Grønn"
+                  >
+                    <span class="tint-swatch"></span>Grønn
+                  </button>
+                </div>
+              </div>
+
+              <div class="tint-section">
+                <span class="tint-section-label">Intensitet</span>
+                <div
+                  class="tint-presets"
+                  role="radiogroup"
+                  aria-label="Tint-intensitet"
+                >
+                  <button
+                    type="button"
+                    class="tint-preset-btn"
+                    data-tint="off"
+                    role="radio"
+                    aria-checked="false"
+                  >
+                    Av
+                  </button>
+                  <button
+                    type="button"
+                    class="tint-preset-btn"
+                    data-tint="subtle"
+                    role="radio"
+                    aria-checked="false"
+                  >
+                    Svak
+                  </button>
+                  <button
+                    type="button"
+                    class="tint-preset-btn"
+                    data-tint="strong"
+                    role="radio"
+                    aria-checked="false"
+                  >
+                    Sterk
+                  </button>
+                </div>
+              </div>
+
+              <div class="tint-section">
+                <span class="tint-section-label">Omfang</span>
+                <label class="tint-scope-row">
+                  <input type="checkbox" id="tintScopeAll" />
+                  <span>Tint alt (også kort og overflater)</span>
+                </label>
+              </div>
+            </div>
+          </details>
+
+          <!-- Videregående Hjelp+ (Pluss) -->
+          <details class="plus-card" id="plusCard">
+            <summary class="plus-card-summary">
+              <div class="plus-header">
+                <span class="plus-header-icon">+</span>
+                <h2>Videregående Hjelp+ (Pluss)</h2>
+              </div>
+              <span class="plus-card-chevron material-icons">expand_more</span>
+            </summary>
+            <div class="plus-card-body">
+              <p class="plus-description">
+                Få tilgang til eksklusivt innhold, MR-spesifikke nyheter og
+                flere tilpasningsmuligheter. Krever profil, konto og fylke satt
+                til Møre og Romsdal.
+              </p>
+              <div class="plus-status" id="plusStatus"></div>
+              <button
+                type="button"
+                class="plus-toggle-btn"
+                id="plusToggleBtn"
+              ></button>
+              <p class="plus-locked-reason" id="plusLockedReason" hidden></p>
+            </div>
+          </details>
+
+          <div
+            class="status-message"
+            id="status"
+            role="status"
+            aria-live="polite"
+          ></div>
+
+          <div class="button-row">
+            <button type="submit" class="btn-save">Lagre</button>
+            <button type="button" class="btn-clear" id="clearAll">
+              Tilbakestill
+            </button>
+          </div>
+        </form>
+
+        <section class="account-card" id="accountCard" aria-live="polite">
+          <h2 class="account-title">Konto og synkronisering</h2>
+          <p class="account-subtitle">
+            Du kan bruke profilen lokalt, eller koble den til en Meninger-konto
+            for synk mellom enheter.
+          </p>
+
+          <div id="accountUnlinked">
+            <div class="account-tabs">
+              <button
+                type="button"
+                class="account-tab active"
+                data-account-tab="login"
+              >
+                Logg inn / synkroniser
+              </button>
+              <button
+                type="button"
+                class="account-tab"
+                data-account-tab="signup"
+              >
+                Opprett ny konto
+              </button>
+            </div>
+
+            <div class="account-panel active" id="accountPanelLogin">
+              <div class="field">
+                <label class="field-label" for="accountLoginEmail"
+                  >E-post</label
+                >
+                <input
+                  class="field-input"
+                  type="email"
+                  id="accountLoginEmail"
+                  autocomplete="email"
+                  placeholder="din@epost.no"
+                />
+              </div>
+              <div class="field">
+                <label class="field-label" for="accountLoginPassword"
+                  >Passord</label
+                >
+                <input
+                  class="field-input"
+                  type="password"
+                  id="accountLoginPassword"
+                  autocomplete="current-password"
+                  placeholder="••••••••"
+                />
+              </div>
+              <div class="account-actions">
+                <button type="button" class="account-btn" id="accountLoginBtn">
+                  Logg inn og synkroniser
+                </button>
+              </div>
+            </div>
+
+            <div class="account-panel" id="accountPanelSignup">
+              <div class="field">
+                <label class="field-label" for="accountSignupUsername"
+                  >Brukernavn (offentlig)</label
+                >
+                <input
+                  class="field-input"
+                  type="text"
+                  id="accountSignupUsername"
+                  maxlength="40"
+                  placeholder="F.eks. Eple"
+                />
+              </div>
+              <div class="field">
+                <label class="field-label" for="accountSignupHandle"
+                  >Handle (unik)</label
+                >
+                <input
+                  class="field-input"
+                  type="text"
+                  id="accountSignupHandle"
+                  maxlength="30"
+                  placeholder="f.eks. @eplesausen"
+                />
+              </div>
+              <div class="field">
+                <label class="field-label" for="accountSignupEmail"
+                  >E-post</label
+                >
+                <input
+                  class="field-input"
+                  type="email"
+                  id="accountSignupEmail"
+                  autocomplete="email"
+                  placeholder="din@epost.no"
+                />
+              </div>
+              <div class="field">
+                <label class="field-label" for="accountSignupPassword"
+                  >Passord</label
+                >
+                <input
+                  class="field-input"
+                  type="password"
+                  id="accountSignupPassword"
+                  autocomplete="new-password"
+                  placeholder="Minst 6 tegn"
+                />
+              </div>
+              <p class="account-note">
+                Trinn, fylke og profilbilde fra profilen over brukes automatisk
+                på kontoen.
+              </p>
+              <div class="account-actions">
+                <button type="button" class="account-btn" id="accountSignupBtn">
+                  Opprett konto
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <div id="accountLinked">
+            <div class="field">
+              <label class="field-label" for="accountUsername"
+                >Brukernavn (offentlig)</label
+              >
+              <input
+                class="field-input"
+                type="text"
+                id="accountUsername"
+                maxlength="40"
+              />
+            </div>
+            <div class="field">
+              <label class="field-label" for="accountHandle"
+                >Handle (unik)</label
+              >
+              <input
+                class="field-input"
+                type="text"
+                id="accountHandle"
+                maxlength="30"
+              />
+            </div>
+            <div class="field">
+              <span class="field-label">E-post</span>
+              <div class="readonly-value" id="accountEmail">-</div>
+            </div>
+            <div class="field">
+              <label class="field-label" for="accountNewPassword"
+                >Nytt passord</label
+              >
+              <input
+                class="field-input"
+                type="password"
+                id="accountNewPassword"
+                autocomplete="new-password"
+                placeholder="Minst 6 tegn"
+              />
+            </div>
+            <div class="account-actions">
+              <button type="button" class="account-btn" id="accountSaveBtn">
+                Lagre kontoendringer
+              </button>
+              <button
+                type="button"
+                class="account-btn ghost"
+                id="accountPasswordBtn"
+              >
+                Bytt passord
+              </button>
+              <button
+                type="button"
+                class="account-btn ghost"
+                id="accountLogoutBtn"
+              >
+                Logg ut
+              </button>
+            </div>
+          </div>
+
+          <div class="account-error" id="accountError"></div>
+          <div class="account-success" id="accountSuccess"></div>
+        </section>
+
+        <p class="privacy-note">
+          Navn er alltid privat og lagres kun lokalt. Brukernavn, handle, trinn,
+          fylke, profilbilde, e-post og passord brukes på kontoen når du velger
+          å synkronisere.
+        </p>
+      </div>
+
+      <footer>
+        <p>&copy; 2026 Videregående Hjelp.</p>
+      </footer>
+    </main>
+
+    <div
+      class="avatar-crop-backdrop"
+      id="avatarCropBackdrop"
+      aria-hidden="true"
+    >
+      <div
+        class="avatar-crop-modal"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="avatarCropTitle"
+      >
+        <h2 class="avatar-crop-title" id="avatarCropTitle">
+          Juster profilbildet
+        </h2>
+        <p class="avatar-crop-hint">
+          Flytt og zoom utsnittsboksen. Alt inni boksen blir brukt som nytt
+          profilbilde.
+        </p>
+        <div class="avatar-crop-stage">
+          <img
+            id="avatarCropImage"
+            alt="Forhåndsvisning av profilbilde for beskjæring"
+          />
+          <div class="avatar-crop-overlay">
+            <div
+              class="avatar-crop-box"
+              id="avatarCropBox"
+              aria-label="Utsnittsboks"
+            ></div>
+            <div class="avatar-crop-mask" id="avatarCropMaskTop"></div>
+            <div class="avatar-crop-mask" id="avatarCropMaskBottom"></div>
+            <div class="avatar-crop-mask" id="avatarCropMaskLeft"></div>
+            <div class="avatar-crop-mask" id="avatarCropMaskRight"></div>
+          </div>
+        </div>
+        <div class="avatar-crop-controls">
+          <input
+            type="range"
+            class="avatar-crop-zoom"
+            id="avatarCropZoom"
+            min="100"
+            max="500"
+            step="1"
+            value="100"
+          />
+          <div class="avatar-crop-actions">
+            <button type="button" class="account-btn" id="avatarCropApply">
+              Bruk bilde
+            </button>
+            <button
+              type="button"
+              class="account-btn ghost"
+              id="avatarCropCancel"
+            >
+              Avbryt
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Deaktiveringsmodal for Videregående Hjelp+ -->
+    <div
+      class="plus-modal-backdrop"
+      id="plusDeactivateModal"
+      hidden
+      aria-hidden="true"
+    >
+      <div
+        class="plus-modal-dialog"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="plusModalTitle"
+      >
+        <h2 class="plus-modal-title" id="plusModalTitle">
+          Deaktiver Videregående Hjelp+?
+        </h2>
+        <p class="plus-modal-desc" id="plusModalDesc">
+          Du er i ferd med å deaktivere Pluss. Hva vil du gjøre med
+          Pluss-dataene dine? (valg, innstillinger og annen data som er
+          spesifikk for Pluss-versjonen)
+        </p>
+        <div class="plus-modal-actions">
+          <button type="button" class="plus-modal-btn primary" id="plusKeepBtn">
+            <span class="material-icons">undo</span>
+            Nei, behold Pluss!
           </button>
-          <div class="nav-dropdown" id="navDropdown">
-            <a href="resources.html" class="dropdown-item">
-              <i class="material-icons">folder</i>
-              Ressurser
-            </a>
-            <a href="news.html" class="dropdown-item nav-news-mobile">
-              <i class="material-icons">newspaper</i>
-              Nyheter
-            </a>
-          </div>
-        </div>
-        <a href="profile.html" class="profile-pill" aria-label="Min profil"></a>
-      </div>
-    </div>
-</header>
-
-    <div class="profile-page">
-      <h1 class="profile-heading">Min profil</h1>
-      <p class="profile-subtitle">Lag en profil på Videregående Hjelp!</p>
-
-      <form class="profile-card" id="profileForm" novalidate>
-        <div class="field">
-          <label class="field-label" for="nameInput">Navn</label>
-          <input class="field-input" type="text" id="nameInput" maxlength="40" autocomplete="off" placeholder="F.eks. Eplesaus">
-        </div>
-
-        <div class="field">
-          <span class="field-label">Trinn</span>
-          <div class="grade-row" role="radiogroup" aria-label="Velg trinn">
-            <label class="grade-option" data-color="lime">
-              <input type="radio" name="grade" value="8-10"> 8-10. klasse
-            </label>
-            <label class="grade-option" data-color="blue">
-              <input type="radio" name="grade" value="VG1-VG2"> VG1-VG2
-            </label>
-            <label class="grade-option" data-color="orange">
-              <input type="radio" name="grade" value="Alumni"> Alumni
-            </label>
-            <label class="grade-option" data-color="red">
-              <input type="radio" name="grade" value="Lærer"> Lærer
-            </label>
-          </div>
-        </div>
-
-        <div class="field">
-          <label class="field-label" for="countyInput">Fylke</label>
-          <select class="field-input" id="countyInput"></select>
-        </div>
-
-        <div class="field">
-          <span class="field-label">Profilbilde</span>
-          <div class="avatar-row">
-            <div class="avatar-preview" id="avatarPreview"></div>
-            <div class="avatar-controls">
-              <label class="avatar-file-label">
-                <input type="file" id="avatarInput" accept="image/*">
-                Last opp bilde
-              </label>
-              <button type="button" class="avatar-clear" id="avatarClear">Fjern bilde</button>
-            </div>
-          </div>
-        </div>
-
-        <div class="field">
-          <span class="field-label">Tema</span>
-          <div class="theme-segment" role="radiogroup" aria-label="Velg tema">
-            <button type="button" class="theme-segment-btn" data-theme="system" role="radio" aria-checked="false">
-              <span class="material-icons seg-icon">desktop_windows</span>System
-            </button>
-            <button type="button" class="theme-segment-btn" data-theme="light" role="radio" aria-checked="false">
-              <span class="material-icons seg-icon">light_mode</span>Lys
-            </button>
-            <button type="button" class="theme-segment-btn" data-theme="dark" role="radio" aria-checked="false">
-              <span class="material-icons seg-icon">dark_mode</span>Mørk
-            </button>
-          </div>
-          <label class="sync-theme-row" id="syncThemeRow">
-            <input type="checkbox" id="syncThemeDevices">
-            <span>Synkroniser tema med enhetene mine</span>
-          </label>
-        </div>
-
-        <details class="tint-settings" id="tintSettings">
-          <summary>Farge og Tint-innstillinger</summary>
-          <div class="tint-settings-body">
-            <p class="tint-settings-hint">
-              Bakgrunnen får et svakt preg av valgt farge. Ingen trinn valgt = ingen tint.
-            </p>
-
-            <!-- Plus-only color picker (shown only when Plus is active) -->
-            <div class="tint-color-row" id="plusColorRow" hidden>
-              <span class="tint-section-label">Farge <span class="tint-plus-badge">Pluss</span></span>
-              <div class="tint-color-swatches" role="radiogroup" aria-label="Velg tint-farge">
-                <button type="button" class="tint-color-btn" data-tint-color="" aria-checked="true" title="Standard (basert på trinn)">
-                  <span class="tint-swatch tint-swatch-auto"></span>Standard
-                </button>
-                <button type="button" class="tint-color-btn" data-tint-color="#D0F54E" aria-checked="false" title="Lime (8-10)">
-                  <span class="tint-swatch"></span>Lime
-                </button>
-                <button type="button" class="tint-color-btn" data-tint-color="#5865F2" aria-checked="false" title="Blå (VG1-VG2)">
-                  <span class="tint-swatch"></span>Blå
-                </button>
-                <button type="button" class="tint-color-btn" data-tint-color="#FF9F0A" aria-checked="false" title="Oransje (Alumni)">
-                  <span class="tint-swatch"></span>Oransje
-                </button>
-                <button type="button" class="tint-color-btn" data-tint-color="#d40b00" aria-checked="false" title="Rød (Lærer)">
-                  <span class="tint-swatch"></span>Rød
-                </button>
-                <button type="button" class="tint-color-btn" data-tint-color="#FFD60A" aria-checked="false" title="Gul/gull">
-                  <span class="tint-swatch"></span>Gull
-                </button>
-                <button type="button" class="tint-color-btn" data-tint-color="#00C2E0" aria-checked="false" title="Cyan">
-                  <span class="tint-swatch"></span>Cyan
-                </button>
-                <button type="button" class="tint-color-btn" data-tint-color="#FF6EB4" aria-checked="false" title="Rosa">
-                  <span class="tint-swatch"></span>Rosa
-                </button>
-                <button type="button" class="tint-color-btn" data-tint-color="#30D158" aria-checked="false" title="Grønn">
-                  <span class="tint-swatch"></span>Grønn
-                </button>
-              </div>
-            </div>
-
-            <div class="tint-section">
-              <span class="tint-section-label">Intensitet</span>
-              <div class="tint-presets" role="radiogroup" aria-label="Tint-intensitet">
-                <button type="button" class="tint-preset-btn" data-tint="off" role="radio" aria-checked="false">Av</button>
-                <button type="button" class="tint-preset-btn" data-tint="subtle" role="radio" aria-checked="false">Svak</button>
-                <button type="button" class="tint-preset-btn" data-tint="strong" role="radio" aria-checked="false">Sterk</button>
-              </div>
-            </div>
-
-            <div class="tint-section">
-              <span class="tint-section-label">Omfang</span>
-              <label class="tint-scope-row">
-                <input type="checkbox" id="tintScopeAll">
-                <span>Tint alt (også kort og overflater)</span>
-              </label>
-            </div>
-          </div>
-        </details>
-
-        <!-- Videregående Hjelp+ (Pluss) -->
-        <details class="plus-card" id="plusCard">
-          <summary class="plus-card-summary">
-            <div class="plus-header">
-              <span class="plus-header-icon">+</span>
-              <h2>Videregående Hjelp+ (Pluss)</h2>
-            </div>
-            <span class="plus-card-chevron material-icons">expand_more</span>
-          </summary>
-          <div class="plus-card-body">
-            <p class="plus-description">Få tilgang til eksklusivt innhold, MR-spesifikke nyheter og flere tilpasningsmuligheter. Krever profil, konto og fylke satt til Møre og Romsdal.</p>
-            <div class="plus-status" id="plusStatus"></div>
-            <button type="button" class="plus-toggle-btn" id="plusToggleBtn"></button>
-            <p class="plus-locked-reason" id="plusLockedReason" hidden></p>
-          </div>
-        </details>
-
-        <div class="status-message" id="status" role="status" aria-live="polite"></div>
-
-        <div class="button-row">
-          <button type="submit" class="btn-save">Lagre</button>
-          <button type="button" class="btn-clear" id="clearAll">Tilbakestill</button>
-        </div>
-      </form>
-
-      <section class="account-card" id="accountCard" aria-live="polite">
-        <h2 class="account-title">Konto og synkronisering</h2>
-        <p class="account-subtitle">Du kan bruke profilen lokalt, eller koble den til en Meninger-konto for synk mellom enheter.</p>
-
-        <div id="accountUnlinked">
-          <div class="account-tabs">
-            <button type="button" class="account-tab active" data-account-tab="login">Logg inn / synkroniser</button>
-            <button type="button" class="account-tab" data-account-tab="signup">Opprett ny konto</button>
-          </div>
-
-          <div class="account-panel active" id="accountPanelLogin">
-            <div class="field">
-              <label class="field-label" for="accountLoginEmail">E-post</label>
-              <input class="field-input" type="email" id="accountLoginEmail" autocomplete="email" placeholder="din@epost.no">
-            </div>
-            <div class="field">
-              <label class="field-label" for="accountLoginPassword">Passord</label>
-              <input class="field-input" type="password" id="accountLoginPassword" autocomplete="current-password" placeholder="••••••••">
-            </div>
-            <div class="account-actions">
-              <button type="button" class="account-btn" id="accountLoginBtn">Logg inn og synkroniser</button>
-            </div>
-          </div>
-
-          <div class="account-panel" id="accountPanelSignup">
-            <div class="field">
-              <label class="field-label" for="accountSignupUsername">Brukernavn (offentlig)</label>
-              <input class="field-input" type="text" id="accountSignupUsername" maxlength="40" placeholder="F.eks. Eple">
-            </div>
-            <div class="field">
-              <label class="field-label" for="accountSignupHandle">Handle (unik)</label>
-              <input class="field-input" type="text" id="accountSignupHandle" maxlength="30" placeholder="f.eks. @eplesausen">
-            </div>
-            <div class="field">
-              <label class="field-label" for="accountSignupEmail">E-post</label>
-              <input class="field-input" type="email" id="accountSignupEmail" autocomplete="email" placeholder="din@epost.no">
-            </div>
-            <div class="field">
-              <label class="field-label" for="accountSignupPassword">Passord</label>
-              <input class="field-input" type="password" id="accountSignupPassword" autocomplete="new-password" placeholder="Minst 6 tegn">
-            </div>
-            <p class="account-note">Trinn, fylke og profilbilde fra profilen over brukes automatisk på kontoen.</p>
-            <div class="account-actions">
-              <button type="button" class="account-btn" id="accountSignupBtn">Opprett konto</button>
-            </div>
-          </div>
-        </div>
-
-        <div id="accountLinked">
-          <div class="field">
-            <label class="field-label" for="accountUsername">Brukernavn (offentlig)</label>
-            <input class="field-input" type="text" id="accountUsername" maxlength="40">
-          </div>
-          <div class="field">
-            <label class="field-label" for="accountHandle">Handle (unik)</label>
-            <input class="field-input" type="text" id="accountHandle" maxlength="30">
-          </div>
-          <div class="field">
-            <span class="field-label">E-post</span>
-            <div class="readonly-value" id="accountEmail">-</div>
-          </div>
-          <div class="field">
-            <label class="field-label" for="accountNewPassword">Nytt passord</label>
-            <input class="field-input" type="password" id="accountNewPassword" autocomplete="new-password" placeholder="Minst 6 tegn">
-          </div>
-          <div class="account-actions">
-            <button type="button" class="account-btn" id="accountSaveBtn">Lagre kontoendringer</button>
-            <button type="button" class="account-btn ghost" id="accountPasswordBtn">Bytt passord</button>
-            <button type="button" class="account-btn ghost" id="accountLogoutBtn">Logg ut</button>
-          </div>
-        </div>
-
-        <div class="account-error" id="accountError"></div>
-        <div class="account-success" id="accountSuccess"></div>
-      </section>
-
-      <p class="privacy-note">
-        Navn er alltid privat og lagres kun lokalt. Brukernavn, handle, trinn, fylke, profilbilde, e-post og passord brukes på kontoen når du velger å synkronisere.
-      </p>
-    </div>
-
-    <footer>
-      <p>&copy; 2026 Videregående Hjelp.</p>
-    </footer>
-  </main>
-
-  <div class="avatar-crop-backdrop" id="avatarCropBackdrop" aria-hidden="true">
-    <div class="avatar-crop-modal" role="dialog" aria-modal="true" aria-labelledby="avatarCropTitle">
-      <h2 class="avatar-crop-title" id="avatarCropTitle">Juster profilbildet</h2>
-      <p class="avatar-crop-hint">Flytt og zoom utsnittsboksen. Alt inni boksen blir brukt som nytt profilbilde.</p>
-      <div class="avatar-crop-stage">
-        <img id="avatarCropImage" alt="Forhåndsvisning av profilbilde for beskjæring">
-        <div class="avatar-crop-overlay">
-          <div class="avatar-crop-box" id="avatarCropBox" aria-label="Utsnittsboks"></div>
-          <div class="avatar-crop-mask" id="avatarCropMaskTop"></div>
-          <div class="avatar-crop-mask" id="avatarCropMaskBottom"></div>
-          <div class="avatar-crop-mask" id="avatarCropMaskLeft"></div>
-          <div class="avatar-crop-mask" id="avatarCropMaskRight"></div>
-        </div>
-      </div>
-      <div class="avatar-crop-controls">
-        <input type="range" class="avatar-crop-zoom" id="avatarCropZoom" min="100" max="500" step="1" value="100">
-        <div class="avatar-crop-actions">
-          <button type="button" class="account-btn" id="avatarCropApply">Bruk bilde</button>
-          <button type="button" class="account-btn ghost" id="avatarCropCancel">Avbryt</button>
+          <button
+            type="button"
+            class="plus-modal-btn plus-modal-btn-safe"
+            id="plusDeactKeepDataBtn"
+          >
+            <span class="material-icons">archive</span>
+            Ja, men behold Pluss-data
+          </button>
+          <button
+            type="button"
+            class="plus-modal-btn danger"
+            id="plusDeactDeleteDataBtn"
+          >
+            <span class="material-icons">delete_forever</span>
+            Ja, og slett Pluss-data
+          </button>
         </div>
       </div>
     </div>
-  </div>
 
-  <!-- Deaktiveringsmodal for Videregående Hjelp+ -->
-  <div class="plus-modal-backdrop" id="plusDeactivateModal" hidden aria-hidden="true">
-    <div class="plus-modal-dialog" role="dialog" aria-modal="true" aria-labelledby="plusModalTitle">
-      <h2 class="plus-modal-title" id="plusModalTitle">Deaktiver Videregående Hjelp+?</h2>
-      <p class="plus-modal-desc" id="plusModalDesc">Du er i ferd med å deaktivere Pluss. Hva vil du gjøre med Pluss-dataene dine? (valg, innstillinger og annen data som er spesifikk for Pluss-versjonen)</p>
-      <div class="plus-modal-actions">
-        <button type="button" class="plus-modal-btn primary" id="plusKeepBtn">
-          <span class="material-icons">undo</span>
-          Nei, behold Pluss!
-        </button>
-        <button type="button" class="plus-modal-btn plus-modal-btn-safe" id="plusDeactKeepDataBtn">
-          <span class="material-icons">archive</span>
-          Ja, men behold Pluss-data
-        </button>
-        <button type="button" class="plus-modal-btn danger" id="plusDeactDeleteDataBtn">
-          <span class="material-icons">delete_forever</span>
-          Ja, og slett Pluss-data
-        </button>
-      </div>
-    </div>
-  </div>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="Assets/js/profile.js"></script>
+    <script src="Assets/js/account.js"></script>
+    <script src="Assets/js/plus.js"></script>
+    <script>
+      (function () {
+        const form = document.getElementById("profileForm");
+        const nameInput = document.getElementById("nameInput");
+        const gradeRadios = document.querySelectorAll('input[name="grade"]');
+        const countyInput = document.getElementById("countyInput");
+        const avatarInput = document.getElementById("avatarInput");
+        const avatarClearBtn = document.getElementById("avatarClear");
+        const avatarPreview = document.getElementById("avatarPreview");
+        const clearAllBtn = document.getElementById("clearAll");
+        const status = document.getElementById("status");
+        const themeBtns = document.querySelectorAll(".theme-segment-btn");
+        const tintPresetBtns = document.querySelectorAll(".tint-preset-btn");
+        const tintScopeCheckbox = document.getElementById("tintScopeAll");
+        const syncThemeRow = document.getElementById("syncThemeRow");
+        const syncThemeDevices = document.getElementById("syncThemeDevices");
+        const accountCard = document.getElementById("accountCard");
+        const accountUnlinked = document.getElementById("accountUnlinked");
+        const accountLinked = document.getElementById("accountLinked");
+        const accountTabs = document.querySelectorAll(".account-tab");
+        const accountPanels = document.querySelectorAll(".account-panel");
+        const accountError = document.getElementById("accountError");
+        const accountSuccess = document.getElementById("accountSuccess");
+        const accountLoginEmail = document.getElementById("accountLoginEmail");
+        const accountLoginPassword = document.getElementById(
+          "accountLoginPassword",
+        );
+        const accountLoginBtn = document.getElementById("accountLoginBtn");
+        const accountSignupUsername = document.getElementById(
+          "accountSignupUsername",
+        );
+        const accountSignupHandle = document.getElementById(
+          "accountSignupHandle",
+        );
+        const accountSignupEmail =
+          document.getElementById("accountSignupEmail");
+        const accountSignupPassword = document.getElementById(
+          "accountSignupPassword",
+        );
+        const accountSignupBtn = document.getElementById("accountSignupBtn");
+        const accountUsername = document.getElementById("accountUsername");
+        const accountHandle = document.getElementById("accountHandle");
+        const accountEmail = document.getElementById("accountEmail");
+        const accountNewPassword =
+          document.getElementById("accountNewPassword");
+        const accountSaveBtn = document.getElementById("accountSaveBtn");
+        const accountPasswordBtn =
+          document.getElementById("accountPasswordBtn");
+        const accountLogoutBtn = document.getElementById("accountLogoutBtn");
+        const avatarCropBackdrop =
+          document.getElementById("avatarCropBackdrop");
+        const avatarCropStage = document.querySelector(".avatar-crop-stage");
+        const avatarCropImage = document.getElementById("avatarCropImage");
+        const avatarCropBox = document.getElementById("avatarCropBox");
+        const avatarCropMaskTop = document.getElementById("avatarCropMaskTop");
+        const avatarCropMaskBottom = document.getElementById(
+          "avatarCropMaskBottom",
+        );
+        const avatarCropMaskLeft =
+          document.getElementById("avatarCropMaskLeft");
+        const avatarCropMaskRight = document.getElementById(
+          "avatarCropMaskRight",
+        );
+        const avatarCropZoom = document.getElementById("avatarCropZoom");
+        const avatarCropApply = document.getElementById("avatarCropApply");
+        const avatarCropCancel = document.getElementById("avatarCropCancel");
 
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-  <script src="Assets/js/profile.js"></script>
-  <script src="Assets/js/account.js"></script>
-  <script src="Assets/js/plus.js"></script>
-  <script>
-    (function () {
-      const form = document.getElementById('profileForm');
-      const nameInput = document.getElementById('nameInput');
-      const gradeRadios = document.querySelectorAll('input[name="grade"]');
-      const countyInput = document.getElementById('countyInput');
-      const avatarInput = document.getElementById('avatarInput');
-      const avatarClearBtn = document.getElementById('avatarClear');
-      const avatarPreview = document.getElementById('avatarPreview');
-      const clearAllBtn = document.getElementById('clearAll');
-      const status = document.getElementById('status');
-      const themeBtns = document.querySelectorAll('.theme-segment-btn');
-      const tintPresetBtns = document.querySelectorAll('.tint-preset-btn');
-      const tintScopeCheckbox = document.getElementById('tintScopeAll');
-      const syncThemeRow = document.getElementById('syncThemeRow');
-      const syncThemeDevices = document.getElementById('syncThemeDevices');
-      const accountCard = document.getElementById('accountCard');
-      const accountUnlinked = document.getElementById('accountUnlinked');
-      const accountLinked = document.getElementById('accountLinked');
-      const accountTabs = document.querySelectorAll('.account-tab');
-      const accountPanels = document.querySelectorAll('.account-panel');
-      const accountError = document.getElementById('accountError');
-      const accountSuccess = document.getElementById('accountSuccess');
-      const accountLoginEmail = document.getElementById('accountLoginEmail');
-      const accountLoginPassword = document.getElementById('accountLoginPassword');
-      const accountLoginBtn = document.getElementById('accountLoginBtn');
-      const accountSignupUsername = document.getElementById('accountSignupUsername');
-      const accountSignupHandle = document.getElementById('accountSignupHandle');
-      const accountSignupEmail = document.getElementById('accountSignupEmail');
-      const accountSignupPassword = document.getElementById('accountSignupPassword');
-      const accountSignupBtn = document.getElementById('accountSignupBtn');
-      const accountUsername = document.getElementById('accountUsername');
-      const accountHandle = document.getElementById('accountHandle');
-      const accountEmail = document.getElementById('accountEmail');
-      const accountNewPassword = document.getElementById('accountNewPassword');
-      const accountSaveBtn = document.getElementById('accountSaveBtn');
-      const accountPasswordBtn = document.getElementById('accountPasswordBtn');
-      const accountLogoutBtn = document.getElementById('accountLogoutBtn');
-      const avatarCropBackdrop = document.getElementById('avatarCropBackdrop');
-      const avatarCropStage = document.querySelector('.avatar-crop-stage');
-      const avatarCropImage = document.getElementById('avatarCropImage');
-      const avatarCropBox = document.getElementById('avatarCropBox');
-      const avatarCropMaskTop = document.getElementById('avatarCropMaskTop');
-      const avatarCropMaskBottom = document.getElementById('avatarCropMaskBottom');
-      const avatarCropMaskLeft = document.getElementById('avatarCropMaskLeft');
-      const avatarCropMaskRight = document.getElementById('avatarCropMaskRight');
-      const avatarCropZoom = document.getElementById('avatarCropZoom');
-      const avatarCropApply = document.getElementById('avatarCropApply');
-      const avatarCropCancel = document.getElementById('avatarCropCancel');
+        let avatarBlobUrl = null;
+        let avatarCropNatural = { width: 1, height: 1 };
+        let avatarCropStageRect = { width: 0, height: 0 };
+        let avatarCropImageRect = { width: 0, height: 0, left: 0, top: 0 };
+        let avatarCropBoxRect = { width: 0, height: 0, left: 0, top: 0 };
+        let avatarCropZoomScale = 1;
+        let avatarCropDragState = null;
 
-      let avatarBlobUrl = null;
-      let avatarCropNatural = { width: 1, height: 1 };
-      let avatarCropStageRect = { width: 0, height: 0 };
-      let avatarCropImageRect = { width: 0, height: 0, left: 0, top: 0 };
-      let avatarCropBoxRect = { width: 0, height: 0, left: 0, top: 0 };
-      let avatarCropZoomScale = 1;
-      let avatarCropDragState = null;
+        function setAccountMessage(type, text) {
+          accountError.textContent = "";
+          accountSuccess.textContent = "";
+          if (!text) return;
+          if (type === "error") accountError.textContent = text;
+          if (type === "success") accountSuccess.textContent = text;
+        }
 
-      function setAccountMessage(type, text) {
-        accountError.textContent = '';
-        accountSuccess.textContent = '';
-        if (!text) return;
-        if (type === 'error') accountError.textContent = text;
-        if (type === 'success') accountSuccess.textContent = text;
-      }
+        function setAccountTab(tab) {
+          accountTabs.forEach((btn) =>
+            btn.classList.toggle("active", btn.dataset.accountTab === tab),
+          );
+          accountPanels.forEach((panel) => {
+            const isLogin = panel.id === "accountPanelLogin" && tab === "login";
+            const isSignup =
+              panel.id === "accountPanelSignup" && tab === "signup";
+            panel.classList.toggle("active", isLogin || isSignup);
+          });
+        }
 
-      function setAccountTab(tab) {
-        accountTabs.forEach((btn) => btn.classList.toggle('active', btn.dataset.accountTab === tab));
-        accountPanels.forEach((panel) => {
-          const isLogin = panel.id === 'accountPanelLogin' && tab === 'login';
-          const isSignup = panel.id === 'accountPanelSignup' && tab === 'signup';
-          panel.classList.toggle('active', isLogin || isSignup);
+        function populateCountySelect(selected) {
+          if (!window.VHaccount || !countyInput) return;
+          const options = VHaccount.COUNTY_OPTIONS || [];
+          const selectedValue = String(selected || "");
+          const fragment = document.createDocumentFragment();
+          options.forEach((county) => {
+            const value = county || "";
+            const label = county || "Ikke valgt";
+            const option = document.createElement("option");
+            option.value = value;
+            option.textContent = label;
+            option.selected = selectedValue === value;
+            fragment.appendChild(option);
+          });
+          countyInput.replaceChildren(fragment);
+        }
+
+        function getCurrentGrade() {
+          const checked = [].slice
+            .call(gradeRadios)
+            .find((radio) => radio.checked);
+          return checked ? checked.value : null;
+        }
+
+        async function currentAvatarDataUrl() {
+          if (!window.VHprofile || !window.VHaccount) return null;
+          const blob = await VHprofile.getAvatarBlob().catch(() => null);
+          if (!blob) return null;
+          return VHaccount.blobToDataUrl(blob).catch(() => null);
+        }
+
+        function renderAccountUI() {
+          if (!window.VHaccount) return;
+          const user = VHaccount.getCurrentUser();
+          const profile = VHaccount.getCurrentProfile();
+          const linked = !!(user && profile);
+          accountUnlinked.style.display = linked ? "none" : "";
+          accountLinked.classList.toggle("active", linked);
+          syncThemeRow.style.display = linked ? "flex" : "none";
+          const local = VHprofile.get();
+          syncThemeDevices.checked = !!local.syncThemeDevices;
+          if (!linked) return;
+
+          accountUsername.value = profile.display_name || "";
+          accountHandle.value = profile.handle || "";
+          accountEmail.textContent = user.email || "-";
+        }
+
+        // Theme picker — owns localStorage['theme'] in concert with
+        // VHprofile.applyTheme(), which broadcasts 'vhjelp:theme-changed'.
+        // The active button's color comes from the user's profile.grade via
+        // the [data-grade="…"] attribute, set in paintThemePicker().
+        const THEME_KEY = "theme";
+        // Grade → picker-color map lives on VHprofile (single source of truth
+        // shared with paintTintUI's pickTintGradeColor). Adding a new trinn
+        // means updating Assets/js/profile.js only — not two inline consts.
+        function currentPickerGrade() {
+          const map =
+            (window.VHprofile && VHprofile.GRADE_TO_PICKER_COLOR) || {};
+          // Live state first — when the user clicks a trinn radio we want the
+          // picker to retint immediately, before they save. If the form has no
+          // checked trinn (e.g. mid-edit or after Tilbakestill cleared it),
+          // fall back to the saved profile so we still show a real color.
+          const formChecked = document.querySelector(
+            'input[name="grade"]:checked',
+          );
+          if (formChecked && map[formChecked.value])
+            return map[formChecked.value];
+          const profile =
+            window.VHprofile && VHprofile.get ? VHprofile.get() : null;
+          const g = profile && profile.grade;
+          return (g && map[g]) || "default";
+        }
+        function paintThemePicker() {
+          const stored = localStorage.getItem(THEME_KEY) || "system";
+          const gradeColor = currentPickerGrade();
+          themeBtns.forEach((b) => {
+            const active = b.dataset.theme === stored;
+            b.classList.toggle("active", active);
+            b.dataset.grade = gradeColor;
+            b.setAttribute("aria-checked", active ? "true" : "false");
+          });
+          // Mirror the grade onto the profile form so the avatar-upload pill
+          // and save button retint in lock-step with the theme picker.
+          const form = document.getElementById("profileForm");
+          if (form) form.dataset.grade = gradeColor;
+          if (accountCard) accountCard.dataset.grade = gradeColor;
+        }
+        themeBtns.forEach((btn) => {
+          btn.addEventListener("click", async () => {
+            localStorage.setItem(THEME_KEY, btn.dataset.theme);
+            paintThemePicker();
+            if (window.VHprofile && VHprofile.applyTheme)
+              VHprofile.applyTheme();
+            if (
+              window.VHaccount &&
+              VHaccount.getCurrentUser() &&
+              VHprofile.get().syncThemeDevices
+            ) {
+              await VHaccount.syncSettingsToAccount().catch(() => {});
+            }
+          });
         });
-      }
+        // Live preview when the grade radio changes, and on full profile save.
+        gradeRadios.forEach((r) =>
+          r.addEventListener("change", paintThemePicker),
+        );
+        window.addEventListener("vhjelp:profile-updated", paintThemePicker);
+        paintThemePicker();
 
-      function populateCountySelect(selected) {
-        if (!window.VHaccount || !countyInput) return;
-        const options = VHaccount.COUNTY_OPTIONS || [];
-        const selectedValue = String(selected || '');
-        const fragment = document.createDocumentFragment();
-        options.forEach((county) => {
-          const value = county || '';
-          const label = county || 'Ikke valgt';
-          const option = document.createElement('option');
-          option.value = value;
-          option.textContent = label;
-          option.selected = selectedValue === value;
-          fragment.appendChild(option);
-        });
-        countyInput.replaceChildren(fragment);
-      }
-
-      function getCurrentGrade() {
-        const checked = [].slice.call(gradeRadios).find((radio) => radio.checked);
-        return checked ? checked.value : null;
-      }
-
-      async function currentAvatarDataUrl() {
-        if (!window.VHprofile || !window.VHaccount) return null;
-        const blob = await VHprofile.getAvatarBlob().catch(() => null);
-        if (!blob) return null;
-        return VHaccount.blobToDataUrl(blob).catch(() => null);
-      }
-
-      function renderAccountUI() {
-        if (!window.VHaccount) return;
-        const user = VHaccount.getCurrentUser();
-        const profile = VHaccount.getCurrentProfile();
-        const linked = !!(user && profile);
-        accountUnlinked.style.display = linked ? 'none' : '';
-        accountLinked.classList.toggle('active', linked);
-        syncThemeRow.style.display = linked ? 'flex' : 'none';
-        const local = VHprofile.get();
-        syncThemeDevices.checked = !!local.syncThemeDevices;
-        if (!linked) return;
-
-        accountUsername.value = profile.display_name || '';
-        accountHandle.value = profile.handle || '';
-        accountEmail.textContent = user.email || '-';
-      }
-
-      // Theme picker — owns localStorage['theme'] in concert with
-      // VHprofile.applyTheme(), which broadcasts 'vhjelp:theme-changed'.
-      // The active button's color comes from the user's profile.grade via
-      // the [data-grade="…"] attribute, set in paintThemePicker().
-      const THEME_KEY = 'theme';
-      // Grade → picker-color map lives on VHprofile (single source of truth
-      // shared with paintTintUI's pickTintGradeColor). Adding a new trinn
-      // means updating Assets/js/profile.js only — not two inline consts.
-      function currentPickerGrade() {
-        const map = (window.VHprofile && VHprofile.GRADE_TO_PICKER_COLOR) || {};
-        // Live state first — when the user clicks a trinn radio we want the
-        // picker to retint immediately, before they save. If the form has no
-        // checked trinn (e.g. mid-edit or after Tilbakestill cleared it),
-        // fall back to the saved profile so we still show a real color.
-        const formChecked = document.querySelector('input[name="grade"]:checked');
-        if (formChecked && map[formChecked.value]) return map[formChecked.value];
-        const profile = (window.VHprofile && VHprofile.get) ? VHprofile.get() : null;
-        const g = profile && profile.grade;
-        return (g && map[g]) || 'default';
-      }
-      function paintThemePicker() {
-        const stored = localStorage.getItem(THEME_KEY) || 'system';
-        const gradeColor = currentPickerGrade();
-        themeBtns.forEach((b) => {
-          const active = b.dataset.theme === stored;
-          b.classList.toggle('active', active);
-          b.dataset.grade = gradeColor;
-          b.setAttribute('aria-checked', active ? 'true' : 'false');
-        });
-        // Mirror the grade onto the profile form so the avatar-upload pill
-        // and save button retint in lock-step with the theme picker.
-        const form = document.getElementById('profileForm');
-        if (form) form.dataset.grade = gradeColor;
-        if (accountCard) accountCard.dataset.grade = gradeColor;
-      }
-      themeBtns.forEach((btn) => {
-        btn.addEventListener('click', async () => {
-          localStorage.setItem(THEME_KEY, btn.dataset.theme);
-          paintThemePicker();
-          if (window.VHprofile && VHprofile.applyTheme) VHprofile.applyTheme();
-          if (window.VHaccount && VHaccount.getCurrentUser() && VHprofile.get().syncThemeDevices) {
-            await VHaccount.syncSettingsToAccount().catch(() => {});
+        // Tint Settings UI — mirrors paintThemePicker() patterns: read current
+        // profile, mark the active preset, repaint on any profile/tint event
+        // so the UI matches what's stored. paintTintUI() also handles the
+        // grade → data-grade cascade so each preset button picks up the user's
+        // trinn color when active. The grade→picker-color lookup reuses the
+        // shared VHprofile.GRADE_TO_PICKER_COLOR map so adding a trinn only
+        // means updating one constant.
+        function pickTintGradeColor() {
+          const map =
+            (window.VHprofile && VHprofile.GRADE_TO_PICKER_COLOR) || {};
+          const formChecked = document.querySelector(
+            'input[name="grade"]:checked',
+          );
+          if (formChecked && map[formChecked.value])
+            return map[formChecked.value];
+          const profile =
+            window.VHprofile && VHprofile.get ? VHprofile.get() : null;
+          const saved = profile && profile.grade;
+          return (saved && map[saved]) || "default";
+        }
+        function paintTintUI() {
+          const profile = VHprofile.get();
+          const intensity = profile.tintIntensity || "subtle";
+          const scope = profile.tintScope || "bg";
+          const gradeColor = pickTintGradeColor();
+          tintPresetBtns.forEach((b) => {
+            const active = b.dataset.tint === intensity;
+            b.classList.toggle("active", active);
+            b.dataset.grade = gradeColor;
+            b.setAttribute("aria-checked", active ? "true" : "false");
+          });
+          if (tintScopeCheckbox) {
+            tintScopeCheckbox.checked = scope === "all";
           }
-        });
-      });
-      // Live preview when the grade radio changes, and on full profile save.
-      gradeRadios.forEach((r) => r.addEventListener('change', paintThemePicker));
-      window.addEventListener('vhjelp:profile-updated', paintThemePicker);
-      paintThemePicker();
-
-      // Tint Settings UI — mirrors paintThemePicker() patterns: read current
-      // profile, mark the active preset, repaint on any profile/tint event
-      // so the UI matches what's stored. paintTintUI() also handles the
-      // grade → data-grade cascade so each preset button picks up the user's
-      // trinn color when active. The grade→picker-color lookup reuses the
-      // shared VHprofile.GRADE_TO_PICKER_COLOR map so adding a trinn only
-      // means updating one constant.
-      function pickTintGradeColor() {
-        const map = (window.VHprofile && VHprofile.GRADE_TO_PICKER_COLOR) || {};
-        const formChecked = document.querySelector('input[name="grade"]:checked');
-        if (formChecked && map[formChecked.value]) return map[formChecked.value];
-        const profile = (window.VHprofile && VHprofile.get) ? VHprofile.get() : null;
-        const saved = profile && profile.grade;
-        return (saved && map[saved]) || 'default';
-      }
-      function paintTintUI() {
-        const profile = VHprofile.get();
-        const intensity = profile.tintIntensity || 'subtle';
-        const scope = profile.tintScope || 'bg';
-        const gradeColor = pickTintGradeColor();
-        tintPresetBtns.forEach((b) => {
-          const active = b.dataset.tint === intensity;
-          b.classList.toggle('active', active);
-          b.dataset.grade = gradeColor;
-          b.setAttribute('aria-checked', active ? 'true' : 'false');
+          // Show/hide Plus color row
+          const plusColorRow = document.getElementById("plusColorRow");
+          if (plusColorRow) {
+            const isPlus = window.VHplus && VHplus.isActive();
+            plusColorRow.hidden = !isPlus;
+            if (isPlus) {
+              const currentColor = profile.customTintColor || "";
+              document.querySelectorAll(".tint-color-btn").forEach((btn) => {
+                const match = btn.dataset.tintColor === currentColor;
+                btn.setAttribute("aria-checked", match ? "true" : "false");
+              });
+            }
+          }
+        }
+        // VHprofile.setTint() is synchronous and fires vhjelp:tint-changed, which
+        // is wired to paintTintUI() below — no inline re-paint needed here.
+        tintPresetBtns.forEach((btn) => {
+          btn.addEventListener("click", async () => {
+            const current = VHprofile.get();
+            VHprofile.setTint(btn.dataset.tint, current.tintScope || "bg");
+            if (window.VHaccount && VHaccount.getCurrentUser()) {
+              await VHaccount.syncSettingsToAccount().catch(() => {});
+            }
+          });
         });
         if (tintScopeCheckbox) {
-          tintScopeCheckbox.checked = scope === 'all';
-        }
-        // Show/hide Plus color row
-        const plusColorRow = document.getElementById('plusColorRow');
-        if (plusColorRow) {
-          const isPlus = window.VHplus && VHplus.isActive();
-          plusColorRow.hidden = !isPlus;
-          if (isPlus) {
-            const currentColor = profile.customTintColor || '';
-            document.querySelectorAll('.tint-color-btn').forEach((btn) => {
-              const match = btn.dataset.tintColor === currentColor;
-              btn.setAttribute('aria-checked', match ? 'true' : 'false');
-            });
-          }
-        }
-      }
-      // VHprofile.setTint() is synchronous and fires vhjelp:tint-changed, which
-      // is wired to paintTintUI() below — no inline re-paint needed here.
-      tintPresetBtns.forEach((btn) => {
-        btn.addEventListener('click', async () => {
-          const current = VHprofile.get();
-          VHprofile.setTint(btn.dataset.tint, current.tintScope || 'bg');
-          if (window.VHaccount && VHaccount.getCurrentUser()) {
-            await VHaccount.syncSettingsToAccount().catch(() => {});
-          }
-        });
-      });
-      if (tintScopeCheckbox) {
-        tintScopeCheckbox.addEventListener('change', async () => {
-          const current = VHprofile.get();
-          VHprofile.setTint(
-            current.tintIntensity || 'subtle',
-            tintScopeCheckbox.checked ? 'all' : 'bg'
-          );
-          if (window.VHaccount && VHaccount.getCurrentUser()) {
-            await VHaccount.syncSettingsToAccount().catch(() => {});
-          }
-        });
-      }
-      // Plus color swatches
-      document.querySelectorAll('.tint-color-btn').forEach((btn) => {
-        btn.addEventListener('click', async () => {
-          const current = VHprofile.get();
-          VHprofile.setTint(
-            current.tintIntensity || 'subtle',
-            current.tintScope || 'bg',
-            btn.dataset.tintColor || null
-          );
-          if (window.VHaccount && VHaccount.getCurrentUser()) {
-            await VHaccount.syncSettingsToAccount().catch(() => {});
-          }
-        });
-      });
-      // Re-paint tint UI when Plus status changes
-      document.addEventListener('vhjelp:plus-changed', paintTintUI);
-      // Live both on profile grade changes and on tint-only edits (the latter
-      // is dispatched by VHprofile.setTint / applyTint).
-      gradeRadios.forEach((r) => r.addEventListener('change', paintTintUI));
-      window.addEventListener('vhjelp:profile-updated', paintTintUI);
-      window.addEventListener('vhjelp:tint-changed', paintTintUI);
-      paintTintUI();
-
-      function closeAvatarCropper() {
-        avatarCropImage.src = '';
-        avatarCropZoom.value = 100;
-        avatarCropZoomScale = 1;
-        avatarCropImage.style.transform = 'none';
-        avatarCropBackdrop.classList.remove('open');
-        avatarCropBackdrop.setAttribute('aria-hidden', 'true');
-      }
-
-      function clamp(value, min, max) {
-        return Math.max(min, Math.min(max, value));
-      }
-
-      function updateAvatarCropOverlay() {
-        const stageWidth = avatarCropStageRect.width;
-        const stageHeight = avatarCropStageRect.height;
-        const box = avatarCropBoxRect;
-        if (!stageWidth || !stageHeight) return;
-
-        avatarCropBox.style.left = box.left + 'px';
-        avatarCropBox.style.top = box.top + 'px';
-        avatarCropBox.style.width = box.width + 'px';
-        avatarCropBox.style.height = box.height + 'px';
-
-        avatarCropMaskTop.style.left = '0px';
-        avatarCropMaskTop.style.top = '0px';
-        avatarCropMaskTop.style.width = '100%';
-        avatarCropMaskTop.style.height = box.top + 'px';
-
-        avatarCropMaskBottom.style.left = '0px';
-        avatarCropMaskBottom.style.top = (box.top + box.height) + 'px';
-        avatarCropMaskBottom.style.width = '100%';
-        avatarCropMaskBottom.style.height = (stageHeight - box.top - box.height) + 'px';
-
-        avatarCropMaskLeft.style.left = '0px';
-        avatarCropMaskLeft.style.top = box.top + 'px';
-        avatarCropMaskLeft.style.width = box.left + 'px';
-        avatarCropMaskLeft.style.height = box.height + 'px';
-
-        avatarCropMaskRight.style.left = (box.left + box.width) + 'px';
-        avatarCropMaskRight.style.top = box.top + 'px';
-        avatarCropMaskRight.style.width = (stageWidth - box.left - box.width) + 'px';
-        avatarCropMaskRight.style.height = box.height + 'px';
-      }
-
-      function fitAvatarImage() {
-        const stageWidth = avatarCropStageRect.width;
-        const stageHeight = avatarCropStageRect.height;
-        const ratio = avatarCropNatural.width / avatarCropNatural.height;
-        let width = stageWidth;
-        let height = width / ratio;
-        if (height > stageHeight) {
-          height = stageHeight;
-          width = height * ratio;
-        }
-        const left = (stageWidth - width) / 2;
-        const top = (stageHeight - height) / 2;
-        avatarCropImageRect = { width, height, left, top };
-        avatarCropImage.style.width = width + 'px';
-        avatarCropImage.style.height = height + 'px';
-        avatarCropImage.style.left = left + 'px';
-        avatarCropImage.style.top = top + 'px';
-        avatarCropImage.style.transform = 'none';
-      }
-
-      function fitAvatarBoxToImage() {
-        const width = avatarCropImageRect.width;
-        const height = avatarCropImageRect.height;
-        avatarCropBoxRect = {
-          width,
-          height,
-          left: avatarCropImageRect.left,
-          top: avatarCropImageRect.top,
-        };
-        avatarCropZoomScale = 1;
-        avatarCropZoom.value = 100;
-        updateAvatarCropOverlay();
-      }
-
-      function constrainBox() {
-        const maxLeft = avatarCropStageRect.width - avatarCropBoxRect.width;
-        const maxTop = avatarCropStageRect.height - avatarCropBoxRect.height;
-        avatarCropBoxRect.left = clamp(avatarCropBoxRect.left, 0, Math.max(0, maxLeft));
-        avatarCropBoxRect.top = clamp(avatarCropBoxRect.top, 0, Math.max(0, maxTop));
-      }
-
-      function sizeBoxFromZoom() {
-        const zoomPercent = clamp(Number(avatarCropZoom.value || 100), 100, 500);
-        avatarCropZoomScale = zoomPercent / 100;
-        const centerX = avatarCropBoxRect.left + avatarCropBoxRect.width / 2;
-        const centerY = avatarCropBoxRect.top + avatarCropBoxRect.height / 2;
-        const shrink = 100 / zoomPercent;
-        let newWidth = avatarCropImageRect.width * shrink;
-        let newHeight = avatarCropImageRect.height * shrink;
-        newWidth = clamp(newWidth, 1, avatarCropStageRect.width);
-        newHeight = clamp(newHeight, 1, avatarCropStageRect.height);
-        avatarCropBoxRect.width = newWidth;
-        avatarCropBoxRect.height = newHeight;
-        avatarCropBoxRect.left = centerX - newWidth / 2;
-        avatarCropBoxRect.top = centerY - newHeight / 2;
-        constrainBox();
-        updateAvatarCropOverlay();
-      }
-
-      function cropStagePointFromClient(clientX, clientY) {
-        const rect = avatarCropStage.getBoundingClientRect();
-        return {
-          x: clamp(clientX - rect.left, 0, rect.width),
-          y: clamp(clientY - rect.top, 0, rect.height),
-        };
-      }
-
-      avatarCropBox.addEventListener('pointerdown', (event) => {
-        event.preventDefault();
-        avatarCropBox.setPointerCapture(event.pointerId);
-        const point = cropStagePointFromClient(event.clientX, event.clientY);
-        avatarCropDragState = {
-          pointerId: event.pointerId,
-          offsetX: point.x - avatarCropBoxRect.left,
-          offsetY: point.y - avatarCropBoxRect.top,
-        };
-      });
-
-      avatarCropBox.addEventListener('pointermove', (event) => {
-        if (!avatarCropDragState || avatarCropDragState.pointerId !== event.pointerId) return;
-        const point = cropStagePointFromClient(event.clientX, event.clientY);
-        avatarCropBoxRect.left = point.x - avatarCropDragState.offsetX;
-        avatarCropBoxRect.top = point.y - avatarCropDragState.offsetY;
-        constrainBox();
-        updateAvatarCropOverlay();
-      });
-
-      avatarCropBox.addEventListener('pointerup', (event) => {
-        if (avatarCropDragState && avatarCropDragState.pointerId === event.pointerId) {
-          avatarCropDragState = null;
-        }
-      });
-
-      avatarCropBox.addEventListener('pointercancel', () => {
-        avatarCropDragState = null;
-      });
-
-      function openAvatarCropper(file) {
-        closeAvatarCropper();
-        avatarCropApply.disabled = true;
-        avatarCropBackdrop.classList.add('open');
-        avatarCropBackdrop.setAttribute('aria-hidden', 'false');
-        const reader = new FileReader();
-        reader.onload = function (e) {
-          avatarCropImage.src = e.target.result;
-          avatarCropImage.onload = function () {
-            const width = avatarCropImage.naturalWidth || 1;
-            const height = avatarCropImage.naturalHeight || 1;
-            avatarCropNatural = { width, height };
-
-            const maxWidth = Math.min(760, window.innerWidth - 36);
-            const maxHeight = Math.min(560, window.innerHeight - 280);
-            const ratio = width / height;
-            let stageWidth = maxWidth;
-            let stageHeight = stageWidth / ratio;
-            if (stageHeight > maxHeight) {
-              stageHeight = maxHeight;
-              stageWidth = stageHeight * ratio;
+          tintScopeCheckbox.addEventListener("change", async () => {
+            const current = VHprofile.get();
+            VHprofile.setTint(
+              current.tintIntensity || "subtle",
+              tintScopeCheckbox.checked ? "all" : "bg",
+            );
+            if (window.VHaccount && VHaccount.getCurrentUser()) {
+              await VHaccount.syncSettingsToAccount().catch(() => {});
             }
-            avatarCropStageRect = {
-              width: Math.max(300, Math.floor(stageWidth)),
-              height: Math.max(280, Math.floor(stageHeight)),
-            };
-            avatarCropStage.style.width = avatarCropStageRect.width + 'px';
-            avatarCropStage.style.height = avatarCropStageRect.height + 'px';
+          });
+        }
+        // Plus color swatches
+        document.querySelectorAll(".tint-color-btn").forEach((btn) => {
+          btn.addEventListener("click", async () => {
+            const current = VHprofile.get();
+            VHprofile.setTint(
+              current.tintIntensity || "subtle",
+              current.tintScope || "bg",
+              btn.dataset.tintColor || null,
+            );
+            if (window.VHaccount && VHaccount.getCurrentUser()) {
+              await VHaccount.syncSettingsToAccount().catch(() => {});
+            }
+          });
+        });
+        // Re-paint tint UI when Plus status changes
+        document.addEventListener("vhjelp:plus-changed", paintTintUI);
+        // Live both on profile grade changes and on tint-only edits (the latter
+        // is dispatched by VHprofile.setTint / applyTint).
+        gradeRadios.forEach((r) => r.addEventListener("change", paintTintUI));
+        window.addEventListener("vhjelp:profile-updated", paintTintUI);
+        window.addEventListener("vhjelp:tint-changed", paintTintUI);
+        paintTintUI();
 
-            fitAvatarImage();
-            fitAvatarBoxToImage();
-            updateAvatarCropOverlay();
-            avatarCropApply.disabled = false;
+        function closeAvatarCropper() {
+          avatarCropImage.src = "";
+          avatarCropZoom.value = 100;
+          avatarCropZoomScale = 1;
+          avatarCropImage.style.transform = "none";
+          avatarCropBackdrop.classList.remove("open");
+          avatarCropBackdrop.setAttribute("aria-hidden", "true");
+        }
+
+        function clamp(value, min, max) {
+          return Math.max(min, Math.min(max, value));
+        }
+
+        function updateAvatarCropOverlay() {
+          const stageWidth = avatarCropStageRect.width;
+          const stageHeight = avatarCropStageRect.height;
+          const box = avatarCropBoxRect;
+          if (!stageWidth || !stageHeight) return;
+
+          avatarCropBox.style.left = box.left + "px";
+          avatarCropBox.style.top = box.top + "px";
+          avatarCropBox.style.width = box.width + "px";
+          avatarCropBox.style.height = box.height + "px";
+
+          avatarCropMaskTop.style.left = "0px";
+          avatarCropMaskTop.style.top = "0px";
+          avatarCropMaskTop.style.width = "100%";
+          avatarCropMaskTop.style.height = box.top + "px";
+
+          avatarCropMaskBottom.style.left = "0px";
+          avatarCropMaskBottom.style.top = box.top + box.height + "px";
+          avatarCropMaskBottom.style.width = "100%";
+          avatarCropMaskBottom.style.height =
+            stageHeight - box.top - box.height + "px";
+
+          avatarCropMaskLeft.style.left = "0px";
+          avatarCropMaskLeft.style.top = box.top + "px";
+          avatarCropMaskLeft.style.width = box.left + "px";
+          avatarCropMaskLeft.style.height = box.height + "px";
+
+          avatarCropMaskRight.style.left = box.left + box.width + "px";
+          avatarCropMaskRight.style.top = box.top + "px";
+          avatarCropMaskRight.style.width =
+            stageWidth - box.left - box.width + "px";
+          avatarCropMaskRight.style.height = box.height + "px";
+        }
+
+        function fitAvatarImage() {
+          const stageWidth = avatarCropStageRect.width;
+          const stageHeight = avatarCropStageRect.height;
+          const ratio = avatarCropNatural.width / avatarCropNatural.height;
+          let width = stageWidth;
+          let height = width / ratio;
+          if (height > stageHeight) {
+            height = stageHeight;
+            width = height * ratio;
+          }
+          const left = (stageWidth - width) / 2;
+          const top = (stageHeight - height) / 2;
+          avatarCropImageRect = { width, height, left, top };
+          avatarCropImage.style.width = width + "px";
+          avatarCropImage.style.height = height + "px";
+          avatarCropImage.style.left = left + "px";
+          avatarCropImage.style.top = top + "px";
+          avatarCropImage.style.transform = "none";
+        }
+
+        function fitAvatarBoxToImage() {
+          const width = avatarCropImageRect.width;
+          const height = avatarCropImageRect.height;
+          avatarCropBoxRect = {
+            width,
+            height,
+            left: avatarCropImageRect.left,
+            top: avatarCropImageRect.top,
           };
-        };
-        reader.readAsDataURL(file);
-      }
-
-      function applyAvatarCropZoom() {
-        if (!avatarCropImage) return;
-        sizeBoxFromZoom();
-      }
-
-      function paintInitial(name) {
-        avatarPreview.innerHTML = '';
-        avatarPreview.style.background = VHprofile.initialsColor(name);
-        const span = document.createElement('span');
-        span.textContent = VHprofile.initialsOf(name);
-        avatarPreview.appendChild(span);
-      }
-
-      function paintAvatar(imgSrc) {
-        avatarPreview.innerHTML = '';
-        avatarPreview.style.background = 'transparent';
-        const img = document.createElement('img');
-        img.src = imgSrc;
-        img.alt = 'Forhåndsvisning av profilbilde';
-        avatarPreview.appendChild(img);
-      }
-
-      async function refreshAvatar() {
-        if (avatarBlobUrl) {
-          URL.revokeObjectURL(avatarBlobUrl);
-          avatarBlobUrl = null;
+          avatarCropZoomScale = 1;
+          avatarCropZoom.value = 100;
+          updateAvatarCropOverlay();
         }
-        const blob = await VHprofile.getAvatarBlob();
-        if (blob) {
-          avatarBlobUrl = URL.createObjectURL(blob);
-          paintAvatar(avatarBlobUrl);
-        } else {
-          paintInitial(nameInput.value || 'Bruker');
-        }
-      }
 
-      function showStatus(text, color) {
-        status.textContent = text;
-        status.style.color = color;
-        clearTimeout(showStatus._t);
-        showStatus._t = setTimeout(() => {
-          status.textContent = '';
-        }, 2500);
-      }
-
-      // Click-same-to-deselect. The radio input is visually hidden and has
-      // pointer-events: none — the .grade-option label is the actual click
-      // target, so mousedown + click listeners attach to the label. mousedown
-      // captures the pre-click state; click unchecks if the radio was already
-      // checked. Space/Enter is kept on the input (keyboard focus reaches the
-      // input regardless of pointer-events).
-      Array.from(document.querySelectorAll('.grade-option')).forEach((label) => {
-        const input = label.querySelector('input');
-        if (!input) return;
-        let wasChecked = false;
-        label.addEventListener('mousedown', () => {
-          wasChecked = input.checked;
-        });
-        label.addEventListener('click', (e) => {
-          if (wasChecked && input.checked) {
-            // Suppress the label's default action (a synthetic click on the
-            // associated input), otherwise that synthetic click would toggle
-            // the radio back to checked after our manual uncheck.
-            e.preventDefault();
-            input.checked = false;
-            input.dispatchEvent(new Event('change', { bubbles: true }));
-          }
-          wasChecked = false;
-        });
-        input.addEventListener('keydown', (e) => {
-          if ((e.key === ' ' || e.key === 'Enter') && input.checked) {
-            e.preventDefault();
-            input.checked = false;
-            input.dispatchEvent(new Event('change', { bubbles: true }));
-          }
-        });
-      });
-
-      // Initial population
-      const initial = VHprofile.get();
-      nameInput.value = initial.name;
-      gradeRadios.forEach((r) => { if (r.value === initial.grade) r.checked = true; });
-      populateCountySelect(initial.county || '');
-      syncThemeDevices.checked = !!initial.syncThemeDevices;
-      refreshAvatar();
-
-      // Live preview when name changes (only affects initials fallback)
-      nameInput.addEventListener('input', () => {
-        if (!avatarBlobUrl) paintInitial(nameInput.value);
-      });
-
-      avatarInput.addEventListener('change', async () => {
-        const file = avatarInput.files && avatarInput.files[0];
-        if (!file) return;
-        if (!file.type.startsWith('image/')) {
-          showStatus('Velg en bildefil (f.eks. JPG, PNG).', 'var(--card-red)');
-          avatarInput.value = '';
-          return;
-        }
-        if (file.size > 10 * 1024 * 1024) {
-          showStatus('Bildet er for stort (maks 10 MB).', 'var(--card-red)');
-          avatarInput.value = '';
-          return;
-        }
-        try {
-          openAvatarCropper(file);
-        } catch (err) {
-          showStatus('Kunne ikke åpne bildeverktøyet.', 'var(--card-red)');
-          avatarInput.value = '';
-        }
-      });
-
-      avatarCropZoom.addEventListener('input', function () {
-        applyAvatarCropZoom();
-      });
-
-      avatarCropApply.addEventListener('click', async () => {
-        avatarCropApply.disabled = true;
-        avatarCropApply.textContent = 'Lagrer...';
-        try {
-          const canvas = document.createElement('canvas');
-          canvas.width = 512;
-          canvas.height = 512;
-          const ctx = canvas.getContext('2d');
-
-          const scaleX = avatarCropNatural.width / avatarCropImageRect.width;
-          const scaleY = avatarCropNatural.height / avatarCropImageRect.height;
-          const cropX = (avatarCropBoxRect.left - avatarCropImageRect.left) * scaleX;
-          const cropY = (avatarCropBoxRect.top - avatarCropImageRect.top) * scaleY;
-          const cropSize = avatarCropBoxRect.width * scaleX;
-          ctx.imageSmoothingEnabled = true;
-          ctx.imageSmoothingQuality = 'high';
-          ctx.drawImage(
-            avatarCropImage,
-            cropX,
-            cropY,
-            cropSize,
-            cropSize,
+        function constrainBox() {
+          const maxLeft = avatarCropStageRect.width - avatarCropBoxRect.width;
+          const maxTop = avatarCropStageRect.height - avatarCropBoxRect.height;
+          avatarCropBoxRect.left = clamp(
+            avatarCropBoxRect.left,
             0,
-            0,
-            512,
-            512
+            Math.max(0, maxLeft),
           );
+          avatarCropBoxRect.top = clamp(
+            avatarCropBoxRect.top,
+            0,
+            Math.max(0, maxTop),
+          );
+        }
 
-          const cropped = await new Promise((resolve) => canvas.toBlob(resolve, 'image/png'));
-          if (!cropped) throw new Error('Kunne ikke lagre bilde.');
-          await VHprofile.setAvatarBlob(cropped);
-          await refreshAvatar();
+        function sizeBoxFromZoom() {
+          const zoomPercent = clamp(
+            Number(avatarCropZoom.value || 100),
+            100,
+            500,
+          );
+          avatarCropZoomScale = zoomPercent / 100;
+          const centerX = avatarCropBoxRect.left + avatarCropBoxRect.width / 2;
+          const centerY = avatarCropBoxRect.top + avatarCropBoxRect.height / 2;
+          const shrink = 100 / zoomPercent;
+          let newWidth = avatarCropImageRect.width * shrink;
+          let newHeight = avatarCropImageRect.height * shrink;
+          newWidth = clamp(newWidth, 1, avatarCropStageRect.width);
+          newHeight = clamp(newHeight, 1, avatarCropStageRect.height);
+          avatarCropBoxRect.width = newWidth;
+          avatarCropBoxRect.height = newHeight;
+          avatarCropBoxRect.left = centerX - newWidth / 2;
+          avatarCropBoxRect.top = centerY - newHeight / 2;
+          constrainBox();
+          updateAvatarCropOverlay();
+        }
+
+        function cropStagePointFromClient(clientX, clientY) {
+          const rect = avatarCropStage.getBoundingClientRect();
+          return {
+            x: clamp(clientX - rect.left, 0, rect.width),
+            y: clamp(clientY - rect.top, 0, rect.height),
+          };
+        }
+
+        avatarCropBox.addEventListener("pointerdown", (event) => {
+          event.preventDefault();
+          avatarCropBox.setPointerCapture(event.pointerId);
+          const point = cropStagePointFromClient(event.clientX, event.clientY);
+          avatarCropDragState = {
+            pointerId: event.pointerId,
+            offsetX: point.x - avatarCropBoxRect.left,
+            offsetY: point.y - avatarCropBoxRect.top,
+          };
+        });
+
+        avatarCropBox.addEventListener("pointermove", (event) => {
+          if (
+            !avatarCropDragState ||
+            avatarCropDragState.pointerId !== event.pointerId
+          )
+            return;
+          const point = cropStagePointFromClient(event.clientX, event.clientY);
+          avatarCropBoxRect.left = point.x - avatarCropDragState.offsetX;
+          avatarCropBoxRect.top = point.y - avatarCropDragState.offsetY;
+          constrainBox();
+          updateAvatarCropOverlay();
+        });
+
+        avatarCropBox.addEventListener("pointerup", (event) => {
+          if (
+            avatarCropDragState &&
+            avatarCropDragState.pointerId === event.pointerId
+          ) {
+            avatarCropDragState = null;
+          }
+        });
+
+        avatarCropBox.addEventListener("pointercancel", () => {
+          avatarCropDragState = null;
+        });
+
+        function openAvatarCropper(file) {
           closeAvatarCropper();
-          showStatus('Profilbilde lagret.', 'var(--card-green)');
-        } catch (err) {
-          showStatus('Kunne ikke lagre bildet.', 'var(--card-red)');
+          avatarCropApply.disabled = true;
+          avatarCropBackdrop.classList.add("open");
+          avatarCropBackdrop.setAttribute("aria-hidden", "false");
+          const reader = new FileReader();
+          reader.onload = function (e) {
+            avatarCropImage.src = e.target.result;
+            avatarCropImage.onload = function () {
+              const width = avatarCropImage.naturalWidth || 1;
+              const height = avatarCropImage.naturalHeight || 1;
+              avatarCropNatural = { width, height };
+
+              const maxWidth = Math.min(760, window.innerWidth - 36);
+              const maxHeight = Math.min(560, window.innerHeight - 280);
+              const ratio = width / height;
+              let stageWidth = maxWidth;
+              let stageHeight = stageWidth / ratio;
+              if (stageHeight > maxHeight) {
+                stageHeight = maxHeight;
+                stageWidth = stageHeight * ratio;
+              }
+              avatarCropStageRect = {
+                width: Math.max(300, Math.floor(stageWidth)),
+                height: Math.max(280, Math.floor(stageHeight)),
+              };
+              avatarCropStage.style.width = avatarCropStageRect.width + "px";
+              avatarCropStage.style.height = avatarCropStageRect.height + "px";
+
+              fitAvatarImage();
+              fitAvatarBoxToImage();
+              updateAvatarCropOverlay();
+              avatarCropApply.disabled = false;
+            };
+          };
+          reader.readAsDataURL(file);
         }
-        avatarCropApply.disabled = false;
-        avatarCropApply.textContent = 'Bruk bilde';
-        avatarInput.value = '';
-      });
 
-      avatarCropCancel.addEventListener('click', () => {
-        closeAvatarCropper();
-        avatarInput.value = '';
-      });
-
-      avatarCropBackdrop.addEventListener('click', (e) => {
-        if (e.target === avatarCropBackdrop) {
-          closeAvatarCropper();
-          avatarInput.value = '';
+        function applyAvatarCropZoom() {
+          if (!avatarCropImage) return;
+          sizeBoxFromZoom();
         }
-      });
 
-      document.addEventListener('keydown', (e) => {
-        if (e.key === 'Escape' && avatarCropBackdrop.classList.contains('open')) {
-          closeAvatarCropper();
-          avatarInput.value = '';
+        function paintInitial(name) {
+          avatarPreview.innerHTML = "";
+          avatarPreview.style.background = VHprofile.initialsColor(name);
+          const span = document.createElement("span");
+          span.textContent = VHprofile.initialsOf(name);
+          avatarPreview.appendChild(span);
         }
-      });
 
-      avatarClearBtn.addEventListener('click', async () => {
-        await VHprofile.clearAvatarBlob();
-        await refreshAvatar();
-        showStatus('Profilbilde fjernet.', 'var(--card-orange)');
-      });
-
-      form.addEventListener('submit', async (e) => {
-        e.preventDefault();
-        const name = nameInput.value.trim() || 'Bruker';
-        const newGrade = getCurrentGrade();
-        const county = countyInput.value || null;
-        const update = { name, grade: newGrade, county: county, syncThemeDevices: !!syncThemeDevices.checked };
-        // displayGrade is only meaningful for Alumni / Lærer; clear it on any
-        // other selection so stale overrides don't leak across trinn switches.
-        if (newGrade !== 'Alumni' && newGrade !== 'Lærer') {
-          update.displayGrade = null;
+        function paintAvatar(imgSrc) {
+          avatarPreview.innerHTML = "";
+          avatarPreview.style.background = "transparent";
+          const img = document.createElement("img");
+          img.src = imgSrc;
+          img.alt = "Forhåndsvisning av profilbilde";
+          avatarPreview.appendChild(img);
         }
-        VHprofile.set(update);
 
-        if (window.VHaccount && VHaccount.getCurrentUser() && VHaccount.getCurrentProfile()) {
+        async function refreshAvatar() {
+          if (avatarBlobUrl) {
+            URL.revokeObjectURL(avatarBlobUrl);
+            avatarBlobUrl = null;
+          }
+          const blob = await VHprofile.getAvatarBlob();
+          if (blob) {
+            avatarBlobUrl = URL.createObjectURL(blob);
+            paintAvatar(avatarBlobUrl);
+          } else {
+            paintInitial(nameInput.value || "Bruker");
+          }
+        }
+
+        function showStatus(text, color) {
+          status.textContent = text;
+          status.style.color = color;
+          clearTimeout(showStatus._t);
+          showStatus._t = setTimeout(() => {
+            status.textContent = "";
+          }, 2500);
+        }
+
+        // Click-same-to-deselect. The radio input is visually hidden and has
+        // pointer-events: none — the .grade-option label is the actual click
+        // target, so mousedown + click listeners attach to the label. mousedown
+        // captures the pre-click state; click unchecks if the radio was already
+        // checked. Space/Enter is kept on the input (keyboard focus reaches the
+        // input regardless of pointer-events).
+        Array.from(document.querySelectorAll(".grade-option")).forEach(
+          (label) => {
+            const input = label.querySelector("input");
+            if (!input) return;
+            let wasChecked = false;
+            label.addEventListener("mousedown", () => {
+              wasChecked = input.checked;
+            });
+            label.addEventListener("click", (e) => {
+              if (wasChecked && input.checked) {
+                // Suppress the label's default action (a synthetic click on the
+                // associated input), otherwise that synthetic click would toggle
+                // the radio back to checked after our manual uncheck.
+                e.preventDefault();
+                input.checked = false;
+                input.dispatchEvent(new Event("change", { bubbles: true }));
+              }
+              wasChecked = false;
+            });
+            input.addEventListener("keydown", (e) => {
+              if ((e.key === " " || e.key === "Enter") && input.checked) {
+                e.preventDefault();
+                input.checked = false;
+                input.dispatchEvent(new Event("change", { bubbles: true }));
+              }
+            });
+          },
+        );
+
+        // Initial population
+        const initial = VHprofile.get();
+        nameInput.value = initial.name;
+        gradeRadios.forEach((r) => {
+          if (r.value === initial.grade) r.checked = true;
+        });
+        populateCountySelect(initial.county || "");
+        syncThemeDevices.checked = !!initial.syncThemeDevices;
+        refreshAvatar();
+
+        // Live preview when name changes (only affects initials fallback)
+        nameInput.addEventListener("input", () => {
+          if (!avatarBlobUrl) paintInitial(nameInput.value);
+        });
+
+        avatarInput.addEventListener("change", async () => {
+          const file = avatarInput.files && avatarInput.files[0];
+          if (!file) return;
+          if (!file.type.startsWith("image/")) {
+            showStatus(
+              "Velg en bildefil (f.eks. JPG, PNG).",
+              "var(--card-red)",
+            );
+            avatarInput.value = "";
+            return;
+          }
+          if (file.size > 10 * 1024 * 1024) {
+            showStatus("Bildet er for stort (maks 10 MB).", "var(--card-red)");
+            avatarInput.value = "";
+            return;
+          }
           try {
-            const remote = VHaccount.getCurrentProfile();
+            openAvatarCropper(file);
+          } catch (err) {
+            showStatus("Kunne ikke åpne bildeverktøyet.", "var(--card-red)");
+            avatarInput.value = "";
+          }
+        });
+
+        avatarCropZoom.addEventListener("input", function () {
+          applyAvatarCropZoom();
+        });
+
+        avatarCropApply.addEventListener("click", async () => {
+          avatarCropApply.disabled = true;
+          avatarCropApply.textContent = "Lagrer...";
+          try {
+            const canvas = document.createElement("canvas");
+            canvas.width = 512;
+            canvas.height = 512;
+            const ctx = canvas.getContext("2d");
+
+            const scaleX = avatarCropNatural.width / avatarCropImageRect.width;
+            const scaleY =
+              avatarCropNatural.height / avatarCropImageRect.height;
+            const cropX =
+              (avatarCropBoxRect.left - avatarCropImageRect.left) * scaleX;
+            const cropY =
+              (avatarCropBoxRect.top - avatarCropImageRect.top) * scaleY;
+            const cropSize = avatarCropBoxRect.width * scaleX;
+            ctx.imageSmoothingEnabled = true;
+            ctx.imageSmoothingQuality = "high";
+            ctx.drawImage(
+              avatarCropImage,
+              cropX,
+              cropY,
+              cropSize,
+              cropSize,
+              0,
+              0,
+              512,
+              512,
+            );
+
+            const cropped = await new Promise((resolve) =>
+              canvas.toBlob(resolve, "image/png"),
+            );
+            if (!cropped) throw new Error("Kunne ikke lagre bilde.");
+            await VHprofile.setAvatarBlob(cropped);
+            await refreshAvatar();
+            closeAvatarCropper();
+            showStatus("Profilbilde lagret.", "var(--card-green)");
+          } catch (err) {
+            showStatus("Kunne ikke lagre bildet.", "var(--card-red)");
+          }
+          avatarCropApply.disabled = false;
+          avatarCropApply.textContent = "Bruk bilde";
+          avatarInput.value = "";
+        });
+
+        avatarCropCancel.addEventListener("click", () => {
+          closeAvatarCropper();
+          avatarInput.value = "";
+        });
+
+        avatarCropBackdrop.addEventListener("click", (e) => {
+          if (e.target === avatarCropBackdrop) {
+            closeAvatarCropper();
+            avatarInput.value = "";
+          }
+        });
+
+        document.addEventListener("keydown", (e) => {
+          if (
+            e.key === "Escape" &&
+            avatarCropBackdrop.classList.contains("open")
+          ) {
+            closeAvatarCropper();
+            avatarInput.value = "";
+          }
+        });
+
+        avatarClearBtn.addEventListener("click", async () => {
+          await VHprofile.clearAvatarBlob();
+          await refreshAvatar();
+          showStatus("Profilbilde fjernet.", "var(--card-orange)");
+        });
+
+        form.addEventListener("submit", async (e) => {
+          e.preventDefault();
+          const name = nameInput.value.trim() || "Bruker";
+          const newGrade = getCurrentGrade();
+          const county = countyInput.value || null;
+          const update = {
+            name,
+            grade: newGrade,
+            county: county,
+            syncThemeDevices: !!syncThemeDevices.checked,
+          };
+          // displayGrade is only meaningful for Alumni / Lærer; clear it on any
+          // other selection so stale overrides don't leak across trinn switches.
+          if (newGrade !== "Alumni" && newGrade !== "Lærer") {
+            update.displayGrade = null;
+          }
+          VHprofile.set(update);
+
+          if (
+            window.VHaccount &&
+            VHaccount.getCurrentUser() &&
+            VHaccount.getCurrentProfile()
+          ) {
+            try {
+              const remote = VHaccount.getCurrentProfile();
+              const avatarUrl = await currentAvatarDataUrl();
+              await VHaccount.updateProfile({
+                display_name:
+                  accountUsername.value.trim() || remote.display_name,
+                handle: accountHandle.value.trim() || remote.handle,
+                role: newGrade || "8-10",
+                county: county,
+                avatar_url: avatarUrl,
+              });
+              await VHaccount.syncSettingsToAccount().catch(() => {});
+              setAccountMessage("success", "Kontoen ble oppdatert.");
+            } catch (err) {
+              setAccountMessage(
+                "error",
+                (err && err.message) || "Kunne ikke synkronisere kontoen.",
+              );
+            }
+          }
+
+          if (!avatarBlobUrl) paintInitial(name);
+          showStatus("Lagret.", "var(--card-green)");
+        });
+
+        clearAllBtn.addEventListener("click", () => {
+          VHprofile.clear();
+          nameInput.value = "Bruker";
+          countyInput.value = "";
+          syncThemeDevices.checked = false;
+          gradeRadios.forEach((r) => {
+            r.checked = false;
+          });
+          refreshAvatar();
+          showStatus("Tilbakestilt.", "var(--card-orange)");
+        });
+
+        syncThemeDevices.addEventListener("change", async () => {
+          const next = !!syncThemeDevices.checked;
+          VHprofile.set({ syncThemeDevices: next });
+          if (window.VHaccount && VHaccount.getCurrentUser()) {
+            await VHaccount.syncSettingsToAccount().catch(() => {});
+            setAccountMessage("success", "Temasynk-innstilling lagret.");
+          }
+        });
+
+        accountTabs.forEach((btn) => {
+          btn.addEventListener("click", () => {
+            setAccountMessage();
+            setAccountTab(btn.dataset.accountTab);
+          });
+        });
+
+        accountLoginBtn.addEventListener("click", async () => {
+          const email = accountLoginEmail.value.trim();
+          const password = accountLoginPassword.value;
+          if (!email || !password) {
+            setAccountMessage("error", "Skriv inn e-post og passord.");
+            return;
+          }
+          accountLoginBtn.disabled = true;
+          accountLoginBtn.textContent = "Logger inn...";
+          try {
+            await VHaccount.signIn(email, password);
+            await VHaccount.syncAllLocalToAccount().catch(() => {});
+            await refreshAvatar();
+            renderAccountUI();
+            setAccountMessage("success", "Innlogget og synkronisert.");
+          } catch (err) {
+            setAccountMessage(
+              "error",
+              (err && err.message) || "Innlogging feilet.",
+            );
+          }
+          accountLoginBtn.disabled = false;
+          accountLoginBtn.textContent = "Logg inn og synkroniser";
+        });
+
+        accountSignupBtn.addEventListener("click", async () => {
+          const username = accountSignupUsername.value.trim();
+          const handle = accountSignupHandle.value.trim();
+          const email = accountSignupEmail.value.trim();
+          const password = accountSignupPassword.value;
+          const grade = getCurrentGrade() || VHprofile.get().grade || "8-10";
+          const county = countyInput.value || null;
+          if (!username || !email || password.length < 6) {
+            setAccountMessage(
+              "error",
+              "Fyll ut brukernavn, e-post og passord (minst 6 tegn).",
+            );
+            return;
+          }
+
+          accountSignupBtn.disabled = true;
+          accountSignupBtn.textContent = "Oppretter...";
+          try {
+            const avatarUrl = await currentAvatarDataUrl();
+            localStorage.setItem(
+              "meninger_pending_profile",
+              JSON.stringify({
+                display_name: username,
+                handle: VHaccount.normalizeHandle(handle, username),
+                avatar_url: avatarUrl,
+                role: grade,
+                county: county,
+              }),
+            );
+
+            await VHaccount.signUp({
+              display_name: username,
+              handle: handle,
+              role: grade,
+              county: county,
+              avatar_url: avatarUrl,
+              email: email,
+              password: password,
+              emailRedirectTo: window.location.href,
+            });
+
+            setAccountTab("login");
+            setAccountMessage(
+              "success",
+              "Konto opprettet. Bekreft e-posten din før første innlogging.",
+            );
+          } catch (err) {
+            setAccountMessage(
+              "error",
+              (err && err.message) || "Kunne ikke opprette konto.",
+            );
+          }
+          accountSignupBtn.disabled = false;
+          accountSignupBtn.textContent = "Opprett konto";
+        });
+
+        accountSaveBtn.addEventListener("click", async () => {
+          const user = VHaccount.getCurrentUser();
+          const profile = VHaccount.getCurrentProfile();
+          if (!user || !profile) return;
+
+          accountSaveBtn.disabled = true;
+          accountSaveBtn.textContent = "Lagrer...";
+          try {
             const avatarUrl = await currentAvatarDataUrl();
             await VHaccount.updateProfile({
-              display_name: accountUsername.value.trim() || remote.display_name,
-              handle: accountHandle.value.trim() || remote.handle,
-              role: newGrade || '8-10',
-              county: county,
+              display_name:
+                accountUsername.value.trim() || profile.display_name,
+              handle: accountHandle.value.trim() || profile.handle,
+              role: getCurrentGrade() || profile.role,
+              county: countyInput.value || null,
               avatar_url: avatarUrl,
             });
             await VHaccount.syncSettingsToAccount().catch(() => {});
-            setAccountMessage('success', 'Kontoen ble oppdatert.');
+            setAccountMessage("success", "Kontoendringer lagret.");
+            renderAccountUI();
           } catch (err) {
-            setAccountMessage('error', (err && err.message) || 'Kunne ikke synkronisere kontoen.');
+            setAccountMessage(
+              "error",
+              (err && err.message) || "Kunne ikke lagre kontoendringer.",
+            );
           }
-        }
-
-        if (!avatarBlobUrl) paintInitial(name);
-        showStatus('Lagret.', 'var(--card-green)');
-      });
-
-      clearAllBtn.addEventListener('click', () => {
-        VHprofile.clear();
-        nameInput.value = 'Bruker';
-        countyInput.value = '';
-        syncThemeDevices.checked = false;
-        gradeRadios.forEach((r) => { r.checked = false; });
-        refreshAvatar();
-        showStatus('Tilbakestilt.', 'var(--card-orange)');
-      });
-
-      syncThemeDevices.addEventListener('change', async () => {
-        const next = !!syncThemeDevices.checked;
-        VHprofile.set({ syncThemeDevices: next });
-        if (window.VHaccount && VHaccount.getCurrentUser()) {
-          await VHaccount.syncSettingsToAccount().catch(() => {});
-          setAccountMessage('success', 'Temasynk-innstilling lagret.');
-        }
-      });
-
-      accountTabs.forEach((btn) => {
-        btn.addEventListener('click', () => {
-          setAccountMessage();
-          setAccountTab(btn.dataset.accountTab);
+          accountSaveBtn.disabled = false;
+          accountSaveBtn.textContent = "Lagre kontoendringer";
         });
-      });
 
-      accountLoginBtn.addEventListener('click', async () => {
-        const email = accountLoginEmail.value.trim();
-        const password = accountLoginPassword.value;
-        if (!email || !password) {
-          setAccountMessage('error', 'Skriv inn e-post og passord.');
-          return;
-        }
-        accountLoginBtn.disabled = true;
-        accountLoginBtn.textContent = 'Logger inn...';
-        try {
-          await VHaccount.signIn(email, password);
-          await VHaccount.syncAllLocalToAccount().catch(() => {});
+        accountPasswordBtn.addEventListener("click", async () => {
+          const newPassword = accountNewPassword.value;
+          if (!newPassword || newPassword.length < 6) {
+            setAccountMessage("error", "Nytt passord må være minst 6 tegn.");
+            return;
+          }
+          accountPasswordBtn.disabled = true;
+          accountPasswordBtn.textContent = "Bytter...";
+          try {
+            await VHaccount.updatePassword(newPassword);
+            accountNewPassword.value = "";
+            setAccountMessage("success", "Passord oppdatert.");
+          } catch (err) {
+            setAccountMessage(
+              "error",
+              (err && err.message) || "Kunne ikke oppdatere passord.",
+            );
+          }
+          accountPasswordBtn.disabled = false;
+          accountPasswordBtn.textContent = "Bytt passord";
+        });
+
+        accountLogoutBtn.addEventListener("click", async () => {
+          try {
+            await VHaccount.signOut();
+            renderAccountUI();
+            setAccountMessage(
+              "success",
+              "Logget ut. Lokal profil er fortsatt lagret.",
+            );
+          } catch (err) {
+            setAccountMessage(
+              "error",
+              (err && err.message) || "Kunne ikke logge ut.",
+            );
+          }
+        });
+
+        document.addEventListener("vhjelp:account-changed", async () => {
+          const profile = VHprofile.get();
+          if (
+            countyInput &&
+            profile.county !== undefined &&
+            profile.county !== null
+          ) {
+            countyInput.value = profile.county;
+          }
+          syncThemeDevices.checked = !!profile.syncThemeDevices;
           await refreshAvatar();
           renderAccountUI();
-          setAccountMessage('success', 'Innlogget og synkronisert.');
-        } catch (err) {
-          setAccountMessage('error', (err && err.message) || 'Innlogging feilet.');
-        }
-        accountLoginBtn.disabled = false;
-        accountLoginBtn.textContent = 'Logg inn og synkroniser';
-      });
+        });
 
-      accountSignupBtn.addEventListener('click', async () => {
-        const username = accountSignupUsername.value.trim();
-        const handle = accountSignupHandle.value.trim();
-        const email = accountSignupEmail.value.trim();
-        const password = accountSignupPassword.value;
-        const grade = getCurrentGrade() || VHprofile.get().grade || '8-10';
-        const county = countyInput.value || null;
-        if (!username || !email || password.length < 6) {
-          setAccountMessage('error', 'Fyll ut brukernavn, e-post og passord (minst 6 tegn).');
-          return;
-        }
+        // --- Videregående Hjelp+ (Pluss) ---
+        var plusCard = document.getElementById("plusCard");
+        var plusStatus = document.getElementById("plusStatus");
+        var plusToggleBtn = document.getElementById("plusToggleBtn");
+        var plusLockedReason = document.getElementById("plusLockedReason");
 
-        accountSignupBtn.disabled = true;
-        accountSignupBtn.textContent = 'Oppretter...';
-        try {
-          const avatarUrl = await currentAvatarDataUrl();
-          localStorage.setItem('meninger_pending_profile', JSON.stringify({
-            display_name: username,
-            handle: VHaccount.normalizeHandle(handle, username),
-            avatar_url: avatarUrl,
-            role: grade,
-            county: county,
-          }));
+        function updatePlusUI() {
+          if (!window.VHplus) return;
+          var active = VHplus.isActive();
+          var canActivate = VHplus.canActivate();
 
-          await VHaccount.signUp({
-            display_name: username,
-            handle: handle,
-            role: grade,
-            county: county,
-            avatar_url: avatarUrl,
-            email: email,
-            password: password,
-            emailRedirectTo: window.location.href,
-          });
+          // Note: Plus is NOT auto-deactivated on logout or account change.
+          // It is only deactivated when the user manually turns it off, or
+          // when they change their county away from Møre og Romsdal.
 
-          setAccountTab('login');
-          setAccountMessage('success', 'Konto opprettet. Bekreft e-posten din før første innlogging.');
-        } catch (err) {
-          setAccountMessage('error', (err && err.message) || 'Kunne ikke opprette konto.');
-        }
-        accountSignupBtn.disabled = false;
-        accountSignupBtn.textContent = 'Opprett konto';
-      });
+          plusCard.classList.toggle("active", active);
 
-      accountSaveBtn.addEventListener('click', async () => {
-        const user = VHaccount.getCurrentUser();
-        const profile = VHaccount.getCurrentProfile();
-        if (!user || !profile) return;
-
-        accountSaveBtn.disabled = true;
-        accountSaveBtn.textContent = 'Lagrer...';
-        try {
-          const avatarUrl = await currentAvatarDataUrl();
-          await VHaccount.updateProfile({
-            display_name: accountUsername.value.trim() || profile.display_name,
-            handle: accountHandle.value.trim() || profile.handle,
-            role: getCurrentGrade() || profile.role,
-            county: countyInput.value || null,
-            avatar_url: avatarUrl,
-          });
-          await VHaccount.syncSettingsToAccount().catch(() => {});
-          setAccountMessage('success', 'Kontoendringer lagret.');
-          renderAccountUI();
-        } catch (err) {
-          setAccountMessage('error', (err && err.message) || 'Kunne ikke lagre kontoendringer.');
-        }
-        accountSaveBtn.disabled = false;
-        accountSaveBtn.textContent = 'Lagre kontoendringer';
-      });
-
-      accountPasswordBtn.addEventListener('click', async () => {
-        const newPassword = accountNewPassword.value;
-        if (!newPassword || newPassword.length < 6) {
-          setAccountMessage('error', 'Nytt passord må være minst 6 tegn.');
-          return;
-        }
-        accountPasswordBtn.disabled = true;
-        accountPasswordBtn.textContent = 'Bytter...';
-        try {
-          await VHaccount.updatePassword(newPassword);
-          accountNewPassword.value = '';
-          setAccountMessage('success', 'Passord oppdatert.');
-        } catch (err) {
-          setAccountMessage('error', (err && err.message) || 'Kunne ikke oppdatere passord.');
-        }
-        accountPasswordBtn.disabled = false;
-        accountPasswordBtn.textContent = 'Bytt passord';
-      });
-
-      accountLogoutBtn.addEventListener('click', async () => {
-        try {
-          await VHaccount.signOut();
-          renderAccountUI();
-          setAccountMessage('success', 'Logget ut. Lokal profil er fortsatt lagret.');
-        } catch (err) {
-          setAccountMessage('error', (err && err.message) || 'Kunne ikke logge ut.');
-        }
-      });
-
-      document.addEventListener('vhjelp:account-changed', async () => {
-        const profile = VHprofile.get();
-        if (countyInput && profile.county !== undefined && profile.county !== null) {
-          countyInput.value = profile.county;
-        }
-        syncThemeDevices.checked = !!profile.syncThemeDevices;
-        await refreshAvatar();
-        renderAccountUI();
-      });
-
-      // --- Videregående Hjelp+ (Pluss) ---
-      var plusCard = document.getElementById('plusCard');
-      var plusStatus = document.getElementById('plusStatus');
-      var plusToggleBtn = document.getElementById('plusToggleBtn');
-      var plusLockedReason = document.getElementById('plusLockedReason');
-
-      function updatePlusUI() {
-        if (!window.VHplus) return;
-        var active = VHplus.isActive();
-        var canActivate = VHplus.canActivate();
-
-        // Note: Plus is NOT auto-deactivated on logout or account change.
-        // It is only deactivated when the user manually turns it off, or
-        // when they change their county away from Møre og Romsdal.
-
-        plusCard.classList.toggle('active', active);
-
-        if (active) {
-          plusStatus.className = 'plus-status active-status';
-          plusStatus.textContent = 'Videregående Hjelp+ er aktivert. Du har tilgang til eksklusivt innhold for Møre og Romsdal.';
-          plusToggleBtn.className = 'plus-toggle-btn deactivate';
-          plusToggleBtn.innerHTML = '<span class="material-icons" style="font-size:18px;">close</span> Bytt tilbake til Videregående Hjelp (uten Pluss)';
-          plusLockedReason.hidden = true;
-        } else if (canActivate) {
-          plusStatus.className = 'plus-status ready';
-          plusStatus.textContent = 'Du oppfyller kravene for å aktivere Pluss!';
-          plusToggleBtn.className = 'plus-toggle-btn activate';
-          plusToggleBtn.innerHTML = '<span class="material-icons" style="font-size:18px;">add</span> Bytt til Videregående Hjelp+ (Pluss)';
-          plusToggleBtn.disabled = false;
-          plusLockedReason.hidden = true;
-        } else {
-          plusStatus.className = 'plus-status locked';
-          plusStatus.textContent = 'Du må oppfylle kravene for å aktivere Pluss.';
-          plusToggleBtn.className = 'plus-toggle-btn activate';
-          plusToggleBtn.innerHTML = '<span class="material-icons" style="font-size:18px;">lock</span> Bytt til Videregående Hjelp+ (Pluss)';
-          plusToggleBtn.disabled = true;
-          // Show why locked
-          var reasons = [];
-          var profile = window.VHprofile ? VHprofile.get() : null;
-          if (!profile || !profile.name || profile.name === 'Bruker') reasons.push('Opprett en profil (navn)');
-          if (profile && profile.county !== VHplus.REQUIRED_COUNTY) reasons.push('Sett fylke til ' + VHplus.REQUIRED_COUNTY);
-          var user = window.VHaccount ? VHaccount.getCurrentUser() : null;
-          var linkedProfile = window.VHaccount ? VHaccount.getCurrentProfile() : null;
-          if (!user || !linkedProfile) reasons.push('Logg inn / opprett konto');
-          plusLockedReason.textContent = 'Mangler: ' + reasons.join(', ') + '.';
-          plusLockedReason.hidden = false;
-        }
-      }
-
-      plusToggleBtn.addEventListener('click', function () {
-        if (!window.VHplus) return;
-        if (VHplus.isActive()) {
-          // Deactivation flow
-          VHplus.showDeactivationModal({
-            onCancel: function () {
-              updatePlusUI();
-            },
-            onDeactivate: function (deleteData) {
-              if (deleteData) {
-                VHplus.clearPlusData();
-              }
-              VHplus.deactivate();
-              updatePlusUI();
-            },
-          });
-        } else {
-          // Activation flow
-          var ok = VHplus.activate();
-          if (ok) {
-            updatePlusUI();
+          if (active) {
+            plusStatus.className = "plus-status active-status";
+            plusStatus.textContent =
+              "Videregående Hjelp+ er aktivert. Du har tilgang til eksklusivt innhold for Møre og Romsdal.";
+            plusToggleBtn.className = "plus-toggle-btn deactivate";
+            plusToggleBtn.innerHTML =
+              '<span class="material-icons" style="font-size:18px;">close</span> Bytt tilbake til Videregående Hjelp (uten Pluss)';
+            plusLockedReason.hidden = true;
+          } else if (canActivate) {
+            plusStatus.className = "plus-status ready";
+            plusStatus.textContent =
+              "Du oppfyller kravene for å aktivere Pluss!";
+            plusToggleBtn.className = "plus-toggle-btn activate";
+            plusToggleBtn.innerHTML =
+              '<span class="material-icons" style="font-size:18px;">add</span> Bytt til Videregående Hjelp+ (Pluss)';
+            plusToggleBtn.disabled = false;
+            plusLockedReason.hidden = true;
+          } else {
+            plusStatus.className = "plus-status locked";
+            plusStatus.textContent =
+              "Du må oppfylle kravene for å aktivere Pluss.";
+            plusToggleBtn.className = "plus-toggle-btn activate";
+            plusToggleBtn.innerHTML =
+              '<span class="material-icons" style="font-size:18px;">lock</span> Bytt til Videregående Hjelp+ (Pluss)';
+            plusToggleBtn.disabled = true;
+            // Show why locked
+            var reasons = [];
+            var profile = window.VHprofile ? VHprofile.get() : null;
+            if (!profile || !profile.name || profile.name === "Bruker")
+              reasons.push("Opprett en profil (navn)");
+            if (profile && profile.county !== VHplus.REQUIRED_COUNTY)
+              reasons.push("Sett fylke til " + VHplus.REQUIRED_COUNTY);
+            var user = window.VHaccount ? VHaccount.getCurrentUser() : null;
+            var linkedProfile = window.VHaccount
+              ? VHaccount.getCurrentProfile()
+              : null;
+            if (!user || !linkedProfile)
+              reasons.push("Logg inn / opprett konto");
+            plusLockedReason.textContent =
+              "Mangler: " + reasons.join(", ") + ".";
+            plusLockedReason.hidden = false;
           }
         }
-      });
 
-      // County change monitoring — if county changes while Plus is active,
-      // warn the user that they'll lose Plus access.
-      countyInput.addEventListener('change', function () {
-        if (!window.VHplus || !VHplus.isActive()) return;
-        if (countyInput.value !== VHplus.REQUIRED_COUNTY) {
-          VHplus.showDeactivationModal({
-            title: 'Endre fylke?',
-            description: 'Når du bytter fylke mister du tilgangen til Videregående Hjelp+, fordi Pluss kun er tilgjengelig for elever i Møre og Romsdal. Vil du fortsette med å endre fylke, eller beholde Pluss ved å holde deg i Møre og Romsdal?',
-            keepBtnText: 'Behold Pluss (avbryt endring)',
-            onCancel: function () {
-              // Revert county selection
-              var profile = VHprofile.get();
-              countyInput.value = profile.county || '';
+        plusToggleBtn.addEventListener("click", function () {
+          if (!window.VHplus) return;
+          if (VHplus.isActive()) {
+            // Deactivation flow
+            VHplus.showDeactivationModal({
+              onCancel: function () {
+                updatePlusUI();
+              },
+              onDeactivate: function (deleteData) {
+                if (deleteData) {
+                  VHplus.clearPlusData();
+                }
+                VHplus.deactivate();
+                updatePlusUI();
+              },
+            });
+          } else {
+            // Activation flow
+            var ok = VHplus.activate();
+            if (ok) {
               updatePlusUI();
-            },
-            onDeactivate: function (deleteData) {
-              if (deleteData) {
-                VHplus.clearPlusData();
-              }
-              VHplus.deactivate();
-              // Note: County change is already reflected in countyInput.value
-              // It will persist when user clicks "Lagre" along with other form fields
-              // No direct VHprofile.set() call here to avoid partial saves
-              updatePlusUI();
-            },
-          });
-        }
-      });
+            }
+          }
+        });
 
-      // Re-check on profile updates
-      document.addEventListener('vhjelp:profile-updated', updatePlusUI);
-      document.addEventListener('vhjelp:account-changed', updatePlusUI);
-      document.addEventListener('vhjelp:plus-changed', updatePlusUI);
+        // County change monitoring — if county changes while Plus is active,
+        // warn the user that they'll lose Plus access.
+        countyInput.addEventListener("change", function () {
+          if (!window.VHplus || !VHplus.isActive()) return;
+          if (countyInput.value !== VHplus.REQUIRED_COUNTY) {
+            VHplus.showDeactivationModal({
+              title: "Endre fylke?",
+              description:
+                "Når du bytter fylke mister du tilgangen til Videregående Hjelp+, fordi Pluss kun er tilgjengelig for elever i Møre og Romsdal. Vil du fortsette med å endre fylke, eller beholde Pluss ved å holde deg i Møre og Romsdal?",
+              keepBtnText: "Behold Pluss (avbryt endring)",
+              onCancel: function () {
+                // Revert county selection
+                var profile = VHprofile.get();
+                countyInput.value = profile.county || "";
+                updatePlusUI();
+              },
+              onDeactivate: function (deleteData) {
+                if (deleteData) {
+                  VHplus.clearPlusData();
+                }
+                VHplus.deactivate();
+                // Note: County change is already reflected in countyInput.value
+                // It will persist when user clicks "Lagre" along with other form fields
+                // No direct VHprofile.set() call here to avoid partial saves
+                updatePlusUI();
+              },
+            });
+          }
+        });
 
-      (async function initAccount() {
-        setAccountTab('login');
-        if (!window.VHaccount) {
-          setAccountMessage('error', 'Konto-systemet kunne ikke lastes.');
-          return;
-        }
-        await VHaccount.refreshAuth();
-        renderAccountUI();
-        updatePlusUI();
+        // Re-check on profile updates
+        document.addEventListener("vhjelp:profile-updated", updatePlusUI);
+        document.addEventListener("vhjelp:account-changed", updatePlusUI);
+        document.addEventListener("vhjelp:plus-changed", updatePlusUI);
+
+        (async function initAccount() {
+          setAccountTab("login");
+          if (!window.VHaccount) {
+            setAccountMessage("error", "Konto-systemet kunne ikke lastes.");
+            return;
+          }
+          await VHaccount.refreshAuth();
+          renderAccountUI();
+          updatePlusUI();
+        })();
       })();
-    })();
-  </script>
+    </script>
 
-  <script>
-    // Resolve stored 'system'|'light'|'dark' before first paint. Pairs with
-    // VHprofile.applyTheme() which re-applies later via the 'storage' event.
-    (function () {
-      var stored = localStorage.getItem('theme') || 'system';
-      var prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
-      var resolved = stored === 'system' ? (prefersDark ? 'dark' : 'light') : stored;
-      document.documentElement.setAttribute('data-theme', resolved);
-    })();
-  </script>
-</body>
+    <script>
+      // Resolve stored 'system'|'light'|'dark' before first paint. Pairs with
+      // VHprofile.applyTheme() which re-applies later via the 'storage' event.
+      (function () {
+        var stored = localStorage.getItem("theme") || "system";
+        var prefersDark =
+          window.matchMedia &&
+          window.matchMedia("(prefers-color-scheme: dark)").matches;
+        var resolved =
+          stored === "system" ? (prefersDark ? "dark" : "light") : stored;
+        document.documentElement.setAttribute("data-theme", resolved);
+      })();
+    </script>
+  </body>
 </html>

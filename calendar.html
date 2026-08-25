@@ -1,1163 +1,2377 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="no">
-<head>
-<script defer src="https://cloud.umami.is/script.js" data-website-id="24f80a75-a09f-4f80-94e0-d9103f0d734d"></script>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Kalender — Videregående Hjelp</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@300;400;500;600;700;800&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
-<link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet">
-<link rel="stylesheet" href="Assets/css/plus.css">
-<link rel="stylesheet" href="Assets/css/profile.css">
-<style>
-  :root {
-    --primary: #d40b00;
-    --primary-light: #FFEBEE;
-    --primary-dark: #b71c1c;
-    --bg: #FFFFFF;
-    --surface: #FAFAFA;
-    --surface2: #F5F5F5;
-    --border: #EEEEEE;
-    --border-strong: #E0E0E0;
-    --text: #050505;
-    --text-secondary: #555;
-    --text-muted: #888;
-    --card-bg: #ffffff;
-    --modal-bg: #ffffff;
-    --input-bg: #ffffff;
-    --topbar-bg: #ffffff;
-    --sidebar-w: 240px;
-    --topbar-h: 64px;
-    
-    --card-red: #d40b00;
-    --card-lime: #D0F54E;
-    --card-blue: #5865F2;
-    --card-orange: #FF9F0A;
-    --card-green: #30D158;
-    
-    --font-display: 'Inter Tight', sans-serif;
-    --font-body: 'Manrope', sans-serif;
-  }
+  <head>
+    <script
+      defer
+      src="https://cloud.umami.is/script.js"
+      data-website-id="24f80a75-a09f-4f80-94e0-d9103f0d734d"
+    ></script>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Kalender — Videregående Hjelp</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@300;400;500;600;700;800&family=Manrope:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/icon?family=Material+Icons+Round"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="Assets/css/plus.css" />
+    <link rel="stylesheet" href="Assets/css/profile.css" />
+    <style>
+      :root {
+        --primary: #d40b00;
+        --primary-light: #ffebee;
+        --primary-dark: #b71c1c;
+        --bg: #ffffff;
+        --surface: #fafafa;
+        --surface2: #f5f5f5;
+        --border: #eeeeee;
+        --border-strong: #e0e0e0;
+        --text: #050505;
+        --text-secondary: #555;
+        --text-muted: #888;
+        --card-bg: #ffffff;
+        --modal-bg: #ffffff;
+        --input-bg: #ffffff;
+        --topbar-bg: #ffffff;
+        --sidebar-w: 240px;
+        --topbar-h: 64px;
 
-  [data-theme="dark"] {
-    --bg: #0a0a0f;
-    --surface: #161618;
-    --surface2: #1e1e22;
-    --border: #2a2a2e;
-    --border-strong: #38383d;
-    --text: #f5f5f7;
-    --text-secondary: #98989d;
-    --text-muted: #6b6b72;
-    --card-bg: #1c1c1f;
-    --modal-bg: #1c1c1f;
-    --input-bg: #222226;
-    --topbar-bg: #0e0e12;
-    --primary-light: #2a0a08;
-  }
+        --card-red: #d40b00;
+        --card-lime: #d0f54e;
+        --card-blue: #5865f2;
+        --card-orange: #ff9f0a;
+        --card-green: #30d158;
 
-  body { transition: background-color 0.3s, color 0.3s; }
-  #topbar { transition: background-color 0.3s, border-color 0.3s; }
-  #sidebar { transition: background-color 0.3s, border-color 0.3s; }
-  .modal, .modal-overlay .modal { transition: background-color 0.3s, border-color 0.3s; }
-  .field-input { transition: background-color 0.3s, border-color 0.3s, color 0.3s; }
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-  body {
-    font-family: var(--font-body);
-    background: var(--bg); color: var(--text);
-    display: flex; flex-direction: column;
-    height: 100vh; overflow: hidden; font-size: 14px;
-  }
+        --font-display: "Inter Tight", sans-serif;
+        --font-body: "Manrope", sans-serif;
+      }
 
-  /* TOP BAR */
-  #topbar {
-    height: var(--topbar-h); border-bottom: 1px solid var(--border);
-    display: flex; align-items: center; padding: 0 24px; gap: 12px;
-    flex-shrink: 0; background: var(--topbar-bg); z-index: 100;
-  }
-  .site-logo {
-    font-family: var(--font-display);
-    font-size: 18px; font-weight: 800; color: var(--text);
-    text-decoration: none; letter-spacing: -0.03em; margin-right: 12px;
-  }
-  .nav-group { display: flex; align-items: center; gap: 8px; }
-  .nav-arrow {
-    background: none; border: 1px solid var(--border-strong); cursor: pointer;
-    width: 32px; height: 32px; border-radius: 8px; display: flex;
-    align-items: center; justify-content: center; color: var(--text-secondary);
-    transition: all .15s;
-  }
-  .nav-arrow:hover { background: var(--surface2); color: var(--text); }
-  .today-btn {
-    background: none; border: 1px solid var(--border-strong); cursor: pointer;
-    height: 32px; padding: 0 16px; border-radius: 8px;
-    font-family: var(--font-body); font-size: 12px; font-weight: 700;
-    color: var(--text-secondary); transition: all .15s;
-  }
-  .today-btn:hover { background: var(--surface2); color: var(--text); }
-  #topbar .nav-title {
-    font-family: var(--font-display); font-weight: 700;
-    font-size: 16px; color: var(--text); min-width: 180px; margin-left: 8px;
-  }
-  .icon-btn {
-    background: none; border: none; cursor: pointer; width: 36px; height: 36px;
-    border-radius: 10px; display: flex; align-items: center; justify-content: center;
-    color: var(--text-secondary); transition: all .15s;
-  }
-  .icon-btn:hover { background: var(--surface2); color: var(--text); }
-  .spacer { flex: 1; }
-  .view-pills {
-    display: flex; background: var(--surface2);
-    border-radius: 10px; padding: 4px; gap: 2px;
-  }
-  .view-pill {
-    border: none; background: none; cursor: pointer;
-    padding: 6px 14px; border-radius: 7px;
-    font-family: var(--font-body); font-size: 12px; font-weight: 600;
-    color: var(--text-secondary); transition: all .15s;
-  }
-  .view-pill.active { background: var(--card-bg); color: var(--text); box-shadow: 0 1px 3px rgba(0,0,0,.08); }
-  .heatmap-toggle {
-    display: flex; align-items: center; gap: 6px;
-    padding: 0 14px; border-radius: 10px;
-    border: 1.5px solid var(--border-strong);
-    background: none; cursor: pointer; height: 36px;
-    font-family: var(--font-body); font-size: 12px; font-weight: 700;
-    color: var(--text-secondary); transition: all .15s;
-  }
-  .heatmap-toggle.active { border-color: var(--primary); background: var(--primary-light); color: var(--primary); }
-  .heatmap-toggle .material-icons-round { font-size: 18px; }
+      [data-theme="dark"] {
+        --bg: #0a0a0f;
+        --surface: #161618;
+        --surface2: #1e1e22;
+        --border: #2a2a2e;
+        --border-strong: #38383d;
+        --text: #f5f5f7;
+        --text-secondary: #98989d;
+        --text-muted: #6b6b72;
+        --card-bg: #1c1c1f;
+        --modal-bg: #1c1c1f;
+        --input-bg: #222226;
+        --topbar-bg: #0e0e12;
+        --primary-light: #2a0a08;
+      }
 
-  /* LAYOUT */
-  #layout { display: flex; flex: 1; overflow: hidden; }
+      body {
+        transition:
+          background-color 0.3s,
+          color 0.3s;
+      }
+      #topbar {
+        transition:
+          background-color 0.3s,
+          border-color 0.3s;
+      }
+      #sidebar {
+        transition:
+          background-color 0.3s,
+          border-color 0.3s;
+      }
+      .modal,
+      .modal-overlay .modal {
+        transition:
+          background-color 0.3s,
+          border-color 0.3s;
+      }
+      .field-input {
+        transition:
+          background-color 0.3s,
+          border-color 0.3s,
+          color 0.3s;
+      }
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+      body {
+        font-family: var(--font-body);
+        background: var(--bg);
+        color: var(--text);
+        display: flex;
+        flex-direction: column;
+        height: 100vh;
+        overflow: hidden;
+        font-size: 14px;
+      }
 
-  /* SIDEBAR */
-  #sidebar {
-    width: var(--sidebar-w); border-right: 1px solid var(--border);
-    display: flex; flex-direction: column; padding: 16px 12px; gap: 4px;
-    overflow-y: auto; flex-shrink: 0; background: var(--bg);
-  }
-  .add-btn {
-    display: flex; align-items: center; gap: 8px;
-    background: var(--primary); color: #fff; border: none; cursor: pointer;
-    border-radius: 10px; padding: 10px 14px;
-    font-family: 'Manrope', sans-serif; font-size: 13px; font-weight: 700;
-    width: 100%; margin-bottom: 16px; transition: background .15s;
-  }
-  .add-btn:hover { background: #C62828; }
-  .add-btn .material-icons-round { font-size: 18px; }
+      /* TOP BAR */
+      #topbar {
+        height: var(--topbar-h);
+        border-bottom: 1px solid var(--border);
+        display: flex;
+        align-items: center;
+        padding: 0 24px;
+        gap: 12px;
+        flex-shrink: 0;
+        background: var(--topbar-bg);
+        z-index: 100;
+      }
+      .site-logo {
+        font-family: var(--font-display);
+        font-size: 18px;
+        font-weight: 800;
+        color: var(--text);
+        text-decoration: none;
+        letter-spacing: -0.03em;
+        margin-right: 12px;
+      }
+      .nav-group {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+      .nav-arrow {
+        background: none;
+        border: 1px solid var(--border-strong);
+        cursor: pointer;
+        width: 32px;
+        height: 32px;
+        border-radius: 8px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: var(--text-secondary);
+        transition: all 0.15s;
+      }
+      .nav-arrow:hover {
+        background: var(--surface2);
+        color: var(--text);
+      }
+      .today-btn {
+        background: none;
+        border: 1px solid var(--border-strong);
+        cursor: pointer;
+        height: 32px;
+        padding: 0 16px;
+        border-radius: 8px;
+        font-family: var(--font-body);
+        font-size: 12px;
+        font-weight: 700;
+        color: var(--text-secondary);
+        transition: all 0.15s;
+      }
+      .today-btn:hover {
+        background: var(--surface2);
+        color: var(--text);
+      }
+      #topbar .nav-title {
+        font-family: var(--font-display);
+        font-weight: 700;
+        font-size: 16px;
+        color: var(--text);
+        min-width: 180px;
+        margin-left: 8px;
+      }
+      .icon-btn {
+        background: none;
+        border: none;
+        cursor: pointer;
+        width: 36px;
+        height: 36px;
+        border-radius: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: var(--text-secondary);
+        transition: all 0.15s;
+      }
+      .icon-btn:hover {
+        background: var(--surface2);
+        color: var(--text);
+      }
+      .spacer {
+        flex: 1;
+      }
+      .view-pills {
+        display: flex;
+        background: var(--surface2);
+        border-radius: 10px;
+        padding: 4px;
+        gap: 2px;
+      }
+      .view-pill {
+        border: none;
+        background: none;
+        cursor: pointer;
+        padding: 6px 14px;
+        border-radius: 7px;
+        font-family: var(--font-body);
+        font-size: 12px;
+        font-weight: 600;
+        color: var(--text-secondary);
+        transition: all 0.15s;
+      }
+      .view-pill.active {
+        background: var(--card-bg);
+        color: var(--text);
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+      }
+      .heatmap-toggle {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        padding: 0 14px;
+        border-radius: 10px;
+        border: 1.5px solid var(--border-strong);
+        background: none;
+        cursor: pointer;
+        height: 36px;
+        font-family: var(--font-body);
+        font-size: 12px;
+        font-weight: 700;
+        color: var(--text-secondary);
+        transition: all 0.15s;
+      }
+      .heatmap-toggle.active {
+        border-color: var(--primary);
+        background: var(--primary-light);
+        color: var(--primary);
+      }
+      .heatmap-toggle .material-icons-round {
+        font-size: 18px;
+      }
 
-  /* Mini cal */
-  .mini-cal { margin-bottom: 20px; }
-  .mini-cal-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px; }
-  .mini-cal-header span { font-family: 'Inter Tight', sans-serif; font-weight: 600; font-size: 13px; }
-  .mini-nav {
-    background: none; border: none; cursor: pointer;
-    font-size: 14px; font-weight: 700; color: var(--text-muted);
-    padding: 2px 5px; border-radius: 5px; font-family: 'Inter Tight', sans-serif;
-    line-height: 1; user-select: none; transition: background .1s, color .1s;
-  }
-  .mini-nav:hover { background: var(--surface2); color: var(--text); }
-  .mini-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 1px; }
-  .mini-day-label { text-align: center; font-size: 10px; font-weight: 700; color: var(--text-muted); padding: 2px 0; font-family: 'Inter Tight', sans-serif; }
-  .mini-day {
-    text-align: center; font-size: 11px; padding: 4px 0; border-radius: 4px;
-    cursor: pointer; color: var(--text-secondary);
-    font-family: 'Inter Tight', sans-serif; font-weight: 500; transition: background .1s;
-    width: 24px; height: 24px; display: flex; align-items: center; justify-content: center;
-    margin: 2px auto;
-  }
-  .mini-day:hover { background: var(--surface2); }
-  .mini-day.today { background: var(--primary); color: #fff; border-radius: 50%; width: 24px; height: 24px; }
-  .mini-day.other-month { color: var(--text-muted); }
+      /* LAYOUT */
+      #layout {
+        display: flex;
+        flex: 1;
+        overflow: hidden;
+      }
 
-  .sidebar-label {
-    font-size: 10px; font-weight: 700; letter-spacing: .8px;
-    text-transform: uppercase; color: var(--text-muted);
-    padding: 0 8px; margin-bottom: 6px; margin-top: 8px;
-  }
-  .sidebar-item {
-    display: flex; align-items: center; gap: 10px; padding: 8px 10px;
-    border-radius: 8px; cursor: pointer; color: var(--text-secondary);
-    font-size: 13px; font-weight: 500; transition: background .12s, color .12s;
-  }
-  .sidebar-item:hover { background: var(--surface2); color: var(--text); }
-  .sidebar-item.active { background: var(--primary-light); color: var(--primary); font-weight: 700; }
-  .sidebar-item .material-icons-round { font-size: 18px; }
-  .cat-dot { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
+      /* SIDEBAR */
+      #sidebar {
+        width: var(--sidebar-w);
+        border-right: 1px solid var(--border);
+        display: flex;
+        flex-direction: column;
+        padding: 16px 12px;
+        gap: 4px;
+        overflow-y: auto;
+        flex-shrink: 0;
+        background: var(--bg);
+      }
+      .add-btn {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        background: var(--primary);
+        color: #fff;
+        border: none;
+        cursor: pointer;
+        border-radius: 10px;
+        padding: 10px 14px;
+        font-family: "Manrope", sans-serif;
+        font-size: 13px;
+        font-weight: 700;
+        width: 100%;
+        margin-bottom: 16px;
+        transition: background 0.15s;
+      }
+      .add-btn:hover {
+        background: #c62828;
+      }
+      .add-btn .material-icons-round {
+        font-size: 18px;
+      }
 
-  /* Tasks */
-  .tasks-panel { border-top: 1px solid var(--border); padding: 12px 0 0; margin-top: auto; }
-  .tasks-panel-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; padding: 0 8px; }
-  .tasks-panel-header span { font-size: 10px; font-weight: 700; letter-spacing: .6px; text-transform: uppercase; color: var(--text-muted); }
-  .task-item { display: flex; align-items: center; gap: 8px; padding: 5px 8px; border-radius: 6px; transition: background .1s; }
-  .task-item:hover { background: var(--surface2); }
-  .task-check {
-    width: 15px; height: 15px; border: 2px solid var(--border-strong); border-radius: 4px;
-    cursor: pointer; display: flex; align-items: center; justify-content: center;
-    transition: all .15s; flex-shrink: 0;
-  }
-  .task-check.done { background: var(--primary); border-color: var(--primary); }
-  .task-check.done .material-icons-round { color: #fff; font-size: 11px; }
-  .task-text { font-size: 12px; font-weight: 500; flex: 1; }
-  .task-text.done { text-decoration: line-through; color: var(--text-muted); }
-  .task-due { font-size: 10px; font-weight: 700; color: var(--primary); font-family: 'Inter Tight', sans-serif; }
+      /* Mini cal */
+      .mini-cal {
+        margin-bottom: 20px;
+      }
+      .mini-cal-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 8px;
+      }
+      .mini-cal-header span {
+        font-family: "Inter Tight", sans-serif;
+        font-weight: 600;
+        font-size: 13px;
+      }
+      .mini-nav {
+        background: none;
+        border: none;
+        cursor: pointer;
+        font-size: 14px;
+        font-weight: 700;
+        color: var(--text-muted);
+        padding: 2px 5px;
+        border-radius: 5px;
+        font-family: "Inter Tight", sans-serif;
+        line-height: 1;
+        user-select: none;
+        transition:
+          background 0.1s,
+          color 0.1s;
+      }
+      .mini-nav:hover {
+        background: var(--surface2);
+        color: var(--text);
+      }
+      .mini-grid {
+        display: grid;
+        grid-template-columns: repeat(7, 1fr);
+        gap: 1px;
+      }
+      .mini-day-label {
+        text-align: center;
+        font-size: 10px;
+        font-weight: 700;
+        color: var(--text-muted);
+        padding: 2px 0;
+        font-family: "Inter Tight", sans-serif;
+      }
+      .mini-day {
+        text-align: center;
+        font-size: 11px;
+        padding: 4px 0;
+        border-radius: 4px;
+        cursor: pointer;
+        color: var(--text-secondary);
+        font-family: "Inter Tight", sans-serif;
+        font-weight: 500;
+        transition: background 0.1s;
+        width: 24px;
+        height: 24px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 2px auto;
+      }
+      .mini-day:hover {
+        background: var(--surface2);
+      }
+      .mini-day.today {
+        background: var(--primary);
+        color: #fff;
+        border-radius: 50%;
+        width: 24px;
+        height: 24px;
+      }
+      .mini-day.other-month {
+        color: var(--text-muted);
+      }
 
-  /* MAIN */
-  #main { flex: 1; overflow: auto; display: flex; flex-direction: column; }
-  .heatmap-legend {
-    display: flex; align-items: center; gap: 8px;
-    padding: 5px 16px; border-bottom: 1px solid var(--border);
-    font-size: 11px; font-weight: 600; color: var(--text-secondary);
-    background: var(--card-bg); flex-shrink: 0;
-  }
-  .heatmap-legend .material-icons-round { font-size: 14px; color: var(--primary); }
-  .legend-swatch { width: 18px; height: 10px; border-radius: 3px; display: inline-block; vertical-align: middle; margin-right: 3px; }
+      .sidebar-label {
+        font-size: 10px;
+        font-weight: 700;
+        letter-spacing: 0.8px;
+        text-transform: uppercase;
+        color: var(--text-muted);
+        padding: 0 8px;
+        margin-bottom: 6px;
+        margin-top: 8px;
+      }
+      .sidebar-item {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        padding: 8px 10px;
+        border-radius: 8px;
+        cursor: pointer;
+        color: var(--text-secondary);
+        font-size: 13px;
+        font-weight: 500;
+        transition:
+          background 0.12s,
+          color 0.12s;
+      }
+      .sidebar-item:hover {
+        background: var(--surface2);
+        color: var(--text);
+      }
+      .sidebar-item.active {
+        background: var(--primary-light);
+        color: var(--primary);
+        font-weight: 700;
+      }
+      .sidebar-item .material-icons-round {
+        font-size: 18px;
+      }
+      .cat-dot {
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        flex-shrink: 0;
+      }
 
-  /* MONTH */
-  .month-grid-header {
-    display: grid; grid-template-columns: 40px repeat(7, 1fr);
-    border-bottom: 1px solid var(--border); flex-shrink: 0;
-  }
-  .month-grid-header div {
-    padding: 9px 0 7px; text-align: center; font-size: 11px; font-weight: 700;
-    color: var(--text-muted); font-family: 'Inter Tight', sans-serif; letter-spacing: .5px;
-  }
-  .month-grid { display: grid; grid-template-columns: 40px repeat(7, 1fr); flex: 1; min-height: 0; border-left: 1px solid var(--border); }
-  .month-week-num {
-    border-right: 1px solid var(--border); border-bottom: 1px solid var(--border);
-    display: flex; align-items: center; justify-content: center;
-    font-size: 10px; font-weight: 800; color: var(--text-muted);
-    background: var(--surface); font-family: var(--font-display);
-  }
-  .month-cell {
-    border-right: 1px solid var(--border); border-bottom: 1px solid var(--border);
-    padding: 6px 8px; cursor: pointer; min-height: 100px;
-    transition: background .12s; position: relative; overflow: hidden;
-  }
-  .month-cell:hover { filter: brightness(0.97); }
-  [data-theme="dark"] .month-cell:hover { filter: brightness(1.15); }
-  .month-cell.other-month { opacity: .45; }
-  .month-cell.today .day-num { background: var(--primary); color: #fff; border-radius: 50%; }
-  /* heatmap */
-  .month-cell[data-heat="0"] { background: #FFEBEE; }
-  .month-cell[data-heat="1"] { background: #FFFDE7; }
-  .month-cell[data-heat="2"] { background: #E8F5E9; }
-  .month-cell[data-heat="3"] { background: #E3F2FD; }
-  [data-theme="dark"] .month-cell[data-heat="0"] { background: #2d1a1a; }
-  [data-theme="dark"] .month-cell[data-heat="1"] { background: #2d2a1a; }
-  [data-theme="dark"] .month-cell[data-heat="2"] { background: #1a2d1a; }
-  [data-theme="dark"] .month-cell[data-heat="3"] { background: #1a1a2d; }
+      /* Tasks */
+      .tasks-panel {
+        border-top: 1px solid var(--border);
+        padding: 12px 0 0;
+        margin-top: auto;
+      }
+      .tasks-panel-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 8px;
+        padding: 0 8px;
+      }
+      .tasks-panel-header span {
+        font-size: 10px;
+        font-weight: 700;
+        letter-spacing: 0.6px;
+        text-transform: uppercase;
+        color: var(--text-muted);
+      }
+      .task-item {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        padding: 5px 8px;
+        border-radius: 6px;
+        transition: background 0.1s;
+      }
+      .task-item:hover {
+        background: var(--surface2);
+      }
+      .task-check {
+        width: 15px;
+        height: 15px;
+        border: 2px solid var(--border-strong);
+        border-radius: 4px;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: all 0.15s;
+        flex-shrink: 0;
+      }
+      .task-check.done {
+        background: var(--primary);
+        border-color: var(--primary);
+      }
+      .task-check.done .material-icons-round {
+        color: #fff;
+        font-size: 11px;
+      }
+      .task-text {
+        font-size: 12px;
+        font-weight: 500;
+        flex: 1;
+      }
+      .task-text.done {
+        text-decoration: line-through;
+        color: var(--text-muted);
+      }
+      .task-due {
+        font-size: 10px;
+        font-weight: 700;
+        color: var(--primary);
+        font-family: "Inter Tight", sans-serif;
+      }
 
-  .day-num {
-    font-family: 'Inter Tight', sans-serif; font-size: 13px; font-weight: 600;
-    color: var(--text); margin-bottom: 4px; width: 24px; height: 24px;
-    display: flex; align-items: center; justify-content: center;
-  }
-  .event-chip {
-    font-size: 11px; font-weight: 600; padding: 2px 6px; border-radius: 4px;
-    margin-bottom: 2px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
-    cursor: pointer; display: flex; align-items: center; gap: 4px;
-  }
-  .chip-dot { width: 5px; height: 5px; border-radius: 50%; flex-shrink: 0; }
-  .free-bar {
-    position: absolute; bottom: 4px; right: 6px;
-    font-size: 10px; font-weight: 700; color: var(--text-muted);
-    font-family: 'Inter Tight', sans-serif;
-  }
+      /* MAIN */
+      #main {
+        flex: 1;
+        overflow: auto;
+        display: flex;
+        flex-direction: column;
+      }
+      .heatmap-legend {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        padding: 5px 16px;
+        border-bottom: 1px solid var(--border);
+        font-size: 11px;
+        font-weight: 600;
+        color: var(--text-secondary);
+        background: var(--card-bg);
+        flex-shrink: 0;
+      }
+      .heatmap-legend .material-icons-round {
+        font-size: 14px;
+        color: var(--primary);
+      }
+      .legend-swatch {
+        width: 18px;
+        height: 10px;
+        border-radius: 3px;
+        display: inline-block;
+        vertical-align: middle;
+        margin-right: 3px;
+      }
 
-  /* WEEK */
-  .week-view { display: flex; flex-direction: column; flex: 1; overflow: hidden; }
-  .week-header {
-    display: grid; grid-template-columns: 52px repeat(7, 1fr);
-    border-bottom: 1px solid var(--border); flex-shrink: 0;
-  }
-  .week-header-cell { padding: 10px 4px 8px; text-align: center; border-left: 1px solid var(--border); }
-  .week-header-cell:first-child { border-left: none; }
-  .week-header-cell .day-abbr { font-size: 10px; font-weight: 700; color: var(--text-muted); font-family: 'Inter Tight', sans-serif; letter-spacing: .5px; }
-  .week-header-cell .day-num-big { font-family: 'Inter Tight', sans-serif; font-size: 20px; font-weight: 700; color: var(--text); line-height: 1; margin-top: 2px; }
-  .week-header-cell.today .day-num-big { color: var(--primary); }
-  .week-body { display: flex; flex: 1; overflow: auto; }
-  .time-col { width: 52px; flex-shrink: 0; border-right: 1px solid var(--border); }
-  .time-slot-label {
-    height: 52px; display: flex; align-items: flex-start;
-    padding: 4px 6px 0 0; justify-content: flex-end;
-    font-size: 10px; font-weight: 700; color: var(--text-muted); font-family: 'Inter Tight', sans-serif;
-  }
-  .week-days-grid { display: grid; grid-template-columns: repeat(7, 1fr); flex: 1; }
-  .week-day-col { border-left: 1px solid var(--border); position: relative; }
-  .week-day-col[data-heat="0"] { background: #FFF5F5; }
-  .week-day-col[data-heat="1"] { background: #FEFDF0; }
-  .week-day-col[data-heat="2"] { background: #F4FBF4; }
-  .week-day-col[data-heat="3"] { background: #F0F7FF; }
-  [data-theme="dark"] .week-day-col[data-heat="0"] { background: #2d1a1a; }
-  [data-theme="dark"] .week-day-col[data-heat="1"] { background: #2d2a1a; }
-  [data-theme="dark"] .week-day-col[data-heat="2"] { background: #1a2d1a; }
-  [data-theme="dark"] .week-day-col[data-heat="3"] { background: #1a1a2d; }
-  .week-hour-slot { height: 52px; border-bottom: 1px solid var(--border); }
-  .week-event {
-    position: absolute; left: 2px; right: 2px; border-radius: 5px;
-    padding: 3px 6px; font-size: 11px; font-weight: 600;
-    cursor: pointer; overflow: hidden; z-index: 2;
-  }
+      /* MONTH */
+      .month-grid-header {
+        display: grid;
+        grid-template-columns: 40px repeat(7, 1fr);
+        border-bottom: 1px solid var(--border);
+        flex-shrink: 0;
+      }
+      .month-grid-header div {
+        padding: 9px 0 7px;
+        text-align: center;
+        font-size: 11px;
+        font-weight: 700;
+        color: var(--text-muted);
+        font-family: "Inter Tight", sans-serif;
+        letter-spacing: 0.5px;
+      }
+      .month-grid {
+        display: grid;
+        grid-template-columns: 40px repeat(7, 1fr);
+        flex: 1;
+        min-height: 0;
+        border-left: 1px solid var(--border);
+      }
+      .month-week-num {
+        border-right: 1px solid var(--border);
+        border-bottom: 1px solid var(--border);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 10px;
+        font-weight: 800;
+        color: var(--text-muted);
+        background: var(--surface);
+        font-family: var(--font-display);
+      }
+      .month-cell {
+        border-right: 1px solid var(--border);
+        border-bottom: 1px solid var(--border);
+        padding: 6px 8px;
+        cursor: pointer;
+        min-height: 100px;
+        transition: background 0.12s;
+        position: relative;
+        overflow: hidden;
+      }
+      .month-cell:hover {
+        filter: brightness(0.97);
+      }
+      [data-theme="dark"] .month-cell:hover {
+        filter: brightness(1.15);
+      }
+      .month-cell.other-month {
+        opacity: 0.45;
+      }
+      .month-cell.today .day-num {
+        background: var(--primary);
+        color: #fff;
+        border-radius: 50%;
+      }
+      /* heatmap */
+      .month-cell[data-heat="0"] {
+        background: #ffebee;
+      }
+      .month-cell[data-heat="1"] {
+        background: #fffde7;
+      }
+      .month-cell[data-heat="2"] {
+        background: #e8f5e9;
+      }
+      .month-cell[data-heat="3"] {
+        background: #e3f2fd;
+      }
+      [data-theme="dark"] .month-cell[data-heat="0"] {
+        background: #2d1a1a;
+      }
+      [data-theme="dark"] .month-cell[data-heat="1"] {
+        background: #2d2a1a;
+      }
+      [data-theme="dark"] .month-cell[data-heat="2"] {
+        background: #1a2d1a;
+      }
+      [data-theme="dark"] .month-cell[data-heat="3"] {
+        background: #1a1a2d;
+      }
 
-  /* DAY */
-  .day-view { display: flex; flex-direction: column; flex: 1; overflow: hidden; }
-  .day-header { padding: 14px 24px; border-bottom: 1px solid var(--border); display: flex; align-items: center; gap: 12px; flex-shrink: 0; }
-  .day-date-big { font-family: 'Inter Tight', sans-serif; font-size: 26px; font-weight: 700; color: var(--text); line-height: 1; }
-  .day-date-big span { color: var(--primary); }
-  .day-body { display: flex; flex: 1; overflow: auto; }
-  .day-grid { flex: 1; position: relative; }
-  .day-hour-slot { height: 60px; border-bottom: 1px solid var(--border); position: relative; padding-left: 64px; }
-  .day-hour-slot .time-label { position: absolute; left: 8px; top: 4px; font-size: 10px; font-weight: 700; color: var(--text-muted); font-family: 'Inter Tight', sans-serif; width: 48px; }
-  .day-event { position: absolute; left: 64px; right: 12px; border-radius: 6px; padding: 4px 10px; font-size: 12px; font-weight: 600; cursor: pointer; z-index: 2; }
+      .day-num {
+        font-family: "Inter Tight", sans-serif;
+        font-size: 13px;
+        font-weight: 600;
+        color: var(--text);
+        margin-bottom: 4px;
+        width: 24px;
+        height: 24px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .event-chip {
+        font-size: 11px;
+        font-weight: 600;
+        padding: 2px 6px;
+        border-radius: 4px;
+        margin-bottom: 2px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        gap: 4px;
+      }
+      .chip-dot {
+        width: 5px;
+        height: 5px;
+        border-radius: 50%;
+        flex-shrink: 0;
+      }
+      .free-bar {
+        position: absolute;
+        bottom: 4px;
+        right: 6px;
+        font-size: 10px;
+        font-weight: 700;
+        color: var(--text-muted);
+        font-family: "Inter Tight", sans-serif;
+      }
 
-  /* AGENDA */
-  .agenda-view { flex: 1; overflow: auto; padding: 16px 24px; }
-  .agenda-day { display: flex; gap: 20px; margin-bottom: 20px; }
-  .agenda-date-col { width: 80px; flex-shrink: 0; padding-top: 2px; }
-  .agenda-date-num { font-family: 'Inter Tight', sans-serif; font-size: 22px; font-weight: 700; color: var(--text); line-height: 1; }
-  .agenda-date-dow { font-size: 11px; font-weight: 700; color: var(--text-muted); letter-spacing: .5px; text-transform: uppercase; }
-  .agenda-events { flex: 1; }
-  .agenda-event {
-    display: flex; gap: 12px; padding: 10px 14px; border-radius: 10px;
-    margin-bottom: 6px; align-items: center; border: 1px solid var(--border);
-    cursor: pointer; transition: border-color .15s;
-  }
-  .agenda-event:hover { border-color: var(--border-strong); }
-  .agenda-event-color { width: 4px; border-radius: 4px; align-self: stretch; flex-shrink: 0; }
-  .agenda-event-time { font-size: 11px; font-weight: 700; color: var(--text-secondary); font-family: 'Inter Tight', sans-serif; width: 70px; flex-shrink: 0; }
-  .agenda-event-title { font-weight: 600; font-size: 13px; flex: 1; }
-  .agenda-no-events { font-size: 13px; color: var(--text-muted); padding: 10px 0; }
-  .agenda-divider { border-bottom: 1px solid var(--border); margin-bottom: 16px; }
+      /* WEEK */
+      .week-view {
+        display: flex;
+        flex-direction: column;
+        flex: 1;
+        overflow: hidden;
+      }
+      .week-header {
+        display: grid;
+        grid-template-columns: 52px repeat(7, 1fr);
+        border-bottom: 1px solid var(--border);
+        flex-shrink: 0;
+      }
+      .week-header-cell {
+        padding: 10px 4px 8px;
+        text-align: center;
+        border-left: 1px solid var(--border);
+      }
+      .week-header-cell:first-child {
+        border-left: none;
+      }
+      .week-header-cell .day-abbr {
+        font-size: 10px;
+        font-weight: 700;
+        color: var(--text-muted);
+        font-family: "Inter Tight", sans-serif;
+        letter-spacing: 0.5px;
+      }
+      .week-header-cell .day-num-big {
+        font-family: "Inter Tight", sans-serif;
+        font-size: 20px;
+        font-weight: 700;
+        color: var(--text);
+        line-height: 1;
+        margin-top: 2px;
+      }
+      .week-header-cell.today .day-num-big {
+        color: var(--primary);
+      }
+      .week-body {
+        display: flex;
+        flex: 1;
+        overflow: auto;
+      }
+      .time-col {
+        width: 52px;
+        flex-shrink: 0;
+        border-right: 1px solid var(--border);
+      }
+      .time-slot-label {
+        height: 52px;
+        display: flex;
+        align-items: flex-start;
+        padding: 4px 6px 0 0;
+        justify-content: flex-end;
+        font-size: 10px;
+        font-weight: 700;
+        color: var(--text-muted);
+        font-family: "Inter Tight", sans-serif;
+      }
+      .week-days-grid {
+        display: grid;
+        grid-template-columns: repeat(7, 1fr);
+        flex: 1;
+      }
+      .week-day-col {
+        border-left: 1px solid var(--border);
+        position: relative;
+      }
+      .week-day-col[data-heat="0"] {
+        background: #fff5f5;
+      }
+      .week-day-col[data-heat="1"] {
+        background: #fefdf0;
+      }
+      .week-day-col[data-heat="2"] {
+        background: #f4fbf4;
+      }
+      .week-day-col[data-heat="3"] {
+        background: #f0f7ff;
+      }
+      [data-theme="dark"] .week-day-col[data-heat="0"] {
+        background: #2d1a1a;
+      }
+      [data-theme="dark"] .week-day-col[data-heat="1"] {
+        background: #2d2a1a;
+      }
+      [data-theme="dark"] .week-day-col[data-heat="2"] {
+        background: #1a2d1a;
+      }
+      [data-theme="dark"] .week-day-col[data-heat="3"] {
+        background: #1a1a2d;
+      }
+      .week-hour-slot {
+        height: 52px;
+        border-bottom: 1px solid var(--border);
+      }
+      .week-event {
+        position: absolute;
+        left: 2px;
+        right: 2px;
+        border-radius: 5px;
+        padding: 3px 6px;
+        font-size: 11px;
+        font-weight: 600;
+        cursor: pointer;
+        overflow: hidden;
+        z-index: 2;
+      }
 
-  /* MODAL */
-  .modal-overlay {
-    position: fixed; inset: 0; background: rgba(0,0,0,.2);
-    display: flex; align-items: center; justify-content: center;
-    z-index: 1000; opacity: 0; pointer-events: none; transition: opacity .18s;
-  }
-  .modal-overlay.open { opacity: 1; pointer-events: all; }
-  .modal {
-    background: var(--modal-bg); border-radius: 16px; width: 420px; max-width: 95vw;
-    box-shadow: 0 8px 32px rgba(0,0,0,.14); overflow: hidden;
-    transform: translateY(10px); transition: transform .18s;
-  }
-  .modal-overlay.open .modal { transform: translateY(0); }
-  .modal-header { display: flex; align-items: center; justify-content: space-between; padding: 18px 20px 14px; border-bottom: 1px solid var(--border); }
-  .modal-header h3 { font-family: 'Inter Tight', sans-serif; font-size: 16px; font-weight: 700; }
-  .modal-body { padding: 18px 20px; display: flex; flex-direction: column; gap: 14px; }
-  .modal-footer { padding: 14px 20px; border-top: 1px solid var(--border); display: flex; gap: 8px; justify-content: flex-end; }
-  .field-label { font-size: 11px; font-weight: 700; color: var(--text-secondary); letter-spacing: .5px; text-transform: uppercase; margin-bottom: 4px; }
-  .field-input {
-    width: 100%; border: 1.5px solid var(--border-strong); border-radius: 8px;
-    padding: 9px 12px; font-family: 'Manrope', sans-serif; font-size: 13px;
-    color: var(--text); outline: none; transition: border-color .15s; background: var(--input-bg);
-  }
-  .field-input:focus { border-color: var(--primary); }
-  .field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+      /* DAY */
+      .day-view {
+        display: flex;
+        flex-direction: column;
+        flex: 1;
+        overflow: hidden;
+      }
+      .day-header {
+        padding: 14px 24px;
+        border-bottom: 1px solid var(--border);
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        flex-shrink: 0;
+      }
+      .day-date-big {
+        font-family: "Inter Tight", sans-serif;
+        font-size: 26px;
+        font-weight: 700;
+        color: var(--text);
+        line-height: 1;
+      }
+      .day-date-big span {
+        color: var(--primary);
+      }
+      .day-body {
+        display: flex;
+        flex: 1;
+        overflow: auto;
+      }
+      .day-grid {
+        flex: 1;
+        position: relative;
+      }
+      .day-hour-slot {
+        height: 60px;
+        border-bottom: 1px solid var(--border);
+        position: relative;
+        padding-left: 64px;
+      }
+      .day-hour-slot .time-label {
+        position: absolute;
+        left: 8px;
+        top: 4px;
+        font-size: 10px;
+        font-weight: 700;
+        color: var(--text-muted);
+        font-family: "Inter Tight", sans-serif;
+        width: 48px;
+      }
+      .day-event {
+        position: absolute;
+        left: 64px;
+        right: 12px;
+        border-radius: 6px;
+        padding: 4px 10px;
+        font-size: 12px;
+        font-weight: 600;
+        cursor: pointer;
+        z-index: 2;
+      }
 
-  .intensity-picker { display: flex; flex-direction: column; gap: 12px; }
-  .intensity-slider-container { display: flex; flex-direction: column; gap: 8px; }
-  .intensity-slider {
-    appearance: none;
-    -webkit-appearance: none;
-    width: 100%;
-    height: 8px;
-    border-radius: 4px;
-    background: linear-gradient(to right, #EEEEEE, #64B5F6, #81C784, #FFD54F, #FF9F0A, #E53935);
-    outline: none;
-    cursor: pointer;
-  }
-  [data-theme="dark"] .intensity-slider {
-    background: linear-gradient(to right, #38383d, #2255b0, #2a7a3a, #b89500, #b06a00, #991a1a);
-  }
-  .intensity-slider::-webkit-slider-thumb {
-    -webkit-appearance: none;
-    appearance: none;
-    width: 20px;
-    height: 20px;
-    border-radius: 50%;
-    background: var(--card-bg);
-    border: 2px solid var(--border-strong);
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-    cursor: pointer;
-    transition: transform 0.1s;
-  }
-  .intensity-slider::-webkit-slider-thumb:hover { transform: scale(1.1); }
-  .intensity-label-row { display: flex; justify-content: space-between; font-size: 10px; font-weight: 700; color: var(--text-muted); text-transform: uppercase; }
+      /* AGENDA */
+      .agenda-view {
+        flex: 1;
+        overflow: auto;
+        padding: 16px 24px;
+      }
+      .agenda-day {
+        display: flex;
+        gap: 20px;
+        margin-bottom: 20px;
+      }
+      .agenda-date-col {
+        width: 80px;
+        flex-shrink: 0;
+        padding-top: 2px;
+      }
+      .agenda-date-num {
+        font-family: "Inter Tight", sans-serif;
+        font-size: 22px;
+        font-weight: 700;
+        color: var(--text);
+        line-height: 1;
+      }
+      .agenda-date-dow {
+        font-size: 11px;
+        font-weight: 700;
+        color: var(--text-muted);
+        letter-spacing: 0.5px;
+        text-transform: uppercase;
+      }
+      .agenda-events {
+        flex: 1;
+      }
+      .agenda-event {
+        display: flex;
+        gap: 12px;
+        padding: 10px 14px;
+        border-radius: 10px;
+        margin-bottom: 6px;
+        align-items: center;
+        border: 1px solid var(--border);
+        cursor: pointer;
+        transition: border-color 0.15s;
+      }
+      .agenda-event:hover {
+        border-color: var(--border-strong);
+      }
+      .agenda-event-color {
+        width: 4px;
+        border-radius: 4px;
+        align-self: stretch;
+        flex-shrink: 0;
+      }
+      .agenda-event-time {
+        font-size: 11px;
+        font-weight: 700;
+        color: var(--text-secondary);
+        font-family: "Inter Tight", sans-serif;
+        width: 70px;
+        flex-shrink: 0;
+      }
+      .agenda-event-title {
+        font-weight: 600;
+        font-size: 13px;
+        flex: 1;
+      }
+      .agenda-no-events {
+        font-size: 13px;
+        color: var(--text-muted);
+        padding: 10px 0;
+      }
+      .agenda-divider {
+        border-bottom: 1px solid var(--border);
+        margin-bottom: 16px;
+      }
 
-  .btn { border: none; cursor: pointer; padding: 8px 18px; border-radius: 8px; font-family: 'Manrope', sans-serif; font-size: 13px; font-weight: 700; transition: background .15s; }
-  .btn-primary { background: var(--primary); color: #fff; }
-  .btn-primary:hover { background: #C62828; }
-  .btn-ghost { background: var(--surface2); color: var(--text-secondary); }
-  .btn-ghost:hover { background: var(--border-strong); }
-  .btn-danger { background: #FFEBEE; color: var(--primary); }
-  .btn-danger:hover { background: #FFCDD2; }
+      /* MODAL */
+      .modal-overlay {
+        position: fixed;
+        inset: 0;
+        background: rgba(0, 0, 0, 0.2);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 1000;
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 0.18s;
+      }
+      .modal-overlay.open {
+        opacity: 1;
+        pointer-events: all;
+      }
+      .modal {
+        background: var(--modal-bg);
+        border-radius: 16px;
+        width: 420px;
+        max-width: 95vw;
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.14);
+        overflow: hidden;
+        transform: translateY(10px);
+        transition: transform 0.18s;
+      }
+      .modal-overlay.open .modal {
+        transform: translateY(0);
+      }
+      .modal-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 18px 20px 14px;
+        border-bottom: 1px solid var(--border);
+      }
+      .modal-header h3 {
+        font-family: "Inter Tight", sans-serif;
+        font-size: 16px;
+        font-weight: 700;
+      }
+      .modal-body {
+        padding: 18px 20px;
+        display: flex;
+        flex-direction: column;
+        gap: 14px;
+      }
+      .modal-footer {
+        padding: 14px 20px;
+        border-top: 1px solid var(--border);
+        display: flex;
+        gap: 8px;
+        justify-content: flex-end;
+      }
+      .field-label {
+        font-size: 11px;
+        font-weight: 700;
+        color: var(--text-secondary);
+        letter-spacing: 0.5px;
+        text-transform: uppercase;
+        margin-bottom: 4px;
+      }
+      .field-input {
+        width: 100%;
+        border: 1.5px solid var(--border-strong);
+        border-radius: 8px;
+        padding: 9px 12px;
+        font-family: "Manrope", sans-serif;
+        font-size: 13px;
+        color: var(--text);
+        outline: none;
+        transition: border-color 0.15s;
+        background: var(--input-bg);
+      }
+      .field-input:focus {
+        border-color: var(--primary);
+      }
+      .field-row {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 12px;
+      }
 
-  /* VIEW TRANSITIONS */
-  @keyframes fadeIn {
-    from { opacity: 0; }
-    to { opacity: 1; }
-  }
+      .intensity-picker {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+      }
+      .intensity-slider-container {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+      }
+      .intensity-slider {
+        appearance: none;
+        -webkit-appearance: none;
+        width: 100%;
+        height: 8px;
+        border-radius: 4px;
+        background: linear-gradient(
+          to right,
+          #eeeeee,
+          #64b5f6,
+          #81c784,
+          #ffd54f,
+          #ff9f0a,
+          #e53935
+        );
+        outline: none;
+        cursor: pointer;
+      }
+      [data-theme="dark"] .intensity-slider {
+        background: linear-gradient(
+          to right,
+          #38383d,
+          #2255b0,
+          #2a7a3a,
+          #b89500,
+          #b06a00,
+          #991a1a
+        );
+      }
+      .intensity-slider::-webkit-slider-thumb {
+        -webkit-appearance: none;
+        appearance: none;
+        width: 20px;
+        height: 20px;
+        border-radius: 50%;
+        background: var(--card-bg);
+        border: 2px solid var(--border-strong);
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        cursor: pointer;
+        transition: transform 0.1s;
+      }
+      .intensity-slider::-webkit-slider-thumb:hover {
+        transform: scale(1.1);
+      }
+      .intensity-label-row {
+        display: flex;
+        justify-content: space-between;
+        font-size: 10px;
+        font-weight: 700;
+        color: var(--text-muted);
+        text-transform: uppercase;
+      }
 
-  /* SWIPE INDICATOR */
-  .swipe-hint {
-    position: absolute; bottom: 12px; left: 50%; transform: translateX(-50%);
-    display: flex; gap: 6px; opacity: 0.3;
-    transition: opacity 0.3s;
-    pointer-events: none; z-index: 5;
-  }
-  .swipe-hint .material-icons-round { font-size: 20px; color: var(--text-muted); }
-  @media (min-width: 768px) { .swipe-hint { display: none; } }
+      .btn {
+        border: none;
+        cursor: pointer;
+        padding: 8px 18px;
+        border-radius: 8px;
+        font-family: "Manrope", sans-serif;
+        font-size: 13px;
+        font-weight: 700;
+        transition: background 0.15s;
+      }
+      .btn-primary {
+        background: var(--primary);
+        color: #fff;
+      }
+      .btn-primary:hover {
+        background: #c62828;
+      }
+      .btn-ghost {
+        background: var(--surface2);
+        color: var(--text-secondary);
+      }
+      .btn-ghost:hover {
+        background: var(--border-strong);
+      }
+      .btn-danger {
+        background: #ffebee;
+        color: var(--primary);
+      }
+      .btn-danger:hover {
+        background: #ffcdd2;
+      }
 
-  ::-webkit-scrollbar { width: 5px; height: 5px; }
-  ::-webkit-scrollbar-track { background: transparent; }
-  ::-webkit-scrollbar-thumb { background: var(--border-strong); border-radius: 3px; }
-</style>
-</head>
-<body>
+      /* VIEW TRANSITIONS */
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+        }
+        to {
+          opacity: 1;
+        }
+      }
 
-<!-- TOP BAR -->
-<div id="topbar">
-  <a href="index.html" class="site-logo">Videregående Hjelp</a>
-  <div class="nav-group">
-    <button class="nav-arrow" id="prevBtn"><span class="material-icons-round">chevron_left</span></button>
-    <button class="today-btn" id="todayBtn">I dag</button>
-    <button class="nav-arrow" id="nextBtn"><span class="material-icons-round">chevron_right</span></button>
-  </div>
-  <div class="nav-title" id="navTitle"></div>
-  <div class="spacer"></div>
-  <div class="view-pills">
-    <button class="view-pill active" data-view="month">Måned</button>
-    <button class="view-pill" data-view="week">Uke</button>
-    <button class="view-pill" data-view="day">Dag</button>
-    <button class="view-pill" data-view="agenda">Agenda</button>
-  </div>
-  <button class="heatmap-toggle" id="heatmapBtn">
-    <span class="material-icons-round">thermostat</span>
-    Varmekart
-  </button>
-  <button class="icon-btn" id="themeBtn" title="Mørkt/lyst tema"><span class="material-icons-round">dark_mode</span></button>
-  <button class="icon-btn" id="searchBtn" title="Søk"><span class="material-icons-round">search</span></button>
-  <a href="profile.html" class="profile-pill" aria-label="Min profil"></a>
-</div>
+      /* SWIPE INDICATOR */
+      .swipe-hint {
+        position: absolute;
+        bottom: 12px;
+        left: 50%;
+        transform: translateX(-50%);
+        display: flex;
+        gap: 6px;
+        opacity: 0.3;
+        transition: opacity 0.3s;
+        pointer-events: none;
+        z-index: 5;
+      }
+      .swipe-hint .material-icons-round {
+        font-size: 20px;
+        color: var(--text-muted);
+      }
+      @media (min-width: 768px) {
+        .swipe-hint {
+          display: none;
+        }
+      }
 
-<div id="layout">
-  <!-- SIDEBAR -->
-  <div id="sidebar">
-    <button class="add-btn" id="addEventBtn">
-      <span class="material-icons-round">add</span>
-      Ny hendelse
-    </button>
-
-    <div class="mini-cal">
-      <div class="mini-grid" id="miniGrid"></div>
+      ::-webkit-scrollbar {
+        width: 5px;
+        height: 5px;
+      }
+      ::-webkit-scrollbar-track {
+        background: transparent;
+      }
+      ::-webkit-scrollbar-thumb {
+        background: var(--border-strong);
+        border-radius: 3px;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- TOP BAR -->
+    <div id="topbar">
+      <a href="index.html" class="site-logo">Videregående Hjelp</a>
+      <div class="nav-group">
+        <button class="nav-arrow" id="prevBtn">
+          <span class="material-icons-round">chevron_left</span>
+        </button>
+        <button class="today-btn" id="todayBtn">I dag</button>
+        <button class="nav-arrow" id="nextBtn">
+          <span class="material-icons-round">chevron_right</span>
+        </button>
+      </div>
+      <div class="nav-title" id="navTitle"></div>
+      <div class="spacer"></div>
+      <div class="view-pills">
+        <button class="view-pill active" data-view="month">Måned</button>
+        <button class="view-pill" data-view="week">Uke</button>
+        <button class="view-pill" data-view="day">Dag</button>
+        <button class="view-pill" data-view="agenda">Agenda</button>
+      </div>
+      <button class="heatmap-toggle" id="heatmapBtn">
+        <span class="material-icons-round">thermostat</span>
+        Varmekart
+      </button>
+      <button class="icon-btn" id="themeBtn" title="Mørkt/lyst tema">
+        <span class="material-icons-round">dark_mode</span>
+      </button>
+      <button class="icon-btn" id="searchBtn" title="Søk">
+        <span class="material-icons-round">search</span>
+      </button>
+      <a href="profile.html" class="profile-pill" aria-label="Min profil"></a>
     </div>
 
-    <div class="sidebar-label">Kalendere</div>
-    <div class="sidebar-item active" data-cat="all"><span class="material-icons-round">grid_view</span> Alle</div>
-    <div class="sidebar-item" data-cat="class"><span class="cat-dot" style="background:var(--card-blue);"></span> Timer</div>
-    <div class="sidebar-item" data-cat="exam"><span class="cat-dot" style="background:var(--card-red);"></span> Prøver & Eksamen</div>
-    <div class="sidebar-item" data-cat="deadline"><span class="cat-dot" style="background:var(--card-orange);"></span> Frister</div>
-    <div class="sidebar-item" data-cat="personal"><span class="cat-dot" style="background:var(--card-green);"></span> Personlig</div>
-    <div class="sidebar-item" data-cat="social"><span class="cat-dot" style="background:var(--card-lime); border:1px solid #0002;"></span> Sosialt</div>
-    <div class="sidebar-item" data-cat="other"><span class="cat-dot" style="background:var(--text-muted);"></span> Annet</div>
-    <div class="sidebar-item" data-cat="norsk"><span class="cat-dot" style="background:#9C27B0;"></span> Norske datoer</div>
-    <div class="sidebar-item" data-cat="vgs"><span class="cat-dot" style="background:#1976D2;"></span> VGS</div>
-    <div class="sidebar-item" data-cat="ungdomsskole"><span class="cat-dot" style="background:#00897B;"></span> Ungdomsskole</div>
+    <div id="layout">
+      <!-- SIDEBAR -->
+      <div id="sidebar">
+        <button class="add-btn" id="addEventBtn">
+          <span class="material-icons-round">add</span>
+          Ny hendelse
+        </button>
 
-    <div class="sidebar-label" style="margin-top:12px;">Verktøy</div>
-    <div class="sidebar-item" id="focusTimerBtn"><span class="material-icons-round">timer</span> Fokusmåler</div>
-  </div>
+        <div class="mini-cal">
+          <div class="mini-grid" id="miniGrid"></div>
+        </div>
 
-  <!-- MAIN -->
-  <div id="main">
-    <div class="heatmap-legend" id="heatmapLegend" style="display:none;">
-      <span class="material-icons-round">thermostat</span>
-      <strong>Arbeidsmengde:</strong>
-      <span><span class="legend-swatch" style="background:#FFEBEE;"></span>Veldig travelt</span>&#8594;
-      <span><span class="legend-swatch" style="background:#FFFDE7;"></span>Travelt</span>&#8594;
-      <span><span class="legend-swatch" style="background:#E8F5E9;"></span>Litt å gjøre</span>&#8594;
-      <span><span class="legend-swatch" style="background:#E3F2FD;"></span>Ledig</span>
+        <div class="sidebar-label">Kalendere</div>
+        <div class="sidebar-item active" data-cat="all">
+          <span class="material-icons-round">grid_view</span> Alle
+        </div>
+        <div class="sidebar-item" data-cat="class">
+          <span class="cat-dot" style="background: var(--card-blue)"></span>
+          Timer
+        </div>
+        <div class="sidebar-item" data-cat="exam">
+          <span class="cat-dot" style="background: var(--card-red)"></span>
+          Prøver & Eksamen
+        </div>
+        <div class="sidebar-item" data-cat="deadline">
+          <span class="cat-dot" style="background: var(--card-orange)"></span>
+          Frister
+        </div>
+        <div class="sidebar-item" data-cat="personal">
+          <span class="cat-dot" style="background: var(--card-green)"></span>
+          Personlig
+        </div>
+        <div class="sidebar-item" data-cat="social">
+          <span
+            class="cat-dot"
+            style="background: var(--card-lime); border: 1px solid #0002"
+          ></span>
+          Sosialt
+        </div>
+        <div class="sidebar-item" data-cat="other">
+          <span class="cat-dot" style="background: var(--text-muted)"></span>
+          Annet
+        </div>
+        <div class="sidebar-item" data-cat="norsk">
+          <span class="cat-dot" style="background: #9c27b0"></span> Norske
+          datoer
+        </div>
+        <div class="sidebar-item" data-cat="vgs">
+          <span class="cat-dot" style="background: #1976d2"></span> VGS
+        </div>
+        <div class="sidebar-item" data-cat="ungdomsskole">
+          <span class="cat-dot" style="background: #00897b"></span> Ungdomsskole
+        </div>
+
+        <div class="sidebar-label" style="margin-top: 12px">Verktøy</div>
+        <div class="sidebar-item" id="focusTimerBtn">
+          <span class="material-icons-round">timer</span> Fokusmåler
+        </div>
+      </div>
+
+      <!-- MAIN -->
+      <div id="main">
+        <div class="heatmap-legend" id="heatmapLegend" style="display: none">
+          <span class="material-icons-round">thermostat</span>
+          <strong>Arbeidsmengde:</strong>
+          <span
+            ><span class="legend-swatch" style="background: #ffebee"></span
+            >Veldig travelt</span
+          >&#8594;
+          <span
+            ><span class="legend-swatch" style="background: #fffde7"></span
+            >Travelt</span
+          >&#8594;
+          <span
+            ><span class="legend-swatch" style="background: #e8f5e9"></span>Litt
+            å gjøre</span
+          >&#8594;
+          <span
+            ><span class="legend-swatch" style="background: #e3f2fd"></span
+            >Ledig</span
+          >
+        </div>
+        <div
+          id="viewContainer"
+          style="
+            display: flex;
+            flex-direction: column;
+            flex: 1;
+            overflow: hidden;
+            min-height: 0;
+            position: relative;
+          "
+        ></div>
+      </div>
     </div>
-    <div id="viewContainer" style="display:flex;flex-direction:column;flex:1;overflow:hidden;min-height:0;position:relative;"></div>
 
-  </div>
-</div>
-
-<!-- EVENT MODAL -->
-<div class="modal-overlay" id="modalOverlay">
-  <div class="modal">
-    <div class="modal-header">
-      <h3 id="modalTitle">Ny hendelse</h3>
-      <button class="icon-btn" id="modalClose"><span class="material-icons-round">close</span></button>
+    <!-- EVENT MODAL -->
+    <div class="modal-overlay" id="modalOverlay">
+      <div class="modal">
+        <div class="modal-header">
+          <h3 id="modalTitle">Ny hendelse</h3>
+          <button class="icon-btn" id="modalClose">
+            <span class="material-icons-round">close</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div>
+            <div class="field-label">Tittel</div>
+            <input
+              class="field-input"
+              id="evtTitle"
+              placeholder="Hendelsestittel"
+            />
+          </div>
+          <div class="field-row">
+            <div>
+              <div class="field-label">Dato</div>
+              <input class="field-input" id="evtDate" type="date" />
+            </div>
+            <div>
+              <div class="field-label">Kategori</div>
+              <select class="field-input" id="evtCat">
+                <option value="class">Time</option>
+                <option value="exam">Prøve / Eksamen</option>
+                <option value="deadline">Frist</option>
+                <option value="personal">Personlig</option>
+                <option value="social">Sosialt</option>
+                <option value="other">Annet</option>
+              </select>
+            </div>
+          </div>
+          <div>
+            <div class="field-label">Tidsmodus</div>
+            <select class="field-input" id="evtTimeMode">
+              <option value="timed">Bestemt tidspunkt</option>
+              <option value="all_day">Hele dagen</option>
+              <option value="just_happens">"Bare skjer" (ingen tid)</option>
+              <option value="deadline">Frist (kun starttid)</option>
+            </select>
+          </div>
+          <div class="field-row">
+            <div>
+              <div class="field-label">Starttid</div>
+              <input
+                class="field-input"
+                id="evtStart"
+                type="time"
+                value="09:00"
+              />
+            </div>
+            <div>
+              <div class="field-label">Sluttid</div>
+              <input
+                class="field-input"
+                id="evtEnd"
+                type="time"
+                value="10:00"
+              />
+            </div>
+          </div>
+          <div>
+            <div class="field-label">
+              Intensitet
+              <span
+                id="intensityValLabel"
+                style="
+                  font-weight: 400;
+                  letter-spacing: 0;
+                  text-transform: none;
+                  color: var(--text-muted);
+                  margin-left: 4px;
+                "
+                >middels</span
+              >
+            </div>
+            <div class="intensity-slider-container">
+              <input
+                type="range"
+                min="0"
+                max="10"
+                step="1"
+                value="5"
+                class="intensity-slider"
+                id="evtIntensitySlider"
+              />
+              <div class="intensity-label-row">
+                <span>Ingen</span>
+                <span>Maks</span>
+              </div>
+            </div>
+          </div>
+          <div>
+            <div class="field-label">Notater</div>
+            <input
+              class="field-input"
+              id="evtNotes"
+              placeholder="Valgfrie notater"
+            />
+          </div>
+          <div>
+            <div class="field-label">Gjenta</div>
+            <select class="field-input" id="evtRepeat">
+              <option value="none">Ingen gjentakelse</option>
+              <option value="daily">Daglig</option>
+              <option value="weekly">Ukentlig</option>
+              <option value="monthly">Månedlig</option>
+            </select>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button
+            class="btn btn-danger"
+            id="deleteEvtBtn"
+            style="display: none"
+          >
+            Slett
+          </button>
+          <button class="btn btn-ghost" id="cancelEvtBtn">Avbryt</button>
+          <button class="btn btn-primary" id="saveEvtBtn">Lagre</button>
+        </div>
+      </div>
     </div>
-    <div class="modal-body">
-      <div>
-        <div class="field-label">Tittel</div>
-        <input class="field-input" id="evtTitle" placeholder="Hendelsestittel" />
-      </div>
-      <div class="field-row">
-        <div>
-          <div class="field-label">Dato</div>
-          <input class="field-input" id="evtDate" type="date" />
+
+    <!-- FOCUS TIMER MODAL -->
+    <div class="modal-overlay" id="focusModalOverlay">
+      <div class="modal" style="width: 300px">
+        <div class="modal-header">
+          <h3>Fokusmåler</h3>
+          <button class="icon-btn" id="focusClose">
+            <span class="material-icons-round">close</span>
+          </button>
         </div>
-        <div>
-          <div class="field-label">Kategori</div>
-          <select class="field-input" id="evtCat">
-            <option value="class">Time</option>
-            <option value="exam">Prøve / Eksamen</option>
-            <option value="deadline">Frist</option>
-            <option value="personal">Personlig</option>
-            <option value="social">Sosialt</option>
-            <option value="other">Annet</option>
-          </select>
-        </div>
-      </div>
-      <div>
-        <div class="field-label">Tidsmodus</div>
-        <select class="field-input" id="evtTimeMode">
-          <option value="timed">Bestemt tidspunkt</option>
-          <option value="all_day">Hele dagen</option>
-          <option value="just_happens">"Bare skjer" (ingen tid)</option>
-          <option value="deadline">Frist (kun starttid)</option>
-        </select>
-      </div>
-      <div class="field-row">
-        <div>
-          <div class="field-label">Starttid</div>
-          <input class="field-input" id="evtStart" type="time" value="09:00" />
-        </div>
-        <div>
-          <div class="field-label">Sluttid</div>
-          <input class="field-input" id="evtEnd" type="time" value="10:00" />
-        </div>
-      </div>
-      <div>
-        <div class="field-label">
-          Intensitet
-          <span id="intensityValLabel" style="font-weight:400;letter-spacing:0;text-transform:none;color:var(--text-muted);margin-left:4px;">middels</span>
-        </div>
-        <div class="intensity-slider-container">
-          <input type="range" min="0" max="10" step="1" value="5" class="intensity-slider" id="evtIntensitySlider">
-          <div class="intensity-label-row">
-            <span>Ingen</span>
-            <span>Maks</span>
+        <div class="modal-body" style="align-items: center; text-align: center">
+          <div
+            style="
+              font-family: var(--font-display);
+              font-size: 54px;
+              font-weight: 800;
+              color: var(--primary);
+              letter-spacing: -2px;
+            "
+            id="timerDisplay"
+          >
+            25:00
+          </div>
+          <div
+            style="
+              font-size: 11px;
+              color: var(--text-muted);
+              font-weight: 700;
+              letter-spacing: 1px;
+            "
+            id="timerPhase"
+          >
+            FOKUS
+          </div>
+          <div style="display: flex; gap: 10px; margin-top: 12px">
+            <button class="btn btn-primary" id="timerStart">Start</button>
+            <button class="btn btn-ghost" id="timerReset">Nullstill</button>
+          </div>
+          <div style="display: flex; gap: 6px; margin-top: 10px">
+            <button
+              class="btn btn-ghost"
+              style="font-size: 11px; padding: 6px 10px"
+              onclick="setPomodoro(25, 5)"
+            >
+              25/5
+            </button>
+            <button
+              class="btn btn-ghost"
+              style="font-size: 11px; padding: 6px 10px"
+              onclick="setPomodoro(50, 10)"
+            >
+              50/10
+            </button>
+            <button
+              class="btn btn-ghost"
+              style="font-size: 11px; padding: 6px 10px"
+              onclick="setPomodoro(45, 15)"
+            >
+              45/15
+            </button>
           </div>
         </div>
       </div>
-      <div>
-        <div class="field-label">Notater</div>
-        <input class="field-input" id="evtNotes" placeholder="Valgfrie notater" />
-      </div>
-      <div>
-        <div class="field-label">Gjenta</div>
-        <select class="field-input" id="evtRepeat">
-          <option value="none">Ingen gjentakelse</option>
-          <option value="daily">Daglig</option>
-          <option value="weekly">Ukentlig</option>
-          <option value="monthly">Månedlig</option>
-        </select>
-      </div>
     </div>
-    <div class="modal-footer">
-      <button class="btn btn-danger" id="deleteEvtBtn" style="display:none;">Slett</button>
-      <button class="btn btn-ghost" id="cancelEvtBtn">Avbryt</button>
-      <button class="btn btn-primary" id="saveEvtBtn">Lagre</button>
-    </div>
-  </div>
-</div>
 
-<!-- FOCUS TIMER MODAL -->
-<div class="modal-overlay" id="focusModalOverlay">
-  <div class="modal" style="width:300px;">
-    <div class="modal-header">
-      <h3>Fokusmåler</h3>
-      <button class="icon-btn" id="focusClose"><span class="material-icons-round">close</span></button>
-    </div>
-    <div class="modal-body" style="align-items:center;text-align:center;">
-      <div style="font-family:var(--font-display);font-size:54px;font-weight:800;color:var(--primary);letter-spacing:-2px;" id="timerDisplay">25:00</div>
-      <div style="font-size:11px;color:var(--text-muted);font-weight:700;letter-spacing:1px;" id="timerPhase">FOKUS</div>
-      <div style="display:flex;gap:10px;margin-top:12px;">
-        <button class="btn btn-primary" id="timerStart">Start</button>
-        <button class="btn btn-ghost" id="timerReset">Nullstill</button>
-      </div>
-      <div style="display:flex;gap:6px;margin-top:10px;">
-        <button class="btn btn-ghost" style="font-size:11px;padding:6px 10px;" onclick="setPomodoro(25,5)">25/5</button>
-        <button class="btn btn-ghost" style="font-size:11px;padding:6px 10px;" onclick="setPomodoro(50,10)">50/10</button>
-        <button class="btn btn-ghost" style="font-size:11px;padding:6px 10px;" onclick="setPomodoro(45,15)">45/15</button>
-      </div>
-    </div>
-  </div>
-</div>
+    <script>
+      // ── DATA ──────────────────────────────────────
+      const CAT_COLORS = {
+        class: { bg: "#E8EAF6", text: "#3949AB", dot: "#5865F2" },
+        exam: { bg: "#FFEBEE", text: "#C62828", dot: "#d40b00" },
+        deadline: { bg: "#FFF3E0", text: "#E65100", dot: "#FF9F0A" },
+        personal: { bg: "#E8F5E9", text: "#2E7D32", dot: "#30D158" },
+        social: { bg: "#F9FBE7", text: "#827717", dot: "#D0F54E" },
+        other: { bg: "#F5F5F5", text: "#555555", dot: "#BDBDBD" },
+        norsk: { bg: "#F3E5F5", text: "#7B1FA2", dot: "#9C27B0" },
+        vgs: { bg: "#E3F2FD", text: "#1565C0", dot: "#1976D2" },
+        ungdomsskole: { bg: "#E0F7FA", text: "#00695C", dot: "#00897B" },
+      };
 
-<script>
-// ── DATA ──────────────────────────────────────
-const CAT_COLORS = {
-  class:    { bg:'#E8EAF6', text:'#3949AB', dot:'#5865F2' },
-  exam:     { bg:'#FFEBEE', text:'#C62828', dot:'#d40b00' },
-  deadline: { bg:'#FFF3E0', text:'#E65100', dot:'#FF9F0A' },
-  personal: { bg:'#E8F5E9', text:'#2E7D32', dot:'#30D158' },
-  social:   { bg:'#F9FBE7', text:'#827717', dot:'#D0F54E' },
-  other:    { bg:'#F5F5F5', text:'#555555', dot:'#BDBDBD' },
-  norsk:        { bg:'#F3E5F5', text:'#7B1FA2', dot:'#9C27B0' },
-  vgs:          { bg:'#E3F2FD', text:'#1565C0', dot:'#1976D2' },
-  ungdomsskole: { bg:'#E0F7FA', text:'#00695C', dot:'#00897B' },
-};
+      let _cachedIsDark = null;
+      function refreshDarkCache() {
+        _cachedIsDark =
+          document.documentElement.getAttribute("data-theme") === "dark";
+      }
+      function getCatColors(cat) {
+        if (_cachedIsDark) {
+          const dark = {
+            class: {
+              bg: "rgba(88,101,242,0.18)",
+              text: "#8a9cff",
+              dot: "#8a9cff",
+            },
+            exam: {
+              bg: "rgba(212,11,0,0.18)",
+              text: "#ff6b6b",
+              dot: "#ff6b6b",
+            },
+            deadline: {
+              bg: "rgba(255,159,10,0.18)",
+              text: "#ffb84d",
+              dot: "#ffb84d",
+            },
+            personal: {
+              bg: "rgba(48,209,88,0.18)",
+              text: "#6ddb8a",
+              dot: "#6ddb8a",
+            },
+            social: {
+              bg: "rgba(208,245,78,0.18)",
+              text: "#d0f54e",
+              dot: "#d0f54e",
+            },
+            other: {
+              bg: "rgba(150,150,150,0.18)",
+              text: "#b0b0b0",
+              dot: "#b0b0b0",
+            },
+            norsk: {
+              bg: "rgba(156,39,176,0.18)",
+              text: "#ce93d8",
+              dot: "#ce93d8",
+            },
+            vgs: {
+              bg: "rgba(25,118,210,0.18)",
+              text: "#64b5f6",
+              dot: "#64b5f6",
+            },
+            ungdomsskole: {
+              bg: "rgba(0,137,123,0.18)",
+              text: "#4db6ac",
+              dot: "#4db6ac",
+            },
+          };
+          return dark[cat] || dark.other;
+        }
+        return CAT_COLORS[cat] || CAT_COLORS.other;
+      }
+      // Intensity 0..10 → load weight
+      function getIntensityWeight(val) {
+        if (val === 0) return 0.1;
+        return val * 1.5;
+      }
+      function getIntensityColor(val) {
+        if (val <= 0) return "#EEEEEE";
+        if (val <= 2) return "#64B5F6";
+        if (val <= 4) return "#81C784";
+        if (val <= 6) return "#FFD54F";
+        if (val <= 8) return "#FF9F0A";
+        return "#E53935";
+      }
+      function getIntensityLabel(val) {
+        if (val <= 0) return "Ingen";
+        if (val <= 2) return "Lav";
+        if (val <= 4) return "Litt";
+        if (val <= 6) return "Middels";
+        if (val <= 8) return "Høy";
+        return "Maks";
+      }
 
-let _cachedIsDark = null;
-function refreshDarkCache() {
-  _cachedIsDark = document.documentElement.getAttribute('data-theme') === 'dark';
-}
-function getCatColors(cat) {
-  if (_cachedIsDark) {
-    const dark = {
-      class:    { bg:'rgba(88,101,242,0.18)', text:'#8a9cff', dot:'#8a9cff' },
-      exam:     { bg:'rgba(212,11,0,0.18)',  text:'#ff6b6b', dot:'#ff6b6b' },
-      deadline: { bg:'rgba(255,159,10,0.18)', text:'#ffb84d', dot:'#ffb84d' },
-      personal: { bg:'rgba(48,209,88,0.18)', text:'#6ddb8a', dot:'#6ddb8a' },
-      social:   { bg:'rgba(208,245,78,0.18)', text:'#d0f54e', dot:'#d0f54e' },
-      other:    { bg:'rgba(150,150,150,0.18)', text:'#b0b0b0', dot:'#b0b0b0' },
-      norsk:    { bg:'rgba(156,39,176,0.18)',  text:'#ce93d8', dot:'#ce93d8' },
-      vgs:      { bg:'rgba(25,118,210,0.18)',  text:'#64b5f6', dot:'#64b5f6' },
-      ungdomsskole: { bg:'rgba(0,137,123,0.18)', text:'#4db6ac', dot:'#4db6ac' },
-    };
-    return dark[cat] || dark.other;
-  }
-  return CAT_COLORS[cat] || CAT_COLORS.other;
-}
-// Intensity 0..10 → load weight
-function getIntensityWeight(val) {
-    if (val === 0) return 0.1;
-    return val * 1.5;
-}
-function getIntensityColor(val) {
-    if (val <= 0) return '#EEEEEE';
-    if (val <= 2) return '#64B5F6';
-    if (val <= 4) return '#81C784';
-    if (val <= 6) return '#FFD54F';
-    if (val <= 8) return '#FF9F0A';
-    return '#E53935';
-}
-function getIntensityLabel(val) {
-    if (val <= 0) return 'Ingen';
-    if (val <= 2) return 'Lav';
-    if (val <= 4) return 'Litt';
-    if (val <= 6) return 'Middels';
-    if (val <= 8) return 'Høy';
-    return 'Maks';
-}
+      const DAYS = ["Man", "Tir", "Ons", "Tor", "Fre", "Lør", "Søn"];
+      const MONTHS = [
+        "Januar",
+        "Februar",
+        "Mars",
+        "April",
+        "Mai",
+        "Juni",
+        "Juli",
+        "August",
+        "September",
+        "Oktober",
+        "November",
+        "Desember",
+      ];
 
-const DAYS  = ['Man','Tir','Ons','Tor','Fre','Lør','Søn'];
-const MONTHS = ['Januar','Februar','Mars','April','Mai','Juni','Juli','August','September','Oktober','November','Desember'];
+      let today = new Date();
+      today.setHours(0, 0, 0, 0);
+      let cursor = new Date(today);
+      let currentView = "month";
+      let heatmapOn = false;
+      let filterCat = "all";
+      let editingId = null;
+      let selectedIntensity = 5;
+      let searchQuery = "";
 
-let today = new Date(); today.setHours(0,0,0,0);
-let cursor = new Date(today);
-let currentView = 'month';
-let heatmapOn = false;
-let filterCat = 'all';
-let editingId = null;
-let selectedIntensity = 5;
-let searchQuery = '';
+      // ── SYSTEMDATOER 2026 ────────────────────────
+      // Beregn påskedato (Gauss' påskeformel)
+      function easterDate(year) {
+        const a = year % 19,
+          b = Math.floor(year / 100),
+          c = year % 100;
+        const d = Math.floor(b / 4),
+          e = b % 4,
+          f = Math.floor((b + 8) / 25);
+        const g = Math.floor((b - f + 1) / 3),
+          h = (19 * a + b - d - g + 15) % 30;
+        const i = Math.floor(c / 4),
+          k = c % 4,
+          l = (32 + 2 * e + 2 * i - h - k) % 7;
+        const m = Math.floor((a + 11 * h + 22 * l) / 451);
+        const month = Math.floor((h + l - 7 * m + 114) / 31);
+        const day = ((h + l - 7 * m + 114) % 31) + 1;
+        return new Date(year, month - 1, day);
+      }
 
-// ── SYSTEMDATOER 2026 ────────────────────────
-// Beregn påskedato (Gauss' påskeformel)
-function easterDate(year) {
-  const a = year % 19, b = Math.floor(year / 100), c = year % 100;
-  const d = Math.floor(b / 4), e = b % 4, f = Math.floor((b + 8) / 25);
-  const g = Math.floor((b - f + 1) / 3), h = (19 * a + b - d - g + 15) % 30;
-  const i = Math.floor(c / 4), k = c % 4, l = (32 + 2 * e + 2 * i - h - k) % 7;
-  const m = Math.floor((a + 11 * h + 22 * l) / 451);
-  const month = Math.floor((h + l - 7 * m + 114) / 31);
-  const day = ((h + l - 7 * m + 114) % 31) + 1;
-  return new Date(year, month - 1, day);
-}
+      function addDays(date, days) {
+        const d = new Date(date);
+        d.setDate(d.getDate() + days);
+        return d;
+      }
 
-function addDays(date, days) {
-  const d = new Date(date);
-  d.setDate(d.getDate() + days);
-  return d;
-}
+      function mkEvt(title, date, cat, intensity = 0) {
+        if (typeof date === "string") date = new Date(date);
+        const dk = dateKey(date);
+        return {
+          title,
+          date: dk,
+          cat,
+          timeMode: "all_day",
+          intensity,
+          start: "00:00",
+          end: "00:00",
+          notes: "",
+          id:
+            cat +
+            "-" +
+            dk +
+            "-" +
+            title
+              .replace(/\s+/g, "-")
+              .toLowerCase()
+              .replace(/[^a-z0-9æøå-]/g, ""),
+        };
+      }
 
-function mkEvt(title, date, cat, intensity = 0) {
-  if (typeof date === 'string') date = new Date(date);
-  const dk = dateKey(date);
-  return {
-    title, date: dk, cat, timeMode: 'all_day', intensity,
-    start: '00:00', end: '00:00', notes: '',
-    id: cat + '-' + dk + '-' + title.replace(/\s+/g, '-').toLowerCase().replace(/[^a-z0-9æøå-]/g, '')
-  };
-}
+      const easter = easterDate(2026);
 
-const easter = easterDate(2026);
+      // ── NORSKE DATOER (offentlige helligdager, flaggdager, merkedager) ──
+      const norskeDates = [
+        mkEvt("Første nyttårsdag", "2026-01-01", "norsk"),
+        mkEvt("Skjærtorsdag", addDays(easter, -3), "norsk"),
+        mkEvt("Langfredag", addDays(easter, -2), "norsk"),
+        mkEvt("Første påskedag", easter, "norsk"),
+        mkEvt("Andre påskedag", addDays(easter, 1), "norsk"),
+        mkEvt("Offentlig høytidsdag / Arbeidernes dag", "2026-05-01", "norsk"),
+        mkEvt("Frigjøringsdagen / Veterandagen", "2026-05-08", "norsk"),
+        mkEvt("Kristi Himmelfartsdag", addDays(easter, 39), "norsk"),
+        mkEvt("Grunnlovsdagen", "2026-05-17", "norsk", 5),
+        mkEvt("Første pinsedag", addDays(easter, 49), "norsk"),
+        mkEvt("Andre pinsedag", addDays(easter, 50), "norsk"),
+        mkEvt("Sankthansaften", "2026-06-23", "norsk"),
+        mkEvt("Julaften", "2026-12-24", "norsk"),
+        mkEvt("Første juledag", "2026-12-25", "norsk"),
+        mkEvt("Andre juledag", "2026-12-26", "norsk"),
+        mkEvt("Nyttårsaften", "2026-12-31", "norsk"),
+      ];
 
-// ── NORSKE DATOER (offentlige helligdager, flaggdager, merkedager) ──
-const norskeDates = [
-  mkEvt('Første nyttårsdag',          '2026-01-01', 'norsk'),
-  mkEvt('Skjærtorsdag',               addDays(easter, -3), 'norsk'),
-  mkEvt('Langfredag',                 addDays(easter, -2), 'norsk'),
-  mkEvt('Første påskedag',            easter, 'norsk'),
-  mkEvt('Andre påskedag',             addDays(easter, 1), 'norsk'),
-  mkEvt('Offentlig høytidsdag / Arbeidernes dag', '2026-05-01', 'norsk'),
-  mkEvt('Frigjøringsdagen / Veterandagen',        '2026-05-08', 'norsk'),
-  mkEvt('Kristi Himmelfartsdag',      addDays(easter, 39), 'norsk'),
-  mkEvt('Grunnlovsdagen',             '2026-05-17', 'norsk', 5),
-  mkEvt('Første pinsedag',            addDays(easter, 49), 'norsk'),
-  mkEvt('Andre pinsedag',             addDays(easter, 50), 'norsk'),
-  mkEvt('Sankthansaften',             '2026-06-23', 'norsk'),
-  mkEvt('Julaften',                   '2026-12-24', 'norsk'),
-  mkEvt('Første juledag',             '2026-12-25', 'norsk'),
-  mkEvt('Andre juledag',              '2026-12-26', 'norsk'),
-  mkEvt('Nyttårsaften',               '2026-12-31', 'norsk'),
-];
+      // ── VGS (Udir-datoer for videregående) ──
+      const vgsEvents = [
+        mkEvt("Udir - Påmelding til våreksamen åpner", "2026-01-21", "vgs"),
+        mkEvt(
+          "Udir - Siste frist for påmelding til våreksamen",
+          "2026-03-01",
+          "vgs",
+          3,
+        ),
+        mkEvt(
+          "Udir - Offentliggjøring av eksamenstrekk, kl. 09:00",
+          "2026-04-28",
+          "vgs",
+          4,
+        ),
+        mkEvt(
+          "Udir - Skriftlig eksamen: Teknologi og forskningslære, fremmedspråk, samfunnsfag og økonomi",
+          "2026-05-04",
+          "vgs",
+          5,
+        ),
+        mkEvt(
+          "Udir - Skriftlig eksamen: Norsk hovedmål",
+          "2026-05-05",
+          "vgs",
+          5,
+        ),
+        mkEvt(
+          "Udir - Skriftlig eksamen: Språk, samfunnsfag og økonomi, engelsk",
+          "2026-05-06",
+          "vgs",
+          5,
+        ),
+        mkEvt(
+          "Udir - Skriftlig eksamen: Biologi, informasjonsteknologi, språk, samfunnsfag og økonomi",
+          "2026-05-07",
+          "vgs",
+          5,
+        ),
+        mkEvt(
+          "Udir - Skriftlig eksamen: Fysikk, språk, samfunnsfag og økonomi",
+          "2026-05-08",
+          "vgs",
+          5,
+        ),
+        mkEvt(
+          "Udir - Skriftlig eksamen: Norsk sidemål",
+          "2026-05-11",
+          "vgs",
+          5,
+        ),
+        mkEvt(
+          "Udir - Skriftlig eksamen: Kjemi, geografi, språk, samfunnsfag og økonomi",
+          "2026-05-12",
+          "vgs",
+          5,
+        ),
+        mkEvt(
+          "Udir - Skriftlig eksamen: Matematikk, språk, samfunnsfag og økonomi",
+          "2026-05-13",
+          "vgs",
+          5,
+        ),
+        mkEvt(
+          "Udir - Skriftlig eksamen: Matematikk, fremmedspråk, engelsk og yrkesfag",
+          "2026-05-19",
+          "vgs",
+          5,
+        ),
+        mkEvt("Udir - Forhåndssensur i norsk", "2026-05-19", "vgs"),
+        mkEvt(
+          "Udir - Skriftlig eksamen: Fremmedspråk, engelsk og yrkesfag",
+          "2026-05-20",
+          "vgs",
+          5,
+        ),
+        mkEvt(
+          "Udir - Skriftlig eksamen: Matematikk og yrkesfag (Siste eksamensdag VGS)",
+          "2026-05-21",
+          "vgs",
+          5,
+        ),
+        mkEvt(
+          "Udir - Fellessensuren starter i enkelte fylker (VGS & FOV)",
+          "2026-06-16",
+          "vgs",
+        ),
+        mkEvt(
+          "Udir - Fellessensuren avsluttes / Endelig sensurfrist",
+          "2026-06-19",
+          "vgs",
+        ),
+        mkEvt(
+          "Udir - Frist for registrering av hurtigklage (VGS)",
+          "2026-06-24",
+          "vgs",
+        ),
+        mkEvt(
+          "Udir - Ordinær klagefrist / klageregistreringsfrist for skoler (VGS)",
+          "2026-07-01",
+          "vgs",
+        ),
+      ];
 
-// ── VGS (Udir-datoer for videregående) ──
-const vgsEvents = [
-  mkEvt('Udir - Påmelding til våreksamen åpner',         '2026-01-21', 'vgs'),
-  mkEvt('Udir - Siste frist for påmelding til våreksamen','2026-03-01', 'vgs', 3),
-  mkEvt('Udir - Offentliggjøring av eksamenstrekk, kl. 09:00', '2026-04-28', 'vgs', 4),
-  mkEvt('Udir - Skriftlig eksamen: Teknologi og forskningslære, fremmedspråk, samfunnsfag og økonomi', '2026-05-04', 'vgs', 5),
-  mkEvt('Udir - Skriftlig eksamen: Norsk hovedmål',      '2026-05-05', 'vgs', 5),
-  mkEvt('Udir - Skriftlig eksamen: Språk, samfunnsfag og økonomi, engelsk', '2026-05-06', 'vgs', 5),
-  mkEvt('Udir - Skriftlig eksamen: Biologi, informasjonsteknologi, språk, samfunnsfag og økonomi', '2026-05-07', 'vgs', 5),
-  mkEvt('Udir - Skriftlig eksamen: Fysikk, språk, samfunnsfag og økonomi', '2026-05-08', 'vgs', 5),
-  mkEvt('Udir - Skriftlig eksamen: Norsk sidemål',       '2026-05-11', 'vgs', 5),
-  mkEvt('Udir - Skriftlig eksamen: Kjemi, geografi, språk, samfunnsfag og økonomi', '2026-05-12', 'vgs', 5),
-  mkEvt('Udir - Skriftlig eksamen: Matematikk, språk, samfunnsfag og økonomi', '2026-05-13', 'vgs', 5),
-  mkEvt('Udir - Skriftlig eksamen: Matematikk, fremmedspråk, engelsk og yrkesfag', '2026-05-19', 'vgs', 5),
-  mkEvt('Udir - Forhåndssensur i norsk',                 '2026-05-19', 'vgs'),
-  mkEvt('Udir - Skriftlig eksamen: Fremmedspråk, engelsk og yrkesfag', '2026-05-20', 'vgs', 5),
-  mkEvt('Udir - Skriftlig eksamen: Matematikk og yrkesfag (Siste eksamensdag VGS)', '2026-05-21', 'vgs', 5),
-  mkEvt('Udir - Fellessensuren starter i enkelte fylker (VGS & FOV)', '2026-06-16', 'vgs'),
-  mkEvt('Udir - Fellessensuren avsluttes / Endelig sensurfrist', '2026-06-19', 'vgs'),
-  mkEvt('Udir - Frist for registrering av hurtigklage (VGS)', '2026-06-24', 'vgs'),
-  mkEvt('Udir - Ordinær klagefrist / klageregistreringsfrist for skoler (VGS)', '2026-07-01', 'vgs'),
-];
+      // ── UNGDOMSSKOLE (Udir-datoer for ungdomsskolen) ──
+      const ungdomsskoleEvents = [
+        mkEvt(
+          "Udir - Påmelding til våreksamen åpner (Grunnskole & VGS)",
+          "2026-01-21",
+          "ungdomsskole",
+        ),
+        mkEvt(
+          "Udir - Siste frist for påmelding til våreksamen (Grunnskole & VGS)",
+          "2026-03-01",
+          "ungdomsskole",
+          3,
+        ),
+        mkEvt(
+          "Udir - Offentliggjøring av eksamenstrekk, kl. 09:00 (Grunnskole & VGS)",
+          "2026-04-28",
+          "ungdomsskole",
+          4,
+        ),
+        mkEvt(
+          "Udir - Forhåndssensur starter (Ungdomsskole)",
+          "2026-05-28",
+          "ungdomsskole",
+        ),
+        mkEvt(
+          "Udir - Forhåndssensur avsluttes (Ungdomsskole)",
+          "2026-05-29",
+          "ungdomsskole",
+        ),
+        mkEvt(
+          "Udir - Sentral fellessensur starter (Ungdomsskole)",
+          "2026-06-17",
+          "ungdomsskole",
+        ),
+        mkEvt(
+          "Udir - Fellessensuren avsluttes / Endelig sensurfrist (Ungdomsskole & VGS)",
+          "2026-06-19",
+          "ungdomsskole",
+        ),
+        mkEvt(
+          "Udir - Påmelding til nasjonale prøver og kartleggingsprøver åpner (Grunnskole)",
+          "2026-08-03",
+          "ungdomsskole",
+        ),
+        mkEvt(
+          "Udir - Gjennomføringsperiode for Nasjonale prøver starter (Ungdomsskole)",
+          "2026-08-31",
+          "ungdomsskole",
+        ),
+        mkEvt(
+          "Udir - Gjennomføringsperiode for Nasjonale prøver avsluttes (Ungdomsskole)",
+          "2026-09-25",
+          "ungdomsskole",
+        ),
+      ];
 
-// ── UNGDOMSSKOLE (Udir-datoer for ungdomsskolen) ──
-const ungdomsskoleEvents = [
-  mkEvt('Udir - Påmelding til våreksamen åpner (Grunnskole & VGS)',   '2026-01-21', 'ungdomsskole'),
-  mkEvt('Udir - Siste frist for påmelding til våreksamen (Grunnskole & VGS)', '2026-03-01', 'ungdomsskole', 3),
-  mkEvt('Udir - Offentliggjøring av eksamenstrekk, kl. 09:00 (Grunnskole & VGS)', '2026-04-28', 'ungdomsskole', 4),
-  mkEvt('Udir - Forhåndssensur starter (Ungdomsskole)',               '2026-05-28', 'ungdomsskole'),
-  mkEvt('Udir - Forhåndssensur avsluttes (Ungdomsskole)',             '2026-05-29', 'ungdomsskole'),
-  mkEvt('Udir - Sentral fellessensur starter (Ungdomsskole)',         '2026-06-17', 'ungdomsskole'),
-  mkEvt('Udir - Fellessensuren avsluttes / Endelig sensurfrist (Ungdomsskole & VGS)', '2026-06-19', 'ungdomsskole'),
-  mkEvt('Udir - Påmelding til nasjonale prøver og kartleggingsprøver åpner (Grunnskole)', '2026-08-03', 'ungdomsskole'),
-  mkEvt('Udir - Gjennomføringsperiode for Nasjonale prøver starter (Ungdomsskole)', '2026-08-31', 'ungdomsskole'),
-  mkEvt('Udir - Gjennomføringsperiode for Nasjonale prøver avsluttes (Ungdomsskole)', '2026-09-25', 'ungdomsskole'),
-];
+      // Slå sammen alle systemhendelser
+      const systemEvents = [
+        ...norskeDates,
+        ...vgsEvents,
+        ...ungdomsskoleEvents,
+      ];
 
-// Slå sammen alle systemhendelser
-const systemEvents = [...norskeDates, ...vgsEvents, ...ungdomsskoleEvents];
+      let events = JSON.parse(localStorage.getItem("cal_ev3") || "[]");
+      function saveEvents() {
+        localStorage.setItem("cal_ev3", JSON.stringify(events));
+      }
 
-let events = JSON.parse(localStorage.getItem('cal_ev3') || '[]');
-function saveEvents(){ localStorage.setItem('cal_ev3', JSON.stringify(events)); }
+      function dateKey(d) {
+        const dt = new Date(d);
+        return `${dt.getFullYear()}-${String(dt.getMonth() + 1).padStart(2, "0")}-${String(dt.getDate()).padStart(2, "0")}`;
+      }
+      function getEventsForDate(dk) {
+        const all = [...events, ...systemEvents];
+        return all
+          .filter((e) => {
+            const matchesCat = filterCat === "all" || e.cat === filterCat;
+            const matchesSearch = searchQuery
+              ? e.title.toLowerCase().includes(searchQuery.toLowerCase())
+              : true;
+            return e.date === dk && matchesCat && matchesSearch;
+          })
+          .sort((a, b) => a.start.localeCompare(b.start));
+      }
+      // Score a day by event intensity + duration
+      function dayScoreRaw(dk) {
+        let s = 0;
+        for (const e of [...events, ...systemEvents].filter(
+          (e) => e.date === dk,
+        )) {
+          const intens = e.intensity || 0;
+          const weight = getIntensityWeight(intens);
+          if (
+            e.timeMode === "just_happens" ||
+            e.timeMode === "deadline" ||
+            e.timeMode === "all_day"
+          ) {
+            s += weight;
+          } else {
+            const [sh, sm] = e.start.split(":").map(Number);
+            const [eh, em] = e.end.split(":").map(Number);
+            const hrs = Math.max(0, eh * 60 + em - sh * 60 - sm) / 60;
+            s += weight + hrs * 0.5;
+          }
+        }
+        return s;
+      }
 
-function dateKey(d){
-  const dt = new Date(d);
-  return `${dt.getFullYear()}-${String(dt.getMonth()+1).padStart(2,'0')}-${String(dt.getDate()).padStart(2,'0')}`;
-}
-function getEventsForDate(dk){
-  const all = [...events, ...systemEvents];
-  return all.filter(e => {
-    const matchesCat = (filterCat==='all'||e.cat===filterCat);
-    const matchesSearch = searchQuery ? e.title.toLowerCase().includes(searchQuery.toLowerCase()) : true;
-    return e.date===dk && matchesCat && matchesSearch;
-  }).sort((a,b)=>a.start.localeCompare(b.start));
-}
-// Score a day by event intensity + duration
-function dayScoreRaw(dk){
-  let s = 0;
-  for(const e of [...events, ...systemEvents].filter(e=>e.date===dk)){
-    const intens = e.intensity || 0;
-    const weight = getIntensityWeight(intens);
-    if(e.timeMode === 'just_happens' || e.timeMode === 'deadline' || e.timeMode === 'all_day') {
-        s += weight;
-    } else {
-        const [sh,sm]=e.start.split(':').map(Number);
-        const [eh,em]=e.end.split(':').map(Number);
-        const hrs = Math.max(0,(eh*60+em-sh*60-sm))/60;
-        s += weight + hrs*0.5;
-    }
-  }
-  return s;
-}
+      // Heatmap 'leak' logic: score depends on nearby days
+      function dayScore(dk) {
+        const base = new Date(dk);
+        let total = 0;
 
-// Heatmap 'leak' logic: score depends on nearby days
-function dayScore(dk) {
-    const base = new Date(dk);
-    let total = 0;
-    
-    const range = 5;
-    for(let offset = -range; offset <= range; offset++) {
-        const d = new Date(base);
-        d.setDate(d.getDate() + offset);
-        const targetDk = dateKey(d);
-        
-        for(const e of [...events, ...systemEvents].filter(e => e.date === targetDk)) {
+        const range = 5;
+        for (let offset = -range; offset <= range; offset++) {
+          const d = new Date(base);
+          d.setDate(d.getDate() + offset);
+          const targetDk = dateKey(d);
+
+          for (const e of [...events, ...systemEvents].filter(
+            (e) => e.date === targetDk,
+          )) {
             const intens = e.intensity || 0;
             const weight = getIntensityWeight(intens);
             const dist = Math.abs(offset);
-            
+
             if (dist === 0) {
-                total += weight;
-                continue;
+              total += weight;
+              continue;
             }
 
             // Category-based spread logic
             let spreadBefore = 0;
             let spreadAfter = 0;
-            const spreadRadius = 1 + (intens / 3.3);
+            const spreadRadius = 1 + intens / 3.3;
 
-            switch(e.cat) {
-                case 'class': // Time
-                    spreadBefore = 0;
-                    spreadAfter = 0;
-                    break;
-                case 'exam': // Prøve / Eksamen
-                    spreadBefore = spreadRadius;
-                    spreadAfter = spreadRadius * 0.3; // Just a little spread after
-                    break;
-                case 'deadline': // Frist
-                    spreadBefore = spreadRadius;
-                    spreadAfter = 0;
-                    break;
-                case 'personal': // Personlig
-                    spreadBefore = 0;
-                    spreadAfter = 0;
-                    break;
-                case 'social': // Sosialt
-                    spreadBefore = 0;
-                    spreadAfter = spreadRadius * 0.2; // Tiny spread after
-                    break;
-                default: // Annet / regular
-                    spreadBefore = spreadRadius;
-                    spreadAfter = spreadRadius;
+            switch (e.cat) {
+              case "class": // Time
+                spreadBefore = 0;
+                spreadAfter = 0;
+                break;
+              case "exam": // Prøve / Eksamen
+                spreadBefore = spreadRadius;
+                spreadAfter = spreadRadius * 0.3; // Just a little spread after
+                break;
+              case "deadline": // Frist
+                spreadBefore = spreadRadius;
+                spreadAfter = 0;
+                break;
+              case "personal": // Personlig
+                spreadBefore = 0;
+                spreadAfter = 0;
+                break;
+              case "social": // Sosialt
+                spreadBefore = 0;
+                spreadAfter = spreadRadius * 0.2; // Tiny spread after
+                break;
+              default: // Annet / regular
+                spreadBefore = spreadRadius;
+                spreadAfter = spreadRadius;
             }
 
             // offset > 0 means the event is in the FUTURE relative to 'base' (dk)
             // but we are checking if event at 'targetDk' leaks TO 'dk'.
             // If targetDk is 5 days ahead of dk, offset is +5.
             // If the event spreads BEFORE (exam/deadline), it leaks to dk.
-            
+
             const isEventInFuture = offset > 0;
             const isEventInPast = offset < 0;
 
             if (isEventInFuture && dist <= spreadBefore) {
-                const impact = weight * (1 - (dist / (spreadBefore + 1)));
-                total += Math.max(0, impact);
+              const impact = weight * (1 - dist / (spreadBefore + 1));
+              total += Math.max(0, impact);
             } else if (isEventInPast && dist <= spreadAfter) {
-                const impact = weight * (1 - (dist / (spreadAfter + 1)));
-                total += Math.max(0, impact);
+              const impact = weight * (1 - dist / (spreadAfter + 1));
+              total += Math.max(0, impact);
             }
+          }
         }
-    }
-    return total;
-}
+        return total;
+      }
 
-// 0=very heavy, 1=heavy, 2=light, 3=free
-function heatLevel(dk){
-  const s = dayScore(dk);
-  if(s>=10) return 0; // Much lower threshold for "Very Heavy"
-  if(s>=6)  return 1;
-  if(s>=2)  return 2;
-  return 3;
-}
+      // 0=very heavy, 1=heavy, 2=light, 3=free
+      function heatLevel(dk) {
+        const s = dayScore(dk);
+        if (s >= 10) return 0; // Much lower threshold for "Very Heavy"
+        if (s >= 6) return 1;
+        if (s >= 2) return 2;
+        return 3;
+      }
 
-// ── INTENSITY UI ──────────────────────────────
-function setIntensityUI(val){
-  selectedIntensity = parseInt(val) || 0;
-  const slider = document.getElementById('evtIntensitySlider');
-  if(slider) slider.value = selectedIntensity;
-  const label = document.getElementById('intensityValLabel');
-  if(label) label.textContent = getIntensityLabel(selectedIntensity);
-}
-document.getElementById('evtIntensitySlider').oninput = (e) => setIntensityUI(e.target.value);
+      // ── INTENSITY UI ──────────────────────────────
+      function setIntensityUI(val) {
+        selectedIntensity = parseInt(val) || 0;
+        const slider = document.getElementById("evtIntensitySlider");
+        if (slider) slider.value = selectedIntensity;
+        const label = document.getElementById("intensityValLabel");
+        if (label) label.textContent = getIntensityLabel(selectedIntensity);
+      }
+      document.getElementById("evtIntensitySlider").oninput = (e) =>
+        setIntensityUI(e.target.value);
 
-// ── NAVIGATION ────────────────────────────────
-function navigate(dir){
-  if(currentView==='month') cursor.setMonth(cursor.getMonth()+dir);
-  else if(currentView==='week') cursor.setDate(cursor.getDate()+dir*7);
-  else if(currentView==='day') cursor.setDate(cursor.getDate()+dir);
-  else cursor.setDate(cursor.getDate()+dir*14);
-  const swipeDir = dir > 0 ? 'right' : 'left';
-  render(true, swipeDir);
-}
-document.getElementById('prevBtn').onclick  = ()=>navigate(-1);
-document.getElementById('nextBtn').onclick  = ()=>navigate(1);  document.getElementById('todayBtn').onclick = ()=>{ cursor=new Date(today); render(true, null); };
+      // ── NAVIGATION ────────────────────────────────
+      function navigate(dir) {
+        if (currentView === "month") cursor.setMonth(cursor.getMonth() + dir);
+        else if (currentView === "week")
+          cursor.setDate(cursor.getDate() + dir * 7);
+        else if (currentView === "day") cursor.setDate(cursor.getDate() + dir);
+        else cursor.setDate(cursor.getDate() + dir * 14);
+        const swipeDir = dir > 0 ? "right" : "left";
+        render(true, swipeDir);
+      }
+      document.getElementById("prevBtn").onclick = () => navigate(-1);
+      document.getElementById("nextBtn").onclick = () => navigate(1);
+      document.getElementById("todayBtn").onclick = () => {
+        cursor = new Date(today);
+        render(true, null);
+      };
 
-document.querySelectorAll('.view-pill').forEach(btn=>{
-  btn.onclick=()=>{
-    document.querySelectorAll('.view-pill').forEach(b=>b.classList.remove('active'));
-    btn.classList.add('active');
-    currentView=btn.dataset.view;
-    render(true, null);
-  };
-});
-document.getElementById('heatmapBtn').onclick=()=>{
-  heatmapOn=!heatmapOn;
-  document.getElementById('heatmapBtn').classList.toggle('active',heatmapOn);
-  document.getElementById('heatmapLegend').style.display=heatmapOn?'flex':'none';
-  render();
-};
-document.querySelectorAll('[data-cat]').forEach(el=>{  el.onclick=()=>{ document.querySelectorAll('[data-cat]').forEach(e=>e.classList.remove('active'));
-    el.classList.add('active'); filterCat=el.dataset.cat; render(true, null);
-  };
-});
+      document.querySelectorAll(".view-pill").forEach((btn) => {
+        btn.onclick = () => {
+          document
+            .querySelectorAll(".view-pill")
+            .forEach((b) => b.classList.remove("active"));
+          btn.classList.add("active");
+          currentView = btn.dataset.view;
+          render(true, null);
+        };
+      });
+      document.getElementById("heatmapBtn").onclick = () => {
+        heatmapOn = !heatmapOn;
+        document
+          .getElementById("heatmapBtn")
+          .classList.toggle("active", heatmapOn);
+        document.getElementById("heatmapLegend").style.display = heatmapOn
+          ? "flex"
+          : "none";
+        render();
+      };
+      document.querySelectorAll("[data-cat]").forEach((el) => {
+        el.onclick = () => {
+          document
+            .querySelectorAll("[data-cat]")
+            .forEach((e) => e.classList.remove("active"));
+          el.classList.add("active");
+          filterCat = el.dataset.cat;
+          render(true, null);
+        };
+      });
 
-// ── MINI CALENDAR ─────────────────────────────
-function renderMini(){
-  const y=cursor.getFullYear(), m=cursor.getMonth();
-  const grid=document.getElementById('miniGrid'); grid.innerHTML='';
-  DAYS.forEach(d=>{ const l=document.createElement('div'); l.className='mini-day-label'; l.textContent=d[0]; grid.appendChild(l); });
-  
-  const ws = weekStart(new Date(y, m, 1));
-  for(let i=0; i<35; i++){
-    const dt = new Date(ws); dt.setDate(dt.getDate() + i);
-    const el = document.createElement('div');
-    el.className = 'mini-day';
-    if(dt.getMonth() !== m) el.classList.add('other-month');
-    el.textContent = dt.getDate();
-    if(dt.toDateString() === today.toDateString()) el.classList.add('today');
-    el.onclick = () => { cursor = new Date(dt); render(true, null); };
-    grid.appendChild(el);
-  }
-}
+      // ── MINI CALENDAR ─────────────────────────────
+      function renderMini() {
+        const y = cursor.getFullYear(),
+          m = cursor.getMonth();
+        const grid = document.getElementById("miniGrid");
+        grid.innerHTML = "";
+        DAYS.forEach((d) => {
+          const l = document.createElement("div");
+          l.className = "mini-day-label";
+          l.textContent = d[0];
+          grid.appendChild(l);
+        });
 
-function getWeekNumber(d) {
-    const date = new Date(Date.UTC(d.getFullYear(), d.getMonth(), d.getDate()));
-    const dayNum = date.getUTCDay() || 7;
-    date.setUTCDate(date.getUTCDate() + 4 - dayNum);
-    const yearStart = new Date(Date.UTC(date.getUTCFullYear(), 0, 1));
-    return Math.ceil((((date - yearStart) / 86400000) + 1) / 7);
-}
+        const ws = weekStart(new Date(y, m, 1));
+        for (let i = 0; i < 35; i++) {
+          const dt = new Date(ws);
+          dt.setDate(dt.getDate() + i);
+          const el = document.createElement("div");
+          el.className = "mini-day";
+          if (dt.getMonth() !== m) el.classList.add("other-month");
+          el.textContent = dt.getDate();
+          if (dt.toDateString() === today.toDateString())
+            el.classList.add("today");
+          el.onclick = () => {
+            cursor = new Date(dt);
+            render(true, null);
+          };
+          grid.appendChild(el);
+        }
+      }
 
-// ── RENDER ROUTER ─────────────────────────────
-function buildViewWrapper() {
-  const w = document.createElement('div');
-  w.style.cssText = 'width:100%;height:100%;display:flex;flex-direction:column;';
-  const y=cursor.getFullYear(), m=cursor.getMonth();
-  if(currentView==='month'){
-    document.getElementById('navTitle').textContent=`${MONTHS[m]} ${y}`;
-    renderMonth(w,y,m);
-  } else if(currentView==='week'){
-    const ws=weekStart(cursor), we=new Date(ws); we.setDate(we.getDate()+6);
-    document.getElementById('navTitle').textContent=`${MONTHS[ws.getMonth()].slice(0,3)} ${ws.getDate()} – ${we.getDate()}, ${ws.getFullYear()}`;
-    renderWeek(w,ws);
-  } else if(currentView==='day'){
-    document.getElementById('navTitle').textContent=`${DAYS[cursor.getDay()===0?6:cursor.getDay()-1]}, ${MONTHS[m].slice(0,3)} ${cursor.getDate()}, ${y}`;
-    renderDay(w,cursor);
-  } else {
-    const title = searchQuery ? `Søkeresultater for "${searchQuery}"` : `Agenda — ${MONTHS[m]} ${y}`;
-    document.getElementById('navTitle').textContent=title;
-    renderAgenda(w,cursor);
-  }
-  return w;
-}
+      function getWeekNumber(d) {
+        const date = new Date(
+          Date.UTC(d.getFullYear(), d.getMonth(), d.getDate()),
+        );
+        const dayNum = date.getUTCDay() || 7;
+        date.setUTCDate(date.getUTCDate() + 4 - dayNum);
+        const yearStart = new Date(Date.UTC(date.getUTCFullYear(), 0, 1));
+        return Math.ceil(((date - yearStart) / 86400000 + 1) / 7);
+      }
 
-function render(withTransition = true, swipeDir = null){
-  const vc = document.getElementById('viewContainer');
-  const newWrap = buildViewWrapper();
-  const oldWrap = vc.firstElementChild;
+      // ── RENDER ROUTER ─────────────────────────────
+      function buildViewWrapper() {
+        const w = document.createElement("div");
+        w.style.cssText =
+          "width:100%;height:100%;display:flex;flex-direction:column;";
+        const y = cursor.getFullYear(),
+          m = cursor.getMonth();
+        if (currentView === "month") {
+          document.getElementById("navTitle").textContent = `${MONTHS[m]} ${y}`;
+          renderMonth(w, y, m);
+        } else if (currentView === "week") {
+          const ws = weekStart(cursor),
+            we = new Date(ws);
+          we.setDate(we.getDate() + 6);
+          document.getElementById("navTitle").textContent =
+            `${MONTHS[ws.getMonth()].slice(0, 3)} ${ws.getDate()} – ${we.getDate()}, ${ws.getFullYear()}`;
+          renderWeek(w, ws);
+        } else if (currentView === "day") {
+          document.getElementById("navTitle").textContent =
+            `${DAYS[cursor.getDay() === 0 ? 6 : cursor.getDay() - 1]}, ${MONTHS[m].slice(0, 3)} ${cursor.getDate()}, ${y}`;
+          renderDay(w, cursor);
+        } else {
+          const title = searchQuery
+            ? `Søkeresultater for "${searchQuery}"`
+            : `Agenda — ${MONTHS[m]} ${y}`;
+          document.getElementById("navTitle").textContent = title;
+          renderAgenda(w, cursor);
+        }
+        return w;
+      }
 
-  if (withTransition && swipeDir && oldWrap) {
-    // Slide animasjon: gammel ut, ny inn samtidig
-    const outX = swipeDir === 'right' ? '-100%' : '100%';
-    const inFromX = swipeDir === 'right' ? '100%' : '-100%';
+      function render(withTransition = true, swipeDir = null) {
+        const vc = document.getElementById("viewContainer");
+        const newWrap = buildViewWrapper();
+        const oldWrap = vc.firstElementChild;
 
-    // Wrapp nytt innhold absolutt – starter utenfor skjerm
-    newWrap.style.position = 'absolute';
-    newWrap.style.top = '0';
-    newWrap.style.left = '0';
-    newWrap.style.transform = `translateX(${inFromX})`;
-    vc.appendChild(newWrap);
+        if (withTransition && swipeDir && oldWrap) {
+          // Slide animasjon: gammel ut, ny inn samtidig
+          const outX = swipeDir === "right" ? "-100%" : "100%";
+          const inFromX = swipeDir === "right" ? "100%" : "-100%";
 
-    // Animer gammelt ut
-    oldWrap.style.transition = 'transform 0.28s cubic-bezier(0.2, 0, 0, 1), opacity 0.28s ease';
-    oldWrap.style.transform = `translateX(${outX})`;
-    oldWrap.style.opacity = '0';
+          // Wrapp nytt innhold absolutt – starter utenfor skjerm
+          newWrap.style.position = "absolute";
+          newWrap.style.top = "0";
+          newWrap.style.left = "0";
+          newWrap.style.transform = `translateX(${inFromX})`;
+          vc.appendChild(newWrap);
 
-    // Animer nytt inn — tving reflow så browseren registrerer startposisjonen
-    newWrap.getBoundingClientRect();
-    newWrap.style.transition = 'transform 0.28s cubic-bezier(0.2, 0, 0, 1), opacity 0.28s ease';
-    newWrap.style.transform = 'translateX(0)';
-    newWrap.style.opacity = '1';
+          // Animer gammelt ut
+          oldWrap.style.transition =
+            "transform 0.28s cubic-bezier(0.2, 0, 0, 1), opacity 0.28s ease";
+          oldWrap.style.transform = `translateX(${outX})`;
+          oldWrap.style.opacity = "0";
 
-    // Rydd opp etter animasjonen
-    setTimeout(() => {
-      vc.innerHTML = '';
-      newWrap.style.position = '';
-      newWrap.style.transform = '';
-      newWrap.style.opacity = '';
-      newWrap.style.transition = '';
-      vc.appendChild(newWrap);
-    }, 310);
-  } else {
-    vc.innerHTML = '';
-    vc.appendChild(newWrap);
-    if (withTransition) {
-      newWrap.style.animation = 'fadeIn 0.18s ease-out';
-    }
-  }
-  renderMini();
-}
+          // Animer nytt inn — tving reflow så browseren registrerer startposisjonen
+          newWrap.getBoundingClientRect();
+          newWrap.style.transition =
+            "transform 0.28s cubic-bezier(0.2, 0, 0, 1), opacity 0.28s ease";
+          newWrap.style.transform = "translateX(0)";
+          newWrap.style.opacity = "1";
 
-function weekStart(d){ 
-  const dt=new Date(d); 
-  // Monday start
-  const day = dt.getDay();
-  const diff = dt.getDate() - day + (day === 0 ? -6 : 1);
-  dt.setDate(diff);
-  dt.setHours(0,0,0,0); 
-  return dt; 
-}
+          // Rydd opp etter animasjonen
+          setTimeout(() => {
+            vc.innerHTML = "";
+            newWrap.style.position = "";
+            newWrap.style.transform = "";
+            newWrap.style.opacity = "";
+            newWrap.style.transition = "";
+            vc.appendChild(newWrap);
+          }, 310);
+        } else {
+          vc.innerHTML = "";
+          vc.appendChild(newWrap);
+          if (withTransition) {
+            newWrap.style.animation = "fadeIn 0.18s ease-out";
+          }
+        }
+        renderMini();
+      }
 
-// ── MONTH ─────────────────────────────────────
-function renderMonth(container,y,m){
-  const hdr=document.createElement('div'); hdr.className='month-grid-header';
-  const empty = document.createElement('div'); empty.textContent = 'UKE'; hdr.appendChild(empty);
-  DAYS.forEach(d=>{ const el=document.createElement('div'); el.textContent=d; hdr.appendChild(el); });
-  container.appendChild(hdr);
+      function weekStart(d) {
+        const dt = new Date(d);
+        // Monday start
+        const day = dt.getDay();
+        const diff = dt.getDate() - day + (day === 0 ? -6 : 1);
+        dt.setDate(diff);
+        dt.setHours(0, 0, 0, 0);
+        return dt;
+      }
 
-  const grid=document.createElement('div'); grid.className='month-grid';
-  // Monday adjustment
-  const firstRaw = new Date(y,m,1).getDay();
-  const first = firstRaw === 0 ? 6 : firstRaw - 1; 
-  const dim=new Date(y,m+1,0).getDate(), prev=new Date(y,m,0).getDate();
-  const total=Math.ceil((first+dim)/7)*7;
+      // ── MONTH ─────────────────────────────────────
+      function renderMonth(container, y, m) {
+        const hdr = document.createElement("div");
+        hdr.className = "month-grid-header";
+        const empty = document.createElement("div");
+        empty.textContent = "UKE";
+        hdr.appendChild(empty);
+        DAYS.forEach((d) => {
+          const el = document.createElement("div");
+          el.textContent = d;
+          hdr.appendChild(el);
+        });
+        container.appendChild(hdr);
 
-  for(let i=0;i<total;i++){
-    if (i % 7 === 0) {
-        const wn = document.createElement('div');
-        wn.className = 'month-week-num';
-        let weekRef;
-        if (i < first) weekRef = new Date(y, m-1, prev-first+1+i);
-        else if (i >= first+dim) weekRef = new Date(y, m+1, i-first-dim+1);
-        else weekRef = new Date(y, m, i-first+1);
-        wn.textContent = getWeekNumber(weekRef);
-        grid.appendChild(wn);
-    }
-    const cell=document.createElement('div'); cell.className='month-cell';
-    let cd;
-    if(i<first){ cd=new Date(y,m-1,prev-first+1+i); cell.classList.add('other-month'); }
-    else if(i>=first+dim){ cd=new Date(y,m+1,i-first-dim+1); cell.classList.add('other-month'); }
-    else cd=new Date(y,m,i-first+1);
+        const grid = document.createElement("div");
+        grid.className = "month-grid";
+        // Monday adjustment
+        const firstRaw = new Date(y, m, 1).getDay();
+        const first = firstRaw === 0 ? 6 : firstRaw - 1;
+        const dim = new Date(y, m + 1, 0).getDate(),
+          prev = new Date(y, m, 0).getDate();
+        const total = Math.ceil((first + dim) / 7) * 7;
 
-    const dk=dateKey(cd);
-    if(cd.toDateString()===today.toDateString()) cell.classList.add('today');
-    if(heatmapOn) cell.dataset.heat=heatLevel(dk);
+        for (let i = 0; i < total; i++) {
+          if (i % 7 === 0) {
+            const wn = document.createElement("div");
+            wn.className = "month-week-num";
+            let weekRef;
+            if (i < first) weekRef = new Date(y, m - 1, prev - first + 1 + i);
+            else if (i >= first + dim)
+              weekRef = new Date(y, m + 1, i - first - dim + 1);
+            else weekRef = new Date(y, m, i - first + 1);
+            wn.textContent = getWeekNumber(weekRef);
+            grid.appendChild(wn);
+          }
+          const cell = document.createElement("div");
+          cell.className = "month-cell";
+          let cd;
+          if (i < first) {
+            cd = new Date(y, m - 1, prev - first + 1 + i);
+            cell.classList.add("other-month");
+          } else if (i >= first + dim) {
+            cd = new Date(y, m + 1, i - first - dim + 1);
+            cell.classList.add("other-month");
+          } else cd = new Date(y, m, i - first + 1);
 
-    const dn=document.createElement('div'); dn.className='day-num'; dn.textContent=cd.getDate(); cell.appendChild(dn);
+          const dk = dateKey(cd);
+          if (cd.toDateString() === today.toDateString())
+            cell.classList.add("today");
+          if (heatmapOn) cell.dataset.heat = heatLevel(dk);
 
-    const dayEvts=getEventsForDate(dk);
-    dayEvts.slice(0,3).forEach(e=>{
-      const chip=document.createElement('div'); chip.className='event-chip';
-      const c=getCatColors(e.cat), dotCol = getIntensityColor(e.intensity || 0);
-      chip.style.background=c.bg; chip.style.color=c.text;
-      if(heatmapOn){ const dot=document.createElement('div'); dot.className='chip-dot'; dot.style.background=dotCol; chip.appendChild(dot); }
-      const lbl=document.createElement('span'); lbl.textContent=e.title; chip.appendChild(lbl);
-      chip.onclick=ev=>{ ev.stopPropagation(); openEditModal(e); };
-      cell.appendChild(chip);
-    });
-    if(dayEvts.length>3){ const m2=document.createElement('div'); m2.style.cssText='font-size:10px;color:var(--text-muted);font-weight:700;padding:1px 4px;'; m2.textContent=`+${dayEvts.length-3} til`; cell.appendChild(m2); }
-    if(heatmapOn && dayEvts.length>0){ const bar=document.createElement('div'); bar.className='free-bar'; bar.textContent=`${Math.round(dayScoreRaw(dk))} pts`; cell.appendChild(bar); }
+          const dn = document.createElement("div");
+          dn.className = "day-num";
+          dn.textContent = cd.getDate();
+          cell.appendChild(dn);
 
-    cell.onclick=()=>{ cursor=new Date(cd); openAddModal(dk); };
-    grid.appendChild(cell);
-  }
-  container.appendChild(grid);
-}
+          const dayEvts = getEventsForDate(dk);
+          dayEvts.slice(0, 3).forEach((e) => {
+            const chip = document.createElement("div");
+            chip.className = "event-chip";
+            const c = getCatColors(e.cat),
+              dotCol = getIntensityColor(e.intensity || 0);
+            chip.style.background = c.bg;
+            chip.style.color = c.text;
+            if (heatmapOn) {
+              const dot = document.createElement("div");
+              dot.className = "chip-dot";
+              dot.style.background = dotCol;
+              chip.appendChild(dot);
+            }
+            const lbl = document.createElement("span");
+            lbl.textContent = e.title;
+            chip.appendChild(lbl);
+            chip.onclick = (ev) => {
+              ev.stopPropagation();
+              openEditModal(e);
+            };
+            cell.appendChild(chip);
+          });
+          if (dayEvts.length > 3) {
+            const m2 = document.createElement("div");
+            m2.style.cssText =
+              "font-size:10px;color:var(--text-muted);font-weight:700;padding:1px 4px;";
+            m2.textContent = `+${dayEvts.length - 3} til`;
+            cell.appendChild(m2);
+          }
+          if (heatmapOn && dayEvts.length > 0) {
+            const bar = document.createElement("div");
+            bar.className = "free-bar";
+            bar.textContent = `${Math.round(dayScoreRaw(dk))} pts`;
+            cell.appendChild(bar);
+          }
 
-// ── WEEK ──────────────────────────────────────
-function renderWeek(container,ws){
-  const wv=document.createElement('div'); wv.className='week-view';
-  const hdr=document.createElement('div'); hdr.className='week-header';
-  hdr.appendChild(document.createElement('div'));
-  for(let i=0;i<7;i++){
-    const dt=new Date(ws); dt.setDate(dt.getDate()+i);
-    const cell=document.createElement('div'); cell.className='week-header-cell';
-    if(dt.toDateString()===today.toDateString()) cell.classList.add('today');
-    cell.innerHTML=`<div class="day-abbr">${DAYS[dt.getDay()]}</div><div class="day-num-big">${dt.getDate()}</div>`;
-    hdr.appendChild(cell);
-  }
-  wv.appendChild(hdr);
+          cell.onclick = () => {
+            cursor = new Date(cd);
+            openAddModal(dk);
+          };
+          grid.appendChild(cell);
+        }
+        container.appendChild(grid);
+      }
 
-  const body=document.createElement('div'); body.className='week-body';
-  const tc=document.createElement('div'); tc.className='time-col';
-  for(let h=0;h<24;h++){ const l=document.createElement('div'); l.className='time-slot-label'; l.textContent=h?`${h}:00`:''; tc.appendChild(l); }
-  body.appendChild(tc);
+      // ── WEEK ──────────────────────────────────────
+      function renderWeek(container, ws) {
+        const wv = document.createElement("div");
+        wv.className = "week-view";
+        const hdr = document.createElement("div");
+        hdr.className = "week-header";
+        hdr.appendChild(document.createElement("div"));
+        for (let i = 0; i < 7; i++) {
+          const dt = new Date(ws);
+          dt.setDate(dt.getDate() + i);
+          const cell = document.createElement("div");
+          cell.className = "week-header-cell";
+          if (dt.toDateString() === today.toDateString())
+            cell.classList.add("today");
+          cell.innerHTML = `<div class="day-abbr">${DAYS[dt.getDay()]}</div><div class="day-num-big">${dt.getDate()}</div>`;
+          hdr.appendChild(cell);
+        }
+        wv.appendChild(hdr);
 
-  const dg=document.createElement('div'); dg.className='week-days-grid';
-  for(let i=0;i<7;i++){
-    const dt=new Date(ws); dt.setDate(dt.getDate()+i);
-    const dk=dateKey(dt);
-    const col=document.createElement('div'); col.className='week-day-col';
-    if(heatmapOn) col.dataset.heat=heatLevel(dk);
-    for(let h=0;h<24;h++){ const s=document.createElement('div'); s.className='week-hour-slot'; col.appendChild(s); }
-    getEventsForDate(dk).forEach(e=>{
-      const [sh,sm]=e.start.split(':').map(Number), [eh,em]=e.end.split(':').map(Number);
-      const top=(sh*60+sm)/60*52, height=Math.max(24,((eh*60+em)-(sh*60+sm))/60*52);
-      const ev=document.createElement('div'); ev.className='week-event';
-      const c=getCatColors(e.cat), dotCol = getIntensityColor(e.intensity || 0);
-      ev.style.cssText=`top:${top}px;height:${height}px;background:${c.bg};color:${c.text};border-left:3px solid ${dotCol};`;
-      ev.textContent=e.title; ev.onclick=()=>openEditModal(e);
-      col.appendChild(ev);
-    });
-    dg.appendChild(col);
-  }
-  body.appendChild(dg); wv.appendChild(body); container.appendChild(wv);
-  setTimeout(()=>{ body.scrollTop=8*52; },0);
-}
+        const body = document.createElement("div");
+        body.className = "week-body";
+        const tc = document.createElement("div");
+        tc.className = "time-col";
+        for (let h = 0; h < 24; h++) {
+          const l = document.createElement("div");
+          l.className = "time-slot-label";
+          l.textContent = h ? `${h}:00` : "";
+          tc.appendChild(l);
+        }
+        body.appendChild(tc);
 
-// ── DAY ───────────────────────────────────────
-function renderDay(container,date){
-  const dv=document.createElement('div'); dv.className='day-view';
-  const dk=dateKey(date);
-  const hdr=document.createElement('div'); hdr.className='day-header';
-  hdr.innerHTML=`<div><div class="day-date-big">${DAYS[date.getDay()]}, ${MONTHS[date.getMonth()].slice(0,3)} <span>${date.getDate()}</span></div><div style="font-size:12px;color:var(--text-muted);margin-top:2px;">${date.toDateString()===today.toDateString()?'I dag':''}</div></div>`;
-  if(heatmapOn){
-    const hl=heatLevel(dk);
-    const labels=['Very Heavy','Heavy','Light','Free'], bgs=['#FFEBEE','#FFFDE7','#E8F5E9','#E3F2FD'], cols=['#C62828','#E65100','#2E7D32','#1565C0'];
-    const badge=document.createElement('div');
-    badge.style.cssText=`padding:4px 10px;border-radius:6px;font-size:11px;font-weight:700;background:${bgs[hl]};color:${cols[hl]};`;
-    badge.textContent=labels[hl]; hdr.appendChild(badge);
-  }
-  dv.appendChild(hdr);
-  const body=document.createElement('div'); body.className='day-body';
-  const grid=document.createElement('div'); grid.className='day-grid';
-  for(let h=0;h<24;h++){ const s=document.createElement('div'); s.className='day-hour-slot'; s.innerHTML=`<div class="time-label">${h?`${h}:00`:''}</div>`; grid.appendChild(s); }
-  getEventsForDate(dk).forEach(e=>{
-    const [sh,sm]=e.start.split(':').map(Number), [eh,em]=e.end.split(':').map(Number);
-    const top=(sh*60+sm)/60*60, height=Math.max(28,((eh*60+em)-(sh*60+sm))/60*60);
-    const ev=document.createElement('div'); ev.className='day-event';
-    const c=getCatColors(e.cat), dotCol = getIntensityColor(e.intensity || 0);
-    ev.style.cssText=`top:${top}px;height:${height}px;background:${c.bg};color:${c.text};border-left:3px solid ${dotCol};`;
-    ev.innerHTML=`<strong>${e.title}</strong><div style="font-size:10px;opacity:.75;margin-top:1px;">${e.start}–${e.end} · ${getIntensityLabel(e.intensity)} intensitet</div>`;
-    ev.onclick=()=>openEditModal(e); grid.appendChild(ev);
-  });
-  body.appendChild(grid); dv.appendChild(body); container.appendChild(dv);
-  setTimeout(()=>{ body.scrollTop=8*60; },0);
-}
+        const dg = document.createElement("div");
+        dg.className = "week-days-grid";
+        for (let i = 0; i < 7; i++) {
+          const dt = new Date(ws);
+          dt.setDate(dt.getDate() + i);
+          const dk = dateKey(dt);
+          const col = document.createElement("div");
+          col.className = "week-day-col";
+          if (heatmapOn) col.dataset.heat = heatLevel(dk);
+          for (let h = 0; h < 24; h++) {
+            const s = document.createElement("div");
+            s.className = "week-hour-slot";
+            col.appendChild(s);
+          }
+          getEventsForDate(dk).forEach((e) => {
+            const [sh, sm] = e.start.split(":").map(Number),
+              [eh, em] = e.end.split(":").map(Number);
+            const top = ((sh * 60 + sm) / 60) * 52,
+              height = Math.max(
+                24,
+                ((eh * 60 + em - (sh * 60 + sm)) / 60) * 52,
+              );
+            const ev = document.createElement("div");
+            ev.className = "week-event";
+            const c = getCatColors(e.cat),
+              dotCol = getIntensityColor(e.intensity || 0);
+            ev.style.cssText = `top:${top}px;height:${height}px;background:${c.bg};color:${c.text};border-left:3px solid ${dotCol};`;
+            ev.textContent = e.title;
+            ev.onclick = () => openEditModal(e);
+            col.appendChild(ev);
+          });
+          dg.appendChild(col);
+        }
+        body.appendChild(dg);
+        wv.appendChild(body);
+        container.appendChild(wv);
+        setTimeout(() => {
+          body.scrollTop = 8 * 52;
+        }, 0);
+      }
 
-// ── AGENDA ────────────────────────────────────
-function renderAgenda(container,startDate){
-  const av=document.createElement('div'); av.className='agenda-view';
-  for(let d=0;d<28;d++){
-    const dt=new Date(startDate); dt.setDate(dt.getDate()+d);
-    const dk=dateKey(dt), dayEvts=getEventsForDate(dk);
-    const isToday=dt.toDateString()===today.toDateString();
-    const group=document.createElement('div'); group.className='agenda-day';
-    const dateCol=document.createElement('div'); dateCol.className='agenda-date-col';
-    dateCol.innerHTML=`<div class="agenda-date-num" style="${isToday?'color:var(--primary);':''}">${dt.getDate()}</div><div class="agenda-date-dow">${DAYS[dt.getDay()]}</div>`;
-    const evCol=document.createElement('div'); evCol.className='agenda-events';
-    if(!dayEvts.length){ const no=document.createElement('div'); no.className='agenda-no-events'; no.textContent='—'; evCol.appendChild(no); }
-    else dayEvts.forEach(e=>{
-      const c=getCatColors(e.cat), dotCol = getIntensityColor(e.intensity || 0);
-      const item=document.createElement('div'); item.className='agenda-event';
-      const timeStr = e.timeMode === 'all_day' ? 'Hele dagen' : (e.timeMode === 'just_happens' ? '' : (e.timeMode === 'deadline' ? `Frist: ${e.start}` : `${e.start} – ${e.end}`));
-      item.innerHTML=`
+      // ── DAY ───────────────────────────────────────
+      function renderDay(container, date) {
+        const dv = document.createElement("div");
+        dv.className = "day-view";
+        const dk = dateKey(date);
+        const hdr = document.createElement("div");
+        hdr.className = "day-header";
+        hdr.innerHTML = `<div><div class="day-date-big">${DAYS[date.getDay()]}, ${MONTHS[date.getMonth()].slice(0, 3)} <span>${date.getDate()}</span></div><div style="font-size:12px;color:var(--text-muted);margin-top:2px;">${date.toDateString() === today.toDateString() ? "I dag" : ""}</div></div>`;
+        if (heatmapOn) {
+          const hl = heatLevel(dk);
+          const labels = ["Very Heavy", "Heavy", "Light", "Free"],
+            bgs = ["#FFEBEE", "#FFFDE7", "#E8F5E9", "#E3F2FD"],
+            cols = ["#C62828", "#E65100", "#2E7D32", "#1565C0"];
+          const badge = document.createElement("div");
+          badge.style.cssText = `padding:4px 10px;border-radius:6px;font-size:11px;font-weight:700;background:${bgs[hl]};color:${cols[hl]};`;
+          badge.textContent = labels[hl];
+          hdr.appendChild(badge);
+        }
+        dv.appendChild(hdr);
+        const body = document.createElement("div");
+        body.className = "day-body";
+        const grid = document.createElement("div");
+        grid.className = "day-grid";
+        for (let h = 0; h < 24; h++) {
+          const s = document.createElement("div");
+          s.className = "day-hour-slot";
+          s.innerHTML = `<div class="time-label">${h ? `${h}:00` : ""}</div>`;
+          grid.appendChild(s);
+        }
+        getEventsForDate(dk).forEach((e) => {
+          const [sh, sm] = e.start.split(":").map(Number),
+            [eh, em] = e.end.split(":").map(Number);
+          const top = ((sh * 60 + sm) / 60) * 60,
+            height = Math.max(28, ((eh * 60 + em - (sh * 60 + sm)) / 60) * 60);
+          const ev = document.createElement("div");
+          ev.className = "day-event";
+          const c = getCatColors(e.cat),
+            dotCol = getIntensityColor(e.intensity || 0);
+          ev.style.cssText = `top:${top}px;height:${height}px;background:${c.bg};color:${c.text};border-left:3px solid ${dotCol};`;
+          ev.innerHTML = `<strong>${e.title}</strong><div style="font-size:10px;opacity:.75;margin-top:1px;">${e.start}–${e.end} · ${getIntensityLabel(e.intensity)} intensitet</div>`;
+          ev.onclick = () => openEditModal(e);
+          grid.appendChild(ev);
+        });
+        body.appendChild(grid);
+        dv.appendChild(body);
+        container.appendChild(dv);
+        setTimeout(() => {
+          body.scrollTop = 8 * 60;
+        }, 0);
+      }
+
+      // ── AGENDA ────────────────────────────────────
+      function renderAgenda(container, startDate) {
+        const av = document.createElement("div");
+        av.className = "agenda-view";
+        for (let d = 0; d < 28; d++) {
+          const dt = new Date(startDate);
+          dt.setDate(dt.getDate() + d);
+          const dk = dateKey(dt),
+            dayEvts = getEventsForDate(dk);
+          const isToday = dt.toDateString() === today.toDateString();
+          const group = document.createElement("div");
+          group.className = "agenda-day";
+          const dateCol = document.createElement("div");
+          dateCol.className = "agenda-date-col";
+          dateCol.innerHTML = `<div class="agenda-date-num" style="${isToday ? "color:var(--primary);" : ""}">${dt.getDate()}</div><div class="agenda-date-dow">${DAYS[dt.getDay()]}</div>`;
+          const evCol = document.createElement("div");
+          evCol.className = "agenda-events";
+          if (!dayEvts.length) {
+            const no = document.createElement("div");
+            no.className = "agenda-no-events";
+            no.textContent = "—";
+            evCol.appendChild(no);
+          } else
+            dayEvts.forEach((e) => {
+              const c = getCatColors(e.cat),
+                dotCol = getIntensityColor(e.intensity || 0);
+              const item = document.createElement("div");
+              item.className = "agenda-event";
+              const timeStr =
+                e.timeMode === "all_day"
+                  ? "Hele dagen"
+                  : e.timeMode === "just_happens"
+                    ? ""
+                    : e.timeMode === "deadline"
+                      ? `Frist: ${e.start}`
+                      : `${e.start} – ${e.end}`;
+              item.innerHTML = `
         <div class="agenda-event-color" style="background:${c.dot};"></div>
         <div class="agenda-event-time">${timeStr}</div>
         <div class="agenda-event-title">${e.title}</div>
@@ -1165,243 +2379,334 @@ function renderAgenda(container,startDate){
           <div style="width:7px;height:7px;border-radius:50%;background:${dotCol};"></div>${getIntensityLabel(e.intensity)}
         </div>
         <div style="font-size:10px;font-weight:700;padding:2px 6px;border-radius:4px;background:${c.bg};color:${c.text};flex-shrink:0;">${e.cat}</div>`;
-      item.onclick=()=>openEditModal(e); evCol.appendChild(item);
-    });
-    group.appendChild(dateCol); group.appendChild(evCol); av.appendChild(group);
-    const divider=document.createElement('div'); divider.className='agenda-divider'; av.appendChild(divider);
-  }
-  container.appendChild(av);
-}
-
-// ── MODAL ─────────────────────────────────────
-function openAddModal(dk){
-  editingId=null;
-  document.getElementById('modalTitle').textContent='Ny hendelse';
-  document.getElementById('evtTitle').value='';
-  document.getElementById('evtDate').value=dk;
-  document.getElementById('evtCat').value='class';
-  document.getElementById('evtTimeMode').value='timed';
-  document.getElementById('evtStart').value='09:00';
-  document.getElementById('evtEnd').value='10:00';
-  document.getElementById('evtNotes').value='';
-  document.getElementById('evtRepeat').value='none';
-  document.getElementById('deleteEvtBtn').style.display='none';
-  document.getElementById('saveEvtBtn').style.display='';
-  document.getElementById('cancelEvtBtn').textContent='Avbryt';
-  setIntensityUI(2);
-  updateTimeModeUI();
-  document.getElementById('modalOverlay').classList.add('open');
-  setTimeout(()=>document.getElementById('evtTitle').focus(),60);
-}
-function openEditModal(e){
-  // Systemhendelser er skrivebeskyttet
-  const isSystem = e.cat === 'norsk' || e.cat === 'vgs' || e.cat === 'ungdomsskole';
-  if (isSystem) {
-    document.getElementById('modalTitle').textContent='🔒 ' + e.cat.charAt(0).toUpperCase() + e.cat.slice(1);
-    document.getElementById('evtTitle').value=e.title;
-    document.getElementById('evtDate').value=e.date;
-    document.getElementById('evtCat').value='udir';
-    document.getElementById('evtTimeMode').value=e.timeMode||'all_day';
-    document.getElementById('evtStart').value='';
-    document.getElementById('evtEnd').value='';
-    document.getElementById('evtNotes').value='Offisiell dato — kan ikke redigeres';
-    document.getElementById('evtRepeat').value='none';
-    document.getElementById('deleteEvtBtn').style.display='none';
-    setIntensityUI(e.intensity||0);
-    updateTimeModeUI();
-    document.getElementById('modalOverlay').classList.add('open');
-    document.getElementById('saveEvtBtn').style.display='none';
-    document.getElementById('cancelEvtBtn').textContent='Lukk';
-    return;
-  }
-  document.getElementById('saveEvtBtn').style.display='';
-  document.getElementById('cancelEvtBtn').textContent='Avbryt';
-  editingId=e.id;
-  document.getElementById('modalTitle').textContent='Rediger hendelse';
-  document.getElementById('evtTitle').value=e.title;
-  document.getElementById('evtDate').value=e.date;
-  document.getElementById('evtCat').value=e.cat;
-  document.getElementById('evtTimeMode').value=e.timeMode||'timed';
-  document.getElementById('evtStart').value=e.start;
-  document.getElementById('evtEnd').value=e.end;
-  document.getElementById('evtNotes').value=e.notes||'';
-  document.getElementById('evtRepeat').value=e.repeat||'none';
-  document.getElementById('deleteEvtBtn').style.display='inline-flex';
-  setIntensityUI(e.intensity||0);
-  updateTimeModeUI();
-  document.getElementById('modalOverlay').classList.add('open');
-}
-function updateTimeModeUI() {
-    const mode = document.getElementById('evtTimeMode').value;
-    const startRow = document.getElementById('evtStart').closest('div');
-    const endRow = document.getElementById('evtEnd').closest('div');
-    
-    if(mode === 'timed') {
-        startRow.style.display = 'block';
-        endRow.style.display = 'block';
-    } else if (mode === 'deadline') {
-        startRow.style.display = 'block';
-        endRow.style.display = 'none';
-    } else {
-        startRow.style.display = 'none';
-        endRow.style.display = 'none';
-    }
-}
-document.getElementById('evtTimeMode').onchange = updateTimeModeUI;
-
-function closeModal(){ document.getElementById('modalOverlay').classList.remove('open'); editingId=null; }
-
-document.getElementById('modalClose').onclick=closeModal;
-document.getElementById('cancelEvtBtn').onclick=closeModal;
-document.getElementById('modalOverlay').onclick=e=>{ if(e.target===e.currentTarget) closeModal(); };
-
-document.getElementById('saveEvtBtn').onclick=()=>{
-  const title=document.getElementById('evtTitle').value.trim();
-  if(!title){ document.getElementById('evtTitle').focus(); return; }
-  const evt={
-    id: editingId||Math.random().toString(36).slice(2),
-    title,
-    date:      document.getElementById('evtDate').value,
-    cat:       document.getElementById('evtCat').value,
-    timeMode:  document.getElementById('evtTimeMode').value,
-    start:     document.getElementById('evtStart').value,
-    end:       document.getElementById('evtEnd').value,
-    notes:     document.getElementById('evtNotes').value,
-    repeat:    document.getElementById('evtRepeat').value,
-    intensity: selectedIntensity,
-  };
-  if(editingId){ const idx=events.findIndex(e=>e.id===editingId); if(idx>=0) events[idx]=evt; }
-  else {
-    events.push(evt);
-    if(evt.repeat!=='none'){
-      const base=new Date(evt.date);
-      for(let i=1;i<=12;i++){
-        const nd=new Date(base);
-        if(evt.repeat==='daily') nd.setDate(nd.getDate()+i);
-        if(evt.repeat==='weekly') nd.setDate(nd.getDate()+i*7);
-        if(evt.repeat==='monthly') nd.setMonth(nd.getMonth()+i);
-        events.push({...evt, id:Math.random().toString(36).slice(2), date:dateKey(nd)});
+              item.onclick = () => openEditModal(e);
+              evCol.appendChild(item);
+            });
+          group.appendChild(dateCol);
+          group.appendChild(evCol);
+          av.appendChild(group);
+          const divider = document.createElement("div");
+          divider.className = "agenda-divider";
+          av.appendChild(divider);
+        }
+        container.appendChild(av);
       }
-    }
-  }
-  saveEvents(); closeModal(); render();
-};
-document.getElementById('deleteEvtBtn').onclick=()=>{
-  if(!editingId) return;
-  events=events.filter(e=>e.id!==editingId);
-  saveEvents(); closeModal(); render();
-};
-document.getElementById('addEventBtn').onclick=()=>openAddModal(dateKey(cursor));
-document.getElementById('searchBtn').onclick  =()=>{
-  const q=prompt('Søk etter hendelse:'); 
-  searchQuery = q || '';
-  if(searchQuery) {
-    currentView = 'agenda';
-    document.querySelectorAll('.view-pill').forEach(b => {
-        b.classList.toggle('active', b.dataset.view === 'agenda');
-    });
-  }
-  render();
-};
 
-// ── FOCUS TIMER ───────────────────────────────
-let timerInterval=null, timerSeconds=25*60, timerBreak=5*60, timerRunning=false, timerInBreak=false;
-function setPomodoro(w,b){ clearInterval(timerInterval); timerRunning=timerInBreak=false; timerSeconds=w*60; timerBreak=b*60; document.getElementById('timerDisplay').textContent=fmt(timerSeconds); document.getElementById('timerPhase').textContent='FOCUS'; document.getElementById('timerStart').textContent='Start'; }
-function fmt(s){ return `${String(Math.floor(s/60)).padStart(2,'0')}:${String(s%60).padStart(2,'0')}`; }
-function tickTimer(){
-  if(timerSeconds>0){ timerSeconds--; document.getElementById('timerDisplay').textContent=fmt(timerSeconds); }
-  else {
-    clearInterval(timerInterval); timerRunning=false;
-    if(!timerInBreak){ timerInBreak=true; timerSeconds=timerBreak; document.getElementById('timerPhase').textContent='BREAK'; document.getElementById('timerDisplay').textContent=fmt(timerSeconds); timerInterval=setInterval(tickTimer,1000); timerRunning=true; }
-    else { timerInBreak=false; document.getElementById('timerPhase').textContent='DONE ✓'; }
-  }
-}
-document.getElementById('timerStart').onclick=()=>{
-  if(timerRunning){ clearInterval(timerInterval); timerRunning=false; document.getElementById('timerStart').textContent='Resume'; }
-  else { timerInterval=setInterval(tickTimer,1000); timerRunning=true; document.getElementById('timerStart').textContent='Pause'; }
-};
-document.getElementById('timerReset').onclick=()=>setPomodoro(25,5);
-document.getElementById('focusTimerBtn').onclick=()=>document.getElementById('focusModalOverlay').classList.add('open');
-document.getElementById('focusClose').onclick=()=>document.getElementById('focusModalOverlay').classList.remove('open');
-document.getElementById('focusModalOverlay').onclick=e=>{ if(e.target===e.currentTarget) document.getElementById('focusModalOverlay').classList.remove('open'); };
+      // ── MODAL ─────────────────────────────────────
+      function openAddModal(dk) {
+        editingId = null;
+        document.getElementById("modalTitle").textContent = "Ny hendelse";
+        document.getElementById("evtTitle").value = "";
+        document.getElementById("evtDate").value = dk;
+        document.getElementById("evtCat").value = "class";
+        document.getElementById("evtTimeMode").value = "timed";
+        document.getElementById("evtStart").value = "09:00";
+        document.getElementById("evtEnd").value = "10:00";
+        document.getElementById("evtNotes").value = "";
+        document.getElementById("evtRepeat").value = "none";
+        document.getElementById("deleteEvtBtn").style.display = "none";
+        document.getElementById("saveEvtBtn").style.display = "";
+        document.getElementById("cancelEvtBtn").textContent = "Avbryt";
+        setIntensityUI(2);
+        updateTimeModeUI();
+        document.getElementById("modalOverlay").classList.add("open");
+        setTimeout(() => document.getElementById("evtTitle").focus(), 60);
+      }
+      function openEditModal(e) {
+        // Systemhendelser er skrivebeskyttet
+        const isSystem =
+          e.cat === "norsk" || e.cat === "vgs" || e.cat === "ungdomsskole";
+        if (isSystem) {
+          document.getElementById("modalTitle").textContent =
+            "🔒 " + e.cat.charAt(0).toUpperCase() + e.cat.slice(1);
+          document.getElementById("evtTitle").value = e.title;
+          document.getElementById("evtDate").value = e.date;
+          document.getElementById("evtCat").value = "udir";
+          document.getElementById("evtTimeMode").value =
+            e.timeMode || "all_day";
+          document.getElementById("evtStart").value = "";
+          document.getElementById("evtEnd").value = "";
+          document.getElementById("evtNotes").value =
+            "Offisiell dato — kan ikke redigeres";
+          document.getElementById("evtRepeat").value = "none";
+          document.getElementById("deleteEvtBtn").style.display = "none";
+          setIntensityUI(e.intensity || 0);
+          updateTimeModeUI();
+          document.getElementById("modalOverlay").classList.add("open");
+          document.getElementById("saveEvtBtn").style.display = "none";
+          document.getElementById("cancelEvtBtn").textContent = "Lukk";
+          return;
+        }
+        document.getElementById("saveEvtBtn").style.display = "";
+        document.getElementById("cancelEvtBtn").textContent = "Avbryt";
+        editingId = e.id;
+        document.getElementById("modalTitle").textContent = "Rediger hendelse";
+        document.getElementById("evtTitle").value = e.title;
+        document.getElementById("evtDate").value = e.date;
+        document.getElementById("evtCat").value = e.cat;
+        document.getElementById("evtTimeMode").value = e.timeMode || "timed";
+        document.getElementById("evtStart").value = e.start;
+        document.getElementById("evtEnd").value = e.end;
+        document.getElementById("evtNotes").value = e.notes || "";
+        document.getElementById("evtRepeat").value = e.repeat || "none";
+        document.getElementById("deleteEvtBtn").style.display = "inline-flex";
+        setIntensityUI(e.intensity || 0);
+        updateTimeModeUI();
+        document.getElementById("modalOverlay").classList.add("open");
+      }
+      function updateTimeModeUI() {
+        const mode = document.getElementById("evtTimeMode").value;
+        const startRow = document.getElementById("evtStart").closest("div");
+        const endRow = document.getElementById("evtEnd").closest("div");
 
-// ── SWIPE NAVIGATION ──────────────────────────
-(function setupSwipe(){
-  const vc = document.getElementById('viewContainer');
-  let startX = 0, startY = 0, swiping = false;
+        if (mode === "timed") {
+          startRow.style.display = "block";
+          endRow.style.display = "block";
+        } else if (mode === "deadline") {
+          startRow.style.display = "block";
+          endRow.style.display = "none";
+        } else {
+          startRow.style.display = "none";
+          endRow.style.display = "none";
+        }
+      }
+      document.getElementById("evtTimeMode").onchange = updateTimeModeUI;
 
-  vc.addEventListener('touchstart', (e) => {
-    startX = e.touches[0].clientX;
-    startY = e.touches[0].clientY;
-    swiping = false;
-  }, { passive: true });
+      function closeModal() {
+        document.getElementById("modalOverlay").classList.remove("open");
+        editingId = null;
+      }
 
-  vc.addEventListener('touchmove', (e) => {
-    if (!startX) return;
-    const dx = e.touches[0].clientX - startX;
-    const dy = e.touches[0].clientY - startY;
-    if (Math.abs(dx) > 10 || Math.abs(dy) > 10) swiping = true;
-  }, { passive: true });
+      document.getElementById("modalClose").onclick = closeModal;
+      document.getElementById("cancelEvtBtn").onclick = closeModal;
+      document.getElementById("modalOverlay").onclick = (e) => {
+        if (e.target === e.currentTarget) closeModal();
+      };
 
-  vc.addEventListener('touchend', (e) => {
-    if (!swiping) return;
-    const dx = e.changedTouches[0].clientX - startX;
-    const dy = e.changedTouches[0].clientY - startY;
-    
-    // Only horizontal swipes
-    if (Math.abs(dx) < Math.abs(dy) || Math.abs(dx) < 40) {
-      startX = 0; startY = 0; swiping = false;
-      return;
-    }
-    
-    if (dx < 0) navigate(1); // Swipe left = next
-    else navigate(-1);        // Swipe right = previous
-    startX = 0; startY = 0; swiping = false;
-  }, { passive: true });
-})();
+      document.getElementById("saveEvtBtn").onclick = () => {
+        const title = document.getElementById("evtTitle").value.trim();
+        if (!title) {
+          document.getElementById("evtTitle").focus();
+          return;
+        }
+        const evt = {
+          id: editingId || Math.random().toString(36).slice(2),
+          title,
+          date: document.getElementById("evtDate").value,
+          cat: document.getElementById("evtCat").value,
+          timeMode: document.getElementById("evtTimeMode").value,
+          start: document.getElementById("evtStart").value,
+          end: document.getElementById("evtEnd").value,
+          notes: document.getElementById("evtNotes").value,
+          repeat: document.getElementById("evtRepeat").value,
+          intensity: selectedIntensity,
+        };
+        if (editingId) {
+          const idx = events.findIndex((e) => e.id === editingId);
+          if (idx >= 0) events[idx] = evt;
+        } else {
+          events.push(evt);
+          if (evt.repeat !== "none") {
+            const base = new Date(evt.date);
+            for (let i = 1; i <= 12; i++) {
+              const nd = new Date(base);
+              if (evt.repeat === "daily") nd.setDate(nd.getDate() + i);
+              if (evt.repeat === "weekly") nd.setDate(nd.getDate() + i * 7);
+              if (evt.repeat === "monthly") nd.setMonth(nd.getMonth() + i);
+              events.push({
+                ...evt,
+                id: Math.random().toString(36).slice(2),
+                date: dateKey(nd),
+              });
+            }
+          }
+        }
+        saveEvents();
+        closeModal();
+        render();
+      };
+      document.getElementById("deleteEvtBtn").onclick = () => {
+        if (!editingId) return;
+        events = events.filter((e) => e.id !== editingId);
+        saveEvents();
+        closeModal();
+        render();
+      };
+      document.getElementById("addEventBtn").onclick = () =>
+        openAddModal(dateKey(cursor));
+      document.getElementById("searchBtn").onclick = () => {
+        const q = prompt("Søk etter hendelse:");
+        searchQuery = q || "";
+        if (searchQuery) {
+          currentView = "agenda";
+          document.querySelectorAll(".view-pill").forEach((b) => {
+            b.classList.toggle("active", b.dataset.view === "agenda");
+          });
+        }
+        render();
+      };
 
-// ── THEME MANAGEMENT ───────────────────────────
-function initTheme() {
-  const saved = localStorage.getItem('theme') || 'dark';
-  setTheme(saved);
-}
+      // ── FOCUS TIMER ───────────────────────────────
+      let timerInterval = null,
+        timerSeconds = 25 * 60,
+        timerBreak = 5 * 60,
+        timerRunning = false,
+        timerInBreak = false;
+      function setPomodoro(w, b) {
+        clearInterval(timerInterval);
+        timerRunning = timerInBreak = false;
+        timerSeconds = w * 60;
+        timerBreak = b * 60;
+        document.getElementById("timerDisplay").textContent = fmt(timerSeconds);
+        document.getElementById("timerPhase").textContent = "FOCUS";
+        document.getElementById("timerStart").textContent = "Start";
+      }
+      function fmt(s) {
+        return `${String(Math.floor(s / 60)).padStart(2, "0")}:${String(s % 60).padStart(2, "0")}`;
+      }
+      function tickTimer() {
+        if (timerSeconds > 0) {
+          timerSeconds--;
+          document.getElementById("timerDisplay").textContent =
+            fmt(timerSeconds);
+        } else {
+          clearInterval(timerInterval);
+          timerRunning = false;
+          if (!timerInBreak) {
+            timerInBreak = true;
+            timerSeconds = timerBreak;
+            document.getElementById("timerPhase").textContent = "BREAK";
+            document.getElementById("timerDisplay").textContent =
+              fmt(timerSeconds);
+            timerInterval = setInterval(tickTimer, 1000);
+            timerRunning = true;
+          } else {
+            timerInBreak = false;
+            document.getElementById("timerPhase").textContent = "DONE ✓";
+          }
+        }
+      }
+      document.getElementById("timerStart").onclick = () => {
+        if (timerRunning) {
+          clearInterval(timerInterval);
+          timerRunning = false;
+          document.getElementById("timerStart").textContent = "Resume";
+        } else {
+          timerInterval = setInterval(tickTimer, 1000);
+          timerRunning = true;
+          document.getElementById("timerStart").textContent = "Pause";
+        }
+      };
+      document.getElementById("timerReset").onclick = () => setPomodoro(25, 5);
+      document.getElementById("focusTimerBtn").onclick = () =>
+        document.getElementById("focusModalOverlay").classList.add("open");
+      document.getElementById("focusClose").onclick = () =>
+        document.getElementById("focusModalOverlay").classList.remove("open");
+      document.getElementById("focusModalOverlay").onclick = (e) => {
+        if (e.target === e.currentTarget)
+          document.getElementById("focusModalOverlay").classList.remove("open");
+      };
 
-function setTheme(theme) {
-  localStorage.setItem('theme', theme);
-  
-  let finalTheme = theme;
-  if (theme === 'system') {
-    finalTheme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
-  }
-  
-  document.documentElement.setAttribute('data-theme', finalTheme);
-  refreshDarkCache();
-  const btn = document.getElementById('themeBtn');
-  if (btn) {
-    btn.innerHTML = `<span class="material-icons-round">${finalTheme === 'dark' ? 'dark_mode' : 'light_mode'}</span>`;
-  }
-}
+      // ── SWIPE NAVIGATION ──────────────────────────
+      (function setupSwipe() {
+        const vc = document.getElementById("viewContainer");
+        let startX = 0,
+          startY = 0,
+          swiping = false;
 
-document.getElementById('themeBtn').onclick = () => {
-  const current = localStorage.getItem('theme') || 'dark';
-  const next = current === 'dark' ? 'light' : 'dark';
-  setTheme(next);
-  localStorage.setItem('theme', next);
-};
+        vc.addEventListener(
+          "touchstart",
+          (e) => {
+            startX = e.touches[0].clientX;
+            startY = e.touches[0].clientY;
+            swiping = false;
+          },
+          { passive: true },
+        );
 
-// System Theme Listener
-window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', () => {
-  if ((localStorage.getItem('theme') || 'dark') === 'system') {
-    initTheme();
-  }
-});
+        vc.addEventListener(
+          "touchmove",
+          (e) => {
+            if (!startX) return;
+            const dx = e.touches[0].clientX - startX;
+            const dy = e.touches[0].clientY - startY;
+            if (Math.abs(dx) > 10 || Math.abs(dy) > 10) swiping = true;
+          },
+          { passive: true },
+        );
 
-// ── INIT ──────────────────────────────────────
-initTheme();
-setIntensityUI(5);
-render(false);
-</script>
-<script src="Assets/js/plus.js"></script>
-<script src="Assets/js/profile.js"></script>
-</body>
+        vc.addEventListener(
+          "touchend",
+          (e) => {
+            if (!swiping) return;
+            const dx = e.changedTouches[0].clientX - startX;
+            const dy = e.changedTouches[0].clientY - startY;
+
+            // Only horizontal swipes
+            if (Math.abs(dx) < Math.abs(dy) || Math.abs(dx) < 40) {
+              startX = 0;
+              startY = 0;
+              swiping = false;
+              return;
+            }
+
+            if (dx < 0)
+              navigate(1); // Swipe left = next
+            else navigate(-1); // Swipe right = previous
+            startX = 0;
+            startY = 0;
+            swiping = false;
+          },
+          { passive: true },
+        );
+      })();
+
+      // ── THEME MANAGEMENT ───────────────────────────
+      function initTheme() {
+        const saved = localStorage.getItem("theme") || "dark";
+        setTheme(saved);
+      }
+
+      function setTheme(theme) {
+        localStorage.setItem("theme", theme);
+
+        let finalTheme = theme;
+        if (theme === "system") {
+          finalTheme = window.matchMedia("(prefers-color-scheme: dark)").matches
+            ? "dark"
+            : "light";
+        }
+
+        document.documentElement.setAttribute("data-theme", finalTheme);
+        refreshDarkCache();
+        const btn = document.getElementById("themeBtn");
+        if (btn) {
+          btn.innerHTML = `<span class="material-icons-round">${finalTheme === "dark" ? "dark_mode" : "light_mode"}</span>`;
+        }
+      }
+
+      document.getElementById("themeBtn").onclick = () => {
+        const current = localStorage.getItem("theme") || "dark";
+        const next = current === "dark" ? "light" : "dark";
+        setTheme(next);
+        localStorage.setItem("theme", next);
+      };
+
+      // System Theme Listener
+      window
+        .matchMedia("(prefers-color-scheme: dark)")
+        .addEventListener("change", () => {
+          if ((localStorage.getItem("theme") || "dark") === "system") {
+            initTheme();
+          }
+        });
+
+      // ── INIT ──────────────────────────────────────
+      initTheme();
+      setIntensityUI(5);
+      render(false);
+    </script>
+    <script src="Assets/js/plus.js"></script>
+    <script src="Assets/js/profile.js"></script>
+  </body>
 </html>
